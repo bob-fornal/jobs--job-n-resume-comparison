@@ -1,0 +1,47 @@
+<div class="compare-wrapper">
+  <div class="resume-wrapper">
+    <mat-toolbar class="title-toolbar">
+      <span>Resume(s) Detail</span>
+    </mat-toolbar>
+
+    <mat-expansion-panel class="expansion-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Stored Resumes</mat-panel-title>
+      </mat-expansion-panel-header>
+      @if (resumes.length === 0) {
+        <div>- No Resumes Stored -</div>
+      }
+    </mat-expansion-panel>
+
+    <form class="resume-form">
+      <mat-form-field class="full-width">
+        <mat-label>Resume Name</mat-label>
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Resume</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+  
+  <div class="comparison-wrapper">
+    <mat-toolbar class="title-toolbar">
+      <span>Comparison</span>
+    </mat-toolbar>
+
+  </div>
+  
+  <div class="job-wrapper">
+    <mat-toolbar class="title-toolbar">
+      <span>Job</span>
+    </mat-toolbar>
+
+    <form class="resume-form">
+      <mat-form-field class="full-width">
+        <mat-label>Job Posting</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+</div>

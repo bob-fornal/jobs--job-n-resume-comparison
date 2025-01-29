@@ -1,0 +1,36 @@
+.compare-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2em;
+
+  .resume-wrapper,
+  .job-wrapper {
+    flex-grow: 6;
+    max-width: 40%;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: antiquewhite;
+  }
+  .comparison-wrapper {
+    flex-grow: 2;
+    padding: 1em;
+  }
+}
+
+.title-toolbar {
+  background-color: transparent;
+}
+
+.expansion-panel {
+  margin-bottom: 1em;
+}
+
+.resume-form {
+  width: 100%;
+
+  .full-width {
+    width: 100%;
+  }
+}
