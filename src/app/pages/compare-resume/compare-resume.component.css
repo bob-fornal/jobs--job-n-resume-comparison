@@ -34,3 +34,9 @@
     width: 100%;
   }
 }
+
+.comparison-button {
+  --mdc-filled-button-container-shape: 0.5em;
+  --mdc-filled-button-container-color: #449944;
+  width: 100%;
+}

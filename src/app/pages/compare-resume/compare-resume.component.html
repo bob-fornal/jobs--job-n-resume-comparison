@@ -10,6 +10,14 @@
       </mat-expansion-panel-header>
       @if (resumes.length === 0) {
         <div>- No Resumes Stored -</div>
+      } @else {
+        <mat-action-list>
+          @for (resume of resumes; track resume) {
+            <button mat-list-item (click)="selectResume(resume)">
+              <span>{{resume.name}}</span>
+            </button>
+          }
+        </mat-action-list>
       }
     </mat-expansion-panel>
 
@@ -29,7 +37,7 @@
     <mat-toolbar class="title-toolbar">
       <span>Comparison</span>
     </mat-toolbar>
-
+    <button class="comparison-button" mat-flat-button>Run Comparison</button>
   </div>
   
   <div class="job-wrapper">

@@ -7,9 +7,11 @@ import { CompareResumeComponent } from './pages/compare-resume/compare-resume.co
 
 import { FormsModule } from '@angular/forms';
 
+import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -25,9 +27,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
     FormsModule,
 
+    MatButtonModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
+    MatListModule,
     MatToolbarModule,
   ],
   providers: [

@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import keyword_extractor from 'keyword-extractor';
 
-interface ResumeDetails {
-  name: string;
-  content: string;
-  keywords: Array<string>;
-  matchPercent?: number;
-}
+import { StorageService } from '../../core/services/storage.service';
+import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 
 @Component({
   selector: 'app-compare-resume',
@@ -17,4 +13,21 @@ interface ResumeDetails {
 })
 export class CompareResumeComponent {
   resumes: Array<ResumeDetails> = [];
+
+  constructor(
+    private storage: StorageService
+  ) {
+    this.storage.resumes.subscribe(this.handleResumes.bind(this));
+    this.init();
+  }
+
+  init = (): void => {
+    this.storage.getResumes();
+  };
+
+  handleResumes = (data: Array<ResumeDetails>): void => {
+    this.resumes = data;
+  };
+
+  selectResume = (resume: ResumeDetails): void => {};
 }
