@@ -1,5 +1,21 @@
 <mat-toolbar class="title-toolbar">
+  <button mat-icon-button class="menu-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
   <span>Job-Squid (by Bob)</span>
+
+  <span class="menu-spacer"></span>
+
+  <button mat-icon-button class="menu-icon" (click)="toggleDarkMode()">
+    @if (dark_enabled === true) {
+      <mat-icon>light_mode</mat-icon>
+    } @else {
+      <mat-icon>dark_mode</mat-icon>
+    }
+  </button>
+  <button mat-icon-button class="menu-icon">
+    <mat-icon>more_vert</mat-icon>
+  </button>
 </mat-toolbar>
 
 <router-outlet />

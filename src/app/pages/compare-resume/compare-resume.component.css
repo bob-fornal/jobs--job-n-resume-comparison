@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 2em;
+  gap: 1em;
 
   .resume-wrapper,
   .job-wrapper {
@@ -11,16 +12,19 @@
     max-width: 40%;
     padding: 1em;
     border-radius: 1em;
-    background-color: antiquewhite;
+    background-color: #aaffaa;
   }
   .comparison-wrapper {
     flex-grow: 2;
     padding: 1em;
+    border-radius: 1em;
+    background-color: #aaffaa;
   }
 }
 
 .title-toolbar {
   background-color: transparent;
+  font-family: Metropolis, sans-serif;
 }
 
 .expansion-panel {
@@ -36,7 +40,11 @@
 }
 
 .comparison-button {
-  --mdc-filled-button-container-shape: 0.5em;
-  --mdc-filled-button-container-color: #449944;
+  --mdc-filled-button-container-shape: 0;
+  --mdc-filled-button-container-color: #68B646;
+
+  font-family: MetropolisBold, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
   width: 100%;
 }

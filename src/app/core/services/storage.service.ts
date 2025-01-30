@@ -11,6 +11,21 @@ export class StorageService {
 
   resumes: BehaviorSubject<Array<ResumeDetails>> = new BehaviorSubject<Array<ResumeDetails>>([]);
 
+  getDarkMode = (): boolean => {
+    const mode = this.localstorage.getItem('job-squid--dark-mode');
+    if (mode === null) {
+      this.localstorage.setItem('job-squid--dark-mode', 'false');
+      return false;
+    } else {
+      return mode === 'true';
+    }
+  };
+
+  setDarkMode = (mode: boolean): void => {
+    const modeString: string = JSON.stringify(mode);
+    this.localstorage.setItem('job-squid--dark-mode', modeString);
+  };
+
   getResumes = (): void => {
     const resumes = this.localstorage.getItem('job-squid--resumes');
     if (resumes === null) {

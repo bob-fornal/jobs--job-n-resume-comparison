@@ -1,3 +1,13 @@
 .title-toolbar {
-  background-color: antiquewhite;
+  background-color: #001700;
+  color: #eeeeee;
+  font-family: Metropolis, sans-serif;
+
+  .menu-icon {
+    color: #eeeeee;
+  }
+
+  .menu-spacer {
+    flex: 1 1 auto;
+  }
 }

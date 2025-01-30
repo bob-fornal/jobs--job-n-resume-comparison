@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  
+  &.dark-mode {
+    background-color: #666666;
+    color: #eeeeee;
+  }
+  &:not(.dark-mode) {
+    background-color: #ffffff;
+    color: #111111;
+  }
+}
+
+@font-face {
+  font-family: Metropolis;
+  src: url("/fonts/Metropolis-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: MetropolisBold;
+  src: url("/fonts/Metropolis-Bold.otf") format("opentype");
+}
