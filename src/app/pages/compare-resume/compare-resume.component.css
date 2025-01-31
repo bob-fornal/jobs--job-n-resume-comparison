@@ -32,6 +32,11 @@
   background-color: antiquewhite;
   margin-bottom: 1em;
   overflow-x: auto;
+
+  .no-resumes {
+    color: #111111;
+    padding: 0.5em;
+  }
 }
 
 .expansion-panel {

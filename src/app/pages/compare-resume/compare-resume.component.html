@@ -6,7 +6,7 @@
 
     <div class="resume-list-wrapper">
       @if (resumes.length === 0) {
-        <div>- No Resumes Stored -</div>
+        <div class="no-resumes">- No Resumes Stored -</div>
       } @else {
         <mat-action-list>
           @for (resume of resumes; track resume; let index = $index;) {
