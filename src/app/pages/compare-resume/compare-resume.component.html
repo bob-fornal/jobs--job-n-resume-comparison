@@ -4,32 +4,59 @@
       <span>Resume(s) Detail</span>
     </mat-toolbar>
 
-    <mat-expansion-panel class="expansion-panel">
-      <mat-expansion-panel-header>
-        <mat-panel-title>Stored Resumes</mat-panel-title>
-      </mat-expansion-panel-header>
+    <div class="resume-list-wrapper">
       @if (resumes.length === 0) {
         <div>- No Resumes Stored -</div>
       } @else {
         <mat-action-list>
-          @for (resume of resumes; track resume) {
+          @for (resume of resumes; track resume; let index = $index;) {
+            @if (index > 0) {
+              <mat-divider></mat-divider>
+            }
             <button mat-list-item (click)="selectResume(resume)">
               <span>{{resume.name}}</span>
             </button>
           }
         </mat-action-list>
       }
-    </mat-expansion-panel>
+    </div>
 
-    <form class="resume-form">
+    <form class="resume-form" [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="full-width">
         <mat-label>Resume Name</mat-label>
-        <input matInput />
+        <input
+          matInput
+          name="resumeName"
+          formControlName="resumeName"
+          minLength="3"
+          (input)="triggerResumeNameValidation($event)"
+        />
+        @if (validationChecks['resumeNameInList'] === true) {
+          <mat-hint>Warning: Resume Name will be overwritten.</mat-hint>
+        }
+        @if (resumeForm.value.resumeName) {
+          <mat-error>Must have a Resume Name.</mat-error>
+        }
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Resume</mat-label>
-        <textarea matInput></textarea>
+        <textarea
+          matInput
+          name="resumeContent"
+          formControlName="resumeContent"
+          minLength="5"
+          (input)="triggerResumeContentValidation($event)"
+        ></textarea>
+        @if (resumeForm.value.resumeContent) {
+          <mat-error>Must have Resume Conent.</mat-error>
+        }
       </mat-form-field>
+      <button
+        class="functional-button form-button"
+        mat-flat-button
+        type="submit"
+        [disabled]="doesValidationDisable()"
+      >Save</button>
     </form>
   </div>
   
@@ -37,7 +64,11 @@
     <mat-toolbar class="title-toolbar">
       <span>Comparison</span>
     </mat-toolbar>
-    <button class="comparison-button" mat-flat-button>Run Comparison</button>
+    <button
+      class="functional-button comparison-button"
+      mat-flat-button
+      [disabled]="isRunComparisonDisabled()"
+    >Run Comparison</button>
   </div>
   
   <div class="job-wrapper">
@@ -48,7 +79,7 @@
     <form class="resume-form">
       <mat-form-field class="full-width">
         <mat-label>Job Posting</mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput (input)="triggerJobValidation($event)"></textarea>
       </mat-form-field>
     </form>
   </div>

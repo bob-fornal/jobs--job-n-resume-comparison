@@ -27,6 +27,13 @@
   font-family: Metropolis, sans-serif;
 }
 
+.resume-list-wrapper {
+  max-height: 40vh;
+  background-color: antiquewhite;
+  margin-bottom: 1em;
+  overflow-x: auto;
+}
+
 .expansion-panel {
   margin-bottom: 1em;
 }
@@ -35,16 +42,26 @@
   width: 100%;
 
   .full-width {
+    margin-bottom: 0.5em;
     width: 100%;
   }
 }
 
-.comparison-button {
+.functional-button {
   --mdc-filled-button-container-shape: 0;
   --mdc-filled-button-container-color: #68B646;
 
   font-family: MetropolisBold, sans-serif;
   font-size: 1em;
   font-weight: bold;
+}
+
+.comparison-button {
   width: 100%;
+}
+
+.form-button {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
 }
