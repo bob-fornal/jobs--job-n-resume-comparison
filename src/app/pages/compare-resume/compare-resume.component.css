@@ -29,13 +29,20 @@
 
 .resume-list-wrapper {
   max-height: 40vh;
-  background-color: antiquewhite;
+  background-color: var(--mat-sys-surface-variant);
   margin-bottom: 1em;
   overflow-x: auto;
 
   .no-resumes {
     color: #111111;
     padding: 0.5em;
+  }
+  .action-list {
+    padding: 0;
+
+    .action-item {
+      --mdc-list-list-item-one-line-container-height: 26px;
+    }
   }
 }
 

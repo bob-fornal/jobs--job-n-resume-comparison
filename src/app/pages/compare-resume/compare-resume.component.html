@@ -8,12 +8,12 @@
       @if (resumes.length === 0) {
         <div class="no-resumes">- No Resumes Stored -</div>
       } @else {
-        <mat-action-list>
+        <mat-action-list class="action-list">
           @for (resume of resumes; track resume; let index = $index;) {
             @if (index > 0) {
               <mat-divider></mat-divider>
             }
-            <button mat-list-item (click)="selectResume(resume)">
+            <button class="action-item" mat-list-item (click)="selectResume(resume)">
               <span>{{resume.name}}</span>
             </button>
           }

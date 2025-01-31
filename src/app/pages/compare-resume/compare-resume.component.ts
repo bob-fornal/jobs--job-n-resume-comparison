@@ -81,7 +81,9 @@ export class CompareResumeComponent {
     this.resumes = data;
   };
 
-  selectResume = (resume: ResumeDetails): void => {};
+  selectResume = (resume: ResumeDetails): void => {
+    console.log(resume);
+  };
 
   onSubmit = (): void => {};
 }
