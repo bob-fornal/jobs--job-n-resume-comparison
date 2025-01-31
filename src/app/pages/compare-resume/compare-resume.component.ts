@@ -130,8 +130,13 @@ export class CompareResumeComponent {
       .sort();
     
       const result: ResumeDetails = { name, content, keywords };
-      const resumes: Array<ResumeDetails> = this.resumes;
-      resumes.push(result);
+      const resumes: Array<ResumeDetails> = [...this.resumes];
+      const index: number = resumes.findIndex((resume: ResumeDetails) => resume.name === result.name);
+      if (index === -1) {
+        resumes.push(result);
+      } else {
+        resumes[index] = result;
+      }
       this.storage.setResumes(resumes);
 
       this.resumeForm.reset();

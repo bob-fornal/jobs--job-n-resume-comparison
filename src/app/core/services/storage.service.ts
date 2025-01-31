@@ -40,5 +40,6 @@ export class StorageService {
   setResumes = (resumes: Array<ResumeDetails>): void => {
     const resumesString: string = JSON.stringify(resumes);
     this.localstorage.setItem('job-squid--resumes', resumesString);
+    this.getResumes();
   };
 }

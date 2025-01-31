@@ -4,6 +4,9 @@ html, body {
   height: 100%;
 }
 body {
+  --mat-form-field-container-text-size: 11pt;
+  --mdc-list-list-item-label-text-size: 11pt;
+
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   
