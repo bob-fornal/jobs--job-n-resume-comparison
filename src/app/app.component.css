@@ -1,10 +1,10 @@
 .title-toolbar {
-  background-color: #001700;
-  color: #eeeeee;
+  background-color: var(--color-squid-darkgreen);
+  color: var(--color-dark-foreground);
   font-family: Metropolis, sans-serif;
 
   .menu-icon {
-    color: #eeeeee;
+    color: var(--color-dark-foreground);
   }
 
   .menu-spacer {

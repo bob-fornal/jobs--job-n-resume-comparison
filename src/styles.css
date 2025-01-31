@@ -7,16 +7,25 @@ body {
   --mat-form-field-container-text-size: 11pt;
   --mdc-list-list-item-label-text-size: 11pt;
 
+  --color-dark-background: #666666;
+  --color-dark-foreground: #eeeeee;
+  --color-light-background: #ffffff;
+  --color-light-foreground: #111111;
+
+  --color-squid-palegreen: #aaffaa;
+  --color-squid-darkgreen: #001700;
+  --color-squid-button: #68B646;
+
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   
   &.dark-mode {
-    background-color: #666666;
-    color: #eeeeee;
+    background-color: var(--color-dark-background);
+    color: var(--color-dark-foreground);
   }
   &:not(.dark-mode) {
-    background-color: #ffffff;
-    color: #111111;
+    background-color: var(--color-light-background);
+    color: var(--color-light-foreground);
   }
 }
 

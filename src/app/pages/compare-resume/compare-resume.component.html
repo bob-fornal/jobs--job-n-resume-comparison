@@ -13,7 +13,7 @@
             @if (index > 0) {
               <mat-divider></mat-divider>
             }
-            <button class="action-item" mat-list-item (click)="selectResume(resume)">
+            <button class="action-item" mat-list-item (click)="selectResume($event, resume)">
               <span class="action-item-span">
                 <span>{{resume.name}}</span>
                 <span class="attributes">
@@ -43,7 +43,7 @@
           (input)="triggerResumeNameValidation($event)"
         />
         @if (validationChecks['resumeNameInList'] === true) {
-          <mat-hint>Warning: Resume Name will be overwritten.</mat-hint>
+          <mat-hint class="hint">Warning: Resume Name will be overwritten.</mat-hint>
         }
         @if (resumeForm.value.resumeName) {
           <mat-error>Must have a Resume Name.</mat-error>

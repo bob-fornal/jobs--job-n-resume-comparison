@@ -12,15 +12,15 @@
     max-width: 40%;
     padding: 1em;
     border-radius: 1em;
-    background-color: #aaffaa;
+    background-color: var(--color-squid-palegreen);
   }
   .comparison-wrapper {
-    --mat-toolbar-container-text-color: #eeeeee;
-    --mdc-filled-button-disabled-container-color: #aaffaa;
+    --mat-toolbar-container-text-color: var(--color-dark-foreground);
+    --mdc-filled-button-disabled-container-color: var(--color-squid-palegreen);
     flex-grow: 2;
     padding: 1em;
     border-radius: 1em;
-    background-color: #001700;
+    background-color: var(--color-squid-darkgreen);
   }
 }
 
@@ -97,7 +97,7 @@
 
 .functional-button {
   --mdc-filled-button-container-shape: 0;
-  --mdc-filled-button-container-color: #68B646;
+  --mdc-filled-button-container-color: var(--color-squid-button);
 
   font-family: MetropolisBold, sans-serif;
   font-size: 1em;
@@ -106,4 +106,9 @@
 
 .comparison-button {
   width: 100%;
+}
+
+.hint {
+  color: var(--color-squid-button);
+  font-weight: 700;
 }

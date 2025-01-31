@@ -93,9 +93,14 @@ export class CompareResumeComponent {
     this.resumes = data;
   };
 
-  deleteResume = (resume: ResumeDetails): void => {};
+  deleteResume = (deleteResume: ResumeDetails): void => {
+    const resumes: Array<ResumeDetails> = [...this.resumes].filter((resume: ResumeDetails) => resume.name !== deleteResume.name);
+    this.storage.setResumes(resumes);
+  };
 
-  selectResume = (resume: ResumeDetails): void => {
+  selectResume = (event: any, resume: ResumeDetails): void => {
+    if (event.target.classList.includes('delete-icon')) return;
+
     this.resumeForm.patchValue({
       resumeName: resume.name,
       resumeContent: resume.content,
@@ -108,7 +113,7 @@ export class CompareResumeComponent {
   };
 
   clearResumeDetails = (): void => {
-    this.selectResume({ name: '', content: '', keywords: [] });
+    this.selectResume({}, { name: '', content: '', keywords: [] });
   };
 
   onSubmit = (): void => {
