@@ -15,10 +15,12 @@
     background-color: #aaffaa;
   }
   .comparison-wrapper {
+    --mat-toolbar-container-text-color: #eeeeee;
+    --mdc-filled-button-disabled-container-color: #aaffaa;
     flex-grow: 2;
     padding: 1em;
     border-radius: 1em;
-    background-color: #aaffaa;
+    background-color: #001700;
   }
 }
 
@@ -30,6 +32,7 @@
 .resume-list-wrapper {
   max-height: 40vh;
   background-color: var(--mat-sys-surface-variant);
+  border: 1px solid var(--mat-divider-color, var(--mat-sys-outline));
   margin-bottom: 1em;
   overflow-x: auto;
 
@@ -43,6 +46,31 @@
     .action-item {
       --mdc-list-list-item-one-line-container-height: 26px;
     }
+
+    .action-item-span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete-icon {
+      height: 19px;
+      width: 19px;
+      cursor: pointer;
+      position: relative;
+      left: -0.125em;
+      top: 0.0625em;
+    }
+
+    .action-item-functionality {
+      padding: 0.25em;
+      background-color: silver;
+      margin-left: 1em;
+    }
+
+    .delete-functionality {
+      position: relative;
+    }
   }
 }
 
@@ -55,8 +83,16 @@
 
   .full-width {
     margin-bottom: 0.5em;
+    max-height: 50vh;
+    overflow: auto;
     width: 100%;
   }
+}
+
+.resume-form-functionality {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
 }
 
 .functional-button {
@@ -70,10 +106,4 @@
 
 .comparison-button {
   width: 100%;
-}
-
-.form-button {
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
 }

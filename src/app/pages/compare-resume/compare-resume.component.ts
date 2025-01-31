@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import keyword_extractor from 'keyword-extractor';
@@ -16,7 +16,11 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
   styleUrl: './compare-resume.component.css'
 })
 export class CompareResumeComponent {
+  keywordExtractor: any = keyword_extractor;
   resumes: Array<ResumeDetails> = [];
+
+  @ViewChild('resumeName') resumeName: any;
+  @ViewChild('resumeContent') resumeContent: any;
 
   validationChecks: { [key: string]: boolean } = {
     resumeNameLength: true,
@@ -42,6 +46,12 @@ export class CompareResumeComponent {
     this.storage.getResumes();
   };
 
+  textareaAdjust = (event: any, isTarget: boolean = false): void => {
+    const target: any = isTarget ? event.nativeElement : event.target;
+    target.style.height = '1px';
+    target.style.height = 16 + target.scrollHeight + 'px';
+  };
+
   doesValidationDisable = (): boolean => {
     return this.validationChecks['resumeNameLength'] || this.validationChecks['resumeContentLength']
   };
@@ -58,10 +68,12 @@ export class CompareResumeComponent {
   triggerResumeNameValidation = (event: any): void => {
     this.changeValidationState('resumeNameLength', 'resumeName', event, 3);
     this.checkIfResumeNameExists(event);
+    console.log('triggerResumeNameValidation triggered');
   };
 
   triggerResumeContentValidation = (event: any): void => {
     this.changeValidationState('resumeContentLength', 'resumeContent', event, 5);
+    console.log('triggerResumeContentValidation triggered');
   };
 
   triggerJobValidation = (event: any): void => {
@@ -81,9 +93,47 @@ export class CompareResumeComponent {
     this.resumes = data;
   };
 
+  deleteResume = (resume: ResumeDetails): void => {};
+
   selectResume = (resume: ResumeDetails): void => {
-    console.log(resume);
+    this.resumeForm.patchValue({
+      resumeName: resume.name,
+      resumeContent: resume.content,
+    });
+    this.textareaAdjust(this.resumeContent, true);
+    
+    this.resumeName.nativeElement.dispatchEvent(new Event('input'));
+    this.resumeContent.nativeElement.dispatchEvent(new Event('input'));
+    this.changeDetectorRef.detectChanges();
   };
 
-  onSubmit = (): void => {};
+  clearResumeDetails = (): void => {
+    this.selectResume({ name: '', content: '', keywords: [] });
+  };
+
+  onSubmit = (): void => {
+    const name: string = this.resumeForm.value.resumeName || '';
+    const content: string = this.resumeForm.value.resumeContent || '';
+
+    const adjustedContent: string = content
+      .split('\n')
+      .filter((value: string) => !value.startsWith('##'))
+      .join('\n');
+
+    const keywords = this.keywordExtractor
+      .extract(adjustedContent, {
+        language:"english",
+        remove_digits: true,
+        return_changed_case: true,
+        remove_duplicates: true,
+      })
+      .sort();
+    
+      const result: ResumeDetails = { name, content, keywords };
+      const resumes: Array<ResumeDetails> = this.resumes;
+      resumes.push(result);
+      this.storage.setResumes(resumes);
+
+      this.resumeForm.reset();
+  };
 }

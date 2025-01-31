@@ -14,7 +14,17 @@
               <mat-divider></mat-divider>
             }
             <button class="action-item" mat-list-item (click)="selectResume(resume)">
-              <span>{{resume.name}}</span>
+              <span class="action-item-span">
+                <span>{{resume.name}}</span>
+                <span class="attributes">
+                  <span>Keywords: {{ resume.keywords.length }}</span>
+                  <span class="action-item-functionality">
+                    <button (click)="deleteResume(resume)" class="delete-functionality">
+                      <mat-icon class="delete-icon">close</mat-icon>
+                    </button>
+                  </span>
+                </span>
+              </span>
             </button>
           }
         </mat-action-list>
@@ -26,6 +36,7 @@
         <mat-label>Resume Name</mat-label>
         <input
           matInput
+          #resumeName
           name="resumeName"
           formControlName="resumeName"
           minLength="3"
@@ -42,21 +53,31 @@
         <mat-label>Resume</mat-label>
         <textarea
           matInput
+          #resumeContent
           name="resumeContent"
           formControlName="resumeContent"
           minLength="5"
           (input)="triggerResumeContentValidation($event)"
+          (keyup)="textareaAdjust($event)"
         ></textarea>
         @if (resumeForm.value.resumeContent) {
           <mat-error>Must have Resume Conent.</mat-error>
         }
       </mat-form-field>
-      <button
-        class="functional-button form-button"
-        mat-flat-button
-        type="submit"
-        [disabled]="doesValidationDisable()"
-      >Save</button>
+      <div class="resume-form-functionality">
+        <button
+          class="functional-button form-button"
+          mat-flat-button
+          type="button"
+          (click)="clearResumeDetails()"
+        >Clear Resume</button>
+        <button
+          class="functional-button form-button"
+          mat-flat-button
+          type="submit"
+          [disabled]="doesValidationDisable()"
+        >Save</button>
+      </div>
     </form>
   </div>
   
