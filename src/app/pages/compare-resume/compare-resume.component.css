@@ -13,6 +13,10 @@
     padding: 1em;
     border-radius: 1em;
     background-color: var(--color-squid-palegreen);
+
+    .title-toolbar {
+      color: var(--color-squid-darkgreen);
+    }
   }
   .comparison-wrapper {
     --mat-toolbar-container-text-color: var(--color-dark-foreground);
