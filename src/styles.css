@@ -9,18 +9,22 @@ body {
 
   --color-dark-background: #666666;
   --color-dark-foreground: #eeeeee;
-  --color-light-background: #ffffff;
+  --color-light-background: #fdfdfd;
   --color-light-foreground: #111111;
 
   --color-squid-palegreen: #aaffaa;
+  --color-squid-mid1green: #b2d5b2;
+  --color-squid-mid2green: #87aa87;
+  --color-squid-mid3green: #508050;
+  --color-squid-mid4green: #275527;
   --color-squid-darkgreen: #001700;
-  --color-squid-button: #68B646;
+  --color-squid-button: #68b646;
 
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   
   &.dark-mode {
-    background-color: var(--color-dark-background);
+    background-color: var(--color-squid-darkgreen);
     color: var(--color-dark-foreground);
   }
   &:not(.dark-mode) {
