@@ -1,4 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CompareResumeComponent } from './compare-resume.component';
 
@@ -8,7 +15,20 @@ describe('CompareResumeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CompareResumeComponent]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+
+        MatFormFieldModule,
+        MatInputModule,
+        MatToolbarModule,
+      ],
+      declarations: [
+        CompareResumeComponent,
+      ],
+      providers: [
+        provideAnimationsAsync(),
+      ],
     })
     .compileComponents();
 
