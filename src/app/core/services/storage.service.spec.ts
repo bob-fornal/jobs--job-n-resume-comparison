@@ -67,4 +67,24 @@ describe('StorageService', () => {
     service.getResumes();
     expect(service.resumes.next).toHaveBeenCalledWith(resumes);
   });
+
+  it('expects "setResumes" to sort and store the resumes', () => {
+    const resumesUnsorted: Array<ResumeDetails> = [
+      { name: 'TEST-C', content: 'TEST', keywords: [] },
+      { name: 'TEST-B', content: 'TEST', keywords: [] },
+      { name: 'TEST-A', content: 'TEST', keywords: [] },
+    ];
+    const resumesSorted: Array<ResumeDetails> = [
+      { name: 'TEST-A', content: 'TEST', keywords: [] },
+      { name: 'TEST-B', content: 'TEST', keywords: [] },
+      { name: 'TEST-C', content: 'TEST', keywords: [] },
+    ];
+    const resumesString: string = JSON.stringify(resumesSorted);
+    spyOn(service.localstorage, 'setItem').and.stub();
+    spyOn(service, 'getResumes').and.stub();
+
+    service.setResumes(resumesUnsorted);
+    expect(service.localstorage.setItem).toHaveBeenCalledWith('job-squid--resumes', resumesString);
+    expect(service.getResumes).toHaveBeenCalled();
+  });
 });

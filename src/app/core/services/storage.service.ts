@@ -39,7 +39,7 @@ export class StorageService {
 
   setResumes = (resumes: Array<ResumeDetails>): void => {
     const sortedResumes: Array<ResumeDetails> = resumes.sort((a: ResumeDetails, b: ResumeDetails) => a.name.localeCompare(b.name));
-    console.log(sortedResumes)
+
     const resumesString: string = JSON.stringify(sortedResumes);
     this.localstorage.setItem('job-squid--resumes', resumesString);
     this.getResumes();
