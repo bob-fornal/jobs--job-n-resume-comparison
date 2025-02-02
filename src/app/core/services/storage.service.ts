@@ -32,8 +32,8 @@ export class StorageService {
       this.localstorage.setItem('job-squid--resumes', '[]');
       this.resumes.next([]);
     } else {
-      const item: Array<ResumeDetails> = JSON.parse(resumes);
-      this.resumes.next(item);
+      const items: Array<ResumeDetails> = JSON.parse(resumes);
+      this.resumes.next(items);
     }
   };
 
