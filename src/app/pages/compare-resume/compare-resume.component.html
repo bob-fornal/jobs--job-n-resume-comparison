@@ -32,7 +32,10 @@
     </div>
 
     <form class="resume-form" [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
-      <mat-form-field class="full-width">
+      <mat-form-field
+        class="full-width"
+        [class.isInList]="validationChecks['resumeNameInList'] === true"
+      >
         <mat-label>Resume Name</mat-label>
         <input
           matInput
@@ -49,7 +52,10 @@
           <mat-error>Must have a Resume Name.</mat-error>
         }
       </mat-form-field>
-      <mat-form-field class="full-width">
+      <mat-form-field
+        class="full-width"
+        [class.isInList]="validationChecks['resumeNameInList'] === true"
+      >
         <mat-label>Resume</mat-label>
         <textarea
           matInput

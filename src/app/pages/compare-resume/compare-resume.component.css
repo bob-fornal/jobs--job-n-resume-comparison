@@ -116,3 +116,7 @@
   color: var(--color-squid-button);
   font-weight: 700;
 }
+
+.isInList {
+  --mdc-filled-text-field-container-color: beige;
+}
