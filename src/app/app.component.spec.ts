@@ -73,4 +73,27 @@ describe('AppComponent', () => {
     expect(_document.getElementById).toHaveBeenCalledWith('body');
     expect(classList.add).toHaveBeenCalledWith('dark-mode');
   });
+
+  it('expects "toggleDarkMode" to set the state and store it', () => {
+    const classList: any = {
+      add: (param: any) => ({}),
+      toggle: (param: any) => ({}),
+    };
+    const _document = {
+      getElementById: (param: any) => {
+        return { classList };
+      },
+    };
+    app._document = _document;
+    spyOn(_document, 'getElementById').and.callThrough();
+    spyOn(classList, 'toggle').and.stub();
+    spyOn(app.storage, 'setDarkMode').and.stub;
+    app.dark_enabled = true;
+
+    app.toggleDarkMode();
+    expect(app.dark_enabled).toEqual(false);
+    expect(app.storage.setDarkMode).toHaveBeenCalledWith(false)
+    expect(_document.getElementById).toHaveBeenCalledWith('body');
+    expect(classList.toggle).toHaveBeenCalledWith('dark-mode');
+  });
 });
