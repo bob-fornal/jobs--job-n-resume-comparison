@@ -10,6 +10,8 @@ import { StorageService } from './core/services/storage.service';
 export class AppComponent {
   dark_enabled: boolean = false;
 
+  _document: any = document;
+
   constructor(
     private storage: StorageService,
   ) {
@@ -20,7 +22,7 @@ export class AppComponent {
     this.dark_enabled = this.storage.getDarkMode();
 
     if (this.dark_enabled === true) {
-      const element = document.getElementById('body');
+      const element = this._document.getElementById('body');
       element?.classList.add('dark-mode');  
     }
   };
@@ -29,7 +31,7 @@ export class AppComponent {
     this.dark_enabled = !this.dark_enabled;
     this.storage.setDarkMode(this.dark_enabled);
 
-    const element = document.getElementById('body');
+    const element = this._document.getElementById('body');
     element?.classList.toggle('dark-mode');
   };
 }
