@@ -1,4 +1,6 @@
 .title-toolbar {
+  --mat-toolbar-standard-height: 4em;
+
   background-color: var(--color-squid-mid2green);
   color: var(--color-dark-foreground);
   font-family: Metropolis, sans-serif;
@@ -9,5 +11,13 @@
 
   .menu-spacer {
     flex: 1 1 auto;
+    text-align: center;
+    position: relative;
+
+    .menu-logo {
+      position: relative;
+      height: 3.5em;
+      top: 0.25em;
+    }
   }
 }

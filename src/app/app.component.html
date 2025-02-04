@@ -1,10 +1,21 @@
 <mat-toolbar class="title-toolbar">
-  <button mat-icon-button class="menu-icon">
+  <button mat-icon-button [matMenuTriggerFor]="pageMenu" class="menu-icon">
     <mat-icon>menu</mat-icon>
   </button>
+  <mat-menu #pageMenu="matMenu">
+    <button mat-menu-item>
+      <span>Remume to Job Comparison</span>
+    </button>
+    <button mat-menu-item>
+      <span>#100DaysOfCode Tracker</span>
+    </button>
+  </mat-menu>
+  
   <span>Job-Squid (by Bob)</span>
 
-  <span class="menu-spacer"></span>
+  <span class="menu-spacer">
+    <img class="menu-logo" src="/images/Job-Squid-Small.png" />
+  </span>
 
   <button mat-icon-button class="menu-icon" (click)="toggleDarkMode()">
     @if (dark_enabled === true) {
