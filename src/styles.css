@@ -20,6 +20,11 @@ body {
   --color-squid-darkgreen: #001700;
   --color-squid-button: #68b646;
 
+  --mat-menu-container-color: var(--color-squid-mid4green);
+  --mat-menu-item-hover-state-layer-color: var(--color-squid-mid2green);
+  --mat-menu-item-label-text-color: var(--color-light-background);
+  --mat-menu-item-icon-color: var(--color-light-background);
+
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   
