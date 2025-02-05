@@ -32,14 +32,14 @@ export class StorageService {
       this.localstorage.setItem('job-squid--resumes', '[]');
       this.resumes.next([]);
     } else {
-      const item: Array<ResumeDetails> = JSON.parse(resumes);
-      this.resumes.next(item);
+      const items: Array<ResumeDetails> = JSON.parse(resumes);
+      this.resumes.next(items);
     }
   };
 
   setResumes = (resumes: Array<ResumeDetails>): void => {
     const sortedResumes: Array<ResumeDetails> = resumes.sort((a: ResumeDetails, b: ResumeDetails) => a.name.localeCompare(b.name));
-    console.log(sortedResumes)
+
     const resumesString: string = JSON.stringify(sortedResumes);
     this.localstorage.setItem('job-squid--resumes', resumesString);
     this.getResumes();

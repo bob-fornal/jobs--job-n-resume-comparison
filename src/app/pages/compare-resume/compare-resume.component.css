@@ -13,6 +13,10 @@
     padding: 1em;
     border-radius: 1em;
     background-color: var(--color-squid-palegreen);
+
+    .title-toolbar {
+      color: var(--color-squid-darkgreen);
+    }
   }
   .comparison-wrapper {
     --mat-toolbar-container-text-color: var(--color-dark-foreground);
@@ -20,7 +24,7 @@
     flex-grow: 2;
     padding: 1em;
     border-radius: 1em;
-    background-color: var(--color-squid-darkgreen);
+    background-color: var(--color-squid-mid2green);
   }
 }
 
@@ -111,4 +115,8 @@
 .hint {
   color: var(--color-squid-button);
   font-weight: 700;
+}
+
+.isInList {
+  --mdc-filled-text-field-container-color: beige;
 }
