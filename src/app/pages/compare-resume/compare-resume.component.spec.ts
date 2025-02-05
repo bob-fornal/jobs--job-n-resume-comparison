@@ -2,12 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CompareResumeComponent } from './compare-resume.component';
+import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 
 describe('CompareResumeComponent', () => {
   let component: CompareResumeComponent;
@@ -20,7 +23,9 @@ describe('CompareResumeComponent', () => {
         ReactiveFormsModule,
 
         MatFormFieldModule,
+        MatIconModule,
         MatInputModule,
+        MatListModule,
         MatToolbarModule,
       ],
       declarations: [
@@ -138,5 +143,93 @@ describe('CompareResumeComponent', () => {
 
     component.triggerResumeContentValidation(event);
     expect(component.changeValidationState).toHaveBeenCalledWith('resumeContentLength', event, 5);
+  });
+
+  it('expects "triggerJobValidation" to set jobContentLength', () => {
+    const event: any = {
+      target: {
+        value: '123',
+      },
+    };
+    component.validationChecks['jobContentLength'] = true;
+
+    component.triggerJobValidation(event);
+    expect(component.validationChecks['jobContentLength']).toEqual(false);
+  });
+
+  it('expects "checkIfResumeNameExists" to return true', () => {
+    const event: any = {
+      target: {
+        value: 'IT EXISTS',
+      },
+    };
+    component.resumes = [
+      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
+      { name: 'IT EXISTS', content: '', keywords: [] },
+    ];
+    component.validationChecks['resumeNameInList'] = false;
+    spyOn(component['changeDetectorRef'], 'detectChanges').and.stub();
+
+    component.checkIfResumeNameExists(event);
+    expect(component.validationChecks['resumeNameInList']).toEqual(true);
+  });
+
+  it('expects "handleResumes" to set resumes', () => {
+    const data: Array<ResumeDetails> = [
+      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
+      { name: 'IT EXISTS', content: '', keywords: [] },
+    ];
+    component.resumes = [];
+
+    component.handleResumes(data);
+    expect(component.resumes).toEqual(data);
+  });
+
+  it('expects "deleteResume" to set resumes', () => {
+    const deleteResume: ResumeDetails = { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] };
+    const expected: Array<ResumeDetails> = [
+      { name: 'IT EXISTS', content: '', keywords: [] },
+    ];
+    component.resumes = [
+      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
+      { name: 'IT EXISTS', content: '', keywords: [] },
+    ];
+
+    component.deleteResume(deleteResume);
+    expect(component.resumes).toEqual(expected);
+  });
+
+  it('expects "selectResume" to do nothing if delete selected', () => {
+    const event: any = {
+      target: {
+        classList: ['delete-icon'],
+      },
+    };
+    const resume: ResumeDetails = { name: 'NAME', content: 'CONTENT', keywords: [] };
+    spyOn(component, 'textareaAdjust').and.stub();
+
+    component.selectResume(event, resume);
+    expect(component.textareaAdjust).not.toHaveBeenCalled();
+  });
+
+  it('expects "selectResume" to set name and content', () => {
+    const event: any = {
+      target: {
+        classList: [],
+      },
+    };
+    const resume: ResumeDetails = { name: 'NAME', content: 'CONTENT', keywords: [] };
+    spyOn(component, 'textareaAdjust').and.stub();
+    spyOn(component['changeDetectorRef'], 'detectChanges').and.stub();
+
+    component.selectResume(event, resume);
+    expect(component.textareaAdjust).toHaveBeenCalled();
+  });
+
+  it('expects "clearResumeDetails" to call selectResume with an empty record', () => {
+    spyOn(component, 'selectResume').and.stub();
+
+    component.clearResumeDetails();
+    expect(component.selectResume).toHaveBeenCalledWith({}, { name: '', content: '', keywords: [] });
   });
 });

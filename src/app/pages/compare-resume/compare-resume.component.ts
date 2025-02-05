@@ -6,8 +6,6 @@ import keyword_extractor from 'keyword-extractor';
 import { StorageService } from '../../core/services/storage.service';
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
-
 @Component({
   selector: 'app-compare-resume',
   standalone: false,
