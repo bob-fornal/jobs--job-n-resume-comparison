@@ -40,4 +40,11 @@ describe('CompareResumeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('expects "init" to trigger getResumes', () => {
+    spyOn(component['storage'], 'getResumes').and.stub();
+
+    component.init();
+    expect(component['storage'].getResumes).toHaveBeenCalled();
+  });
 });
