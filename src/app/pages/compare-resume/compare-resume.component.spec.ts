@@ -232,4 +232,44 @@ describe('CompareResumeComponent', () => {
     component.clearResumeDetails();
     expect(component.selectResume).toHaveBeenCalledWith({}, { name: '', content: '', keywords: [] });
   });
+
+  it('expects "onSubmit" to handle record creation', () => {
+    const resumes: Array<ResumeDetails> = [
+      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
+      { name: 'IT EXISTS', content: '', keywords: [] },
+    ];
+    component.resumes = resumes;
+    component.resumeForm.patchValue({
+      resumeName: undefined,
+      resumeContent: undefined,
+    });
+    spyOn(component.keywordExtractor, 'extract').and.returnValue([]);
+    spyOn(component['storage'], 'setResumes').and.stub();
+
+    component.onSubmit();
+    expect(component.keywordExtractor.extract).toHaveBeenCalled();
+    expect(component['storage'].setResumes).toHaveBeenCalledWith([...resumes, { name: '', content: '', keywords: [] }]);
+  });
+
+  it('expects "onSubmit" to handle record overwrite', () => {
+    const resumes: Array<ResumeDetails> = [
+      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
+      { name: 'IT EXISTS', content: '', keywords: [] },
+    ];
+    component.resumes = resumes;
+    component.resumeForm.patchValue({
+      resumeName: 'IT EXISTS',
+      resumeContent: 'CONTENT HERE',
+    });
+    spyOn(component.keywordExtractor, 'extract').and.returnValue(['CONTENT', 'HERE']);
+    spyOn(component['storage'], 'setResumes').and.stub();
+    const expected: Array<ResumeDetails> = [
+      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
+      { name: 'IT EXISTS', content: 'CONTENT HERE', keywords: ['CONTENT', 'HERE'] },
+    ];
+
+    component.onSubmit();
+    expect(component.keywordExtractor.extract).toHaveBeenCalled();
+    expect(component['storage'].setResumes).toHaveBeenCalledWith(expected);
+  });
 });
