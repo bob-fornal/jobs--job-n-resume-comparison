@@ -60,20 +60,18 @@ export class CompareResumeComponent {
     return this.doesValidationDisable() || this.validationChecks['jobContentLength'];
   };
 
-  changeValidationState = (key: string, control: string, event: any, check: number): void => {
+  changeValidationState = (key: string, event: any, check: number): void => {
     const lengthError: boolean = event.target.value.length <= check;
     this.validationChecks[key] = lengthError;
   };
 
   triggerResumeNameValidation = (event: any): void => {
-    this.changeValidationState('resumeNameLength', 'resumeName', event, 3);
+    this.changeValidationState('resumeNameLength', event, 3);
     this.checkIfResumeNameExists(event);
-    console.log('triggerResumeNameValidation triggered');
   };
 
   triggerResumeContentValidation = (event: any): void => {
-    this.changeValidationState('resumeContentLength', 'resumeContent', event, 5);
-    console.log('triggerResumeContentValidation triggered');
+    this.changeValidationState('resumeContentLength', event, 5);
   };
 
   triggerJobValidation = (event: any): void => {

@@ -107,4 +107,36 @@ describe('CompareResumeComponent', () => {
     const result: boolean = component.isRunComparisonDisabled();
     expect(result).toEqual(true);
   });
+
+  it('expects "changeValidationState to set the state', () => {
+    const key: string = 'jobContentLength';
+    component.validationChecks[key] = true;
+    const event: any = {
+      target: {
+        value: 'TESTING',
+      },
+    };
+    const check: number = 5;
+
+    component.changeValidationState(key, event, check);
+    expect(component.validationChecks[key]).toEqual(false);
+  });
+
+  it('expects "triggerResumeNameValidation" to change state and check if name exists', () => {
+    const event: any = { key: 'TEST' };
+    spyOn(component, 'changeValidationState').and.stub();
+    spyOn(component, 'checkIfResumeNameExists').and.stub();
+
+    component.triggerResumeNameValidation(event);
+    expect(component.changeValidationState).toHaveBeenCalledWith('resumeNameLength', event, 3);
+    expect(component.checkIfResumeNameExists).toHaveBeenCalledWith(event);
+  });
+
+  it('expects "triggerResumeContentValidation" to change state', () => {
+    const event: any = { key: 'TEST' };
+    spyOn(component, 'changeValidationState').and.stub();
+
+    component.triggerResumeContentValidation(event);
+    expect(component.changeValidationState).toHaveBeenCalledWith('resumeContentLength', event, 5);
+  });
 });
