@@ -51,6 +51,9 @@
     &.pad-bottom {
       margin-bottom: 1em;
     }
+    &.center {
+      text-align: center;
+    }
 
     .bold {
       font-weight: bold;
