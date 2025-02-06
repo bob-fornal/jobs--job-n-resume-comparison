@@ -1,0 +1,20 @@
+<h3 class="page-title">#100DaysOfCode Tracker</h3>
+<div class="days-of-code-wrapper">
+  <div class="days">
+
+    @for(day of days; track day; let index = $index) {
+      <span class="day"
+        [class.active]="day.done === true"
+        (click)="toggleDay(index)"
+      >
+        <item-image [item]="day" />
+        @if (day.note.length > 0) {
+          <span class="tooltip-text">{{ day.note }}</span>
+        }
+
+        <span class="number">{{ day.number }}</span>
+      </span>
+    }
+
+  </div>
+</div>

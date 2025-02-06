@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StorageService } from './core/services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,10 @@ export class AppComponent {
 
   _document: any = document;
 
+  selectedPageMenu: string = 'resumes';
+
   constructor(
+    private router: Router,
     private storage: StorageService,
   ) {
     this.init();
@@ -33,5 +37,10 @@ export class AppComponent {
 
     const element = this._document.getElementById('body');
     element?.classList.toggle('dark-mode');
+  };
+
+  pageMenuSelection = (page: string): void => {
+    this.selectedPageMenu = page;
+    this.router.navigateByUrl(`/${page}`);
   };
 }

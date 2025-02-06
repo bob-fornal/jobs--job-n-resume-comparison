@@ -3,11 +3,34 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #pageMenu="matMenu">
-    <button mat-menu-item>
-      <span>Remume to Job Comparison</span>
+    <button
+      mat-menu-item
+      class="page-menu"
+      (click)="pageMenuSelection('resumes')"
+      [class.selected]="selectedPageMenu === 'resumes'"
+    >
+    <mat-icon fontSet="material-icons-outlined">description</mat-icon>
+    <span>Resume(s) to Job Comparison</span>
     </button>
-    <button mat-menu-item>
+    <button
+      mat-menu-item
+      class="page-menu"
+      (click)="pageMenuSelection('days-of-code')"
+      [class.selected]="selectedPageMenu === 'days-of-code'"
+      >
+      <mat-icon fontSet="material-icons-outlined">event_list</mat-icon>
       <span>#100DaysOfCode Tracker</span>
+    </button>
+
+    <mat-divider></mat-divider>
+    <button 
+      mat-menu-item
+      class="page-menu"
+      (click)="pageMenuSelection('about')"
+      [class.selected]="selectedPageMenu === 'about'"
+    >
+      <mat-icon fontSet="material-icons-outlined">info</mat-icon>
+      <span>About Job-Squid.com</span>
     </button>
   </mat-menu>
   
@@ -29,19 +52,21 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #functionalityMenu="matMenu">
-    <button mat-menu-item>
-      <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
-      <span>Export Resumes</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
-      <span>Import Resumes</span>
-    </button>
-    <mat-divider></mat-divider>
-    <button mat-menu-item>
-      <mat-icon fontSet="material-icons-outlined">info</mat-icon>
-      <span>About Job-Squid</span>
-    </button>
+    @switch (selectedPageMenu) {
+      @case ('resumes') {
+        <button mat-menu-item>
+          <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
+          <span>Export Resumes</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
+          <span>Import Resumes</span>
+        </button>
+      }
+      @default {
+        <div class="no-menu-item">No Menu</div>
+      }
+    }
   </mat-menu>
 </mat-toolbar>
 

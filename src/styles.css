@@ -46,3 +46,18 @@ body {
   font-family: MetropolisBold;
   src: url("/fonts/Metropolis-Bold.otf") format("opentype");
 }
+
+.page-title {
+  margin: 1em 2em 0 2em;
+}
+
+.page-menu.selected {
+  
+  .mat-mdc-menu-item-text {
+    font-weight: bold !important;
+  }
+}
+
+.no-menu-item {
+  margin: 1em;
+}
