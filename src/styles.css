@@ -24,6 +24,8 @@ body {
   --mat-menu-item-hover-state-layer-color: var(--color-squid-mid2green);
   --mat-menu-item-label-text-color: var(--color-light-background);
   --mat-menu-item-icon-color: var(--color-light-background);
+  --mat-checkbox-label-text-color: var(--color-light-background);
+  --mdc-checkbox-unselected-icon-color: var(--color-light-background);
 
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;

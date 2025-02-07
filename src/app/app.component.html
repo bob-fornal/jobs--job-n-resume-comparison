@@ -58,12 +58,21 @@
           <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
           <span>Export Resumes</span>
         </button>
+
+        <mat-divider></mat-divider>
+
         <button mat-menu-item>
           <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
           <span>Import Resumes</span>
         </button>
       }
       @case ('days-of-code') {
+        <mat-checkbox>
+          View Goals
+        </mat-checkbox>
+
+        <mat-divider></mat-divider>
+        
         <button mat-menu-item>
           <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
           <span>Export Blank Recordset</span>
@@ -72,6 +81,9 @@
           <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
           <span>Export #100DaysOfCode Recordset</span>
         </button>
+
+        <mat-divider></mat-divider>
+
         <button mat-menu-item>
           <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
           <span>Import #100DaysOfCode Recordset</span>
