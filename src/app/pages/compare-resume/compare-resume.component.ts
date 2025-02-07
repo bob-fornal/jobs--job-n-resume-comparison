@@ -89,14 +89,13 @@ export class CompareResumeComponent {
     this.resumes = data;
   };
 
-  deleteResume = (deleteResume: ResumeDetails): void => {
+  deleteResume = (event: any, deleteResume: ResumeDetails): void => {
+    event.stopPropagation();
     const resumes: Array<ResumeDetails> = [...this.resumes].filter((resume: ResumeDetails) => resume.name !== deleteResume.name);
     this.storage.setResumes(resumes);
   };
 
   selectResume = (event: any, resume: ResumeDetails): void => {
-    if (event.target.classList.includes('delete-icon')) return;
-
     this.resumeForm.patchValue({
       resumeName: resume.name,
       resumeContent: resume.content,
