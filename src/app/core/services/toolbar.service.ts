@@ -15,12 +15,21 @@ export class ToolbarService {
     if (activePage !== null) {
       this.setActivePage(activePage, false);
     }
+
+    const viewGoalsString: any = this.localstorage.getItem('job-squid--view-goals');
+    if (viewGoalsString === null) {
+      this.viewGoalsSignal.set(false);
+    } else {
+      this.viewGoalsSignal.set(viewGoalsString === 'true');
+    }
+    console.log('toolbarService constructor', this.viewGoals());
   }
 
   readonly viewGoals = this.viewGoalsSignal.asReadonly();
 
-  toggleViewGoals = (): void => {
-    this.viewGoalsSignal.update((value) => !value);
+  setViewGoals = (state: boolean): void => {
+    this.viewGoalsSignal.set(state);
+    this.localstorage.setItem('job-squid--view-goals', state + '');
   };
 
   readonly activePage = this.activePageSignal.asReadonly();

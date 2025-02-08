@@ -67,7 +67,9 @@
         </button>
       }
       @case ('days-of-code') {
-        <mat-checkbox>
+        <mat-checkbox
+          [checked]="viewGoals"
+          (change)="updateViewGoals($event.checked)">
           View Goals
         </mat-checkbox>
 
@@ -79,14 +81,14 @@
         </button>
         <button mat-menu-item>
           <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
-          <span>Export #100DaysOfCode Recordset</span>
+          <span>Export Current Recordset</span>
         </button>
 
         <mat-divider></mat-divider>
 
         <button mat-menu-item>
           <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
-          <span>Import #100DaysOfCode Recordset</span>
+          <span>Import Saved Recordset</span>
         </button>
       }
       @default {

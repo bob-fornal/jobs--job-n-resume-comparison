@@ -68,15 +68,12 @@ export class StorageService {
   }
 
   loadStructure = () => {
-    console.log('load structure')
     const dataString: string | null = this.localstorage.getItem('job-squid--100-days');
-    console.log(dataString);
     if (dataString === null) return;
 
     const data: Structure = JSON.parse(dataString);
     this._structure = { ...data };
     this.structure.next(this._structure);
-    console.log(this._structure);
   };
 
   storeStructure = (structure: Structure): void => {
