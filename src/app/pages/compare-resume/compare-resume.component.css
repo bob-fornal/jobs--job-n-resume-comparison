@@ -99,15 +99,6 @@
   gap: 1em;
 }
 
-.functional-button {
-  --mdc-filled-button-container-shape: 0;
-  --mdc-filled-button-container-color: var(--color-squid-button);
-
-  font-family: MetropolisBold, sans-serif;
-  font-size: 1em;
-  font-weight: bold;
-}
-
 .comparison-button {
   width: 100%;
 }

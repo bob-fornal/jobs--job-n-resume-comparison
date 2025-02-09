@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
 import { Structure } from '../../core/interfaces/strucuture.interface';
+import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,20 @@ export class DaysOfCodeService extends StorageClassAbstraction {
   _structure: Structure = this.generateBlank();
   structure: BehaviorSubject<Structure> = new BehaviorSubject<Structure>(this._structure);
 
-  constructor() {
+  constructor(
+    toolbarService: TopToolbarService,
+  ) {
     super();
 
     this.loadStructure();
+    toolbarService.viewGoals$.subscribe(this.handleViewGoalsChange.bind(this));
   }
+
+  handleViewGoalsChange = (value: boolean): void => {
+    this._structure.useGoals = value;
+    this.storeStructure(this._structure);
+    this.loadStructure();
+  };
 
   generateBlank (numberOfDays: number = 100): Structure {
     const structure: Structure = {

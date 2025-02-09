@@ -20,6 +20,15 @@ body {
   --color-squid-darkgreen: #001700;
   --color-squid-button: #68b646;
 
+  --color-goal-white: white;
+  --color-goal-off-white: #f1f1f1;
+  --color-goal-black: black;
+  --color-goal-off-black: #1f1f1f;
+  --color-goal-highlight: var(--color-squid-button);
+  --color-goal-tooltip: #555555;
+  --color-goal-silver: silver;
+  --color-goal-toolbar: #ffaf7b;
+
   --mat-menu-container-color: var(--color-squid-mid4green);
   --mat-menu-item-hover-state-layer-color: var(--color-squid-mid2green);
   --mat-menu-item-label-text-color: var(--color-light-background);
@@ -62,4 +71,13 @@ body {
 
 .no-menu-item {
   margin: 1em;
+}
+
+.functional-button {
+  --mdc-filled-button-container-shape: 0;
+  --mdc-filled-button-container-color: var(--color-squid-button);
+
+  font-family: MetropolisBold, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
 }

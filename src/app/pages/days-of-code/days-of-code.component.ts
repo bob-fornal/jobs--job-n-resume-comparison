@@ -7,6 +7,7 @@ import { Structure } from '../../core/interfaces/strucuture.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { DayModalComponent } from '../../shared/day-modal/day-modal.component';
 import { DaysOfCodeService } from './days-of-code.service';
+import { GoalModalComponent } from '../../shared/goal-modal/goal-modal.component';
 
 @Component({
   selector: 'app-days-of-code',
@@ -24,6 +25,7 @@ export class DaysOfCodeComponent {
   _structure: Structure | null = null;
 
   selectedIndex: number = -1;
+  draggingIndex: number = -1;
 
   constructor(
     private dialog: MatDialog,
@@ -40,6 +42,27 @@ export class DaysOfCodeComponent {
     
     this.days = structure.days;
     this.goals = structure.goals;
+  };
+
+  onDragStart = (fromIndex: number): void => {
+    this.draggingIndex = fromIndex;
+  };
+
+  onDragEnter = (toIndex: number): void => {
+    if (this.draggingIndex === toIndex) return;
+    this.reorderItems(this.draggingIndex, toIndex);
+  };
+
+  onDragEnd = (): void => {
+    this.draggingIndex = -1;
+    this._structure!.goals = [ ...this.goals ];
+    this.service.storeStructure(this._structure!);
+  };
+
+  reorderItems = (fromIndex: number, toIndex: number): void => {
+    const item = this.goals.splice(fromIndex, 1)[0];
+    this.goals.splice(toIndex, 0, item);
+    this.draggingIndex = toIndex;
   };
 
   toggleDay = (index: number): void => {
@@ -63,13 +86,27 @@ export class DaysOfCodeComponent {
 
   openDayModal = (day: Item): void => {
     const dialogRef = this.dialog.open(DayModalComponent, { data: day });
-
     dialogRef.afterClosed().subscribe(this.handleDayModalClose.bind(this));
   };
 
   handleDayModalClose = (note: string): void => {
-    console.log(note);
     this._structure!.days[this.selectedIndex].note = note;
+    this.service.structureChange(this._structure!);
+  };
+
+  addNewGoal = (): void => {
+    const dialogRef = this.dialog.open(GoalModalComponent, { data: { type: 'New', description: '', done: false } });
+    dialogRef.afterClosed().subscribe(this.handleAddNewGoalClose.bind(this));
+  };
+
+  handleAddNewGoalClose = (goal: Goal): void => {
+    this._structure!.goals.push({ description: goal.description, done: goal.done });
+    this.service.structureChange(this._structure!);
+  };
+
+  toggleGoal = (index: number): void => {
+    this.goals[index].done = !this.goals[index].done;
+    this._structure!.goals = [ ...this.goals ];
     this.service.structureChange(this._structure!);
   };
 }

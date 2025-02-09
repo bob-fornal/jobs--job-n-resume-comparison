@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ goal.type }} Goal<h2>
+  <mat-dialog-content>
+    <textarea
+      id="goal"
+      class="textarea"
+      placeholder="Goal"
+      [(ngModel)]="goal.description"
+      rows="5" cols="24"
+    ></textarea>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button (click)="cancel()">Cancel</button>
+    <button mat-flat-button (click)="save()">Save</button>
+  </mat-dialog-actions>
+  
