@@ -24,6 +24,7 @@ import { CompareResumeComponent } from './pages/compare-resume/compare-resume.co
 import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component';
 import { ItemImageComponent } from './shared/item-image/item-image.component';
 import { DayModalComponent } from './shared/day-modal/day-modal.component';
+import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DayModalComponent } from './shared/day-modal/day-modal.component';
     DaysOfCodeComponent,
     ItemImageComponent,
     DayModalComponent,
+    TopToolbarComponent,
   ],
   imports: [
     BrowserModule,

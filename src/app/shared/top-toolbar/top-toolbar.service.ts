@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ToolbarService {
+export class TopToolbarService {
 
   private activePageSignal = signal('resumes');
   private viewGoalsSignal = signal(false);
