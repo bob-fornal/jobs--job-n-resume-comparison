@@ -4,9 +4,9 @@ import { Goal } from '../../core/interfaces/goal.interface';
 import { Item } from '../../core/interfaces/item.interface';
 import { Structure } from '../../core/interfaces/strucuture.interface';
 
-import { StorageService } from '../../core/services/storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DayModalComponent } from '../../shared/day-modal/day-modal.component';
+import { DaysOfCodeService } from './days-of-code.service';
 
 @Component({
   selector: 'app-days-of-code',
@@ -27,9 +27,9 @@ export class DaysOfCodeComponent {
 
   constructor(
     private dialog: MatDialog,
-    private storage: StorageService
+    private service: DaysOfCodeService,
   ) {
-    this.storage.structure.subscribe(this.handleStructureChange);
+    this.service.structure.subscribe(this.handleStructureChange);
   }
 
   handleStructureChange = (structure: Structure): void => {
@@ -48,7 +48,7 @@ export class DaysOfCodeComponent {
 
     switch (true) {
       case this.useNotes === false:
-        this.storage.structureChange(this._structure!);
+        this.service.structureChange(this._structure!);
         break;
       case isDone === true && this._structure!.days[index].note === '':
         const day: Item = { ... this._structure!.days[index] };
@@ -57,7 +57,7 @@ export class DaysOfCodeComponent {
         break;
       default:
         this._structure!.days[index].note = '';
-        this.storage.structureChange(this._structure!);
+        this.service.structureChange(this._structure!);
     }
   };
 
@@ -70,6 +70,6 @@ export class DaysOfCodeComponent {
   handleDayModalClose = (note: string): void => {
     console.log(note);
     this._structure!.days[this.selectedIndex].note = note;
-    this.storage.structureChange(this._structure!);
+    this.service.structureChange(this._structure!);
   };
 }

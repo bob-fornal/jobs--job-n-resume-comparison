@@ -19,7 +19,6 @@ export class TopToolbarComponent {
 
   constructor(
     private router: Router,
-    private storage: StorageService,
     private service: TopToolbarService,
   ) {
     this.init();
@@ -32,7 +31,7 @@ export class TopToolbarComponent {
   };
 
   initDarkMode = (): void => {
-    this.dark_enabled = this.storage.getDarkMode();
+    this.dark_enabled = this.service.getDarkMode();
 
     if (this.dark_enabled === true) {
       const element = this._document.getElementById('body');
@@ -53,7 +52,7 @@ export class TopToolbarComponent {
 
   toggleDarkMode = (): void => {
     this.dark_enabled = !this.dark_enabled;
-    this.storage.setDarkMode(this.dark_enabled);
+    this.service.setDarkMode(this.dark_enabled);
 
     const element = this._document.getElementById('body');
     element?.classList.toggle('dark-mode');

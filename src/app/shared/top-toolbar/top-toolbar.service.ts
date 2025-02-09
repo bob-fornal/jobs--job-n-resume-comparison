@@ -1,16 +1,17 @@
 import { Injectable, signal } from '@angular/core';
+import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TopToolbarService {
+export class TopToolbarService extends StorageClassAbstraction {
 
   private activePageSignal = signal('resumes');
   private viewGoalsSignal = signal(false);
 
-  localstorage = window.localStorage;
-
   constructor() {
+    super();
+
     const activePage: any = this.localstorage.getItem('job-squid--active-page');
     if (activePage !== null) {
       this.setActivePage(activePage, false);
@@ -24,6 +25,21 @@ export class TopToolbarService {
     }
     console.log('toolbarService constructor', this.viewGoals());
   }
+
+  getDarkMode = (): boolean => {
+    const mode = this.localstorage.getItem('job-squid--dark-mode');
+    if (mode === null) {
+      this.localstorage.setItem('job-squid--dark-mode', 'false');
+      return false;
+    } else {
+      return mode === 'true';
+    }
+  };
+
+  setDarkMode = (mode: boolean): void => {
+    const modeString: string = JSON.stringify(mode);
+    this.localstorage.setItem('job-squid--dark-mode', modeString);
+  };
 
   readonly viewGoals = this.viewGoalsSignal.asReadonly();
 
