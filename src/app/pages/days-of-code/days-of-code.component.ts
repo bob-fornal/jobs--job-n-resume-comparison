@@ -44,27 +44,6 @@ export class DaysOfCodeComponent {
     this.goals = structure.goals;
   };
 
-  onDragStart = (fromIndex: number): void => {
-    this.draggingIndex = fromIndex;
-  };
-
-  onDragEnter = (toIndex: number): void => {
-    if (this.draggingIndex === toIndex) return;
-    this.reorderItems(this.draggingIndex, toIndex);
-  };
-
-  onDragEnd = (): void => {
-    this.draggingIndex = -1;
-    this._structure!.goals = [ ...this.goals ];
-    this.service.storeStructure(this._structure!);
-  };
-
-  reorderItems = (fromIndex: number, toIndex: number): void => {
-    const item = this.goals.splice(fromIndex, 1)[0];
-    this.goals.splice(toIndex, 0, item);
-    this.draggingIndex = toIndex;
-  };
-
   toggleDay = (index: number): void => {
     const isDone: boolean = !this._structure!.days[index].done;
     this._structure!.days[index].done = isDone;

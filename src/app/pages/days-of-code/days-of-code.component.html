@@ -17,16 +17,8 @@
 
       <div class="goals-wrapper">
         @for (goal of goals; track goal; let index = $index;) {
-          <div
-            class="goal-card drag-wrapper"
-            [class.dragging]="index === draggingIndex"
-            [draggable]="true"
-            (dragstart)="onDragStart(index)"
-            (dragenter)="onDragEnter(index)"
-            (dragend)="onDragEnd()"
-          >
+          <div class="goal-card">
             <div class="done" [class.finished]="goal.done === true">
-              <span class="copyable"><mat-icon>drag_indicator</mat-icon></span>
               <span class="text">{{ goal.done ? 'Complete' : 'Pending' }}</span>
               <span class="right">
                 <span class="goal-card-item status" (click)="toggleGoal(index)">
