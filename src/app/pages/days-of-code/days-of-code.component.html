@@ -29,8 +29,14 @@
                   }
                 </span>
               </span>
-              <mat-icon class="goal-card-item material-icons-outlined">edit</mat-icon>
-              <mat-icon class="goal-card-item material-icons-outlined">delete</mat-icon>
+              <mat-icon
+                class="goal-card-item material-icons-outlined"
+                (click)="editGoal(index)"
+              >edit</mat-icon>
+              <mat-icon
+                class="goal-card-item material-icons-outlined"
+                (click)="deleteGoal(index)"
+              >delete</mat-icon>
             </div>
             <div class="description">{{ goal.description }}</div>
           </div>

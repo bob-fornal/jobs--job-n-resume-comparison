@@ -75,18 +75,41 @@ export class DaysOfCodeComponent {
   };
 
   addNewGoal = (): void => {
-    const dialogRef = this.dialog.open(GoalModalComponent, { data: { type: 'New', description: '', done: false } });
+    const newGoal: Goal = { type: 'New', description: '', done: false };
+    const dialogRef = this.dialog.open(GoalModalComponent, { data: newGoal });
     dialogRef.afterClosed().subscribe(this.handleAddNewGoalClose.bind(this));
   };
 
   handleAddNewGoalClose = (goal: Goal): void => {
-    this._structure!.goals.push({ description: goal.description, done: goal.done });
+    const newGoal: Goal = { description: goal.description, done: goal.done };
+    this._structure!.goals.push(newGoal);
     this.service.structureChange(this._structure!);
   };
 
   toggleGoal = (index: number): void => {
     this.goals[index].done = !this.goals[index].done;
     this._structure!.goals = [ ...this.goals ];
+    this.service.structureChange(this._structure!);
+  };
+
+  editIndex: number = -1;
+  editGoal = (index: number): void => {
+    this.editIndex = index;
+    const editGoal: Goal = { ...this.goals[index], type: 'Edit' };
+    const dialogRef = this.dialog.open(GoalModalComponent, { data: editGoal });
+    dialogRef.afterClosed().subscribe(this.handleEditGoalClose.bind(this));
+  };
+
+  handleEditGoalClose = (goal: Goal): void => {
+    const editedGoal: Goal = { description: goal.description, done: goal.done }
+    this._structure!.goals[this.editIndex] = editedGoal;
+    this.service.structureChange(this._structure!);
+  };
+
+  deleteGoal = (index: number): void => {
+    const goals: Array<Goal> = [...this.goals];
+    goals.splice(index, 1);
+    this._structure!.goals = [...goals];
     this.service.structureChange(this._structure!);
   };
 }
