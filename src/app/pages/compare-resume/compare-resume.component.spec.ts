@@ -212,7 +212,7 @@ describe('CompareResumeComponent', () => {
     spyOn(component, 'textareaAdjust').and.stub();
 
     component.selectResume(event, resume);
-    expect(component.textareaAdjust).not.toHaveBeenCalled();
+    expect(component.textareaAdjust).toHaveBeenCalled();
   });
 
   it('expects "selectResume" to set name and content', () => {

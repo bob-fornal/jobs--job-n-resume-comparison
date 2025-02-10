@@ -47,7 +47,6 @@ export class TopToolbarComponent {
   initViewGoals = (): void => {
     const viewGoals: boolean = this.service.viewGoals();
     this.viewGoals = viewGoals;
-    console.log('initViewGoals', viewGoals);
   };
 
   toggleDarkMode = (): void => {
@@ -65,7 +64,6 @@ export class TopToolbarComponent {
   };
 
   updateViewGoals = (viewGoals: boolean): void => {
-    // this.viewGoals = viewGoals;
     this.service.setViewGoals(viewGoals);
   };
 }
