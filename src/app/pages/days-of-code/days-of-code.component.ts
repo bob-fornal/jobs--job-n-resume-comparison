@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 
 import { Goal } from '../../core/interfaces/goal.interface';
 import { Item } from '../../core/interfaces/item.interface';
@@ -31,10 +31,11 @@ export class DaysOfCodeComponent {
     private dialog: MatDialog,
     private service: DaysOfCodeService,
   ) {
-    this.service.structure.subscribe(this.handleStructureChange);
+    effect(this.handleStructureEffect.bind(this));
   }
 
-  handleStructureChange = (structure: Structure): void => {
+  handleStructureEffect = (): void => {
+    const structure: Structure = this.service.structure();
     this._structure = { ...structure };
     
     this.useGoals = structure.useGoals;

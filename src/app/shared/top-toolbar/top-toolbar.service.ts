@@ -1,6 +1,5 @@
 import { Injectable, signal } from '@angular/core';
 import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,6 @@ export class TopToolbarService extends StorageClassAbstraction {
     } else {
       this.viewGoalsSignal.set(viewGoalsString === 'true');
     }
-    this.viewGoals$.next(this.viewGoalsSignal());
   }
 
   getDarkMode = (): boolean => {
@@ -43,12 +41,10 @@ export class TopToolbarService extends StorageClassAbstraction {
   };
 
   readonly viewGoals = this.viewGoalsSignal.asReadonly();
-  public viewGoals$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   setViewGoals = (state: boolean): void => {
     this.viewGoalsSignal.set(state);
     this.localstorage.setItem('job-squid--view-goals', state + '');
-    this.viewGoals$.next(state);
   };
 
   readonly activePage = this.activePageSignal.asReadonly();

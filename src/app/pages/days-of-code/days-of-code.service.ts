@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { effect, Injectable, Signal, signal } from '@angular/core';
 
 import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
 import { Structure } from '../../core/interfaces/strucuture.interface';
+
 import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
 
 @Injectable({
@@ -11,18 +11,24 @@ import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service'
 export class DaysOfCodeService extends StorageClassAbstraction {
 
   _structure: Structure = this.generateBlank();
-  structure: BehaviorSubject<Structure> = new BehaviorSubject<Structure>(this._structure);
+  structureSignal = signal(this._structure);
+  readonly structure: Signal<Structure> = this.structureSignal.asReadonly();
+
+  viewGoals: any;
 
   constructor(
-    toolbarService: TopToolbarService,
+    private toolbarService: TopToolbarService,
   ) {
     super();
 
     this.loadStructure();
-    toolbarService.viewGoals$.subscribe(this.handleViewGoalsChange.bind(this));
+
+    this.viewGoals = this.toolbarService.viewGoals;
+    effect(this.handleViewGoalsEffect.bind(this));
   }
 
-  handleViewGoalsChange = (value: boolean): void => {
+  handleViewGoalsEffect = (): void => {
+    const value: boolean = this.viewGoals();
     this._structure.useGoals = value;
     this.storeStructure(this._structure);
     this.loadStructure();
@@ -47,7 +53,7 @@ export class DaysOfCodeService extends StorageClassAbstraction {
 
     const data: Structure = JSON.parse(dataString);
     this._structure = { ...data };
-    this.structure.next(this._structure);
+    this.structureSignal.set(this._structure);
   };
 
   storeStructure = (structure: Structure): void => {
@@ -56,7 +62,7 @@ export class DaysOfCodeService extends StorageClassAbstraction {
 
   structureChange = (newStructure: Structure): void => {
     this._structure = { ...newStructure };
-    this.structure.next(this._structure);
+    this.structureSignal.set(this._structure);
     this.storeStructure(this._structure);
   };
 }
