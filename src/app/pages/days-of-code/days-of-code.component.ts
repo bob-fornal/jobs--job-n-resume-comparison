@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, ViewChild } from '@angular/core';
 
 import { Goal } from '../../core/interfaces/goal.interface';
 import { Item } from '../../core/interfaces/item.interface';
@@ -27,11 +27,14 @@ export class DaysOfCodeComponent {
   selectedIndex: number = -1;
   draggingIndex: number = -1;
 
+  @ViewChild('fileUpload') fileUpload: any;
+
   constructor(
     private dialog: MatDialog,
     private service: DaysOfCodeService,
   ) {
     effect(this.handleStructureEffect.bind(this));
+    effect(this.handleTriggerImportEffect.bind(this));
   }
 
   handleStructureEffect = (): void => {
@@ -43,6 +46,14 @@ export class DaysOfCodeComponent {
     
     this.days = structure.days;
     this.goals = structure.goals;
+  };
+
+  handleTriggerImportEffect = (): void => {
+    const triggerImport: string = this.service.triggerImport();
+    if (triggerImport === 'active') {
+      this.service.clearTriggerImport();
+      this.fileUpload.nativeElement.click();
+    }
   };
 
   toggleDay = (index: number): void => {
@@ -115,5 +126,22 @@ export class DaysOfCodeComponent {
     this.goals = goals;
     this._structure!.goals = [...goals];
     this.service.structureChange(this._structure!);
+  };
+
+  requiredFileType: string = 'application/JSON';
+
+  onFileSelect = (event: any): void => {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        const content: string = e.target.result;
+        const structure: Structure = JSON.parse(content);
+        this.service.structureChange(structure);
+      };
+
+      reader.readAsText(file);
+    }
   };
 }

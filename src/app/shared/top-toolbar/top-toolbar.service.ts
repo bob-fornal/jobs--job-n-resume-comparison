@@ -8,6 +8,7 @@ export class TopToolbarService extends StorageClassAbstraction {
 
   private activePageSignal = signal('resumes');
   private viewGoalsSignal = signal(false);
+  private menuItemSignal = signal({ page: '', item: '' });
 
   constructor() {
     super();
@@ -64,5 +65,11 @@ export class TopToolbarService extends StorageClassAbstraction {
     if (setLocalStorage === true) {
       this.localstorage.setItem('job-squid--active-page', page);
     }
+  };
+
+  readonly menuItem = this.menuItemSignal.asReadonly();
+
+  setMenuItem = (page: string, item: string): void => {
+    this.menuItemSignal.set({ page, item });
   };
 }

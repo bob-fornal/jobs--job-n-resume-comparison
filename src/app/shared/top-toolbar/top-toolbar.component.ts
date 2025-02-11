@@ -66,4 +66,8 @@ export class TopToolbarComponent {
   updateViewGoals = (viewGoals: boolean): void => {
     this.service.setViewGoals(viewGoals);
   };
+
+  menuItemSelected = (page: string, item: string): void => {
+    this.service.setMenuItem(page, item);
+  };
 }

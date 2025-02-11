@@ -61,4 +61,12 @@
     }
   </div>
 
+  <div class="import-html">
+    <input
+      type="file"
+      [accept]="requiredFileType"
+      (change)="onFileSelect($event)"
+      #fileUpload
+    />
+  </div>
 </div>
