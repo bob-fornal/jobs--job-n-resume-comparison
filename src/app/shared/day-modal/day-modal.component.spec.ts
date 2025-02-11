@@ -23,8 +23,8 @@ describe('DayModalComponent', () => {
         DayModalComponent,
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: { number: 1, note: 'NOTE', done: true } },
-        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: { number: 1, note: 'TEST-NOTE', done: true } },
+        { provide: MatDialogRef, useValue: { close: () => ({}) } },
       ],
     })
     .compileComponents();
@@ -36,5 +36,21 @@ describe('DayModalComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('expects "cancel" to only close the modal', () => {
+    spyOn(component['dialogRef'], 'close').and.stub();
+
+    component.cancel();
+    expect(component['dialogRef'].close).toHaveBeenCalled();
+  });
+
+  it('expects "save" to close the modal and pass the note', () => {
+    spyOn(component['dialogRef'], 'close').and.stub();
+    const note: string = 'CLOSE-NOTE';
+    component.day.note = note;
+
+    component.save();
+    expect(component['dialogRef'].close).toHaveBeenCalledWith(note);
   });
 });
