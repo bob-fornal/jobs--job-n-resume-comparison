@@ -109,6 +109,7 @@ export class DaysOfCodeComponent {
   deleteGoal = (index: number): void => {
     const goals: Array<Goal> = [...this.goals];
     goals.splice(index, 1);
+    this.goals = goals;
     this._structure!.goals = [...goals];
     this.service.structureChange(this._structure!);
   };
