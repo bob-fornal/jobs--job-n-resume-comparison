@@ -11,19 +11,29 @@ export class TopToolbarService extends StorageClassAbstraction {
 
   constructor() {
     super();
+    this.init();
+  }
 
+  init = (): void => {
+    this.initActivePage();
+    this.initViewGoals();
+  };
+
+  initActivePage = (): void => {
     const activePage: any = this.localstorage.getItem('job-squid--active-page');
     if (activePage !== null) {
       this.setActivePage(activePage, false);
     }
+  };
 
+  initViewGoals = (): void => {
     const viewGoalsString: any = this.localstorage.getItem('job-squid--view-goals');
     if (viewGoalsString === null) {
       this.viewGoalsSignal.set(false);
     } else {
       this.viewGoalsSignal.set(viewGoalsString === 'true');
     }
-  }
+  };
 
   getDarkMode = (): boolean => {
     const mode = this.localstorage.getItem('job-squid--dark-mode');
