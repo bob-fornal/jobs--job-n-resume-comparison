@@ -137,8 +137,16 @@ describe('DaysOfCodeComponent', () => {
     expect(afterClosed.subscribe).toHaveBeenCalled();
   });
 
+  it('expects "handleDayModalClose" to do nothing if note is undefined', () => {
+    const note: string | undefined = undefined;
+    spyOn(component['service'], 'structureChange').and.stub();
+
+    component.handleDayModalClose(note);
+    expect(component['service'].structureChange).not.toHaveBeenCalled();
+  });
+
   it('expects "handleDayModalClose" to update the structure and store', () => {
-    const note: string = 'TEST-NOTE';
+    const note: string | undefined = 'TEST-NOTE';
     const structure: Structure = {
       useGoals: true,
       useNotes: true,
@@ -174,8 +182,16 @@ describe('DaysOfCodeComponent', () => {
     expect(afterClosed.subscribe).toHaveBeenCalled();
   });
 
+  it('expects "handleAddNewGoalClose" to do nothing if note is undefined', () => {
+    const goal: Goal | undefined = undefined;
+    spyOn(component['service'], 'structureChange').and.stub();
+
+    component.handleAddNewGoalClose(goal);
+    expect(component['service'].structureChange).not.toHaveBeenCalled();
+  });
+
   it('expects "handleAddNewGoalClose" to update the structure and store', () => {
-    const goal: Goal = { description: 'NEW-DESCRIPTION', done: true };
+    const goal: Goal | undefined = { description: 'NEW-DESCRIPTION', done: true };
     const structure: Structure = {
       useGoals: true,
       useNotes: true,
@@ -244,8 +260,16 @@ describe('DaysOfCodeComponent', () => {
     expect(afterClosed.subscribe).toHaveBeenCalled();
   });
 
+  it('expects "handleEditGoalClose" to do nothing if note is undefined', () => {
+    const goal: Goal | undefined = undefined;
+    spyOn(component['service'], 'structureChange').and.stub();
+
+    component.handleEditGoalClose(goal);
+    expect(component['service'].structureChange).not.toHaveBeenCalled();
+  });
+
   it('expects "handleEditGoalClose" to update the structure and store', () => {
-    const goal: Goal = { description: 'NEW-DESCRIPTION', done: true };
+    const goal: Goal | undefined = { description: 'NEW-DESCRIPTION', done: true };
     const structure: Structure = {
       useGoals: true,
       useNotes: true,

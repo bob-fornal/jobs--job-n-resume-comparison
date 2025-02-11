@@ -69,7 +69,8 @@ export class DaysOfCodeComponent {
     dialogRef.afterClosed().subscribe(this.handleDayModalClose.bind(this));
   };
 
-  handleDayModalClose = (note: string): void => {
+  handleDayModalClose = (note: string | undefined): void => {
+    if (note === undefined) return;
     this._structure!.days[this.selectedIndex].note = note;
     this.service.structureChange(this._structure!);
   };
@@ -80,7 +81,8 @@ export class DaysOfCodeComponent {
     dialogRef.afterClosed().subscribe(this.handleAddNewGoalClose.bind(this));
   };
 
-  handleAddNewGoalClose = (goal: Goal): void => {
+  handleAddNewGoalClose = (goal: Goal | undefined): void => {
+    if (goal === undefined) return;
     const newGoal: Goal = { description: goal.description, done: goal.done };
     this._structure!.goals.push(newGoal);
     this.service.structureChange(this._structure!);
@@ -100,7 +102,8 @@ export class DaysOfCodeComponent {
     dialogRef.afterClosed().subscribe(this.handleEditGoalClose.bind(this));
   };
 
-  handleEditGoalClose = (goal: Goal): void => {
+  handleEditGoalClose = (goal: Goal | undefined): void => {
+    if (goal === undefined) return;
     const editedGoal: Goal = { description: goal.description, done: goal.done }
     this._structure!.goals[this.editIndex] = editedGoal;
     this.service.structureChange(this._structure!);
