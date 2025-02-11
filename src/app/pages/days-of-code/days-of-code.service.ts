@@ -47,7 +47,7 @@ export class DaysOfCodeService extends StorageClassAbstraction {
     return structure;
   }
 
-  loadStructure = () => {
+  loadStructure = (): void => {
     const dataString: string | null = this.localstorage.getItem('job-squid--100-days');
     if (dataString === null) return;
 
