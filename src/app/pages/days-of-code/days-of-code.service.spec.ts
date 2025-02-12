@@ -37,6 +37,58 @@ describe('DaysOfCodeService', () => {
     expect(service.loadStructure).toHaveBeenCalled();
   });
 
+  it('expects "handleMenuItem" to do nothing if page is not days-fo-code', () => {
+    const menuItem: any = { page: 'NOT-days-of-code', item: '' };
+    spyOn(service, 'menuItem').and.returnValue(menuItem);
+    spyOn(service, 'exportBlankRecordset').and.stub();
+    spyOn(service, 'exportCurrentRecordset').and.stub();
+    spyOn(service, 'importSavedRecordset').and.stub();
+
+    service.handleMenuItemEffect();
+    expect(service.exportBlankRecordset).not.toHaveBeenCalled();
+    expect(service.exportCurrentRecordset).not.toHaveBeenCalled();
+    expect(service.importSavedRecordset).not.toHaveBeenCalled();
+  });
+
+  it('expects "handleMenuItem" to handle export-blank-recordset', () => {
+    const menuItem: any = { page: 'days-of-code', item: 'export-blank-recordset' };
+    spyOn(service, 'menuItem').and.returnValue(menuItem);
+    spyOn(service, 'exportBlankRecordset').and.stub();
+    spyOn(service, 'exportCurrentRecordset').and.stub();
+    spyOn(service, 'importSavedRecordset').and.stub();
+
+    service.handleMenuItemEffect();
+    expect(service.exportBlankRecordset).toHaveBeenCalled();
+    expect(service.exportCurrentRecordset).not.toHaveBeenCalled();
+    expect(service.importSavedRecordset).not.toHaveBeenCalled();
+  });
+
+  it('expects "handleMenuItem" to handle export-current-recordset', () => {
+    const menuItem: any = { page: 'days-of-code', item: 'export-current-recordset' };
+    spyOn(service, 'menuItem').and.returnValue(menuItem);
+    spyOn(service, 'exportBlankRecordset').and.stub();
+    spyOn(service, 'exportCurrentRecordset').and.stub();
+    spyOn(service, 'importSavedRecordset').and.stub();
+
+    service.handleMenuItemEffect();
+    expect(service.exportBlankRecordset).not.toHaveBeenCalled();
+    expect(service.exportCurrentRecordset).toHaveBeenCalled();
+    expect(service.importSavedRecordset).not.toHaveBeenCalled();
+  });
+
+  it('expects "handleMenuItem" to handle import-saved-recordset', () => {
+    const menuItem: any = { page: 'days-of-code', item: 'import-saved-recordset' };
+    spyOn(service, 'menuItem').and.returnValue(menuItem);
+    spyOn(service, 'exportBlankRecordset').and.stub();
+    spyOn(service, 'exportCurrentRecordset').and.stub();
+    spyOn(service, 'importSavedRecordset').and.stub();
+
+    service.handleMenuItemEffect();
+    expect(service.exportBlankRecordset).not.toHaveBeenCalled();
+    expect(service.exportCurrentRecordset).not.toHaveBeenCalled();
+    expect(service.importSavedRecordset).toHaveBeenCalled();
+  });
+
   it('expects "generateBlank" to generate an empty structure (100 Days)', () => {
     const emptyStructure: Structure = service.generateBlank();
     expect(emptyStructure.useGoals).toEqual(true);
@@ -118,5 +170,33 @@ describe('DaysOfCodeService', () => {
     expect(service._structure).toEqual(structure);
     expect(service.structureSignal.set).toHaveBeenCalledWith(structure);
     expect(service.storeStructure).toHaveBeenCalledWith(structure);
+  });
+
+  it('expects "exportBlankRecordset" to trigger save with a blob and filename', () => {
+    spyOn(service, 'saveAs').and.stub();
+
+    service.exportBlankRecordset();
+    expect(service.saveAs).toHaveBeenCalledWith(jasmine.any(Blob), 'blank-days-of-code.json');
+  });
+
+  it('expects "exportCurrentRecordset" to trigger save with a blob and filename', () => {
+    spyOn(service, 'saveAs').and.stub();
+
+    service.exportCurrentRecordset();
+    expect(service.saveAs).toHaveBeenCalledWith(jasmine.any(Blob), 'current-days-of-code.json');
+  });
+
+  it('expects "importSavedRecordset" to set trigger import signal to active', () => {
+    spyOn(service.triggerImportSignal, 'set').and.stub();
+
+    service.importSavedRecordset();
+    expect(service.triggerImportSignal.set).toHaveBeenCalledWith('active');
+  });
+
+  it('expects "clearTriggerImport" to set trigger import signal to inactive', () => {
+    spyOn(service.triggerImportSignal, 'set').and.stub();
+
+    service.clearTriggerImport();
+    expect(service.triggerImportSignal.set).toHaveBeenCalledWith('inactive');
   });
 });
