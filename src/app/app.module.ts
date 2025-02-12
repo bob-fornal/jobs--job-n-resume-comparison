@@ -21,11 +21,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { AboutComponent } from './pages/about/about.component';
 import { CompareResumeComponent } from './pages/compare-resume/compare-resume.component';
-import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component';
-import { ItemImageComponent } from './shared/item-image/item-image.component';
 import { DayModalComponent } from './shared/day-modal/day-modal.component';
-import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component';
+import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component';
 import { GoalModalComponent } from './shared/goal-modal/goal-modal.component';
+import { ItemImageComponent } from './shared/item-image/item-image.component';
+import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -33,11 +33,11 @@ import { GoalModalComponent } from './shared/goal-modal/goal-modal.component';
 
     AboutComponent,
     CompareResumeComponent,
-    DaysOfCodeComponent,
-    ItemImageComponent,
     DayModalComponent,
-    TopToolbarComponent,
+    DaysOfCodeComponent,
     GoalModalComponent,
+    ItemImageComponent,
+    TopToolbarComponent,
   ],
   imports: [
     BrowserModule,

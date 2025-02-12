@@ -136,9 +136,7 @@ export class DaysOfCodeComponent {
     const file: File = event.target.files[0];
     if (file) {
       const reader = new this.fileReader();
-
       reader.onload = this.readerOnload.bind(this);
-
       reader.readAsText(file);
     }
   };

@@ -6,6 +6,7 @@ import { StorageClassAbstraction } from '../../core/services/storage-class-abstr
 import { Structure } from '../../core/interfaces/strucuture.interface';
 
 import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
+import { MenuItem } from '../../core/interfaces/menu-item.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class DaysOfCodeService extends StorageClassAbstraction {
   };
 
   handleMenuItemEffect = (): void => {
-    const { page, item }: { page: string, item: string } = this.menuItem();
+    const { page, item }: MenuItem = this.menuItem();
     if (page === 'days-of-code') {
       switch (item) {
         case 'export-blank-recordset':
