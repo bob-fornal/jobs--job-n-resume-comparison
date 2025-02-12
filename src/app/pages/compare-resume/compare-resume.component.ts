@@ -120,7 +120,8 @@ export class CompareResumeComponent {
       .filter((value: string) => !value.startsWith('##'))
       .join('\n');
 
-    const keywords = this.keywordExtractor
+    const firstPassKeywords: Array<string> = this
+      .keywordExtractor
       .extract(adjustedContent, {
         language:"english",
         remove_digits: true,
@@ -128,6 +129,8 @@ export class CompareResumeComponent {
         remove_duplicates: true,
       })
       .sort();
+
+      const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
     
       const result: ResumeDetails = { name, content, keywords };
       const resumes: Array<ResumeDetails> = [...this.resumes];
