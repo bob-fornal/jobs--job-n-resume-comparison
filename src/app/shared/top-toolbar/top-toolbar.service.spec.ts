@@ -125,4 +125,13 @@ describe('TopToolbarService', () => {
     expect(service['activePageSignal'].set).toHaveBeenCalledWith(page);
     expect(service.localstorage.setItem).toHaveBeenCalledWith('job-squid--active-page', page);
   });
+
+  it('expects "setMenuItem" to set the signal', () => {
+    const page: string = 'PAGE';
+    const item: string = 'ITEM';
+    spyOn(service['menuItemSignal'], 'set').and.stub();
+
+    service.setMenuItem(page, item);
+    expect(service['menuItemSignal'].set).toHaveBeenCalledWith({ page, item });
+  });
 });

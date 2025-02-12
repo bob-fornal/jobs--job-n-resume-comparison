@@ -56,6 +56,36 @@ describe('DaysOfCodeComponent', () => {
     expect(component.goals).toEqual(structure.goals);
   });
 
+  it('expects "handlTriggerImportEffect" to do nothing if trigger import is inactive', () => {
+    spyOn(component['service'], 'triggerImport').and.returnValue('inactive');
+    spyOn(component['service'], 'clearTriggerImport').and.stub();
+    component.fileUpload = {
+      nativeElement: {
+        click: () => ({}),
+      },
+    };
+    spyOn(component.fileUpload.nativeElement, 'click').and.stub();
+
+    component.handleTriggerImportEffect();
+    expect(component['service'].clearTriggerImport).not.toHaveBeenCalled();
+    expect(component.fileUpload.nativeElement.click).not.toHaveBeenCalled();
+  });
+
+  it('expects "handlTriggerImportEffect" to clear and click file upload element', () => {
+    spyOn(component['service'], 'triggerImport').and.returnValue('active');
+    spyOn(component['service'], 'clearTriggerImport').and.stub();
+    component.fileUpload = {
+      nativeElement: {
+        click: () => ({}),
+      },
+    };
+    spyOn(component.fileUpload.nativeElement, 'click').and.stub();
+
+    component.handleTriggerImportEffect();
+    expect(component['service'].clearTriggerImport).toHaveBeenCalled();
+    expect(component.fileUpload.nativeElement.click).toHaveBeenCalled();
+  });
+
   it('expects "toggleDay" to toggle state and update structure if useNotes is false', () => {
     const structure: Structure = {
       useGoals: true,
@@ -315,5 +345,43 @@ describe('DaysOfCodeComponent', () => {
     component.deleteGoal(index);
     expect(component.goals).toEqual(expected);
     expect(component['service'].structureChange).toHaveBeenCalledWith(structure);
+  });
+
+  it('expects "onFileSelect" to do nothing if file is undefined', () => {
+    let triggered: boolean = false;
+    class MockFileReader {
+      onload: any;
+      readAsText() {
+        triggered = true;
+      }
+    }
+    component.fileReader = MockFileReader;
+    const event: any = {
+      target: {
+        files: [undefined],
+      },
+    };
+
+    component.onFileSelect(event);
+    expect(triggered).toEqual(false);
+  });
+
+  it('expects "onFileSelect" to process file if file exists', () => {
+    let triggered: boolean = false;
+    class MockFileReader {
+      onload: any;
+      readAsText() {
+        triggered = true;
+      }
+    }
+    component.fileReader = MockFileReader;
+    const event: any = {
+      target: {
+        files: [true],
+      },
+    };
+
+    component.onFileSelect(event);
+    expect(triggered).toEqual(true);
   });
 });

@@ -29,6 +29,8 @@ export class DaysOfCodeComponent {
 
   @ViewChild('fileUpload') fileUpload: any;
 
+  fileReader: any = FileReader;
+
   constructor(
     private dialog: MatDialog,
     private service: DaysOfCodeService,
@@ -133,7 +135,7 @@ export class DaysOfCodeComponent {
   onFileSelect = (event: any): void => {
     const file: File = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
+      const reader = new this.fileReader();
 
       reader.onload = (e: any) => {
         const content: string = e.target.result;
