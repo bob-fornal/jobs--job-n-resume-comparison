@@ -53,6 +53,59 @@ describe('CompareResumeComponent', () => {
     expect(component['service'].getResumes).toHaveBeenCalled();
   });
 
+  it('expects "handleTriggerIgnoreListEffect" to do nothing if triggered', () => {
+    spyOn(component['service'], 'triggerIgnoreList').and.returnValue('not-triggered');
+    spyOn(component['service'], 'clearTriggerIgnoreList').and.stub();
+    spyOn(component, 'openIgnoreListModal').and.stub();
+
+    component.handleTriggerIgnoreListEffect();
+    expect(component['service'].clearTriggerIgnoreList).not.toHaveBeenCalled();
+    expect(component.openIgnoreListModal).not.toHaveBeenCalled();
+  });
+
+  it('expects "handleTriggerIgnoreListEffect" to open modal if triggered', () => {
+    spyOn(component['service'], 'triggerIgnoreList').and.returnValue('triggered');
+    spyOn(component['service'], 'clearTriggerIgnoreList').and.stub();
+    spyOn(component, 'openIgnoreListModal').and.stub();
+
+    component.handleTriggerIgnoreListEffect();
+    expect(component['service'].clearTriggerIgnoreList).toHaveBeenCalled();
+    expect(component.openIgnoreListModal).toHaveBeenCalled();
+  });
+
+  it('expects "openIgnoreListModal" to open the modal', () => {
+    const list: Array<string> = ['test1', 'test2', 'test3'];
+    spyOn(component['service'], 'getIgnoreList').and.returnValue(list);
+    const afterClosed: any = {
+      subscribe: () => ({}),
+    };
+    const openResult: any = {
+      afterClosed: () => (afterClosed),
+    };
+    spyOn(component['dialog'], 'open').and.returnValue(openResult as any);
+    spyOn(afterClosed, 'subscribe').and.stub();
+
+    component.openIgnoreListModal();
+    expect(component['dialog'].open).toHaveBeenCalledWith(jasmine.any(Function), { data: 'test1, test2, test3' });
+    expect(afterClosed.subscribe).toHaveBeenCalled();
+  });
+
+  it('expects "handleIgnoreListModalClose" to handle undefined', () => {
+    const listString: string | undefined = undefined;
+    spyOn(component['service'], 'setDefaultIgnoreList').and.stub();
+
+    component.handleIgnoreListModalClose(listString);
+    expect(component['service'].setDefaultIgnoreList).not.toHaveBeenCalled();
+  });
+
+  it('expects "handleIgnoreListModalClose" to handle a string', () => {
+    const listString: string | undefined = 'item1,  item2,item3';
+    spyOn(component['service'], 'setDefaultIgnoreList').and.stub();
+
+    component.handleIgnoreListModalClose(listString);
+    expect(component['service'].setDefaultIgnoreList).toHaveBeenCalledWith(['item1', 'item2', 'item3']);
+  });
+
   it('expects "textareaAdjust" to adjust height for a non-native element', () => {
     const event: any = {
       nativeElement: {

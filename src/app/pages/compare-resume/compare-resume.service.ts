@@ -68,7 +68,6 @@ export class CompareResumeService extends StorageClassAbstraction {
   };
 
   setDefaultIgnoreList = (list: Array<string> | null = null): void => {
-    console.log(list);
     if (list === null) {
       const listString = this.localstorage.getItem('job-squid--ignore-list');
       if (listString === null) {
@@ -81,9 +80,7 @@ export class CompareResumeService extends StorageClassAbstraction {
 
   getIgnoreList = (): Array<string> => {
     const listString: string = this.localstorage.getItem('job-squid--ignore-list');
-    console.log(listString);
     const list: Array<string> = JSON.parse(listString);
-    console.log(list);
     return list;
   };
 
