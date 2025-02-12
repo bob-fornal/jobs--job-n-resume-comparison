@@ -137,13 +137,15 @@ export class DaysOfCodeComponent {
     if (file) {
       const reader = new this.fileReader();
 
-      reader.onload = (e: any) => {
-        const content: string = e.target.result;
-        const structure: Structure = JSON.parse(content);
-        this.service.structureChange(structure);
-      };
+      reader.onload = this.readerOnload.bind(this);
 
       reader.readAsText(file);
     }
+  };
+
+  readerOnload = (event: any) => {
+    const content: string = event.target.result;
+    const structure: Structure = JSON.parse(content);
+    this.service.structureChange(structure);
   };
 }

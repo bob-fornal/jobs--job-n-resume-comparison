@@ -384,4 +384,27 @@ describe('DaysOfCodeComponent', () => {
     component.onFileSelect(event);
     expect(triggered).toEqual(true);
   });
+
+  it('expects "readerOnload" to update to the passed structure', () => {
+    const structure: Structure = {
+      useGoals: true,
+      useNotes: true,
+      days: [
+        { number: 1, note: 'NOTE', done: false },
+      ],
+      goals: [
+        { description: 'DESCRIPTION', done: false },
+      ],
+    };
+    const structureString: string = JSON.stringify(structure);
+    const event: any = {
+      target: {
+        result: structureString,
+      },
+    };
+    spyOn(component['service'], 'structureChange').and.stub();
+
+    component.readerOnload(event);
+    expect(component['service'].structureChange).toHaveBeenCalledWith(structure);
+  });
 });

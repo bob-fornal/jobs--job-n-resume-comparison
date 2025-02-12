@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FeatureFlagsService {
 
-  flags: any = {
+  private flags: any = {
     longTermGoals: false,
     companyTracking: false,
     interviewResearch: false,
@@ -16,7 +16,7 @@ export class FeatureFlagsService {
     private route: ActivatedRoute,
   ) { }
 
-  hasUrlParam = (param: string): boolean => {
+  private hasUrlParam = (param: string): boolean => {
     return this.route.snapshot.params.hasOwnProperty(param);
   };
 
