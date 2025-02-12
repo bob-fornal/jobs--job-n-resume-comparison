@@ -54,6 +54,13 @@
   <mat-menu #functionalityMenu="matMenu">
     @switch (selectedPageMenu) {
       @case ('resumes') {
+        <button mat-menu-item (click)="menuItemSelected('resumes', 'change-ignore-list')">
+          <mat-icon fontSet="material-icons-outlined">subject</mat-icon>
+          <span>Change Ignore Word List</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
         <button mat-menu-item (click)="menuItemSelected('resumes', 'export-current-recordset')">
           <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
           <span>Export Resumes</span>
@@ -61,7 +68,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-menu-item (click)="menuItemSelected('resumes', 'import-current-recordset')">
+        <button mat-menu-item (click)="menuItemSelected('resumes', 'import-saved-recordset')">
           <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
           <span>Import Resumes</span>
         </button>

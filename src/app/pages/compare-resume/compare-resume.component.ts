@@ -1,10 +1,12 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import keyword_extractor from 'keyword-extractor';
 
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 import { CompareResumeService } from './compare-resume.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalIgnoreListComponent } from '../../shared/modal-ignore-list/modal-ignore-list.component';
 
 @Component({
   selector: 'app-compare-resume',
@@ -34,14 +36,37 @@ export class CompareResumeComponent {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private dialog: MatDialog,
     private service: CompareResumeService,
   ) {
     this.service.resumes.subscribe(this.handleResumes.bind(this));
     this.init();
+
+    effect(this.handleTriggerIgnoreListEffect.bind(this));
   }
 
   init = (): void => {
     this.service.getResumes();
+  };
+
+  handleTriggerIgnoreListEffect = (): void => {
+    const triggerIgnoreList: string = this.service.triggerIgnoreList();
+    if (triggerIgnoreList === 'triggered') {
+      this.service.clearTriggerIgnoreList();
+      this.openIgnoreListModal();
+    }
+  };
+
+  openIgnoreListModal = (): void => {
+    const listString: string = this.service.getIgnoreList().join(', ');
+    const dialogRef = this.dialog.open(ModalIgnoreListComponent, { data: listString });
+    dialogRef.afterClosed().subscribe(this.handleIgnoreListModalClose.bind(this));
+  };
+
+  handleIgnoreListModalClose = (listString: string | undefined): void => {
+    if (listString === undefined) return;
+    const list: Array<string> = listString.split(',').map((item: string) => item.trim()).sort();
+    this.service.setDefaultIgnoreList(list);
   };
 
   textareaAdjust = (event: any, isTarget: boolean = false): void => {

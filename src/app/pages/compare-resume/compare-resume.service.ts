@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
@@ -6,6 +6,8 @@ import { StorageClassAbstraction } from '../../core/services/storage-class-abstr
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 
 import ignoreList from '../../core/constants/ignore-list.json';
+import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
+import { MenuItem } from '../../core/interfaces/menu-item.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +18,35 @@ export class CompareResumeService extends StorageClassAbstraction {
 
   defaultIgnoreList: Array<string> = ignoreList as Array<string>;
 
-  constructor() {
+  menuItem: any;
+
+  constructor(
+    private toolbarService: TopToolbarService,
+  ) {
     super();
 
     this.setDefaultIgnoreList();
+
+    this.menuItem = this.toolbarService.menuItem;
+    effect(this.handleMenuItemEffect.bind(this));
   }
+
+  handleMenuItemEffect = (): void => {
+    const { page, item }: MenuItem = this.menuItem();
+    if (page === 'resumes') {
+      switch (item) {
+        case 'change-ignore-list':
+          this.changeIgnoreList();
+          break;
+        // case 'export-current-recordset':
+        //   this.exportCurrentRecordset();
+        //   break;
+        // case 'import-saved-recordset':
+        //   this.importSavedRecordset();
+        //   break;
+        }
+    }
+  };
 
   getResumes = (): void => {
     const resumes = this.localstorage.getItem('job-squid--resumes');
@@ -42,8 +68,12 @@ export class CompareResumeService extends StorageClassAbstraction {
   };
 
   setDefaultIgnoreList = (list: Array<string> | null = null): void => {
+    console.log(list);
     if (list === null) {
-      this.localstorage.setItem('job-squid--ignore-list', JSON.stringify(this.defaultIgnoreList));
+      const listString = this.localstorage.getItem('job-squid--ignore-list');
+      if (listString === null) {
+        this.localstorage.setItem('job-squid--ignore-list', JSON.stringify(this.defaultIgnoreList));
+      }
     } else {
       this.localstorage.setItem('job-squid--ignore-list', JSON.stringify(list));
     }
@@ -51,12 +81,25 @@ export class CompareResumeService extends StorageClassAbstraction {
 
   getIgnoreList = (): Array<string> => {
     const listString: string = this.localstorage.getItem('job-squid--ignore-list');
+    console.log(listString);
     const list: Array<string> = JSON.parse(listString);
+    console.log(list);
     return list;
   };
 
   extractIgnoreList = (list: Array<string>): Array<string> => {
     const ignoreList: Array<string> = this.getIgnoreList();
     return list.filter((item: string) => !ignoreList.includes(item));
+  };
+
+  triggerIgnoreListSignal = signal('not-triggered');
+  readonly triggerIgnoreList = this.triggerIgnoreListSignal.asReadonly();
+
+  changeIgnoreList = (): void => {
+    this.triggerIgnoreListSignal.set('triggered');
+  };
+
+  clearTriggerIgnoreList = (): void => {
+    this.triggerIgnoreListSignal.set('not-triggered');
   };
 }

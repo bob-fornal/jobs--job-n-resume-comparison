@@ -3,18 +3,17 @@ import { Goal } from '../../core/interfaces/goal.interface';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-goal-modal',
+  selector: 'app-modal-goal',
   standalone: false,
   
-  templateUrl: './goal-modal.component.html',
-  styleUrl: './goal-modal.component.css'
+  templateUrl: './modal-goal.component.html',
 })
-export class GoalModalComponent {
+export class ModalGoalComponent {
 
-  goal = inject<Goal>(MAT_DIALOG_DATA);
+  goal: Goal = inject<Goal>(MAT_DIALOG_DATA);
 
   constructor(
-    private dialogRef: MatDialogRef<GoalModalComponent>,
+    private dialogRef: MatDialogRef<ModalGoalComponent>,
   ) {}
 
   cancel = (): void => {

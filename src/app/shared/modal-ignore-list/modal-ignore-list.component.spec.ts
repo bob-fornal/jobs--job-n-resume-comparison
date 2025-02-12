@@ -1,16 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
-import { GoalModalComponent } from './goal-modal.component';
+import { ModalIgnoreListComponent } from './modal-ignore-list.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
-import { FormsModule } from '@angular/forms';
-import { Goal } from '../../core/interfaces/goal.interface';
-
-describe('GoalModalComponent', () => {
-  let component: GoalModalComponent;
-  let fixture: ComponentFixture<GoalModalComponent>;
+describe('ModalIgnoreListComponent', () => {
+  let component: ModalIgnoreListComponent;
+  let fixture: ComponentFixture<ModalIgnoreListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,16 +19,16 @@ describe('GoalModalComponent', () => {
         MatDialogModule,
       ],
       declarations: [
-        GoalModalComponent,
+        ModalIgnoreListComponent
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: { type: 'New', description: '', done: false } },
+        { provide: MAT_DIALOG_DATA, useValue: 'word1, word2, word3' },
         { provide: MatDialogRef, useValue: { close: () => ({}) } },
       ],
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GoalModalComponent);
+    fixture = TestBed.createComponent(ModalIgnoreListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -48,10 +46,9 @@ describe('GoalModalComponent', () => {
 
   it('expects "save" to close the modal and pass the note', () => {
     spyOn(component['dialogRef'], 'close').and.stub();
-    const goal: Goal = { type: 'Testing', description: 'TESTING', done: true };
-    component.goal = goal;
+    component.ignoreList = 'test1, test2';
 
     component.save();
-    expect(component['dialogRef'].close).toHaveBeenCalledWith(goal);
+    expect(component['dialogRef'].close).toHaveBeenCalledWith('test1, test2');
   });
 });
