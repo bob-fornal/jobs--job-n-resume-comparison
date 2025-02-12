@@ -1,30 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
+
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StorageService {
-  localstorage: any = window.localStorage;
+export class CompareResumeService extends StorageClassAbstraction {
 
   resumes: BehaviorSubject<Array<ResumeDetails>> = new BehaviorSubject<Array<ResumeDetails>>([]);
 
-  getDarkMode = (): boolean => {
-    const mode = this.localstorage.getItem('job-squid--dark-mode');
-    if (mode === null) {
-      this.localstorage.setItem('job-squid--dark-mode', 'false');
-      return false;
-    } else {
-      return mode === 'true';
-    }
-  };
-
-  setDarkMode = (mode: boolean): void => {
-    const modeString: string = JSON.stringify(mode);
-    this.localstorage.setItem('job-squid--dark-mode', modeString);
-  };
+  constructor() {
+    super();
+  }
 
   getResumes = (): void => {
     const resumes = this.localstorage.getItem('job-squid--resumes');

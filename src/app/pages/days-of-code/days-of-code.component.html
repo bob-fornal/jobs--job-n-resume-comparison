@@ -1,0 +1,72 @@
+<h3 class="page-title">#100DaysOfCode Tracker</h3>
+
+<div class="days-of-code-wrapper">
+
+  @if (useGoals === true) {
+    <div class="show-goals-wrapper">
+      <div class="goals-functionality-wrapper">
+        <button
+          mat-flat-button
+          class="functional-button"
+          (click)="addNewGoal()"
+        >
+          <mat-icon>add</mat-icon>
+          <span>Add Goal</span>
+        </button>
+      </div>
+
+      <div class="goals-wrapper">
+        @for (goal of goals; track goal; let index = $index;) {
+          <div class="goal-card">
+            <div class="done" [class.finished]="goal.done === true">
+              <span class="text">{{ goal.done ? 'Complete' : 'Pending' }}</span>
+              <span class="right">
+                <span class="goal-card-item status" (click)="toggleGoal(index)">
+                  @if (goal.done === true) {
+                    <mat-icon class="material-icons-outlined">task_alt</mat-icon>
+                  } @else {
+                    <mat-icon class="material-icons-outlined">circle</mat-icon>
+                  }
+                </span>
+              </span>
+              <mat-icon
+                class="goal-card-item material-icons-outlined"
+                (click)="editGoal(index)"
+              >edit</mat-icon>
+              <mat-icon
+                class="goal-card-item material-icons-outlined"
+                (click)="deleteGoal(index)"
+              >delete</mat-icon>
+            </div>
+            <div class="description">{{ goal.description }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <div class="days">
+    @for(day of days; track day; let index = $index) {
+      <span class="day"
+        [class.active]="day.done === true"
+        (click)="toggleDay(index)"
+      >
+        <item-image [item]="day" />
+        @if (day.note.length > 0) {
+          <span class="tooltip-text">{{ day.note }}</span>
+        }
+
+        <span class="number">{{ day.number }}</span>
+      </span>
+    }
+  </div>
+
+  <div class="import-html">
+    <input
+      type="file"
+      [accept]="requiredFileType"
+      (change)="onFileSelect($event)"
+      #fileUpload
+    />
+  </div>
+</div>

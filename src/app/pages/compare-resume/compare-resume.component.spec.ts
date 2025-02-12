@@ -47,10 +47,10 @@ describe('CompareResumeComponent', () => {
   });
 
   it('expects "init" to trigger getResumes', () => {
-    spyOn(component['storage'], 'getResumes').and.stub();
+    spyOn(component['service'], 'getResumes').and.stub();
 
     component.init();
-    expect(component['storage'].getResumes).toHaveBeenCalled();
+    expect(component['service'].getResumes).toHaveBeenCalled();
   });
 
   it('expects "textareaAdjust" to adjust height for a non-native element', () => {
@@ -194,8 +194,11 @@ describe('CompareResumeComponent', () => {
       { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
       { name: 'IT EXISTS', content: '', keywords: [] },
     ];
+    const event: any = {
+      stopPropagation: () => ({}),
+    };
 
-    component.deleteResume(deleteResume);
+    component.deleteResume(event, deleteResume);
     expect(component.resumes).toEqual(expected);
   });
 
@@ -209,7 +212,7 @@ describe('CompareResumeComponent', () => {
     spyOn(component, 'textareaAdjust').and.stub();
 
     component.selectResume(event, resume);
-    expect(component.textareaAdjust).not.toHaveBeenCalled();
+    expect(component.textareaAdjust).toHaveBeenCalled();
   });
 
   it('expects "selectResume" to set name and content', () => {
@@ -244,11 +247,11 @@ describe('CompareResumeComponent', () => {
       resumeContent: undefined,
     });
     spyOn(component.keywordExtractor, 'extract').and.returnValue([]);
-    spyOn(component['storage'], 'setResumes').and.stub();
+    spyOn(component['service'], 'setResumes').and.stub();
 
     component.onSubmit();
     expect(component.keywordExtractor.extract).toHaveBeenCalled();
-    expect(component['storage'].setResumes).toHaveBeenCalledWith([...resumes, { name: '', content: '', keywords: [] }]);
+    expect(component['service'].setResumes).toHaveBeenCalledWith([...resumes, { name: '', content: '', keywords: [] }]);
   });
 
   it('expects "onSubmit" to handle record overwrite', () => {
@@ -262,7 +265,7 @@ describe('CompareResumeComponent', () => {
       resumeContent: 'CONTENT HERE',
     });
     spyOn(component.keywordExtractor, 'extract').and.returnValue(['CONTENT', 'HERE']);
-    spyOn(component['storage'], 'setResumes').and.stub();
+    spyOn(component['service'], 'setResumes').and.stub();
     const expected: Array<ResumeDetails> = [
       { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
       { name: 'IT EXISTS', content: 'CONTENT HERE', keywords: ['CONTENT', 'HERE'] },
@@ -270,6 +273,6 @@ describe('CompareResumeComponent', () => {
 
     component.onSubmit();
     expect(component.keywordExtractor.extract).toHaveBeenCalled();
-    expect(component['storage'].setResumes).toHaveBeenCalledWith(expected);
+    expect(component['service'].setResumes).toHaveBeenCalledWith(expected);
   });
 });

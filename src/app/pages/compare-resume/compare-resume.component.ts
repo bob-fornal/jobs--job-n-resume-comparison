@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import keyword_extractor from 'keyword-extractor';
 
-import { StorageService } from '../../core/services/storage.service';
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
+import { CompareResumeService } from './compare-resume.service';
 
 @Component({
   selector: 'app-compare-resume',
@@ -34,14 +34,14 @@ export class CompareResumeComponent {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private storage: StorageService,
+    private service: CompareResumeService,
   ) {
-    this.storage.resumes.subscribe(this.handleResumes.bind(this));
+    this.service.resumes.subscribe(this.handleResumes.bind(this));
     this.init();
   }
 
   init = (): void => {
-    this.storage.getResumes();
+    this.service.getResumes();
   };
 
   textareaAdjust = (event: any, isTarget: boolean = false): void => {
@@ -89,14 +89,13 @@ export class CompareResumeComponent {
     this.resumes = data;
   };
 
-  deleteResume = (deleteResume: ResumeDetails): void => {
+  deleteResume = (event: any, deleteResume: ResumeDetails): void => {
+    event.stopPropagation();
     const resumes: Array<ResumeDetails> = [...this.resumes].filter((resume: ResumeDetails) => resume.name !== deleteResume.name);
-    this.storage.setResumes(resumes);
+    this.service.setResumes(resumes);
   };
 
   selectResume = (event: any, resume: ResumeDetails): void => {
-    if (event.target.classList.includes('delete-icon')) return;
-
     this.resumeForm.patchValue({
       resumeName: resume.name,
       resumeContent: resume.content,
@@ -138,7 +137,7 @@ export class CompareResumeComponent {
       } else {
         resumes[index] = result;
       }
-      this.storage.setResumes(resumes);
+      this.service.setResumes(resumes);
 
       this.resumeForm.reset();
   };

@@ -1,0 +1,157 @@
+.days-of-code-wrapper {
+  width: 1150px;
+  margin: 0 auto;
+}
+
+.show-goals-wrapper {
+  padding: 1em 0;
+}
+
+.days {
+
+  .day {
+    display: inline-block;
+    margin-bottom: 0.25em;
+    padding: 1em 0.5em 0 0.5em;
+    width: 2.5em;
+    line-height: 0.95;
+    position: relative;
+
+    &:not(.active) {
+      cursor: pointer;
+    }
+    &.active {
+      color: var(--color-off-white);
+    }
+
+    .tooltip-text {
+      opacity: 0;
+      visibility: hidden;
+      
+      font-size: 0.8em;
+      box-sizing: border-box;
+      width: 180px;
+      background-color: var(--color-squid-mid2green);
+      color: var(--color-dark-foreground);
+      
+      text-align: left;
+      border-radius: 6px;
+      padding: 1em;
+      transition: opacity .6s;
+      white-space: pre-wrap;
+      
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: 75%;
+      left: 50%;
+      margin-left: -90px;
+    }
+
+    .tooltip-text::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent var(--color-squid-mid2green) transparent;
+    }
+
+    &:hover .tooltip-text {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .number {
+      margin-top: 0.5em;
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+.goals-functionality-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.goals-wrapper {
+  display: flex;
+  padding-top: 1em;
+  gap: 1em;
+
+  .drag-wrapper {
+
+    &.dragging {
+      opacity: 0.5;
+    }
+  }
+
+  .goal-card {
+    filter: drop-shadow(5px 5px 5px #00000055);
+    padding: 0;
+    width: 30%;
+  
+    .done {
+      display: flex;
+      align-items: center;
+      position: relative;
+  
+      border-top: 1px solid var(--color-goal-off-black);
+      border-left: 1px solid var(--color-goal-off-black);
+      border-right: 1px solid var(--color-goal-off-black);
+      border-top-left-radius: 0.5em;
+      border-top-right-radius: 0.5em;
+      padding: 0.5em 1em;
+  
+      .text {
+        flex-grow: 0;
+        margin-right: 0.25em;
+      }
+      .right {
+        flex-grow: 1;
+        text-align: right;
+      }
+  
+      &:not(.finished) {
+        background-color: var(--color-goal-toolbar);
+        color: var(--color-goal-off-black);
+      }
+      &.finished {
+        background-color: var(--color-goal-highlight);
+        color: var(--color-goal-off-white);
+      }
+  
+      .goal-card-item {
+        cursor: pointer;
+        margin-left: 0.25em;
+
+        &:hover {
+          color: var(--color-goal-silver);
+        }
+
+        &.status {
+          position: relative;
+          top: 2px;
+        }
+      }
+    }
+  
+    .description {
+      background-color: var(--color-goal-off-white);
+      border-bottom: 1px solid var(--color-goal-off-black);
+      border-left: 1px solid var(--color-goal-off-black);
+      border-right: 1px solid var(--color-goal-off-black);
+      border-bottom-left-radius: 0.5em;
+      border-bottom-right-radius: 0.5em;
+      color: var(--color-goal-off-black);
+      padding: 0.5em 1em;
+    }
+  }
+}
+
+.import-html {
+  display: none;
+}

@@ -1,0 +1,99 @@
+<mat-toolbar class="title-toolbar">
+  <button mat-icon-button [matMenuTriggerFor]="pageMenu" class="menu-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #pageMenu="matMenu">
+    <button
+      mat-menu-item
+      class="page-menu"
+      (click)="pageMenuSelection('resumes')"
+      [class.selected]="selectedPageMenu === 'resumes'"
+    >
+    <mat-icon fontSet="material-icons-outlined">description</mat-icon>
+    <span>Resume(s) to Job Comparison</span>
+    </button>
+    <button
+      mat-menu-item
+      class="page-menu"
+      (click)="pageMenuSelection('days-of-code')"
+      [class.selected]="selectedPageMenu === 'days-of-code'"
+      >
+      <mat-icon fontSet="material-icons-outlined">event_list</mat-icon>
+      <span>#100DaysOfCode Tracker</span>
+    </button>
+
+    <mat-divider></mat-divider>
+    <button 
+      mat-menu-item
+      class="page-menu"
+      (click)="pageMenuSelection('about')"
+      [class.selected]="selectedPageMenu === 'about'"
+    >
+      <mat-icon fontSet="material-icons-outlined">info</mat-icon>
+      <span>About Job-Squid.com</span>
+    </button>
+  </mat-menu>
+  
+  <span>
+    <img class="menu-logo" src="/images/Job-Squid-Small.png" />
+  </span>
+
+  <span class="menu-spacer"></span>
+
+  <button mat-icon-button class="menu-icon" (click)="toggleDarkMode()">
+    @if (dark_enabled === true) {
+      <mat-icon>light_mode</mat-icon>
+    } @else {
+      <mat-icon>dark_mode</mat-icon>
+    }
+  </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="functionalityMenu" class="menu-icon">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #functionalityMenu="matMenu">
+    @switch (selectedPageMenu) {
+      @case ('resumes') {
+        <button mat-menu-item (click)="menuItemSelected('resumes', 'export-current-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
+          <span>Export Resumes</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item (click)="menuItemSelected('resumes', 'import-current-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
+          <span>Import Resumes</span>
+        </button>
+      }
+      @case ('days-of-code') {
+        <mat-checkbox
+          [checked]="viewGoals"
+          (change)="updateViewGoals($event.checked)">
+          View Goals
+        </mat-checkbox>
+
+        <mat-divider></mat-divider>
+        
+        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'export-blank-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
+          <span>Export Blank Recordset</span>
+        </button>
+        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'export-current-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
+          <span>Export Current Recordset</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'import-saved-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
+          <span>Import Saved Recordset</span>
+        </button>
+      }
+      @default {
+        <div class="no-menu-item">No Menu</div>
+      }
+    }
+  </mat-menu>
+</mat-toolbar>

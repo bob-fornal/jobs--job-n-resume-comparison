@@ -1,3 +1,4 @@
+<h3 class="page-title">Resume(s) to Job Comparison</h3>
 <div class="compare-wrapper">
   <div class="resume-wrapper">
     <mat-toolbar class="title-toolbar">
@@ -19,7 +20,7 @@
                 <span class="attributes">
                   <span>Keywords: {{ resume.keywords.length }}</span>
                   <span class="action-item-functionality">
-                    <button (click)="deleteResume(resume)" class="delete-functionality">
+                    <button (click)="deleteResume($event, resume)" class="delete-functionality">
                       <mat-icon class="delete-icon">close</mat-icon>
                     </button>
                   </span>
