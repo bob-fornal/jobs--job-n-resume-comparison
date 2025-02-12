@@ -5,9 +5,9 @@ import { Item } from '../../core/interfaces/item.interface';
 import { Structure } from '../../core/interfaces/strucuture.interface';
 
 import { MatDialog } from '@angular/material/dialog';
-import { DayModalComponent } from '../../shared/day-modal/day-modal.component';
+import { ModalDayComponent } from '../../shared/modal-day/modal-day.component';
 import { DaysOfCodeService } from './days-of-code.service';
-import { GoalModalComponent } from '../../shared/goal-modal/goal-modal.component';
+import { ModalGoalComponent } from '../../shared/modal-goal/modal-goal.component';
 
 @Component({
   selector: 'app-days-of-code',
@@ -78,7 +78,7 @@ export class DaysOfCodeComponent {
   };
 
   openDayModal = (day: Item): void => {
-    const dialogRef = this.dialog.open(DayModalComponent, { data: day });
+    const dialogRef = this.dialog.open(ModalDayComponent, { data: day });
     dialogRef.afterClosed().subscribe(this.handleDayModalClose.bind(this));
   };
 
@@ -90,7 +90,7 @@ export class DaysOfCodeComponent {
 
   addNewGoal = (): void => {
     const newGoal: Goal = { type: 'New', description: '', done: false };
-    const dialogRef = this.dialog.open(GoalModalComponent, { data: newGoal });
+    const dialogRef = this.dialog.open(ModalGoalComponent, { data: newGoal });
     dialogRef.afterClosed().subscribe(this.handleAddNewGoalClose.bind(this));
   };
 
@@ -111,7 +111,7 @@ export class DaysOfCodeComponent {
   editGoal = (index: number): void => {
     this.editIndex = index;
     const editGoal: Goal = { ...this.goals[index], type: 'Edit' };
-    const dialogRef = this.dialog.open(GoalModalComponent, { data: editGoal });
+    const dialogRef = this.dialog.open(ModalGoalComponent, { data: editGoal });
     dialogRef.afterClosed().subscribe(this.handleEditGoalClose.bind(this));
   };
 

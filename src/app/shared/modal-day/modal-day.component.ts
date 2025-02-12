@@ -4,18 +4,17 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Item } from '../../core/interfaces/item.interface';
 
 @Component({
-  selector: 'app-day-modal',
+  selector: 'app-modal-day',
   standalone: false,
   
-  templateUrl: './day-modal.component.html',
-  styleUrl: './day-modal.component.css'
+  templateUrl: './modal-day.component.html',
 })
-export class DayModalComponent {
+export class ModalDayComponent {
 
-  day = inject<Item>(MAT_DIALOG_DATA);
+  day: Item = inject<Item>(MAT_DIALOG_DATA);
 
   constructor(
-    private dialogRef: MatDialogRef<DayModalComponent>,
+    private dialogRef: MatDialogRef<ModalDayComponent>,
   ) {}
 
   cancel = (): void => {

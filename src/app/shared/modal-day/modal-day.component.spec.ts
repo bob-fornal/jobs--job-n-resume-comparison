@@ -1,15 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
-import { DayModalComponent } from './day-modal.component';
+import { ModalDayComponent } from './modal-day.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
-import { FormsModule } from '@angular/forms';
-
-describe('DayModalComponent', () => {
-  let component: DayModalComponent;
-  let fixture: ComponentFixture<DayModalComponent>;
+describe('ModalDayComponent', () => {
+  let component: ModalDayComponent;
+  let fixture: ComponentFixture<ModalDayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,7 +19,7 @@ describe('DayModalComponent', () => {
         MatDialogModule,
       ],
       declarations: [
-        DayModalComponent,
+        ModalDayComponent,
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: { number: 1, note: 'TEST-NOTE', done: true } },
@@ -29,7 +28,7 @@ describe('DayModalComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DayModalComponent);
+    fixture = TestBed.createComponent(ModalDayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
