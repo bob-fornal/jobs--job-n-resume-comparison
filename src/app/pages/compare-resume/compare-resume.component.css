@@ -20,7 +20,6 @@
   }
   .comparison-wrapper {
     --mat-toolbar-container-text-color: var(--color-dark-foreground);
-    --mdc-filled-button-disabled-container-color: var(--color-squid-palegreen);
 
     flex-grow: 2;
     padding: 1em;

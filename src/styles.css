@@ -26,6 +26,7 @@ body {
   --color-goal-off-black: #1f1f1f;
   --color-goal-highlight: var(--color-squid-button);
   --color-goal-tooltip: #555555;
+  --color-goal-tooltip2: #bbbbbb;
   --color-goal-silver: silver;
   --color-goal-toolbar: #ffaf7b;
   --color-goal-toolbar2: #fef758;
@@ -83,6 +84,7 @@ body {
 
 .functional-button {
   --mdc-filled-button-container-shape: 0;
+  --mdc-filled-button-disabled-container-color: var(--color-goal-tooltip2);
 
   &:not(.cancel-button) {
     --mdc-filled-button-container-color: var(--color-squid-mid2green);
