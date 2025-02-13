@@ -37,6 +37,9 @@ body {
   --mat-checkbox-label-text-color: var(--color-light-background);
   --mdc-checkbox-unselected-icon-color: var(--color-light-background);
 
+  --mdc-list-list-item-label-text-font: Metropolis, sans-serif;
+  --mat-form-field-container-text-font: Metropolis, sans-serif;
+
   --mdc-dialog-container-color: var(--color-squid-mid4green);
   --mdc-dialog-subhead-color: var(--color-light-background);
   --mdc-dialog-container-shape: 5px;
