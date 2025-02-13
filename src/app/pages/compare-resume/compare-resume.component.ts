@@ -41,14 +41,19 @@ export class CompareResumeComponent {
     private dialog: MatDialog,
     private service: CompareResumeService,
   ) {
-    this.service.resumes.subscribe(this.handleResumes.bind(this));
     this.init();
 
+    effect(this.handleResumes.bind(this));
     effect(this.handleTriggerIgnoreListEffect.bind(this));
   }
 
   init = (): void => {
     this.service.getResumes();
+  };
+
+  handleResumes = (): void => {
+    const resumes: Array<ResumeDetails> = this.service.resumes();
+    this.resumes = resumes;
   };
 
   handleTriggerIgnoreListEffect = (): void => {
@@ -152,10 +157,6 @@ export class CompareResumeComponent {
     this.changeDetectorRef.detectChanges();
   };
   
-  handleResumes = (data: Array<ResumeDetails>): void => {
-    this.resumes = data;
-  };
-
   deleteResume = (event: any, deleteResume: ResumeDetails): void => {
     event.stopPropagation();
     const resumes: Array<ResumeDetails> = [...this.resumes].filter((resume: ResumeDetails) => resume.name !== deleteResume.name);
@@ -205,7 +206,8 @@ export class CompareResumeComponent {
       if (index === -1) {
         resumes.push(result);
       } else {
-        resumes[index] = result;
+
+        resumes[index] = { ...resumes[index], ...result };
       }
       this.service.setResumes(resumes);
 

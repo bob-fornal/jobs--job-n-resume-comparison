@@ -1,11 +1,16 @@
 .title-toolbar {
   --mat-toolbar-standard-height: 4em;
 
-  background-color: var(--color-squid-mid2green);
+  background-color: var(--color-squid-mid1green);
   color: var(--color-dark-foreground);
   font-family: Metropolis, sans-serif;
 
   .menu-icon {
+    --mdc-filled-button-label-text-font: Metropolis, sans-serif;
+
+    color: var(--color-squid-mid2green);
+  }
+  .menu-button {
     --mdc-filled-button-label-text-font: Metropolis, sans-serif;
 
     color: var(--color-goal-white);
