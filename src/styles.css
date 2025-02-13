@@ -42,7 +42,7 @@ body {
   --mdc-dialog-container-shape: 5px;
 
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Metropolis, sans-serif;
   
   &.dark-mode {
     background-color: var(--color-squid-darkgreen);
