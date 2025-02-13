@@ -70,12 +70,12 @@ export class CompareResumeComponent {
 
   getRange = (match: number): string => {
     switch (true) {
-      case match >= 0 && match <= 60:
-        return 'range-0-60';
       case match >= 61 && match <= 80:
         return 'range-61-80';
-      default:
+      case match >= 81:
         return 'range-81-100';
+      default:
+        return 'range-0-60';
     }
   };
 
