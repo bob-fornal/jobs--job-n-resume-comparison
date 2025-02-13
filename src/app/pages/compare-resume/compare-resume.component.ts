@@ -60,7 +60,6 @@ export class CompareResumeComponent {
   };
 
   showMatchPercent = (resume: ResumeDetails): boolean => {
-    console.log(JSON.parse(JSON.stringify(resume)));
     return resume.hasOwnProperty('matchPercent') && resume.matchPercent !== null
   };
 
@@ -135,7 +134,6 @@ export class CompareResumeComponent {
 
       const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
       
-      console.log(JSON.parse(JSON.stringify(this.resumes)));
       for (let i = 0, len = this.resumes.length; i < len; i++) {
         const resume: ResumeDetails = this.resumes[i];
         const resumeKeywordsCount: number = resume.keywords.length;

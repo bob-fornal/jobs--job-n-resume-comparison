@@ -82,7 +82,7 @@ body {
   --mdc-filled-button-container-shape: 0;
 
   &:not(.cancel-button) {
-    --mdc-filled-button-container-color: var(--color-squid-button);
+    --mdc-filled-button-container-color: var(--color-squid-mid1green);
   }
   &.cancel-button {
     --mdc-filled-button-container-color: var(--color-dark-background);
