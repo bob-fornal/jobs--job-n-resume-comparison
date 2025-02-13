@@ -1,7 +1,7 @@
 <mat-toolbar class="title-toolbar">
   <button mat-flat-button [matMenuTriggerFor]="pageMenu" class="menu-icon functional-button">
     <mat-icon>menu</mat-icon>
-     Application
+    <span>Application</span>
   </button>
   <mat-menu #pageMenu="matMenu">
     <button
@@ -36,8 +36,8 @@
   </mat-menu>
 
   <button mat-flat-button [matMenuTriggerFor]="functionalityMenu" class="menu-icon functional-button">
-    <mat-icon>more_vert</mat-icon>
-     Page
+    <mat-icon class="material-icons-outlined">menu_open</mat-icon>
+    <span>Page</span>
   </button>
   <mat-menu #functionalityMenu="matMenu">
     @switch (selectedPageMenu) {
