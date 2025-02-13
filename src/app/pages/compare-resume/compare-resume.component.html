@@ -24,6 +24,14 @@
                       <mat-icon class="delete-icon">close</mat-icon>
                     </button>
                   </span>
+                  @if (showMatchPercent(resume)) {
+                    <span
+                      class="percent-functionality"
+                      [class]="getRange(resume.matchPercent!)"
+                    >
+                      {{ resume.matchPercent }} %
+                    </span>
+                  }
                 </span>
               </span>
             </button>
@@ -96,6 +104,7 @@
       class="functional-button comparison-button"
       mat-flat-button
       [disabled]="isRunComparisonDisabled()"
+      (click)="runComparison()"
     >Run Comparison</button>
   </div>
   
@@ -107,7 +116,11 @@
     <form class="resume-form">
       <mat-form-field class="full-width">
         <mat-label>Job Posting</mat-label>
-        <textarea matInput (input)="triggerJobValidation($event)"></textarea>
+        <textarea
+          matInput
+          #jobPosting
+          (input)="triggerJobValidation($event)"
+        ></textarea>
       </mat-form-field>
     </form>
   </div>

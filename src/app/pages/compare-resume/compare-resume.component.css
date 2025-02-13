@@ -72,6 +72,26 @@
       margin-left: 1em;
     }
 
+    .percent-functionality {
+      padding: 0.25em 0.75em;
+      background-color: var(--color-squid-mid1green);
+      margin-left: 1em;
+      
+      display: inline-block;
+      width: 3em;
+      text-align: right;
+
+      &.range-0-60 {
+        color: darkred;
+      }
+      &.range-61-80 {
+        color: var(--color-goal-toolbar2);
+      }
+      &.range-81-100 {
+        color: var(--color-squid-mid3green);
+      }
+    }
+
     .delete-functionality {
       position: relative;
     }

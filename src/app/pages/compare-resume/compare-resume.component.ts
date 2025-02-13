@@ -22,6 +22,8 @@ export class CompareResumeComponent {
   @ViewChild('resumeName') resumeName: any;
   @ViewChild('resumeContent') resumeContent: any;
 
+  @ViewChild('jobPosting') jobPosting: any;
+
   validationChecks: { [key: string]: boolean } = {
     resumeNameLength: true,
     resumeNameInList: false,
@@ -57,6 +59,22 @@ export class CompareResumeComponent {
     }
   };
 
+  showMatchPercent = (resume: ResumeDetails): boolean => {
+    console.log(JSON.parse(JSON.stringify(resume)));
+    return resume.hasOwnProperty('matchPercent') && resume.matchPercent !== null
+  };
+
+  getRange = (match: number): string => {
+    switch (true) {
+      case match >= 0 && match <= 60:
+        return 'range-0-60';
+      case match >= 61 && match <= 80:
+        return 'range-61-80';
+      default:
+        return 'range-81-100';
+    }
+  };
+
   openIgnoreListModal = (): void => {
     const listString: string = this.service.getIgnoreList().join(', ');
     const dialogRef = this.dialog.open(ModalIgnoreListComponent, { data: listString });
@@ -80,7 +98,7 @@ export class CompareResumeComponent {
   };
 
   isRunComparisonDisabled = (): boolean => {
-    return this.doesValidationDisable() || this.validationChecks['jobContentLength'];
+    return this.validationChecks['jobContentLength'];
   };
 
   changeValidationState = (key: string, event: any, check: number): void => {
@@ -100,6 +118,32 @@ export class CompareResumeComponent {
   triggerJobValidation = (event: any): void => {
     const lengthError: boolean = event.target.value.length <= 1;
     this.validationChecks['jobContentLength'] = lengthError;
+  };
+
+  runComparison = () => {
+    const jobPosting = this.jobPosting.nativeElement.value;
+    
+    const firstPassKeywords: Array<string> = this
+      .keywordExtractor
+      .extract(jobPosting, {
+        language:"english",
+        remove_digits: true,
+        return_changed_case: true,
+        remove_duplicates: true,
+      })
+      .sort();
+
+      const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
+      
+      console.log(JSON.parse(JSON.stringify(this.resumes)));
+      for (let i = 0, len = this.resumes.length; i < len; i++) {
+        const resume: ResumeDetails = this.resumes[i];
+        const resumeKeywordsCount: number = resume.keywords.length;
+        const matchedKeywords: Array<string> = resume.keywords.filter((word: string) => keywords.includes(word));
+        const matchedKeywordsCount: number = matchedKeywords.length;
+        const percent = Math.round((matchedKeywordsCount / resumeKeywordsCount) * 100);
+        resume.matchPercent = percent;
+      }
   };
 
   checkIfResumeNameExists = (event: any): void => {
