@@ -9,6 +9,9 @@
         @if (menuItem.dividerBefore === true) {
           <mat-divider />
         }
+        @if (menuItem.category !== '') {
+          <h2 class="menu-heading" role="heading">{{ menuItem.category }}</h2>
+        }
         <button 
           mat-menu-item
           class="page-menu"
@@ -30,7 +33,10 @@
       @if (menuItem.dividerBefore === true) {
         <mat-divider />
       }
-      <button 
+      @if (menuItem.category !== '') {
+        <h2 class="menu-heading" role="heading">{{ menuItem.category }}</h2>
+      }
+      <button
         mat-menu-item
         class="page-menu"
         (click)="pageMenuSelection(menuItem.path)"

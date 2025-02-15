@@ -71,6 +71,18 @@ body {
   margin: 1em 2em 0 2em;
 }
 
+.mat-mdc-menu-panel {
+
+  .menu-heading {
+    margin: 0.5em 0.75em 0 0.75em;
+    color: var(--color-squid-mid1green);
+  }
+  .mat-mdc-menu-item {
+    --mat-menu-item-with-icon-leading-spacing: 1.5em;
+    --mat-menu-item-with-icon-trailing-spacing: 1.5em;
+  }
+}
+
 .page-menu.selected {
   
   .mat-mdc-menu-item-text {

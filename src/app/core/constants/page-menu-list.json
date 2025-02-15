@@ -1,6 +1,7 @@
 [
   {
     "path": "resumes",
+    "category": "Applying",
     "icon": "description",
     "title": "Resume(s) to Job Comparison",
     "featureFlag": false,
@@ -9,22 +10,34 @@
     "dividerBefore": false
   }, {
     "path": "days-of-code",
+    "category": "Social",
     "icon": "code",
     "title": "Days Of Code Tracker",
     "featureFlag": false,
     "featureName": "",
-    "dividerAfter": false,
+    "dividerAfter": true,
+    "dividerBefore": false
+  }, {
+    "path": "top-10-connections",
+    "category": "Emergency",
+    "icon": "emergency",
+    "title": "Top Ten Connections",
+    "featureFlag": true,
+    "featureName": "top10Connections",
+    "dividerAfter": true,
     "dividerBefore": false
   }, {
     "path": "long-term-goals",
+    "category": "Planning",
     "icon": "sports_score",
     "title": "Long Term Goals",
     "featureFlag": true,
     "featureName": "longTermGoals",
-    "dividerAfter": false,
+    "dividerAfter": true,
     "dividerBefore": false
   }, {
     "path": "company-tracking",
+    "category": "Research",
     "icon": "share_location",
     "title": "Company Tracking",
     "featureFlag": true,
@@ -33,27 +46,30 @@
     "dividerBefore": false
   }, {
     "path": "interviewing-research",
+    "category": "",
     "icon": "person_search",
     "title": "Interviewing Research",
     "featureFlag": true,
     "featureName": "interviewingResearch",
-    "dividerAfter": false,
+    "dividerAfter": true,
     "dividerBefore": false
   }, {
     "path": "how-to-use",
+    "category": "",
     "icon": "not_listed_location",
     "title": "How to use Job-Squid.com",
     "featureFlag": true,
     "featureName": "howToUse",
     "dividerAfter": false,
-    "dividerBefore": true
+    "dividerBefore": false
   }, {
     "path": "about",
+    "category": "",
     "icon": "info",
     "title": "About Job Comparison",
     "featureFlag": false,
     "featureName": "",
     "dividerAfter": false,
-    "dividerBefore": true
+    "dividerBefore": false
   }
 ]

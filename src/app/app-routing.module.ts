@@ -8,6 +8,7 @@ import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component
 import { InterviewResearchComponent } from './pages/interview-research/interview-research.component';
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
+import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-connections.component';
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'interviewing-research', component: InterviewResearchComponent },
   { path: 'long-term-goals', component: LongTermGoalsComponent },
   { path: 'resumes', component: CompareResumeComponent },
+  { path: 'top-10-connections', component: Top10ConnectionsComponent },
 
   { path: '', redirectTo: '/resumes', pathMatch: 'full' },
 ];

@@ -7,10 +7,11 @@ import { ActivatedRoute } from '@angular/router';
 export class FeatureFlagsService {
 
   private flags: any = {
-    howToUse: false,
-    longTermGoals: false,
-    companyTracking: false,
-    interviewingResearch: false,
+    howToUse: true,
+    longTermGoals: true,
+    companyTracking: true,
+    interviewingResearch: true,
+    top10Connections: true,
   };
 
   constructor(

@@ -12,7 +12,6 @@ import { PageMenuItem } from '../../core/interfaces/page-menu-item.interface';
   standalone: false,
   
   templateUrl: './application-menu.component.html',
-  styleUrl: './application-menu.component.css'
 })
 export class ApplicationMenuComponent {
 

@@ -20,36 +20,38 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { AboutComponent } from './pages/about/about.component';
+import { ApplicationMenuComponent } from './shared/application-menu/application-menu.component';
+import { CompanyTrackingComponent } from './pages/company-tracking/company-tracking.component';
 import { CompareResumeComponent } from './pages/compare-resume/compare-resume.component';
 import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component';
-import { ModalGoalComponent } from './shared/modal-goal/modal-goal.component';
-import { ItemImageComponent } from './shared/item-image/item-image.component';
-import { ModalDayComponent } from './shared/modal-day/modal-day.component';
-import { ModalIgnoreListComponent } from './shared/modal-ignore-list/modal-ignore-list.component';
-import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component';
-import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
-import { CompanyTrackingComponent } from './pages/company-tracking/company-tracking.component';
 import { InterviewResearchComponent } from './pages/interview-research/interview-research.component';
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
-import { ApplicationMenuComponent } from './shared/application-menu/application-menu.component';
+import { ItemImageComponent } from './shared/item-image/item-image.component';
+import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
+import { ModalDayComponent } from './shared/modal-day/modal-day.component';
+import { ModalGoalComponent } from './shared/modal-goal/modal-goal.component';
+import { ModalIgnoreListComponent } from './shared/modal-ignore-list/modal-ignore-list.component';
+import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-connections.component';
+import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
     AboutComponent,
+    ApplicationMenuComponent,
+    CompanyTrackingComponent,
     CompareResumeComponent,
     DaysOfCodeComponent,
+    HowToUseComponent,
+    InterviewResearchComponent,
     ItemImageComponent,
+    LongTermGoalsComponent,
     ModalDayComponent,
     ModalGoalComponent,
     ModalIgnoreListComponent,
+    Top10ConnectionsComponent,
     TopToolbarComponent,
-    LongTermGoalsComponent,
-    CompanyTrackingComponent,
-    InterviewResearchComponent,
-    HowToUseComponent,
-    ApplicationMenuComponent,
   ],
   imports: [
     BrowserModule,

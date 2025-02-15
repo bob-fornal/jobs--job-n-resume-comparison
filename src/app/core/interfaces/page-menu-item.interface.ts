@@ -1,5 +1,6 @@
 export interface PageMenuItem {
   path: string;
+  category: string;
   icon: string;
   title: string;
   featureFlag: boolean,
