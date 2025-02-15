@@ -18,21 +18,21 @@
     "dividerAfter": true,
     "dividerBefore": false
   }, {
-    "path": "top-10-connections",
-    "category": "Emergency",
-    "icon": "emergency",
-    "title": "Top Ten Connections",
-    "featureFlag": true,
-    "featureName": "top10Connections",
-    "dividerAfter": true,
-    "dividerBefore": false
-  }, {
     "path": "long-term-goals",
     "category": "Planning",
     "icon": "sports_score",
     "title": "Long Term Goals",
     "featureFlag": true,
     "featureName": "longTermGoals",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "top-10-connections",
+    "category": "",
+    "icon": "emergency",
+    "title": "Emergency Top Ten",
+    "featureFlag": true,
+    "featureName": "top10Connections",
     "dividerAfter": true,
     "dividerBefore": false
   }, {
