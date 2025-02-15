@@ -1,0 +1,51 @@
+<button mat-flat-button [matMenuTriggerFor]="pageMenu" class="menu-button functional-button">
+  <mat-icon>menu</mat-icon>
+  <span>Application</span>
+</button>
+<mat-menu #pageMenu="matMenu">
+  @for (menuItem of pageMenuList; track menuItem;) {
+    @if (menuItem.featureFlag === true) {
+      @if (isFeatureActive(menuItem.featureName) === true) {
+        @if (menuItem.dividerBefore === true) {
+          <mat-divider />
+        }
+        <button 
+          mat-menu-item
+          class="page-menu"
+          (click)="pageMenuSelection(menuItem.path)"
+          [class.selected]="selectedPageMenu === menuItem.path"
+        >
+          <mat-icon fontSet="material-icons-outlined">
+            {{ menuItem.icon }}
+          </mat-icon>
+          <span>
+            {{ menuItem.title }}
+          </span>
+        </button>
+        @if (menuItem.dividerAfter === true) {
+          <mat-divider />
+        }
+      }
+    } @else {
+      @if (menuItem.dividerBefore === true) {
+        <mat-divider />
+      }
+      <button 
+        mat-menu-item
+        class="page-menu"
+        (click)="pageMenuSelection(menuItem.path)"
+        [class.selected]="selectedPageMenu === menuItem.path"
+      >
+        <mat-icon fontSet="material-icons-outlined">
+          {{ menuItem.icon }}
+        </mat-icon>
+        <span>
+          {{ menuItem.title }}
+        </span>
+      </button>
+      @if (menuItem.dividerAfter === true) {
+        <mat-divider />
+      }
+    }
+  }
+</mat-menu>

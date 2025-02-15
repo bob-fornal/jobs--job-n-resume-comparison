@@ -1,7 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-import { of } from 'rxjs';
 
 import { TopToolbarComponent } from './top-toolbar.component';
 
@@ -14,17 +11,9 @@ describe('TopToolbarComponent', () => {
   let component: TopToolbarComponent;
   let fixture: ComponentFixture<TopToolbarComponent>;
 
-  const mockRouter = {
-    navigate: jasmine.createSpy('navigate'),
-    navigateByUrl: jasmine.createSpy('navigateByUrl'),
-    events: of(),
-  };
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-
         MatDividerModule,
         MatIconModule,
         MatMenuModule,
@@ -32,9 +21,6 @@ describe('TopToolbarComponent', () => {
       ],
       declarations: [
         TopToolbarComponent,
-      ],
-      providers: [
-        { provide: Router, useValue: mockRouter },
       ],
       teardown: { destroyAfterEach: false },
     })
@@ -51,12 +37,10 @@ describe('TopToolbarComponent', () => {
 
   it('expects "init" to trigger dark mode, active page, and view goals', () => {
     spyOn(component, 'initDarkMode').and.stub();
-    spyOn(component, 'initActivePage').and.stub();
     spyOn(component, 'initViewGoals').and.stub();
 
     component.init();
     expect(component.initDarkMode).toHaveBeenCalled();
-    expect(component.initActivePage).toHaveBeenCalled();
     expect(component.initViewGoals).toHaveBeenCalled();
   });
 
@@ -100,14 +84,6 @@ describe('TopToolbarComponent', () => {
     expect(classList.add).toHaveBeenCalledWith('dark-mode');
   });
 
-  it('expects "initActivePage" to set the active page', () => {
-    spyOn(component['service'], 'activePage').and.returnValue('TEST-PAGE');
-    spyOn(component, 'pageMenuSelection').and.stub();
-
-    component.initActivePage();
-    expect(component.pageMenuSelection).toHaveBeenCalledWith('TEST-PAGE');
-  });
-
   it('expects "initViewGoals" to set the state', () => {
     spyOn(component['service'], 'viewGoals').and.returnValue(false);
     component.viewGoals = true;
@@ -137,17 +113,6 @@ describe('TopToolbarComponent', () => {
     expect(component['service'].setDarkMode).toHaveBeenCalledWith(false)
     expect(_document.getElementById).toHaveBeenCalledWith('body');
     expect(classList.toggle).toHaveBeenCalledWith('dark-mode');
-  });
-
-  it('expects "pageMenuSelection" to set the page and navigate', () => {
-    const page: string = 'PAGE';
-    component.selectedPageMenu = '';
-    spyOn(component['service'], 'setActivePage').and.stub();
-
-    component.pageMenuSelection(page);
-    expect(component.selectedPageMenu).toEqual(page);
-    expect(component['service'].setActivePage).toHaveBeenCalledWith(page);
-    expect(component['router'].navigateByUrl).toHaveBeenCalledWith(`/${page}`);
   });
 
   it('expects "updateViewGoals" to store the state', () => {

@@ -11,6 +11,10 @@
     color: var(--color-squid-mid2green);
   }
 
+  .complete-menu {
+    margin-right: 1em;
+  }
+
   .menu-button {
     --mdc-filled-button-label-text-font: Metropolis, sans-serif;
 

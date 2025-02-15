@@ -1,0 +1,59 @@
+[
+  {
+    "path": "resumes",
+    "icon": "description",
+    "title": "Resume(s) to Job Comparison",
+    "featureFlag": false,
+    "featureName": "",
+    "dividerAfter": true,
+    "dividerBefore": false
+  }, {
+    "path": "days-of-code",
+    "icon": "code",
+    "title": "Days Of Code Tracker",
+    "featureFlag": false,
+    "featureName": "",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "long-term-goals",
+    "icon": "sports_score",
+    "title": "Long Term Goals",
+    "featureFlag": true,
+    "featureName": "longTermGoals",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "company-tracking",
+    "icon": "share_location",
+    "title": "Company Tracking",
+    "featureFlag": true,
+    "featureName": "companyTracking",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "interviewing-research",
+    "icon": "person_search",
+    "title": "Interviewing Research",
+    "featureFlag": true,
+    "featureName": "interviewingResearch",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "how-to-use",
+    "icon": "not_listed_location",
+    "title": "How to use Job-Squid.com",
+    "featureFlag": true,
+    "featureName": "howToUse",
+    "dividerAfter": false,
+    "dividerBefore": true
+  }, {
+    "path": "about",
+    "icon": "info",
+    "title": "About Job Comparison",
+    "featureFlag": false,
+    "featureName": "",
+    "dividerAfter": false,
+    "dividerBefore": true
+  }
+]

@@ -27,6 +27,11 @@ import { ItemImageComponent } from './shared/item-image/item-image.component';
 import { ModalDayComponent } from './shared/modal-day/modal-day.component';
 import { ModalIgnoreListComponent } from './shared/modal-ignore-list/modal-ignore-list.component';
 import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component';
+import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
+import { CompanyTrackingComponent } from './pages/company-tracking/company-tracking.component';
+import { InterviewResearchComponent } from './pages/interview-research/interview-research.component';
+import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
+import { ApplicationMenuComponent } from './shared/application-menu/application-menu.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,11 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
     ModalGoalComponent,
     ModalIgnoreListComponent,
     TopToolbarComponent,
+    LongTermGoalsComponent,
+    CompanyTrackingComponent,
+    InterviewResearchComponent,
+    HowToUseComponent,
+    ApplicationMenuComponent,
   ],
   imports: [
     BrowserModule,

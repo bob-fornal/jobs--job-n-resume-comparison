@@ -1,39 +1,5 @@
 <mat-toolbar class="title-toolbar">
-  <button mat-flat-button [matMenuTriggerFor]="pageMenu" class="menu-button functional-button">
-    <mat-icon>menu</mat-icon>
-    <span>Application</span>
-  </button>
-  <mat-menu #pageMenu="matMenu">
-    <button
-      mat-menu-item
-      class="page-menu"
-      (click)="pageMenuSelection('resumes')"
-      [class.selected]="selectedPageMenu === 'resumes'"
-    >
-    <mat-icon fontSet="material-icons-outlined">description</mat-icon>
-    <span>Resume(s) to Job Comparison</span>
-    </button>
-    <button
-      mat-menu-item
-      class="page-menu"
-      (click)="pageMenuSelection('days-of-code')"
-      [class.selected]="selectedPageMenu === 'days-of-code'"
-      >
-      <mat-icon fontSet="material-icons-outlined">event_list</mat-icon>
-      <span>#100DaysOfCode Tracker</span>
-    </button>
-
-    <mat-divider></mat-divider>
-    <button 
-      mat-menu-item
-      class="page-menu"
-      (click)="pageMenuSelection('about')"
-      [class.selected]="selectedPageMenu === 'about'"
-    >
-      <mat-icon fontSet="material-icons-outlined">info</mat-icon>
-      <span>About Job-Squid.com</span>
-    </button>
-  </mat-menu>
+  <application-menu class="complete-menu" [pageSelectedFn]="pageSelectedFn" />
 
   <button mat-flat-button [matMenuTriggerFor]="functionalityMenu" class="menu-button functional-button">
     <mat-icon class="material-icons-outlined">menu_open</mat-icon>
