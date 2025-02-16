@@ -198,19 +198,38 @@ export class CompareResumeComponent {
       })
       .sort();
 
-      const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
-    
-      const result: ResumeDetails = { name, content, keywords };
-      const resumes: Array<ResumeDetails> = [...this.resumes];
-      const index: number = resumes.findIndex((resume: ResumeDetails) => resume.name === result.name);
-      if (index === -1) {
-        resumes.push(result);
-      } else {
+    const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
+  
+    const result: ResumeDetails = { name, content, keywords };
+    const resumes: Array<ResumeDetails> = [...this.resumes];
+    const index: number = resumes.findIndex((resume: ResumeDetails) => resume.name === result.name);
+    if (index === -1) {
+      resumes.push(result);
+    } else {
 
-        resumes[index] = { ...resumes[index], ...result };
-      }
-      this.service.setResumes(resumes);
+      resumes[index] = { ...resumes[index], ...result };
+    }
+    this.service.setResumes(resumes);
 
-      this.resumeForm.reset();
+    this.resumeForm.reset();
+  };
+
+
+  wideElement: string = '';
+
+  toggleResumeWide = (): void => {
+    if (this.wideElement === 'resume') {
+      this.wideElement = '';
+    } else {
+      this.wideElement = 'resume';
+    }
+  };
+
+  toggleJobWide = (): void => {
+    if (this.wideElement === 'job') {
+      this.wideElement = '';
+    } else {
+      this.wideElement = 'job';
+    }
   };
 }

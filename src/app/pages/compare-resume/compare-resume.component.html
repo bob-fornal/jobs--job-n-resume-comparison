@@ -1,8 +1,18 @@
 <h3 class="page-title">Resume(s) to Job Comparison</h3>
 <div class="compare-wrapper">
-  <div class="resume-wrapper">
+  <div class="resume-wrapper" [class.wide]="wideElement === 'resume'">
     <mat-toolbar class="title-toolbar">
-      <span>Resume(s) Detail</span>
+      <span class="space-between">
+        <span class="title-content">Resume(s) Detail</span>
+        <button
+          mat-icon-button
+          class="title-functionality"
+          [class.active]="wideElement === 'resume'"
+          (click)="toggleResumeWide()"
+        >
+          <mat-icon fontSet="material-icons-outlined">keyboard_double_arrow_right</mat-icon>
+        </button>
+      </span>
     </mat-toolbar>
 
     <div class="resume-list-wrapper">
@@ -110,9 +120,19 @@
     >Run Comparison</button>
   </div>
   
-  <div class="job-wrapper">
+  <div class="job-wrapper" [class.wide]="wideElement === 'job'">
     <mat-toolbar class="title-toolbar">
-      <span>Job</span>
+      <span class="no-space-between">
+        <button
+          mat-icon-button
+          class="title-functionality"
+          [class.active]="wideElement === 'job'"
+          (click)="toggleJobWide()"
+        >
+          <mat-icon fontSet="material-icons-outlined">keyboard_double_arrow_left</mat-icon>
+        </button>
+        <span class="title-content">Job</span>
+      </span>
     </mat-toolbar>
 
     <form class="resume-form">

@@ -14,6 +14,11 @@
     border-radius: 1em;
     background-color: var(--color-squid-palegreen);
 
+    &.wide {
+      width: 60%;
+      max-width: 60%;
+    }
+
     .title-toolbar {
       color: var(--color-squid-darkgreen);
     }
@@ -31,6 +36,27 @@
 .title-toolbar {
   background-color: transparent;
   font-family: Metropolis, sans-serif;
+  position: relative;
+
+  .space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .no-space-between {
+    position: relative;
+    left: -1em;
+
+    .title-content {
+      position: relative;
+      top: -0.2em;
+    }
+  }
+
+  .title-functionality.active {
+    color: var(--color-goal-toolbar3);
+  }
 }
 
 .resume-list-wrapper {
