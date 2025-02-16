@@ -61,6 +61,7 @@ export class TopToolbarComponent {
 
   pageSelectedFn = this.pageSelected.bind(this);
   pageSelected(page: string): void {
-
+    this.selectedPageMenu = page;
+    console.log(page);
   }
 }

@@ -21,6 +21,8 @@ export class ApplicationMenuComponent {
 
   selectedPageMenu: string = 'resumes';
 
+  setTimeout: any = window.setTimeout;
+
   constructor(
     private features: FeatureFlagsService,
     private router: Router,
@@ -30,12 +32,15 @@ export class ApplicationMenuComponent {
   }
 
   init = (): void => {
-    this.initActivePage();
+    this.setTimeout(() => {
+      this.initActivePage();
+    }, 20);
   };
 
   initActivePage = (): void => {
     const page: string = this.service.activePage();
     this.pageMenuSelection(page);
+    console.log(page);
   };
 
   isFeatureActive = (key: string): boolean => {
