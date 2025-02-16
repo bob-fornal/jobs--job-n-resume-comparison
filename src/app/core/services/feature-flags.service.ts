@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
   providedIn: 'root'
 })
 export class FeatureFlagsService {
+  
+  enabledFeatureFlags: Array<string> = JSON.parse(import.meta.env.NG_APP_ENABLED_FEATURES);
 
   private flags: any = {
     howToUse: false,
@@ -16,7 +18,15 @@ export class FeatureFlagsService {
 
   constructor(
     private route: ActivatedRoute,
-  ) { }
+  ) {
+    this.init();
+  }
+
+  init = (): void => {
+    this.enabledFeatureFlags.forEach((flag: string) => {
+      this.flags[flag] = true;
+    });
+  };
 
   private hasUrlParam = (param: string): boolean => {
     return this.route.snapshot.params.hasOwnProperty(param);
