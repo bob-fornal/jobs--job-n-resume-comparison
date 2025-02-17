@@ -20,7 +20,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { AboutComponent } from './pages/about/about.component';
-import { ApplicationMenuComponent } from './shared/application-menu/application-menu.component';
 import { CompanyTrackingComponent } from './pages/company-tracking/company-tracking.component';
 import { CompareResumeComponent } from './pages/compare-resume/compare-resume.component';
 import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component';
@@ -28,6 +27,8 @@ import { InterviewResearchComponent } from './pages/interview-research/interview
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
 import { ItemImageComponent } from './shared/item-image/item-image.component';
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
+import { MenuApplicationComponent } from './shared/menu-application/menu-application.component';
+import { MenuPageLevelComponent } from './shared/menu-page-level/menu-page-level.component';
 import { ModalDayComponent } from './shared/modal-day/modal-day.component';
 import { ModalGoalComponent } from './shared/modal-goal/modal-goal.component';
 import { ModalIgnoreListComponent } from './shared/modal-ignore-list/modal-ignore-list.component';
@@ -39,7 +40,6 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
     AppComponent,
 
     AboutComponent,
-    ApplicationMenuComponent,
     CompanyTrackingComponent,
     CompareResumeComponent,
     DaysOfCodeComponent,
@@ -47,6 +47,8 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
     InterviewResearchComponent,
     ItemImageComponent,
     LongTermGoalsComponent,
+    MenuApplicationComponent,
+    MenuPageLevelComponent,
     ModalDayComponent,
     ModalGoalComponent,
     ModalIgnoreListComponent,

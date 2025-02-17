@@ -8,12 +8,12 @@ import pageMenuList from '../../core/constants/page-menu-list.json';
 import { PageMenuItem } from '../../core/interfaces/page-menu-item.interface';
 
 @Component({
-  selector: 'application-menu',
+  selector: 'menu-application',
   standalone: false,
   
-  templateUrl: './application-menu.component.html',
+  templateUrl: './menu-application.component.html',
 })
-export class ApplicationMenuComponent {
+export class MenuApplicationComponent {
 
   @Input('pageSelectedFn') pageSelectedFn: any = () => {};
 

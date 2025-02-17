@@ -3,15 +3,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 
-import { ApplicationMenuComponent } from './application-menu.component';
+import { MenuApplicationComponent } from './menu-application.component';
 
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
-describe('ApplicationMenuComponent', () => {
-  let component: ApplicationMenuComponent;
-  let fixture: ComponentFixture<ApplicationMenuComponent>;
+describe('MenuApplicationComponent', () => {
+  let component: MenuApplicationComponent;
+  let fixture: ComponentFixture<MenuApplicationComponent>;
 
   const mockRouter = {
     navigate: jasmine.createSpy('navigate'),
@@ -29,7 +29,7 @@ describe('ApplicationMenuComponent', () => {
         MatMenuModule,
       ],
       declarations: [
-        ApplicationMenuComponent
+        MenuApplicationComponent
       ],
       providers: [
         { provide: Router, useValue: mockRouter },
@@ -37,7 +37,7 @@ describe('ApplicationMenuComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ApplicationMenuComponent);
+    fixture = TestBed.createComponent(MenuApplicationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

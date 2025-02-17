@@ -51,14 +51,6 @@ export class TopToolbarComponent {
     element?.classList.toggle('dark-mode');
   };
 
-  updateViewGoals = (viewGoals: boolean): void => {
-    this.service.setViewGoals(viewGoals);
-  };
-
-  menuItemSelected = (page: string, item: string): void => {
-    this.service.setMenuItem(page, item);
-  };
-
   pageSelectedFn = this.pageSelected.bind(this);
   pageSelected(page: string): void {
     this.selectedPageMenu = page;
