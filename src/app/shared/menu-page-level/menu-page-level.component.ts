@@ -6,7 +6,6 @@ import { TopToolbarService } from '../top-toolbar/top-toolbar.service';
   standalone: false,
   
   templateUrl: './menu-page-level.component.html',
-  styleUrl: './menu-page-level.component.css'
 })
 export class MenuPageLevelComponent {
 

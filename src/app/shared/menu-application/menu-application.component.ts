@@ -40,7 +40,6 @@ export class MenuApplicationComponent {
   initActivePage = (): void => {
     const page: string = this.service.activePage();
     this.pageMenuSelection(page);
-    console.log(page);
   };
 
   isFeatureActive = (key: string): boolean => {
