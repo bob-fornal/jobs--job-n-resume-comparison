@@ -102,7 +102,9 @@ export class CompareResumeComponent {
   };
 
   isRunComparisonDisabled = (): boolean => {
-    return this.validationChecks['jobContentLength'];
+    const resume: boolean = this.doesValidationDisable();
+    const job: boolean = this.validationChecks['jobContentLength']
+    return resume || job;
   };
 
   changeValidationState = (key: string, event: any, check: number): void => {
@@ -124,7 +126,7 @@ export class CompareResumeComponent {
     this.validationChecks['jobContentLength'] = lengthError;
   };
 
-  runComparison = () => {
+  getJobKeywords = (): Array<string> => {
     const jobPosting = this.jobPosting.nativeElement.value;
     
     const firstPassKeywords: Array<string> = this
@@ -137,16 +139,58 @@ export class CompareResumeComponent {
       })
       .sort();
 
-      const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
-      
-      for (let i = 0, len = this.resumes.length; i < len; i++) {
-        const resume: ResumeDetails = this.resumes[i];
-        const resumeKeywordsCount: number = resume.keywords.length;
-        const matchedKeywords: Array<string> = resume.keywords.filter((word: string) => keywords.includes(word));
-        const matchedKeywordsCount: number = matchedKeywords.length;
-        const percent = Math.round((matchedKeywordsCount / resumeKeywordsCount) * 100);
-        resume.matchPercent = percent;
-      }
+    const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
+    return keywords;
+  };
+
+  adjustResumeContent = (content: string): string => {
+    const adjustedContent: string = content
+      .split('\n')
+      .filter((value: string) => !value.startsWith('##'))
+      .join('\n');
+    return adjustedContent;
+  };
+
+  getActiveResumeKeywords = (): Array<string> => {
+    const resumeContent: string = this.resumeContent.nativeElement.value;
+    const content: string = this.adjustResumeContent(resumeContent);
+
+    const firstPassKeywords: Array<string> = this
+      .keywordExtractor
+      .extract(content, {
+        language:"english",
+        remove_digits: true,
+        return_changed_case: true,
+        remove_duplicates: true,
+      })
+      .sort();
+
+    const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
+    return keywords;
+  };
+
+  generateResumePercentages = (keywords: Array<string>): void => {
+    this.resumes.forEach((resume: ResumeDetails) => {
+      const matchedKeywords: Array<string> = resume.keywords.filter((word: string) => keywords.includes(word));
+      const matchedKeywordsCount: number = matchedKeywords.length;
+      const percent = Math.round((matchedKeywordsCount / keywords.length) * 100);
+      resume.matchPercent = percent;
+    });
+  };
+
+  jobKeywords: Array<{ keyword: string, match: boolean }> = [];
+  
+  runComparison = () => {
+    const jobKeywords: Array<string> = this.getJobKeywords();
+    this.generateResumePercentages(jobKeywords);
+
+    const resumeKeywords: Array<string> = this.getActiveResumeKeywords();
+    this.jobKeywords = jobKeywords.map((keyword: string) => {
+      const mapped: { keyword: string; match: boolean} = {
+        keyword, match: resumeKeywords.includes(keyword),
+      };
+      return mapped;
+    });
   };
 
   checkIfResumeNameExists = (event: any): void => {
@@ -179,14 +223,14 @@ export class CompareResumeComponent {
     this.selectResume({}, { name: '', content: '', keywords: [] });
   };
 
-  onSubmit = (): void => {
+  captureContent = (): { name: string, content: string } => {
     const name: string = this.resumeForm.value.resumeName || '';
     const content: string = this.resumeForm.value.resumeContent || '';
+    return { name, content };
+  };
 
-    const adjustedContent: string = content
-      .split('\n')
-      .filter((value: string) => !value.startsWith('##'))
-      .join('\n');
+  getKeywords = (content: string): Array<string> => {
+    const adjustedContent: string = this.adjustResumeContent(content);
 
     const firstPassKeywords: Array<string> = this
       .keywordExtractor
@@ -199,6 +243,12 @@ export class CompareResumeComponent {
       .sort();
 
     const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
+    return keywords;
+  };
+
+  onSubmit = (): void => {
+    const { name, content } = this.captureContent();
+    const keywords = this.getKeywords(content);
   
     const result: ResumeDetails = { name, content, keywords };
     const resumes: Array<ResumeDetails> = [...this.resumes];
@@ -206,11 +256,10 @@ export class CompareResumeComponent {
     if (index === -1) {
       resumes.push(result);
     } else {
-
       resumes[index] = { ...resumes[index], ...result };
     }
-    this.service.setResumes(resumes);
 
+    this.service.setResumes(resumes);
     this.resumeForm.reset();
   };
 

@@ -30,6 +30,7 @@
     padding: 1em;
     border-radius: 1em;
     background-color: var(--color-squid-mid1green);
+    max-width: 19.6em;
   }
 }
 
@@ -156,4 +157,20 @@
 
 .isInList {
   --mdc-filled-text-field-container-color: beige;
+}
+.keywords {
+  margin-top: 1em;
+  
+  .keyword-chip {
+    --mdc-chip-container-shape-radius: 20px;
+  
+    padding: 0 0.25em;
+  
+    &:not(.match) {
+      --mdc-chip-elevated-disabled-container-color: var(--color-goal-tooltip2);
+    }
+    &.match {
+      --mdc-chip-elevated-disabled-container-color: var(--color-squid-palegreen);
+    }
+  }
 }
