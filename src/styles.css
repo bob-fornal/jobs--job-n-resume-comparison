@@ -2,6 +2,7 @@
 
 html, body {
   height: 100%;
+  overflow-x: hidden;
 }
 body {
   --mat-form-field-container-text-size: 11pt;
