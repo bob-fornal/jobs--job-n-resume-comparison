@@ -167,10 +167,12 @@
     padding: 0 0.25em;
   
     &:not(.match) {
-      --mdc-chip-elevated-disabled-container-color: var(--color-goal-tooltip2);
+      --mdc-chip-elevated-disabled-container-color: var(--color-goal-toolbar);
+      --mdc-chip-disabled-label-text-color: var(--color-squid-mid4green);
     }
     &.match {
       --mdc-chip-elevated-disabled-container-color: var(--color-squid-palegreen);
+      --mdc-chip-disabled-label-text-color: var(--color-squid-mid4green);
     }
   }
 }
