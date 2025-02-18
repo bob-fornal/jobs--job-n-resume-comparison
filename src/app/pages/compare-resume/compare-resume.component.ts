@@ -205,8 +205,8 @@ export class CompareResumeComponent {
     this.generateResumePercentages(jobKeywords);
 
     const resumeKeywords: Array<string> = this.getActiveResumeKeywords();
+
     this.jobKeywords = {...this.emptyJobKeywords()};
-    console.log(JSON.parse(JSON.stringify(this.emptyJobKeywords())));
     jobKeywords.forEach((keyword: string) => {
       if (resumeKeywords.includes(keyword)) {
         this.jobKeywords.match.push(keyword);
