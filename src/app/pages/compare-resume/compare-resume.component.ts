@@ -7,6 +7,7 @@ import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 import { CompareResumeService } from './compare-resume.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalIgnoreListComponent } from '../../shared/modal-ignore-list/modal-ignore-list.component';
+import { JobKeywords } from '../../core/interfaces/job-keywords.interface';
 
 @Component({
   selector: 'app-compare-resume',
@@ -24,7 +25,11 @@ export class CompareResumeComponent {
 
   @ViewChild('jobPosting') jobPosting: any;
 
-  jobKeywords: Array<{ keyword: string, match: boolean }> = [];
+  private emptyJobKeywords = (): JobKeywords => ({
+    match: [],
+    noMatch: [],
+  });
+  jobKeywords: JobKeywords = {...this.emptyJobKeywords()};
 
   validationChecks: { [key: string]: boolean } = {
     resumeNameLength: true,
@@ -57,7 +62,7 @@ export class CompareResumeComponent {
   };
 
   clearAll = (): void => {
-    this.jobKeywords = [];
+    this.jobKeywords = {...this.emptyJobKeywords()};
     this.clearResumeDetails();
     this.clearJobDetails();
     this.validationChecks = {
@@ -200,11 +205,14 @@ export class CompareResumeComponent {
     this.generateResumePercentages(jobKeywords);
 
     const resumeKeywords: Array<string> = this.getActiveResumeKeywords();
-    this.jobKeywords = jobKeywords.map((keyword: string) => {
-      const mapped: { keyword: string; match: boolean} = {
-        keyword, match: resumeKeywords.includes(keyword),
-      };
-      return mapped;
+    this.jobKeywords = {...this.emptyJobKeywords()};
+    console.log(JSON.parse(JSON.stringify(this.emptyJobKeywords())));
+    jobKeywords.forEach((keyword: string) => {
+      if (resumeKeywords.includes(keyword)) {
+        this.jobKeywords.match.push(keyword);
+      } else {
+        this.jobKeywords.noMatch.push(keyword);
+      }
     });
   };
 
@@ -241,7 +249,7 @@ export class CompareResumeComponent {
 
   clearResumeDetails = (): void => {
     this.selectResume({}, { name: '', content: '', keywords: [] });
-    this.jobKeywords = [];
+    this.jobKeywords = {...this.emptyJobKeywords()};;
   };
 
   clearJobDetails = (): void => {
@@ -249,7 +257,7 @@ export class CompareResumeComponent {
   };
 
   clearComparison = (): void => {
-    this.jobKeywords = [];
+    this.jobKeywords = {...this.emptyJobKeywords()};;
     this.validationChecks = {
       resumeNameLength: true,
       resumeNameInList: false,

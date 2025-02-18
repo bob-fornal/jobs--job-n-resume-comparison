@@ -119,27 +119,15 @@
       (click)="runComparison()"
     >Run Comparison</button>
     <mat-chip-set class="keywords">
-      @for (item of jobKeywords; track item.keyword;) {
-        @if (item.match === true) {
-          <mat-chip
-            class="keyword-chip"
-            [class.match]="item.match"
-            disabled
-          >
-            {{ item.keyword }}
-          </mat-chip>
-        }
+      @for (keyword of jobKeywords.match; track keyword;) {
+        <mat-chip class="keyword-chip match" disabled>
+          {{ keyword }}
+        </mat-chip>
       }
-      @for (item of jobKeywords; track item.keyword;) {
-        @if (item.match === false) {
-          <mat-chip
-            class="keyword-chip"
-            [class.match]="item.match"
-            disabled
-          >
-            {{ item.keyword }}
-          </mat-chip>
-        }
+      @for (keyword of jobKeywords.noMatch; track keyword;) {
+        <mat-chip class="keyword-chip" disabled>
+          {{ keyword }}
+        </mat-chip>
       }
     </mat-chip-set>
   </div>
