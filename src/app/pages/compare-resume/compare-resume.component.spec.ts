@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -22,6 +23,7 @@ describe('CompareResumeComponent', () => {
         FormsModule,
         ReactiveFormsModule,
 
+        MatChipsModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
