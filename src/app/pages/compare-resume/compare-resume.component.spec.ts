@@ -235,6 +235,7 @@ describe('CompareResumeComponent', () => {
       { name: 'IT EXISTS', content: '', keywords: [] },
     ];
     component.resumes = [];
+    spyOn(component['service'], 'resumes').and.returnValue(data);
 
     component.handleResumes();
     expect(component.resumes).toEqual(data);
@@ -252,9 +253,10 @@ describe('CompareResumeComponent', () => {
     const event: any = {
       stopPropagation: () => ({}),
     };
+    spyOn(component['service'], 'setResumes').and.stub();
 
     component.deleteResume(event, deleteResume);
-    expect(component.resumes).toEqual(expected);
+    expect(component['service'].setResumes).toHaveBeenCalledWith(expected);
   });
 
   it('expects "selectResume" to do nothing if delete selected', () => {

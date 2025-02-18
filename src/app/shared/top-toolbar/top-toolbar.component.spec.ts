@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { MockMenuApplicationComponent } from '../_specs/components/mock-menu-application.spec';
+import { MockMenuPageLevelComponent } from '../_specs/components/mock-menu-page-level.spec';
+
 describe('TopToolbarComponent', () => {
   let component: TopToolbarComponent;
   let fixture: ComponentFixture<TopToolbarComponent>;
@@ -21,6 +24,9 @@ describe('TopToolbarComponent', () => {
       ],
       declarations: [
         TopToolbarComponent,
+
+        MockMenuApplicationComponent,
+        MockMenuPageLevelComponent,
       ],
       teardown: { destroyAfterEach: false },
     })
