@@ -52,5 +52,4 @@ export class MenuApplicationComponent {
     this.service.setActivePage(page);
     this.router.navigateByUrl(`/${page}`);
   };
-
 }

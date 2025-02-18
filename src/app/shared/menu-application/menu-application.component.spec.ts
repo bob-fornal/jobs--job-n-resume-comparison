@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+// import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -9,6 +9,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { MockFeatureFlagService } from '../_specs/services/mock-feature-flag-service.spec';
+import { FeatureFlagsService } from '../../core/services/feature-flags.service';
+
 describe('MenuApplicationComponent', () => {
   let component: MenuApplicationComponent;
   let fixture: ComponentFixture<MenuApplicationComponent>;
@@ -17,12 +20,13 @@ describe('MenuApplicationComponent', () => {
     navigate: jasmine.createSpy('navigate'),
     navigateByUrl: jasmine.createSpy('navigateByUrl'),
     events: of(),
+    root: '',
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        // RouterTestingModule,
 
         MatDividerModule,
         MatIconModule,
@@ -32,6 +36,7 @@ describe('MenuApplicationComponent', () => {
         MenuApplicationComponent
       ],
       providers: [
+        { provide: FeatureFlagsService, useValue: MockFeatureFlagService },
         { provide: Router, useValue: mockRouter },
       ],
     })
@@ -47,6 +52,8 @@ describe('MenuApplicationComponent', () => {
   });
 
   it('expects "init" to trigger active page', () => {
+    const mockSetTimeout = (fn: any, timeMs: number) => fn();
+    component.setTimeout = mockSetTimeout;
     spyOn(component, 'initActivePage').and.stub();
 
     component.init();
