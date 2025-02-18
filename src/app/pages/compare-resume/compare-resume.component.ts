@@ -24,6 +24,8 @@ export class CompareResumeComponent {
 
   @ViewChild('jobPosting') jobPosting: any;
 
+  jobKeywords: Array<{ keyword: string, match: boolean }> = [];
+
   validationChecks: { [key: string]: boolean } = {
     resumeNameLength: true,
     resumeNameInList: false,
@@ -35,6 +37,8 @@ export class CompareResumeComponent {
     resumeName: new FormControl('', [Validators.minLength(3)]),
     resumeContent: new FormControl('', [ Validators.minLength(5)]),
   });
+
+  setTimeout = window.setTimeout;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -49,6 +53,19 @@ export class CompareResumeComponent {
 
   init = (): void => {
     this.service.getResumes();
+    this.setTimeout(this.clearAll.bind(this), 100);
+  };
+
+  clearAll = (): void => {
+    this.jobKeywords = [];
+    this.clearResumeDetails();
+    this.clearJobDetails();
+    this.validationChecks = {
+      resumeNameLength: true,
+      resumeNameInList: false,
+      resumeContentLength: true,
+      jobContentLength: true,
+    };
   };
 
   handleResumes = (): void => {
@@ -178,8 +195,6 @@ export class CompareResumeComponent {
     });
   };
 
-  jobKeywords: Array<{ keyword: string, match: boolean }> = [];
-  
   runComparison = () => {
     const jobKeywords: Array<string> = this.getJobKeywords();
     this.generateResumePercentages(jobKeywords);
@@ -223,6 +238,10 @@ export class CompareResumeComponent {
     this.selectResume({}, { name: '', content: '', keywords: [] });
   };
 
+  clearJobDetails = (): void => {
+    this.jobPosting.nativeElement.value = '';
+  };
+
   captureContent = (): { name: string, content: string } => {
     const name: string = this.resumeForm.value.resumeName || '';
     const content: string = this.resumeForm.value.resumeContent || '';
@@ -262,7 +281,6 @@ export class CompareResumeComponent {
     this.service.setResumes(resumes);
     this.resumeForm.reset();
   };
-
 
   wideElement: string = '';
 
