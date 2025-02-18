@@ -234,7 +234,7 @@ describe('CompareResumeComponent', () => {
     ];
     component.resumes = [];
 
-    component.handleResumes(data);
+    component.handleResumes();
     expect(component.resumes).toEqual(data);
   });
 

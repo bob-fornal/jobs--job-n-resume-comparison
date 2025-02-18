@@ -114,21 +114,4 @@ describe('TopToolbarComponent', () => {
     expect(_document.getElementById).toHaveBeenCalledWith('body');
     expect(classList.toggle).toHaveBeenCalledWith('dark-mode');
   });
-
-  it('expects "updateViewGoals" to store the state', () => {
-    const viewGoals: boolean = true;
-    spyOn(component['service'], 'setViewGoals').and.stub();
-
-    component.updateViewGoals(viewGoals);
-    expect(component['service'].setViewGoals).toHaveBeenCalledWith(viewGoals);
-  });
-
-  it('expects "menuItemSelected" to trigger set menu item in service', () => {
-    const page: string = 'PAGE';
-    const item: string = 'ITEM';
-    spyOn(component['service'], 'setMenuItem').and.stub();
-
-    component.menuItemSelected(page, item);
-    expect(component['service'].setMenuItem).toHaveBeenCalledWith(page, item);
-  });
 });
