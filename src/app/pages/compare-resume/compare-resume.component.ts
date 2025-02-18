@@ -43,7 +43,7 @@ export class CompareResumeComponent {
     resumeContent: new FormControl('', [ Validators.minLength(5)]),
   });
 
-  setTimeout = window.setTimeout;
+  setTimeout: any = window.setTimeout;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,

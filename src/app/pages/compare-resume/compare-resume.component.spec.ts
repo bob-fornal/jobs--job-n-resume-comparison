@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CompareResumeComponent } from './compare-resume.component';
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
+import { JobKeywords } from '../../core/interfaces/job-keywords.interface';
 
 describe('CompareResumeComponent', () => {
   let component: CompareResumeComponent;
@@ -48,11 +49,61 @@ describe('CompareResumeComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('expects "emptyJobKeywords" to return an empty ojbect', () => {
+    const expected: JobKeywords = {
+      match: [],
+      noMatch: [],
+    };
+
+    const result: JobKeywords = component['emptyJobKeywords']();
+    expect(result).toEqual(expected);
+  });
+
   it('expects "init" to trigger getResumes', () => {
+    const mockSetTimeout = (fn: any, time: number) => fn();
+    component.setTimeout = mockSetTimeout;
     spyOn(component['service'], 'getResumes').and.stub();
+    spyOn(component, 'clearAll').and.stub();
 
     component.init();
     expect(component['service'].getResumes).toHaveBeenCalled();
+    expect(component.clearAll).toHaveBeenCalled();
+  });
+
+  it('expects "clearAll" to reset resume, comparison, and jobs', () => {
+    component.jobKeywords = { match: ['TEST1'], noMatch: ['TEST2'] };
+    component.validationChecks = {
+      resumeNameLength: false,
+      resumeNameInList: false,
+      resumeContentLength: false,
+      jobContentLength: false,
+    };
+    spyOn(component, 'clearResumeDetails').and.stub();
+    spyOn(component, 'clearJobDetails').and.stub();
+    const expected: any = {
+      resumeNameLength: true,
+      resumeNameInList: false,
+      resumeContentLength: true,
+      jobContentLength: true,
+    };
+
+    component.clearAll();
+    expect(component.jobKeywords).toEqual({ match: [], noMatch: [] });
+    expect(component.clearResumeDetails).toHaveBeenCalled();
+    expect(component.clearJobDetails).toHaveBeenCalled();
+    expect(component.validationChecks).toEqual(expected);
+  });
+
+  it('expects "handleResumes" to set resumes', () => {
+    const data: Array<ResumeDetails> = [
+      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
+      { name: 'IT EXISTS', content: '', keywords: [] },
+    ];
+    component.resumes = [];
+    spyOn(component['service'], 'resumes').and.returnValue(data);
+
+    component.handleResumes();
+    expect(component.resumes).toEqual(data);
   });
 
   it('expects "handleTriggerIgnoreListEffect" to do nothing if triggered', () => {
@@ -73,6 +124,48 @@ describe('CompareResumeComponent', () => {
     component.handleTriggerIgnoreListEffect();
     expect(component['service'].clearTriggerIgnoreList).toHaveBeenCalled();
     expect(component.openIgnoreListModal).toHaveBeenCalled();
+  });
+
+  it('expects "showMatchPercentage" to return false if matchPercentage not on resume', () => {
+    const resume: ResumeDetails = { name: '', content: '', keywords: [] };
+
+    const result: boolean = component.showMatchPercent(resume);
+    expect(result).toEqual(false);
+  });
+
+  it('expects "showMatchPercentage" to return false if matchPercentage is null', () => {
+    const resume: ResumeDetails = { name: '', content: '', keywords: [], matchPercent: null };
+
+    const result: boolean = component.showMatchPercent(resume);
+    expect(result).toEqual(false);
+  });
+
+  it('expects "showMatchPercentage" to return true if matchPercentage is a number', () => {
+    const resume: ResumeDetails = { name: '', content: '', keywords: [], matchPercent: 10 };
+
+    const result: boolean = component.showMatchPercent(resume);
+    expect(result).toEqual(true);
+  });
+
+  it('expects "getRange" to return range-61-80 if value is in range', () => {
+    const match: number = 72;
+
+    const result: string = component.getRange(match);
+    expect(result).toEqual('range-61-80');
+  });
+
+  it('expects "getRange" to return range-81-100 if value is in range', () => {
+    const match: number = 92;
+
+    const result: string = component.getRange(match);
+    expect(result).toEqual('range-81-100');
+  });
+
+  it('expects "getRange" to return range-0-60 if value is in range', () => {
+    const match: number = 42;
+
+    const result: string = component.getRange(match);
+    expect(result).toEqual('range-0-60');
   });
 
   it('expects "openIgnoreListModal" to open the modal', () => {
@@ -227,18 +320,6 @@ describe('CompareResumeComponent', () => {
 
     component.checkIfResumeNameExists(event);
     expect(component.validationChecks['resumeNameInList']).toEqual(true);
-  });
-
-  it('expects "handleResumes" to set resumes', () => {
-    const data: Array<ResumeDetails> = [
-      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
-      { name: 'IT EXISTS', content: '', keywords: [] },
-    ];
-    component.resumes = [];
-    spyOn(component['service'], 'resumes').and.returnValue(data);
-
-    component.handleResumes();
-    expect(component.resumes).toEqual(data);
   });
 
   it('expects "deleteResume" to set resumes', () => {
