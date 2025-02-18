@@ -231,15 +231,31 @@ export class CompareResumeComponent {
     
     this.resumeName.nativeElement.dispatchEvent(new Event('input'));
     this.resumeContent.nativeElement.dispatchEvent(new Event('input'));
+    this.jobPosting.nativeElement.dispatchEvent(new Event('input'));
     this.changeDetectorRef.detectChanges();
+
+    if (this.isRunComparisonDisabled() === false) {
+      this.runComparison();
+    }
   };
 
   clearResumeDetails = (): void => {
     this.selectResume({}, { name: '', content: '', keywords: [] });
+    this.jobKeywords = [];
   };
 
   clearJobDetails = (): void => {
     this.jobPosting.nativeElement.value = '';
+  };
+
+  clearComparison = (): void => {
+    this.jobKeywords = [];
+    this.validationChecks = {
+      resumeNameLength: true,
+      resumeNameInList: false,
+      resumeContentLength: true,
+      jobContentLength: true,
+    };
   };
 
   captureContent = (): { name: string, content: string } => {
@@ -280,6 +296,8 @@ export class CompareResumeComponent {
 
     this.service.setResumes(resumes);
     this.resumeForm.reset();
+
+    this.clearComparison();
   };
 
   wideElement: string = '';
