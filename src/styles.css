@@ -21,8 +21,9 @@ body {
   --color-squid-darkgreen: #001700;
   --color-squid-button: #68b646;
 
-  --color-goal-white: white;
+  --color-goal-white: #ffffff;
   --color-goal-off-white: #f1f1f1;
+  --color-goal-off-white2: #e1e1e1;
   --color-goal-black: black;
   --color-goal-off-black: #1f1f1f;
   --color-goal-highlight: var(--color-squid-button);
