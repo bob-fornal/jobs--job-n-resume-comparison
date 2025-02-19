@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { FEATURES } from '../constants/constants';
+
 @Injectable({
   providedIn: 'root'
 })
 export class FeatureFlagsService {
   
-  enabledFeatureFlags: Array<string> = JSON.parse(import.meta.env.NG_APP_ENABLED_FEATURES || '[]');
+  private features: string | undefined = FEATURES;
+  private enabledFeatureFlags = (): Array<string> => JSON.parse(this.features || '[]');
 
   private flags: any = {
     howToUse: false,
@@ -23,7 +26,7 @@ export class FeatureFlagsService {
   }
 
   init = (): void => {
-    this.enabledFeatureFlags.forEach((flag: string) => {
+    this.enabledFeatureFlags().forEach((flag: string) => {
       this.flags[flag] = true;
     });
   };

@@ -126,6 +126,26 @@ describe('CompareResumeComponent', () => {
     expect(component.openIgnoreListModal).toHaveBeenCalled();
   });
 
+  it('expects "handleTriggerImportEffect" to get inactive and do nothing', () => {
+    spyOn(component['service'], 'triggerImport').and.returnValue('inactive');
+    spyOn(component['service'], 'clearTriggerImport').and.stub();
+    spyOn(component.fileUpload.nativeElement, 'click').and.stub();
+
+    component.handleTriggerImportEffect();
+    expect(component['service'].clearTriggerImport).not.toHaveBeenCalled();
+    expect(component.fileUpload.nativeElement.click).not.toHaveBeenCalled();
+  });
+
+  it('expects "handleTriggerImportEffect" to handle active return', () => {
+    spyOn(component['service'], 'triggerImport').and.returnValue('active');
+    spyOn(component['service'], 'clearTriggerImport').and.stub();
+    spyOn(component.fileUpload.nativeElement, 'click').and.stub();
+
+    component.handleTriggerImportEffect();
+    expect(component['service'].clearTriggerImport).toHaveBeenCalled();
+    expect(component.fileUpload.nativeElement.click).toHaveBeenCalled();
+  });
+
   it('expects "showMatchPercentage" to return false if matchPercentage not on resume', () => {
     const resume: ResumeDetails = { name: '', content: '', keywords: [] };
 
@@ -552,4 +572,60 @@ describe('CompareResumeComponent', () => {
     component.toggleJobWide();
     expect(component.wideElement).toEqual('job');
   });
+
+    it('expects "onFileSelect" to do nothing if file is undefined', () => {
+      let triggered: boolean = false;
+      class MockFileReader {
+        onload: any;
+        readAsText() {
+          triggered = true;
+        }
+      }
+      component.fileReader = MockFileReader;
+      const event: any = {
+        target: {
+          files: [undefined],
+        },
+      };
+  
+      component.onFileSelect(event);
+      expect(triggered).toEqual(false);
+    });
+  
+    it('expects "onFileSelect" to process file if file exists', () => {
+      let triggered: boolean = false;
+      class MockFileReader {
+        onload: any;
+        readAsText() {
+          triggered = true;
+        }
+      }
+      component.fileReader = MockFileReader;
+      const event: any = {
+        target: {
+          files: [true],
+        },
+      };
+  
+      component.onFileSelect(event);
+      expect(triggered).toEqual(true);
+    });
+  
+    it('expects "readerOnload" to update to the passed structure', () => {
+      const structure: Array<ResumeDetails> = [
+        { name: 'IT EXISTS 1', content: '', keywords: [] },
+        { name: 'IT EXISTS 2', content: '', keywords: [] },  
+      ];
+      const structureString: string = JSON.stringify(structure);
+      const event: any = {
+        target: {
+          result: structureString,
+        },
+      };
+      spyOn(component['service'], 'setResumes').and.stub();
+  
+      component.readerOnload(event);
+      expect(component['service'].setResumes).toHaveBeenCalledWith(structure);
+    });
+  
 });
