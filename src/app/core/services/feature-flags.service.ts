@@ -8,8 +8,8 @@ import { FEATURES } from '../constants/constants';
 })
 export class FeatureFlagsService {
   
-  private features: string = FEATURES;
-  private enabledFeatureFlags = (): Array<string> => JSON.parse(this.features);
+  private features: string | undefined = FEATURES;
+  private enabledFeatureFlags = (): Array<string> => JSON.parse(this.features || '[]');
 
   private flags: any = {
     howToUse: false,

@@ -32,6 +32,13 @@ describe('FeatureFlagsService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('expects "enabledFeatureFlags" to return an empty array if FEATURES is undefined', () => {
+    service['features'] = undefined;
+
+    const result: Array<string> = service['enabledFeatureFlags']();
+    expect(result).toEqual([]);
+  });
+
   it('expects "init" to set the enabled flags', () => {
     service['features'] = '["TEST_FEATURE"]';
     service['flags'].TEST_FEATURE = false;
