@@ -14,23 +14,50 @@
     border-radius: 1em;
     background-color: var(--color-squid-palegreen);
 
+    &.wide {
+      width: 60%;
+      max-width: 60%;
+    }
+
     .title-toolbar {
       color: var(--color-squid-darkgreen);
     }
   }
   .comparison-wrapper {
     --mat-toolbar-container-text-color: var(--color-dark-foreground);
-    --mdc-filled-button-disabled-container-color: var(--color-squid-palegreen);
+
     flex-grow: 2;
     padding: 1em;
     border-radius: 1em;
-    background-color: var(--color-squid-mid2green);
+    background-color: var(--color-squid-mid1green);
+    max-width: 19.6em;
   }
 }
 
 .title-toolbar {
   background-color: transparent;
   font-family: Metropolis, sans-serif;
+  position: relative;
+
+  .space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .no-space-between {
+    position: relative;
+    left: -1em;
+
+    .title-content {
+      position: relative;
+      top: -0.2em;
+    }
+  }
+
+  .title-functionality.active {
+    color: var(--color-goal-toolbar3);
+  }
 }
 
 .resume-list-wrapper {
@@ -72,6 +99,26 @@
       margin-left: 1em;
     }
 
+    .percent-functionality {
+      padding: 0.25em 0.75em;
+      background-color: var(--color-squid-mid1green);
+      margin-left: 1em;
+      
+      display: inline-block;
+      width: 3em;
+      text-align: right;
+
+      &.range-0-60 {
+        color: darkred;
+      }
+      &.range-61-80 {
+        color: var(--color-goal-toolbar2);
+      }
+      &.range-81-100 {
+        color: var(--color-squid-mid3green);
+      }
+    }
+
     .delete-functionality {
       position: relative;
     }
@@ -110,4 +157,27 @@
 
 .isInList {
   --mdc-filled-text-field-container-color: beige;
+}
+.keywords {
+  margin-top: 1em;
+  
+  .keyword-chip {
+    --mdc-chip-container-shape-radius: 20px;
+    --mdc-chip-container-height: 24px;
+  
+    padding: 0 0.25em;
+  
+    &:not(.match) {
+      --mdc-chip-elevated-disabled-container-color: var(--color-goal-toolbar);
+      --mdc-chip-disabled-label-text-color: var(--color-squid-mid4green);
+
+      border: 1px solid var(--color-goal-off-white);
+    }
+    &.match {
+      --mdc-chip-elevated-disabled-container-color: var(--color-squid-palegreen);
+      --mdc-chip-disabled-label-text-color: var(--color-squid-mid4green);
+
+      border: 1px solid var(--color-goal-white);
+    }
+  }
 }

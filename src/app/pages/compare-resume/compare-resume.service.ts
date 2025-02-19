@@ -14,7 +14,8 @@ import { MenuItem } from '../../core/interfaces/menu-item.interface';
 })
 export class CompareResumeService extends StorageClassAbstraction {
 
-  resumes: BehaviorSubject<Array<ResumeDetails>> = new BehaviorSubject<Array<ResumeDetails>>([]);
+  resumesSignal = signal<Array<ResumeDetails>>([]);
+  readonly resumes = this.resumesSignal.asReadonly();
 
   defaultIgnoreList: Array<string> = ignoreList as Array<string>;
 
@@ -52,15 +53,20 @@ export class CompareResumeService extends StorageClassAbstraction {
     const resumes = this.localstorage.getItem('job-squid--resumes');
     if (resumes === null) {
       this.localstorage.setItem('job-squid--resumes', '[]');
-      this.resumes.next([]);
+      this.resumesSignal.set([]);
     } else {
       const items: Array<ResumeDetails> = JSON.parse(resumes);
-      this.resumes.next(items);
+      this.resumesSignal.set(items);
     }
   };
 
   setResumes = (resumes: Array<ResumeDetails>): void => {
-    const sortedResumes: Array<ResumeDetails> = resumes.sort((a: ResumeDetails, b: ResumeDetails) => a.name.localeCompare(b.name));
+    const sortedResumes: Array<ResumeDetails> = resumes
+      .sort((a: ResumeDetails, b: ResumeDetails) => a.name.localeCompare(b.name))
+      .map((resume: ResumeDetails) => {
+        delete resume.matchPercent;
+        return resume;
+      });
 
     const resumesString: string = JSON.stringify(sortedResumes);
     this.localstorage.setItem('job-squid--resumes', resumesString);

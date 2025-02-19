@@ -1,8 +1,18 @@
 <h3 class="page-title">Resume(s) to Job Comparison</h3>
 <div class="compare-wrapper">
-  <div class="resume-wrapper">
+  <div class="resume-wrapper" [class.wide]="wideElement === 'resume'">
     <mat-toolbar class="title-toolbar">
-      <span>Resume(s) Detail</span>
+      <span class="space-between">
+        <span class="title-content">Resume(s) Detail</span>
+        <button
+          mat-icon-button
+          class="title-functionality"
+          [class.active]="wideElement === 'resume'"
+          (click)="toggleResumeWide()"
+        >
+          <mat-icon fontSet="material-icons-outlined">keyboard_double_arrow_right</mat-icon>
+        </button>
+      </span>
     </mat-toolbar>
 
     <div class="resume-list-wrapper">
@@ -14,7 +24,7 @@
             @if (index > 0) {
               <mat-divider></mat-divider>
             }
-            <button class="action-item" mat-list-item (click)="selectResume($event, resume)">
+            <button class="action-item" mat-list-item (click)="selectResume(resume)">
               <span class="action-item-span">
                 <span>{{resume.name}}</span>
                 <span class="attributes">
@@ -24,6 +34,16 @@
                       <mat-icon class="delete-icon">close</mat-icon>
                     </button>
                   </span>
+                  @if (showMatchPercent(resume)) {
+                    <span
+                      class="percent-functionality"
+                      [class]="getRange(resume.matchPercent!)"
+                    >
+                      {{ resume.matchPercent }} %
+                    </span>
+                  } @else {
+                    <span class="percent-functionality range-0-60">- %</span>
+                  }
                 </span>
               </span>
             </button>
@@ -96,18 +116,45 @@
       class="functional-button comparison-button"
       mat-flat-button
       [disabled]="isRunComparisonDisabled()"
+      (click)="runComparison()"
     >Run Comparison</button>
+    <mat-chip-set class="keywords">
+      @for (keyword of jobKeywords.match; track keyword;) {
+        <mat-chip class="keyword-chip match" disabled>
+          {{ keyword }}
+        </mat-chip>
+      }
+      @for (keyword of jobKeywords.noMatch; track keyword;) {
+        <mat-chip class="keyword-chip" disabled>
+          {{ keyword }}
+        </mat-chip>
+      }
+    </mat-chip-set>
   </div>
   
-  <div class="job-wrapper">
+  <div class="job-wrapper" [class.wide]="wideElement === 'job'">
     <mat-toolbar class="title-toolbar">
-      <span>Job</span>
+      <span class="no-space-between">
+        <button
+          mat-icon-button
+          class="title-functionality"
+          [class.active]="wideElement === 'job'"
+          (click)="toggleJobWide()"
+        >
+          <mat-icon fontSet="material-icons-outlined">keyboard_double_arrow_left</mat-icon>
+        </button>
+        <span class="title-content">Job</span>
+      </span>
     </mat-toolbar>
 
     <form class="resume-form">
       <mat-form-field class="full-width">
         <mat-label>Job Posting</mat-label>
-        <textarea matInput (input)="triggerJobValidation($event)"></textarea>
+        <textarea
+          matInput
+          #jobPosting
+          (input)="triggerJobValidation($event)"
+        ></textarea>
       </mat-form-field>
     </form>
   </div>

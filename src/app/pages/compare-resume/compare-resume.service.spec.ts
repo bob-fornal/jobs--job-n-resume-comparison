@@ -40,11 +40,11 @@ describe('CompareResumeService', () => {
   it('expects "getResumes" to return an empty array of nothing stored', () => {
     spyOn(service.localstorage, 'getItem').and.returnValue(null);
     spyOn(service.localstorage, 'setItem').and.stub();
-    spyOn(service.resumes, 'next').and.stub();
+    spyOn(service.resumesSignal, 'set').and.stub();
 
     service.getResumes();
     expect(service.localstorage.setItem).toHaveBeenCalledWith('job-squid--resumes', '[]');
-    expect(service.resumes.next).toHaveBeenCalledWith([]);
+    expect(service.resumesSignal.set).toHaveBeenCalledWith([]);
   });
 
   it('expects "getResumes" to return an array of resumes', () => {
@@ -53,10 +53,10 @@ describe('CompareResumeService', () => {
     ];
     const resumesString: string = JSON.stringify(resumes);
     spyOn(service.localstorage, 'getItem').and.returnValue(resumesString);
-    spyOn(service.resumes, 'next').and.stub();
+    spyOn(service.resumesSignal, 'set').and.stub();
 
     service.getResumes();
-    expect(service.resumes.next).toHaveBeenCalledWith(resumes);
+    expect(service.resumesSignal.set).toHaveBeenCalledWith(resumes);
   });
 
   it('expects "setResumes" to sort and store the resumes', () => {
