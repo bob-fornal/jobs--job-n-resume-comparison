@@ -1,13 +1,30 @@
 .title-toolbar {
   --mat-toolbar-standard-height: 4em;
 
-  background-color: var(--color-squid-mid2green);
+  background-color: var(--color-squid-mid1green);
   color: var(--color-dark-foreground);
   font-family: Metropolis, sans-serif;
 
   .menu-icon {
-    color: var(--color-dark-foreground);
+    --mdc-filled-button-label-text-font: Metropolis, sans-serif;
+
+    color: var(--color-squid-mid2green);
   }
+
+  .complete-menu {
+    margin-right: 1em;
+  }
+
+  .menu-button {
+    --mdc-filled-button-label-text-font: Metropolis, sans-serif;
+
+    color: var(--color-goal-white);
+
+    &.functional-button {
+      margin-right: 1em;
+    }
+  }
+
   .menu-spacer {
     flex: 1 1 auto;
     text-align: center;
@@ -19,5 +36,13 @@
     position: relative;
     height: 3.5em;
     top: 0.25em;
+  }
+
+  .fully-center-logo {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    top: -1px;
   }
 }

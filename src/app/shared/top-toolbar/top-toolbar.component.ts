@@ -14,11 +14,11 @@ export class TopToolbarComponent {
 
   _document: any = document;
 
-  selectedPageMenu: string = 'resumes';
   viewGoals: boolean = false;
 
+  selectedPageMenu: string = 'resumes';
+
   constructor(
-    private router: Router,
     private service: TopToolbarService,
   ) {
     this.init();
@@ -26,7 +26,6 @@ export class TopToolbarComponent {
 
   init = (): void => {
     this.initDarkMode();
-    this.initActivePage();
     this.initViewGoals();
   };
 
@@ -37,11 +36,6 @@ export class TopToolbarComponent {
       const element = this._document.getElementById('body');
       element?.classList.add('dark-mode');  
     }
-  };
-
-  initActivePage = (): void => {
-    const page: string = this.service.activePage();
-    this.pageMenuSelection(page);
   };
 
   initViewGoals = (): void => {
@@ -57,17 +51,8 @@ export class TopToolbarComponent {
     element?.classList.toggle('dark-mode');
   };
 
-  pageMenuSelection = (page: string): void => {
+  pageSelectedFn = this.pageSelected.bind(this);
+  pageSelected(page: string): void {
     this.selectedPageMenu = page;
-    this.service.setActivePage(page);
-    this.router.navigateByUrl(`/${page}`);
-  };
-
-  updateViewGoals = (viewGoals: boolean): void => {
-    this.service.setViewGoals(viewGoals);
-  };
-
-  menuItemSelected = (page: string, item: string): void => {
-    this.service.setMenuItem(page, item);
-  };
+  }
 }
