@@ -111,9 +111,10 @@ export class CompareResumeService extends StorageClassAbstraction {
   };
 
   exportCurrentRecordset = (): void => {
-    const currentRecorset: string = JSON.stringify(this.resumes);
+    const resumes = this.resumes().map(({ matchPercent, ...rest }: ResumeDetails) => rest);
+    const currentRecorset: string = JSON.stringify(resumes);
     const blob = new Blob([currentRecorset], { type: 'text/plain;charset=utf-8'});
-    this.saveAs(blob, 'current-days-of-code.json');
+    this.saveAs(blob, 'current-resumes.json');
   };
 
   triggerImportSignal = signal('inactive');

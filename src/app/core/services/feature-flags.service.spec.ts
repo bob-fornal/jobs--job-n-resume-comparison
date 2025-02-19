@@ -28,21 +28,12 @@ describe('FeatureFlagsService', () => {
     service = TestBed.inject(FeatureFlagsService);
   });
 
-  beforeEach(() => {
-    service['env'] = {
-      NG_APP_ENABLED_FEATURES: '["TEST_FEATURE"]',
-    };
-  });
-
-  afterEach(() => {
-    service['env'] = originalEnv;
-  });
-
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
   it('expects "init" to set the enabled flags', () => {
+    service['features'] = '["TEST_FEATURE"]';
     service['flags'].TEST_FEATURE = false;
 
     service.init();

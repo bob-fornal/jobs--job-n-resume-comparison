@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { FEATURES } from '../constants/constants';
+
 @Injectable({
   providedIn: 'root'
 })
 export class FeatureFlagsService {
   
-  private env: any = import.meta.env;
-  private enabledFeatureFlags = (): Array<string> => JSON.parse(this.env.NG_APP_ENABLED_FEATURES);
+  private features: string = FEATURES;
+  private enabledFeatureFlags = (): Array<string> => JSON.parse(this.features);
 
   private flags: any = {
     howToUse: false,
