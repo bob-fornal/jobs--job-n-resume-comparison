@@ -1,18 +1,22 @@
 import { effect, Injectable, signal } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+
+import saveAs from 'file-saver';
 
 import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
 
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
+import { MenuItem } from '../../core/interfaces/menu-item.interface';
 
 import ignoreList from '../../core/constants/ignore-list.json';
+
 import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
-import { MenuItem } from '../../core/interfaces/menu-item.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompareResumeService extends StorageClassAbstraction {
+
+  saveAs: any = saveAs;
 
   resumesSignal = signal<Array<ResumeDetails>>([]);
   readonly resumes = this.resumesSignal.asReadonly();
@@ -39,12 +43,12 @@ export class CompareResumeService extends StorageClassAbstraction {
         case 'change-ignore-list':
           this.changeIgnoreList();
           break;
-        // case 'export-current-recordset':
-        //   this.exportCurrentRecordset();
-        //   break;
-        // case 'import-saved-recordset':
-        //   this.importSavedRecordset();
-        //   break;
+        case 'export-current-recordset':
+          this.exportCurrentRecordset();
+          break;
+        case 'import-saved-recordset':
+          this.importSavedRecordset();
+          break;
         }
     }
   };
@@ -104,5 +108,23 @@ export class CompareResumeService extends StorageClassAbstraction {
 
   clearTriggerIgnoreList = (): void => {
     this.triggerIgnoreListSignal.set('not-triggered');
+  };
+
+  exportCurrentRecordset = (): void => {
+    const resumes = this.resumes().map(({ matchPercent, ...rest }: ResumeDetails) => rest);
+    const currentRecorset: string = JSON.stringify(resumes);
+    const blob = new Blob([currentRecorset], { type: 'text/plain;charset=utf-8'});
+    this.saveAs(blob, 'current-resumes.json');
+  };
+
+  triggerImportSignal = signal('inactive');
+  readonly triggerImport = this.triggerImportSignal.asReadonly();
+
+  importSavedRecordset = (): void => {
+    this.triggerImportSignal.set('active');
+  };
+
+  clearTriggerImport = (): void => {
+    this.triggerImportSignal.set('inactive');
   };
 }
