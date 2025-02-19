@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,12 +21,19 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { AboutComponent } from './pages/about/about.component';
+import { CompanyTrackingComponent } from './pages/company-tracking/company-tracking.component';
 import { CompareResumeComponent } from './pages/compare-resume/compare-resume.component';
 import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component';
-import { ModalGoalComponent } from './shared/modal-goal/modal-goal.component';
+import { InterviewResearchComponent } from './pages/interview-research/interview-research.component';
+import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
 import { ItemImageComponent } from './shared/item-image/item-image.component';
+import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
+import { MenuApplicationComponent } from './shared/menu-application/menu-application.component';
+import { MenuPageLevelComponent } from './shared/menu-page-level/menu-page-level.component';
 import { ModalDayComponent } from './shared/modal-day/modal-day.component';
+import { ModalGoalComponent } from './shared/modal-goal/modal-goal.component';
 import { ModalIgnoreListComponent } from './shared/modal-ignore-list/modal-ignore-list.component';
+import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-connections.component';
 import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component';
 
 @NgModule({
@@ -33,12 +41,19 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
     AppComponent,
 
     AboutComponent,
+    CompanyTrackingComponent,
     CompareResumeComponent,
     DaysOfCodeComponent,
+    HowToUseComponent,
+    InterviewResearchComponent,
     ItemImageComponent,
+    LongTermGoalsComponent,
+    MenuApplicationComponent,
+    MenuPageLevelComponent,
     ModalDayComponent,
     ModalGoalComponent,
     ModalIgnoreListComponent,
+    Top10ConnectionsComponent,
     TopToolbarComponent,
   ],
   imports: [
@@ -50,6 +65,7 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
 
     MatButtonModule,
     MatCheckboxModule,
+    MatChipsModule,
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,

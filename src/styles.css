@@ -2,6 +2,7 @@
 
 html, body {
   height: 100%;
+  overflow-x: hidden;
 }
 body {
   --mat-form-field-container-text-size: 11pt;
@@ -20,14 +21,18 @@ body {
   --color-squid-darkgreen: #001700;
   --color-squid-button: #68b646;
 
-  --color-goal-white: white;
+  --color-goal-white: #ffffff;
   --color-goal-off-white: #f1f1f1;
+  --color-goal-off-white2: #e1e1e1;
   --color-goal-black: black;
   --color-goal-off-black: #1f1f1f;
   --color-goal-highlight: var(--color-squid-button);
   --color-goal-tooltip: #555555;
+  --color-goal-tooltip2: #bbbbbb;
   --color-goal-silver: silver;
   --color-goal-toolbar: #ffaf7b;
+  --color-goal-toolbar2: #fef758;
+  --color-goal-toolbar3: #FF817A;
 
   --mat-menu-container-color: var(--color-squid-mid4green);
   --mat-menu-item-hover-state-layer-color: var(--color-squid-mid2green);
@@ -36,12 +41,15 @@ body {
   --mat-checkbox-label-text-color: var(--color-light-background);
   --mdc-checkbox-unselected-icon-color: var(--color-light-background);
 
+  --mdc-list-list-item-label-text-font: Metropolis, sans-serif;
+  --mat-form-field-container-text-font: Metropolis, sans-serif;
+
   --mdc-dialog-container-color: var(--color-squid-mid4green);
   --mdc-dialog-subhead-color: var(--color-light-background);
   --mdc-dialog-container-shape: 5px;
 
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Metropolis, sans-serif;
   
   &.dark-mode {
     background-color: var(--color-squid-darkgreen);
@@ -66,6 +74,20 @@ body {
   margin: 1em 2em 0 2em;
 }
 
+.mat-mdc-menu-panel {
+
+  .menu-heading {
+    margin: 0.5em 0.75em;
+    color: var(--color-squid-mid1green);
+  }
+  .mat-mdc-menu-item {
+    --mat-menu-item-with-icon-leading-spacing: 1.5em;
+    --mat-menu-item-with-icon-trailing-spacing: 1.5em;
+
+    min-height: 2.5em;
+  }
+}
+
 .page-menu.selected {
   
   .mat-mdc-menu-item-text {
@@ -79,9 +101,10 @@ body {
 
 .functional-button {
   --mdc-filled-button-container-shape: 0;
+  --mdc-filled-button-disabled-container-color: var(--color-goal-tooltip2);
 
   &:not(.cancel-button) {
-    --mdc-filled-button-container-color: var(--color-squid-button);
+    --mdc-filled-button-container-color: var(--color-squid-mid2green);
   }
   &.cancel-button {
     --mdc-filled-button-container-color: var(--color-dark-background);

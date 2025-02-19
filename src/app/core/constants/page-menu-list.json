@@ -1,0 +1,75 @@
+[
+  {
+    "path": "resumes",
+    "category": "Applying",
+    "icon": "description",
+    "title": "Resume(s) to Job Comparison",
+    "featureFlag": false,
+    "featureName": "",
+    "dividerAfter": true,
+    "dividerBefore": false
+  }, {
+    "path": "days-of-code",
+    "category": "Social",
+    "icon": "code",
+    "title": "Days Of Code Tracker",
+    "featureFlag": false,
+    "featureName": "",
+    "dividerAfter": true,
+    "dividerBefore": false
+  }, {
+    "path": "long-term-goals",
+    "category": "Planning",
+    "icon": "sports_score",
+    "title": "Long Term Goals",
+    "featureFlag": true,
+    "featureName": "longTermGoals",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "top-10-connections",
+    "category": "",
+    "icon": "emergency",
+    "title": "Emergency Top Ten",
+    "featureFlag": true,
+    "featureName": "top10Connections",
+    "dividerAfter": true,
+    "dividerBefore": false
+  }, {
+    "path": "company-tracking",
+    "category": "Research",
+    "icon": "share_location",
+    "title": "Company Tracking",
+    "featureFlag": true,
+    "featureName": "companyTracking",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "interviewing-research",
+    "category": "",
+    "icon": "person_search",
+    "title": "Interviewing Research",
+    "featureFlag": true,
+    "featureName": "interviewingResearch",
+    "dividerAfter": true,
+    "dividerBefore": false
+  }, {
+    "path": "how-to-use",
+    "category": "",
+    "icon": "not_listed_location",
+    "title": "How to use Job-Squid.com",
+    "featureFlag": true,
+    "featureName": "howToUse",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "about",
+    "category": "",
+    "icon": "info",
+    "title": "About Job-Squid.com",
+    "featureFlag": false,
+    "featureName": "",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }
+]

@@ -1,0 +1,58 @@
+@if (isActivePage()) {
+  <button mat-flat-button [matMenuTriggerFor]="functionalityMenu" class="menu-button functional-button">
+    <mat-icon class="material-icons-outlined">menu_open</mat-icon>
+    <span>Page</span>
+  </button>
+  <mat-menu #functionalityMenu="matMenu">
+    @switch (selectedPageMenu) {
+      @case ('resumes') {
+        <button mat-menu-item (click)="menuItemSelected('resumes', 'change-ignore-list')">
+          <mat-icon fontSet="material-icons-outlined">subject</mat-icon>
+          <span>Change Ignore Word List</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item (click)="menuItemSelected('resumes', 'export-current-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
+          <span>Export Resumes</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item (click)="menuItemSelected('resumes', 'import-saved-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
+          <span>Import Resumes</span>
+        </button>
+      }
+      @case ('days-of-code') {
+        <mat-checkbox
+          [checked]="viewGoals"
+          (change)="updateViewGoals($event.checked)">
+          View Goals
+        </mat-checkbox>
+
+        <mat-divider></mat-divider>
+        
+        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'export-blank-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
+          <span>Export Blank Recordset</span>
+        </button>
+        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'export-current-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
+          <span>Export Current Recordset</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'import-saved-recordset')">
+          <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
+          <span>Import Saved Recordset</span>
+        </button>
+      }
+      @default {
+        <div class="no-menu-item">No Menu</div>
+      }
+    }
+  </mat-menu>
+}
