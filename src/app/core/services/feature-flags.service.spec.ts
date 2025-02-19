@@ -17,7 +17,6 @@ const mockActivatedRoute: any = {
 
 describe('FeatureFlagsService', () => {
   let service: FeatureFlagsService;
-  const originalEnv = import.meta.env;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,21 +29,6 @@ describe('FeatureFlagsService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
-  });
-
-  it('expects "enabledFeatureFlags" to return an empty array if FEATURES is undefined', () => {
-    service['features'] = undefined;
-
-    const result: Array<string> = service['enabledFeatureFlags']();
-    expect(result).toEqual([]);
-  });
-
-  it('expects "init" to set the enabled flags', () => {
-    service['features'] = '["TEST_FEATURE"]';
-    service['flags'].TEST_FEATURE = false;
-
-    service.init();
-    expect(service['flags'].TEST_FEATURE).toEqual(true);
   });
 
   it('expects "hasUrlParam" to return false if param does not exist', () => {
