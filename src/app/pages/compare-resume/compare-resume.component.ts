@@ -25,6 +25,10 @@ export class CompareResumeComponent {
 
   @ViewChild('jobPosting') jobPosting: any;
 
+  @ViewChild('fileUpload') fileUpload: any;
+
+  fileReader: any = FileReader;
+
   private emptyJobKeywords = (): JobKeywords => ({
     match: [],
     noMatch: [],
@@ -54,6 +58,7 @@ export class CompareResumeComponent {
 
     effect(this.handleResumes.bind(this));
     effect(this.handleTriggerIgnoreListEffect.bind(this));
+    effect(this.handleTriggerImportEffect.bind(this));
   }
 
   init = (): void => {
@@ -83,6 +88,14 @@ export class CompareResumeComponent {
     if (triggerIgnoreList === 'triggered') {
       this.service.clearTriggerIgnoreList();
       this.openIgnoreListModal();
+    }
+  };
+
+  handleTriggerImportEffect = (): void => {
+    const triggerImport: string = this.service.triggerImport();
+    if (triggerImport === 'active') {
+      this.service.clearTriggerImport();
+      this.fileUpload.nativeElement.click();
     }
   };
 
@@ -324,5 +337,22 @@ export class CompareResumeComponent {
     } else {
       this.wideElement = 'job';
     }
+  };
+
+  requiredFileType: string = 'application/JSON';
+
+  onFileSelect = (event: any): void => {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new this.fileReader();
+      reader.onload = this.readerOnload.bind(this);
+      reader.readAsText(file);
+    }
+  };
+
+  readerOnload = (event: any) => {
+    const content: string = event.target.result;
+    const resumes: Array<ResumeDetails> = JSON.parse(content);
+    this.service.setResumes(resumes);
   };
 }

@@ -37,6 +37,24 @@ describe('CompareResumeService', () => {
     expect(service.changeIgnoreList).toHaveBeenCalled();
   });
 
+  it('expects "handleMenuItemEffect" to trigger export current records if item is export-current-recordset', () => {
+    const menuItem: MenuItem = { page: 'resumes', item: 'export-current-recordset' };
+    spyOn(service, 'menuItem').and.returnValue(menuItem);
+    spyOn(service, 'exportCurrentRecordset').and.stub();
+
+    service.handleMenuItemEffect();
+    expect(service.exportCurrentRecordset).toHaveBeenCalled();
+  });
+
+  it('expects "handleMenuItemEffect" to trigger import saved records if item is import-saved-recordset', () => {
+    const menuItem: MenuItem = { page: 'resumes', item: 'import-saved-recordset' };
+    spyOn(service, 'menuItem').and.returnValue(menuItem);
+    spyOn(service, 'importSavedRecordset').and.stub();
+
+    service.handleMenuItemEffect();
+    expect(service.importSavedRecordset).toHaveBeenCalled();
+  });
+
   it('expects "getResumes" to return an empty array of nothing stored', () => {
     spyOn(service.localstorage, 'getItem').and.returnValue(null);
     spyOn(service.localstorage, 'setItem').and.stub();
@@ -139,5 +157,39 @@ describe('CompareResumeService', () => {
 
     service.clearTriggerIgnoreList();
     expect(service.triggerIgnoreListSignal.set).toHaveBeenCalledWith('not-triggered');
+  });
+
+  it('expects "exportCurrentRecordset" to export without matchPercent values', () => {
+    const resumes: Array<ResumeDetails> = [
+      { name: 'RESUME1', content: 'CONTENT1', keywords: [], matchPercent: 10 },
+      { name: 'RESUME2', content: 'CONTENT2', keywords: [], matchPercent: 20 },
+      { name: 'RESUME3', content: 'CONTENT3', keywords: [], matchPercent: 30 },
+    ];
+    const written: Array<ResumeDetails> = [
+      { name: 'RESUME1', content: 'CONTENT1', keywords: [] },
+      { name: 'RESUME2', content: 'CONTENT2', keywords: [] },
+      { name: 'RESUME3', content: 'CONTENT3', keywords: [] },
+    ];
+    const writtenString: string = JSON.stringify(written);
+    const expected = new Blob([writtenString], { type: 'text/plain;charset=utf-8' });
+    spyOn(service, 'resumes').and.returnValue(resumes);
+    spyOn(service, 'saveAs').and.stub();
+
+    service.exportCurrentRecordset();
+    expect(service.saveAs).toHaveBeenCalledWith(expected, 'current-resumes.json');
+  });
+
+  it('expects "importSavedRecordset" to set signal to active', () => {
+    spyOn(service.triggerImportSignal, 'set').and.stub();
+
+    service.importSavedRecordset();
+    expect(service.triggerImportSignal.set).toHaveBeenCalledWith('active');
+  });
+
+  it('expects "clearTriggerImport" to set signal to inactive', () => {
+    spyOn(service.triggerImportSignal, 'set').and.stub();
+
+    service.clearTriggerImport();
+    expect(service.triggerImportSignal.set).toHaveBeenCalledWith('inactive');
   });
 });
