@@ -17,6 +17,7 @@ const mockActivatedRoute: any = {
 
 describe('FeatureFlagsService', () => {
   let service: FeatureFlagsService;
+  const originalEnv = import.meta.env;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,8 +28,25 @@ describe('FeatureFlagsService', () => {
     service = TestBed.inject(FeatureFlagsService);
   });
 
+  beforeEach(() => {
+    service['env'] = {
+      NG_APP_ENABLED_FEATURES: '["TEST_FEATURE"]',
+    };
+  });
+
+  afterEach(() => {
+    service['env'] = originalEnv;
+  });
+
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('expects "init" to set the enabled flags', () => {
+    service['flags'].TEST_FEATURE = false;
+
+    service.init();
+    expect(service['flags'].TEST_FEATURE).toEqual(true);
   });
 
   it('expects "hasUrlParam" to return false if param does not exist', () => {
