@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -10,7 +11,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CompareResumeComponent } from './compare-resume.component';
-import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
+import { ResumeDetails, ResumeForm } from '../../core/interfaces/resume-details.interface';
+import { JobKeywords } from '../../core/interfaces/job-keywords.interface';
 
 describe('CompareResumeComponent', () => {
   let component: CompareResumeComponent;
@@ -22,6 +24,7 @@ describe('CompareResumeComponent', () => {
         FormsModule,
         ReactiveFormsModule,
 
+        MatChipsModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
@@ -46,11 +49,61 @@ describe('CompareResumeComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('expects "emptyJobKeywords" to return an empty ojbect', () => {
+    const expected: JobKeywords = {
+      match: [],
+      noMatch: [],
+    };
+
+    const result: JobKeywords = component['emptyJobKeywords']();
+    expect(result).toEqual(expected);
+  });
+
   it('expects "init" to trigger getResumes', () => {
+    const mockSetTimeout = (fn: any, time: number) => fn();
+    component.setTimeout = mockSetTimeout;
     spyOn(component['service'], 'getResumes').and.stub();
+    spyOn(component, 'clearAll').and.stub();
 
     component.init();
     expect(component['service'].getResumes).toHaveBeenCalled();
+    expect(component.clearAll).toHaveBeenCalled();
+  });
+
+  it('expects "clearAll" to reset resume, comparison, and jobs', () => {
+    component.jobKeywords = { match: ['TEST1'], noMatch: ['TEST2'] };
+    component.validationChecks = {
+      resumeNameLength: false,
+      resumeNameInList: false,
+      resumeContentLength: false,
+      jobContentLength: false,
+    };
+    spyOn(component, 'clearResumeDetails').and.stub();
+    spyOn(component, 'clearJobDetails').and.stub();
+    const expected: any = {
+      resumeNameLength: true,
+      resumeNameInList: false,
+      resumeContentLength: true,
+      jobContentLength: true,
+    };
+
+    component.clearAll();
+    expect(component.jobKeywords).toEqual({ match: [], noMatch: [] });
+    expect(component.clearResumeDetails).toHaveBeenCalled();
+    expect(component.clearJobDetails).toHaveBeenCalled();
+    expect(component.validationChecks).toEqual(expected);
+  });
+
+  it('expects "handleResumes" to set resumes', () => {
+    const data: Array<ResumeDetails> = [
+      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
+      { name: 'IT EXISTS', content: '', keywords: [] },
+    ];
+    component.resumes = [];
+    spyOn(component['service'], 'resumes').and.returnValue(data);
+
+    component.handleResumes();
+    expect(component.resumes).toEqual(data);
   });
 
   it('expects "handleTriggerIgnoreListEffect" to do nothing if triggered', () => {
@@ -71,6 +124,48 @@ describe('CompareResumeComponent', () => {
     component.handleTriggerIgnoreListEffect();
     expect(component['service'].clearTriggerIgnoreList).toHaveBeenCalled();
     expect(component.openIgnoreListModal).toHaveBeenCalled();
+  });
+
+  it('expects "showMatchPercentage" to return false if matchPercentage not on resume', () => {
+    const resume: ResumeDetails = { name: '', content: '', keywords: [] };
+
+    const result: boolean = component.showMatchPercent(resume);
+    expect(result).toEqual(false);
+  });
+
+  it('expects "showMatchPercentage" to return false if matchPercentage is null', () => {
+    const resume: ResumeDetails = { name: '', content: '', keywords: [], matchPercent: null };
+
+    const result: boolean = component.showMatchPercent(resume);
+    expect(result).toEqual(false);
+  });
+
+  it('expects "showMatchPercentage" to return true if matchPercentage is a number', () => {
+    const resume: ResumeDetails = { name: '', content: '', keywords: [], matchPercent: 10 };
+
+    const result: boolean = component.showMatchPercent(resume);
+    expect(result).toEqual(true);
+  });
+
+  it('expects "getRange" to return range-61-80 if value is in range', () => {
+    const match: number = 72;
+
+    const result: string = component.getRange(match);
+    expect(result).toEqual('range-61-80');
+  });
+
+  it('expects "getRange" to return range-81-100 if value is in range', () => {
+    const match: number = 92;
+
+    const result: string = component.getRange(match);
+    expect(result).toEqual('range-81-100');
+  });
+
+  it('expects "getRange" to return range-0-60 if value is in range', () => {
+    const match: number = 42;
+
+    const result: string = component.getRange(match);
+    expect(result).toEqual('range-0-60');
   });
 
   it('expects "openIgnoreListModal" to open the modal', () => {
@@ -210,6 +305,69 @@ describe('CompareResumeComponent', () => {
     expect(component.validationChecks['jobContentLength']).toEqual(false);
   });
 
+  it('expects "getJobKeywords" to capture the string and extract the keywords', () => {
+    component.jobPosting.nativeElement.value = 'TEXT1 TEXT2 TEXT3 TEXT4';
+    component.keywordExtractor = {
+      extract: (content: string, settings: any) => ['TEXT1', 'TEXT3', 'TEXT4'],
+    }
+    const expected: Array<string> = ['TEXT1', 'TEXT4'];
+    spyOn(component['service'], 'extractIgnoreList').and.returnValue(expected);
+
+    const result: Array<string> = component.getJobKeywords();
+    expect(result).toEqual(expected);
+  });
+
+  it('expects "adjustResumeContent" to remove comment text', () => {
+    const content: string = '1\n## 2\n3';
+    const expected: string = '1\n3';
+
+    const result: string = component.adjustResumeContent(content);
+    expect(result).toEqual(expected);
+  });
+
+  it('expects "getActiveResumeKeywords" to capture the string and extract the keywords', () => {
+    component.resumeContent.nativeElement.value = 'TEXT1 TEXT2 TEXT3 TEXT4';
+    spyOn(component, 'adjustResumeContent').and.returnValue('TEXT1\nTEXT3\nTEXT4');
+    component.keywordExtractor = {
+      extract: (content: string, settings: any) => ['TEXT1', 'TEXT4'],
+    }
+    const expected: Array<string> = ['TEXT4'];
+    spyOn(component['service'], 'extractIgnoreList').and.returnValue(expected);
+
+    const result: Array<string> = component.getActiveResumeKeywords();
+    expect(result).toEqual(expected);
+  });
+
+  it('expects "generateResumePercentages" to update resume percentages', () => {
+    const resumes: Array<ResumeDetails> = [
+      { name: 'TITLE1', content: 'TEXT1', keywords: ['1'] },
+      { name: 'TITLE2', content: 'TEXT2', keywords: ['1', '2'] },
+      { name: 'TITLE3', content: 'TEXT3', keywords: ['1', '2', '3'] },
+    ];
+    const expected: Array<ResumeDetails> = [
+      { name: 'TITLE1', content: 'TEXT1', keywords: ['1'], matchPercent: 25 },
+      { name: 'TITLE2', content: 'TEXT2', keywords: ['1', '2'], matchPercent: 50 },
+      { name: 'TITLE3', content: 'TEXT3', keywords: ['1', '2', '3'], matchPercent: 75 },
+    ];
+    const keywords: Array<string> = ['1', '2', '3', '4'];
+    component.resumes = resumes;
+
+    component.generateResumePercentages(keywords);
+    expect(component.resumes).toEqual(expected);
+  });
+
+  it('expects "runComparison" to generate percentages, compare active resume, and generate tokens', () => {
+    spyOn(component, 'getJobKeywords').and.returnValue(['1', '2', '3', '4']);
+    spyOn(component, 'generateResumePercentages').and.stub();
+    spyOn(component, 'getActiveResumeKeywords').and.returnValue(['2', '3']);
+
+    component.runComparison();
+    expect(component.jobKeywords).toEqual({
+      match: ['2', '3'],
+      noMatch: ['1', '4'],
+    });
+  });
+
   it('expects "checkIfResumeNameExists" to return true', () => {
     const event: any = {
       target: {
@@ -227,17 +385,6 @@ describe('CompareResumeComponent', () => {
     expect(component.validationChecks['resumeNameInList']).toEqual(true);
   });
 
-  it('expects "handleResumes" to set resumes', () => {
-    const data: Array<ResumeDetails> = [
-      { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
-      { name: 'IT EXISTS', content: '', keywords: [] },
-    ];
-    component.resumes = [];
-
-    component.handleResumes(data);
-    expect(component.resumes).toEqual(data);
-  });
-
   it('expects "deleteResume" to set resumes', () => {
     const deleteResume: ResumeDetails = { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] };
     const expected: Array<ResumeDetails> = [
@@ -250,43 +397,92 @@ describe('CompareResumeComponent', () => {
     const event: any = {
       stopPropagation: () => ({}),
     };
+    spyOn(component['service'], 'setResumes').and.stub();
 
     component.deleteResume(event, deleteResume);
-    expect(component.resumes).toEqual(expected);
+    expect(component['service'].setResumes).toHaveBeenCalledWith(expected);
   });
 
-  it('expects "selectResume" to do nothing if delete selected', () => {
-    const event: any = {
-      target: {
-        classList: ['delete-icon'],
-      },
-    };
-    const resume: ResumeDetails = { name: 'NAME', content: 'CONTENT', keywords: [] };
-    spyOn(component, 'textareaAdjust').and.stub();
-
-    component.selectResume(event, resume);
-    expect(component.textareaAdjust).toHaveBeenCalled();
-  });
-
-  it('expects "selectResume" to set name and content', () => {
-    const event: any = {
-      target: {
-        classList: [],
-      },
-    };
+  it('expects "selectResume" to set name and content, no comparison', () => {
     const resume: ResumeDetails = { name: 'NAME', content: 'CONTENT', keywords: [] };
     spyOn(component, 'textareaAdjust').and.stub();
     spyOn(component['changeDetectorRef'], 'detectChanges').and.stub();
+    spyOn(component, 'isRunComparisonDisabled').and.returnValue(true);
+    spyOn(component, 'runComparison').and.stub();
 
-    component.selectResume(event, resume);
+    component.selectResume(resume);
     expect(component.textareaAdjust).toHaveBeenCalled();
+    expect(component.runComparison).not.toHaveBeenCalled();
+  });
+
+  it('expects "selectResume" to set name and content, comparison', () => {
+    const resume: ResumeDetails = { name: 'NAME', content: 'CONTENT', keywords: [] };
+    spyOn(component, 'textareaAdjust').and.stub();
+    spyOn(component['changeDetectorRef'], 'detectChanges').and.stub();
+    spyOn(component, 'isRunComparisonDisabled').and.returnValue(false);
+    spyOn(component, 'runComparison').and.stub();
+
+    component.selectResume(resume);
+    expect(component.textareaAdjust).toHaveBeenCalled();
+    expect(component.runComparison).toHaveBeenCalled();
   });
 
   it('expects "clearResumeDetails" to call selectResume with an empty record', () => {
     spyOn(component, 'selectResume').and.stub();
 
     component.clearResumeDetails();
-    expect(component.selectResume).toHaveBeenCalledWith({}, { name: '', content: '', keywords: [] });
+    expect(component.selectResume).toHaveBeenCalledWith({ name: '', content: '', keywords: [] });
+  });
+
+  it('expects "clearJobDetails" to clear the element', () => {
+    component.jobPosting.nativeElement.value = 'TEST';
+
+    component.clearJobDetails();
+    expect(component.jobPosting.nativeElement.value).toEqual('');
+  });
+
+  it('expects "clearComparison" to reset job details and validation', () => {
+    component.jobKeywords = {
+      match: ['1', '2', '3'],
+      noMatch: ['4', '5'],
+    };
+    component.validationChecks = {
+      resumeNameLength: false,
+      resumeNameInList: false,
+      resumeContentLength: false,
+      jobContentLength: false,
+    };
+
+    component.clearComparison();
+    expect(component.jobKeywords).toEqual({ match: [], noMatch: [] });
+    expect(component.validationChecks).toEqual({
+      resumeNameLength: true,
+      resumeNameInList: false,
+      resumeContentLength: true,
+      jobContentLength: true,
+    });
+  });
+
+  it('expects "captureContent" to return name and content', () => {
+    component.resumeForm.patchValue({
+      resumeName: 'RESUME-NAME',
+      resumeContent: 'RESUME-CONTENT',
+    });
+    const expected: ResumeForm = { name: 'RESUME-NAME', content: 'RESUME-CONTENT' };
+
+    const result: ResumeForm = component.captureContent();
+    expect(result).toEqual(expected);
+  });
+
+  it('expects "getKeywords" to return resume keywords', () => {
+    const content: string = 'TEST1 TEST2 TEST3 TEST4';
+    const expected: Array<string> = ['TEST1', 'TEST4']
+    spyOn(component, 'adjustResumeContent').and.returnValue('TEST1 TEST2 TEST4');
+    spyOn(component.keywordExtractor, 'extract').and.returnValue(['TEST1', 'TEST2', 'TEST4']);
+    spyOn(component['service'], 'extractIgnoreList').and.returnValue(expected);
+    
+    const result: Array<string> = component.getKeywords(content);
+    expect(result).toEqual(expected);
   });
 
   it('expects "onSubmit" to handle record creation', () => {
@@ -327,5 +523,33 @@ describe('CompareResumeComponent', () => {
     component.onSubmit();
     expect(component.keywordExtractor.extract).toHaveBeenCalled();
     expect(component['service'].setResumes).toHaveBeenCalledWith(expected);
+  });
+
+  it('expects "toggleResumeWide" to set wideElement to an empty string', () => {
+    component.wideElement = 'resume';
+
+    component.toggleResumeWide();
+    expect(component.wideElement).toEqual('');
+  });
+
+  it('expects "toggleResumeWide" to set wideElement to resume', () => {
+    component.wideElement = '';
+
+    component.toggleResumeWide();
+    expect(component.wideElement).toEqual('resume');
+  });
+
+  it('expects "toggleJobWide" to set wideElement to an empty string', () => {
+    component.wideElement = 'job';
+
+    component.toggleJobWide();
+    expect(component.wideElement).toEqual('');
+  });
+
+  it('expects "toggleJobWide" to set wideElement to resume', () => {
+    component.wideElement = '';
+
+    component.toggleJobWide();
+    expect(component.wideElement).toEqual('job');
   });
 });
