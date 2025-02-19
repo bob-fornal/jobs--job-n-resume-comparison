@@ -4,3 +4,8 @@ export interface ResumeDetails {
   keywords: Array<string>;
   matchPercent?: number | null;
 }
+
+export interface ResumeForm {
+  name: string;
+  content: string;
+}

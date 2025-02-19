@@ -120,4 +120,12 @@ describe('TopToolbarComponent', () => {
     expect(_document.getElementById).toHaveBeenCalledWith('body');
     expect(classList.toggle).toHaveBeenCalledWith('dark-mode');
   });
+
+  it('expects "pageSelected" to set the active page', () => {
+    const page: string = 'PAGE';
+    component.selectedPageMenu = '';
+
+    component.pageSelected(page);
+    expect(component.selectedPageMenu).toEqual(page);
+  });
 });

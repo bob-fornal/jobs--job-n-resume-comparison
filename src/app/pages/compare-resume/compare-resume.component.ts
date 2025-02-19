@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import keyword_extractor from 'keyword-extractor';
 
-import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
+import { ResumeDetails, ResumeForm } from '../../core/interfaces/resume-details.interface';
 import { CompareResumeService } from './compare-resume.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalIgnoreListComponent } from '../../shared/modal-ignore-list/modal-ignore-list.component';
@@ -230,7 +230,7 @@ export class CompareResumeComponent {
     this.service.setResumes(resumes);
   };
 
-  selectResume = (event: any, resume: ResumeDetails): void => {
+  selectResume = (resume: ResumeDetails): void => {
     this.resumeForm.patchValue({
       resumeName: resume.name,
       resumeContent: resume.content,
@@ -248,7 +248,7 @@ export class CompareResumeComponent {
   };
 
   clearResumeDetails = (): void => {
-    this.selectResume({}, { name: '', content: '', keywords: [] });
+    this.selectResume({ name: '', content: '', keywords: [] });
     this.jobKeywords = {...this.emptyJobKeywords()};;
   };
 
@@ -266,7 +266,7 @@ export class CompareResumeComponent {
     };
   };
 
-  captureContent = (): { name: string, content: string } => {
+  captureContent = (): ResumeForm => {
     const name: string = this.resumeForm.value.resumeName || '';
     const content: string = this.resumeForm.value.resumeContent || '';
     return { name, content };
