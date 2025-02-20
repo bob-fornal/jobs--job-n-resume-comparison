@@ -1,3 +1,8 @@
+import { StorageLayerService } from "./storage-layer.service";
+
 export abstract class StorageClassAbstraction {
-  localstorage: any = window.localStorage;
+
+  constructor(
+    public storage: StorageLayerService,
+  ) {}
 }

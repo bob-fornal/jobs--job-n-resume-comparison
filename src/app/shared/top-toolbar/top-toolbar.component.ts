@@ -29,8 +29,8 @@ export class TopToolbarComponent {
     this.initViewGoals();
   };
 
-  initDarkMode = (): void => {
-    this.dark_enabled = this.service.getDarkMode();
+  initDarkMode = async(): Promise<void> => {
+    this.dark_enabled = await this.service.getDarkMode();
 
     if (this.dark_enabled === true) {
       const element = this._document.getElementById('body');
