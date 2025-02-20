@@ -9,6 +9,7 @@ type DataType = string | null;
 })
 export class StorageLayerService {
   
+  dataStore: any = DataStore;
   database: { name: string, storesToCreate: Array<string> } = {
     name: 'job-squid',
     storesToCreate: [
@@ -21,23 +22,23 @@ export class StorageLayerService {
     this.init();
   }
 
-  init = (): void => {
-    DataStore.setupDb(this.database);
+  private init = (): void => {
+    this.dataStore.setupDb(this.database);
   };
 
   public getItem = async (storeKey: string, itemKey: string): Promise<DataType> => {
-    const store: any = new DataStore(this.database.name, storeKey);
+    const store: any = new this.dataStore(this.database.name, storeKey);
     const item: string | null = await store.getItem(itemKey);
     return item;
   };
 
   public setItem = async (storeKey: string, itemKey: string, itemData: string): Promise<void> => {
-    const store: any = new DataStore(this.database.name, storeKey);
+    const store: any = new this.dataStore(this.database.name, storeKey);
     await store.setItem(itemKey, itemData);
   };
 
   public removeItem = async (storeKey: string, itemKey: string): Promise<void> => {
-    const store: any = new DataStore(this.database.name, storeKey);
+    const store: any = new this.dataStore(this.database.name, storeKey);
     await store.removeItem(itemKey);
   };
 }
