@@ -45,7 +45,7 @@ export class TopToolbarService extends StorageClassAbstraction {
       this.storage.setItem('toolbar', 'job-squid--dark-mode', 'false', false);
       return false;
     } else {
-      return mode === 'true';
+      return mode === true;
     }
   };
 

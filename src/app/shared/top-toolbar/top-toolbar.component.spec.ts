@@ -50,7 +50,7 @@ describe('TopToolbarComponent', () => {
     expect(component.initViewGoals).toHaveBeenCalled();
   });
 
-  it('expects "initDarkMode" to handle dark mode not emabled', () => {
+  it('expects "initDarkMode" to handle dark mode not emabled', async () => {
     const classList: any = {
       add: (param: any) => ({}),
       toggle: (param: any) => ({}),
@@ -63,14 +63,14 @@ describe('TopToolbarComponent', () => {
     component._document = _document;
     spyOn(_document, 'getElementById').and.callThrough();
     spyOn(classList, 'add').and.stub();
-    spyOn(component['service'], 'getDarkMode').and.returnValue(false);
+    spyOn(component['service'], 'getDarkMode').and.resolveTo(false);
 
-    component.initDarkMode();
+    await component.initDarkMode();
     expect(_document.getElementById).not.toHaveBeenCalled();
     expect(classList.add).not.toHaveBeenCalled();
   });
 
-  it('expects "initDarkMode" to handle dark mode emabled', () => {
+  it('expects "initDarkMode" to handle dark mode emabled', async () => {
     const classList: any = {
       add: (param: any) => ({}),
       toggle: (param: any) => ({}),
@@ -83,9 +83,9 @@ describe('TopToolbarComponent', () => {
     component._document = _document;
     spyOn(_document, 'getElementById').and.callThrough();
     spyOn(classList, 'add').and.stub();
-    spyOn(component['service'], 'getDarkMode').and.returnValue(true);
+    spyOn(component['service'], 'getDarkMode').and.resolveTo(true);
 
-    component.initDarkMode();
+    await component.initDarkMode();
     expect(_document.getElementById).toHaveBeenCalledWith('body');
     expect(classList.add).toHaveBeenCalledWith('dark-mode');
   });
