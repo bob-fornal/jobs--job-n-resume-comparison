@@ -36,6 +36,9 @@ import { ModalIgnoreListComponent } from './shared/modal-ignore-list/modal-ignor
 import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-connections.component';
 import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component';
 
+import { DocumentationCompareResumeComponent } from './shared/menu-page-level/documentation-compare-resume/documentation-compare-resume.component';
+import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,8 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
     CompanyTrackingComponent,
     CompareResumeComponent,
     DaysOfCodeComponent,
+    DocumentationCompareResumeComponent,
+    DocumentationDaysOfCodeComponent,
     HowToUseComponent,
     InterviewResearchComponent,
     ItemImageComponent,
