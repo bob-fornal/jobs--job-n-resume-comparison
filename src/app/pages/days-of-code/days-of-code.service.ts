@@ -2,16 +2,16 @@ import { effect, Injectable, Signal, signal } from '@angular/core';
 
 import { saveAs } from 'file-saver';
 
-import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
 import { Structure } from '../../core/interfaces/strucuture.interface';
 
 import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
 import { MenuItem } from '../../core/interfaces/menu-item.interface';
+import { StorageLayerService } from '../../core/services/storage-layer.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DaysOfCodeService extends StorageClassAbstraction {
+export class DaysOfCodeService {
 
   saveAs: any = saveAs;
 
@@ -23,10 +23,9 @@ export class DaysOfCodeService extends StorageClassAbstraction {
   menuItem: any;
 
   constructor(
+    private storage: StorageLayerService,
     private toolbarService: TopToolbarService,
   ) {
-    super();
-
     this.loadStructure();
 
     this.viewGoals = this.toolbarService.viewGoals;
@@ -73,17 +72,16 @@ export class DaysOfCodeService extends StorageClassAbstraction {
     return structure;
   }
 
-  loadStructure = (): void => {
-    const dataString: string | null = this.localstorage.getItem('job-squid--100-days');
-    if (dataString === null) return;
+  loadStructure = async (): Promise<void> => {
+    const data: Structure | null = await this.storage.getItem('days-of-code', 'job-squid--100-days');
+    if (data === null) return;
 
-    const data: Structure = JSON.parse(dataString);
     this._structure = { ...data };
     this.structureSignal.set(this._structure);
   };
 
-  storeStructure = (structure: Structure): void => {
-    this.localstorage.setItem('job-squid--100-days', JSON.stringify(structure));
+  storeStructure = async (structure: Structure): Promise<void> => {
+    await this.storage.setItem('days-of-code', 'job-squid--100-days', structure);
   };
 
   structureChange = (newStructure: Structure): void => {
