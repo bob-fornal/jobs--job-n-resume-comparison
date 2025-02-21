@@ -5,8 +5,6 @@ import { CompareResumeService } from './compare-resume.service';
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 import { MenuItem } from '../../core/interfaces/menu-item.interface';
 
-import ignoreList from '../../core/constants/ignore-list.json';
-
 describe('CompareResumeService', () => {
   let service: CompareResumeService;
 
