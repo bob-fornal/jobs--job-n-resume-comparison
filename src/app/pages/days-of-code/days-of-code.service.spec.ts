@@ -106,15 +106,15 @@ describe('DaysOfCodeService', () => {
     expect(emptyStructure.goals).toEqual([]);
   });
 
-  it('expects "loadStructure" to do nothing of not in local storage', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue(null);
+  it('expects "loadStructure" to do nothing of not in local storage', async () => {
+    spyOn(service.storage, 'getItem').and.resolveTo(null);
     spyOn(service.structureSignal, 'set').and.stub();
 
-    service.loadStructure();
+    await service.loadStructure();
     expect(service.structureSignal.set).not.toHaveBeenCalled();
   });
 
-  it('expects "loadStructure" to trigger structure signal with stored structure', () => {
+  it('expects "loadStructure" to trigger structure signal with stored structure', async () => {
     const structure: Structure = {
       useGoals: false,
       useNotes: false,
@@ -125,16 +125,15 @@ describe('DaysOfCodeService', () => {
         { description: 'DESCRIPTION', done: false },
       ],
     };
-    const structureString: string = JSON.stringify(structure);
-    spyOn(service.localstorage, 'getItem').and.returnValue(structureString);
+    spyOn(service.storage, 'getItem').and.resolveTo(structure);
     spyOn(service.structureSignal, 'set').and.stub();
 
-    service.loadStructure();
+    await service.loadStructure();
     expect(service._structure).toEqual(structure);
     expect(service.structureSignal.set).toHaveBeenCalledWith(structure);
   });
 
-  it('expects "storeStructure" to save it in local storage', () => {
+  it('expects "storeStructure" to save it in local storage', async () => {
     const structure: Structure = {
       useGoals: false,
       useNotes: false,
@@ -145,11 +144,10 @@ describe('DaysOfCodeService', () => {
         { description: 'DESCRIPTION', done: false },
       ],
     };
-    const structureString: string = JSON.stringify(structure);
-    spyOn(service.localstorage, 'setItem').and.stub;
+    spyOn(service.storage, 'setItem').and.stub();
 
-    service.storeStructure(structure);
-    expect(service.localstorage.setItem).toHaveBeenCalledWith('job-squid--100-days', structureString);
+    await service.storeStructure(structure);
+    expect(service.storage.setItem).toHaveBeenCalledWith('dasy-of-code', 'job-squid--100-days', structure);
   });
 
   it('expects "structureChange" to store the new structure', () => {

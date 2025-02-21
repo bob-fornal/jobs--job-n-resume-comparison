@@ -188,9 +188,9 @@ describe('CompareResumeComponent', () => {
     expect(result).toEqual('range-0-60');
   });
 
-  it('expects "openIgnoreListModal" to open the modal', () => {
+  it('expects "openIgnoreListModal" to open the modal', async () => {
     const list: Array<string> = ['test1', 'test2', 'test3'];
-    spyOn(component['service'], 'getIgnoreList').and.returnValue(list);
+    spyOn(component['service'], 'getIgnoreList').and.resolveTo(list);
     const afterClosed: any = {
       subscribe: () => ({}),
     };
@@ -200,7 +200,7 @@ describe('CompareResumeComponent', () => {
     spyOn(component['dialog'], 'open').and.returnValue(openResult as any);
     spyOn(afterClosed, 'subscribe').and.stub();
 
-    component.openIgnoreListModal();
+    await component.openIgnoreListModal();
     expect(component['dialog'].open).toHaveBeenCalledWith(jasmine.any(Function), { data: 'test1, test2, test3' });
     expect(afterClosed.subscribe).toHaveBeenCalled();
   });
@@ -325,15 +325,15 @@ describe('CompareResumeComponent', () => {
     expect(component.validationChecks['jobContentLength']).toEqual(false);
   });
 
-  it('expects "getJobKeywords" to capture the string and extract the keywords', () => {
+  it('expects "getJobKeywords" to capture the string and extract the keywords', async () => {
     component.jobPosting.nativeElement.value = 'TEXT1 TEXT2 TEXT3 TEXT4';
     component.keywordExtractor = {
       extract: (content: string, settings: any) => ['TEXT1', 'TEXT3', 'TEXT4'],
     }
     const expected: Array<string> = ['TEXT1', 'TEXT4'];
-    spyOn(component['service'], 'extractIgnoreList').and.returnValue(expected);
+    spyOn(component['service'], 'extractIgnoreList').and.resolveTo(expected);
 
-    const result: Array<string> = component.getJobKeywords();
+    const result: Array<string> = await component.getJobKeywords();
     expect(result).toEqual(expected);
   });
 
@@ -345,16 +345,16 @@ describe('CompareResumeComponent', () => {
     expect(result).toEqual(expected);
   });
 
-  it('expects "getActiveResumeKeywords" to capture the string and extract the keywords', () => {
+  it('expects "getActiveResumeKeywords" to capture the string and extract the keywords', async () => {
     component.resumeContent.nativeElement.value = 'TEXT1 TEXT2 TEXT3 TEXT4';
     spyOn(component, 'adjustResumeContent').and.returnValue('TEXT1\nTEXT3\nTEXT4');
     component.keywordExtractor = {
       extract: (content: string, settings: any) => ['TEXT1', 'TEXT4'],
     }
     const expected: Array<string> = ['TEXT4'];
-    spyOn(component['service'], 'extractIgnoreList').and.returnValue(expected);
+    spyOn(component['service'], 'extractIgnoreList').and.resolveTo(expected);
 
-    const result: Array<string> = component.getActiveResumeKeywords();
+    const result: Array<string> = await component.getActiveResumeKeywords();
     expect(result).toEqual(expected);
   });
 
@@ -376,12 +376,12 @@ describe('CompareResumeComponent', () => {
     expect(component.resumes).toEqual(expected);
   });
 
-  it('expects "runComparison" to generate percentages, compare active resume, and generate tokens', () => {
-    spyOn(component, 'getJobKeywords').and.returnValue(['1', '2', '3', '4']);
+  it('expects "runComparison" to generate percentages, compare active resume, and generate tokens', async () => {
+    spyOn(component, 'getJobKeywords').and.resolveTo(['1', '2', '3', '4']);
     spyOn(component, 'generateResumePercentages').and.stub();
-    spyOn(component, 'getActiveResumeKeywords').and.returnValue(['2', '3']);
+    spyOn(component, 'getActiveResumeKeywords').and.resolveTo(['2', '3']);
 
-    component.runComparison();
+    await component.runComparison();
     expect(component.jobKeywords).toEqual({
       match: ['2', '3'],
       noMatch: ['1', '4'],
@@ -494,14 +494,14 @@ describe('CompareResumeComponent', () => {
     expect(result).toEqual(expected);
   });
 
-  it('expects "getKeywords" to return resume keywords', () => {
+  it('expects "getKeywords" to return resume keywords', async () => {
     const content: string = 'TEST1 TEST2 TEST3 TEST4';
     const expected: Array<string> = ['TEST1', 'TEST4']
     spyOn(component, 'adjustResumeContent').and.returnValue('TEST1 TEST2 TEST4');
     spyOn(component.keywordExtractor, 'extract').and.returnValue(['TEST1', 'TEST2', 'TEST4']);
-    spyOn(component['service'], 'extractIgnoreList').and.returnValue(expected);
+    spyOn(component['service'], 'extractIgnoreList').and.resolveTo(expected);
     
-    const result: Array<string> = component.getKeywords(content);
+    const result: Array<string> = await component.getKeywords(content);
     expect(result).toEqual(expected);
   });
 
