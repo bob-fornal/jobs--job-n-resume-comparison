@@ -121,6 +121,14 @@ describe('CompareResumeService', () => {
     expect(service['storage'].setItem).toHaveBeenCalledWith('resumes', 'job-squid--ignore-list', list);
   });
 
+  it('expects "getIgnoreList" to handle null from storage', async () => {
+    const list: Array<string> | null = null;
+    spyOn(service['storage'], 'getItem').and.resolveTo(list);
+    
+    const response: Array<string> = await service.getIgnoreList();
+    expect(response).toEqual([]);
+  });
+
   it('expects "getIgnoreList" to return content of storage', async () => {
     const list: Array<string> | null = ['test1', 'test2'];
     spyOn(service['storage'], 'getItem').and.resolveTo(list);

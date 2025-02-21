@@ -10,10 +10,10 @@ type DataType = any | null;
 })
 export class StorageLayerService {
   
-  localstorage: any = window.localStorage;
+  private localstorage: any = window.localStorage;
 
-  dataStore: any = DataStore;
-  database: { name: string, storesToCreate: Array<string> } = {
+  private dataStore: any = DataStore;
+  private database: { name: string, storesToCreate: Array<string> } = {
     name: 'job-squid',
     storesToCreate: [
       'days-of-code',

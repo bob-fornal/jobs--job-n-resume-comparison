@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FeatureFlagsService {
   
-  enabledFeatureFlags: Array<string> = JSON.parse(import.meta.env.NG_APP_ENABLED_FEATURES || '[]');
+  enabledFeatureFlags: Array<string> = JSON.parse(import.meta.env.NG_APP_ENABLED_FEATURES);
 
   private flags: any = {
     howToUse: false,

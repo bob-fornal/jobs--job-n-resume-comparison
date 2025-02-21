@@ -27,6 +27,16 @@ describe('FeatureFlagsService', () => {
     service = TestBed.inject(FeatureFlagsService);
   });
 
+  beforeEach(() => {
+    (globalThis as any).import = {
+      meta: {
+        env: {
+          NG_APP_ENABLED_FEATURES: '[]',
+        }
+      }
+    }
+  });
+
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
