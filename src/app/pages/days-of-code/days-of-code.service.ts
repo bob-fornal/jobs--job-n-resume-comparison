@@ -2,7 +2,6 @@ import { effect, Injectable, Signal, signal } from '@angular/core';
 
 import { saveAs } from 'file-saver';
 
-import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
 import { Structure } from '../../core/interfaces/strucuture.interface';
 
 import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
@@ -12,7 +11,7 @@ import { StorageLayerService } from '../../core/services/storage-layer.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DaysOfCodeService extends StorageClassAbstraction {
+export class DaysOfCodeService {
 
   saveAs: any = saveAs;
 
@@ -24,11 +23,9 @@ export class DaysOfCodeService extends StorageClassAbstraction {
   menuItem: any;
 
   constructor(
-    storage: StorageLayerService,
+    private storage: StorageLayerService,
     private toolbarService: TopToolbarService,
   ) {
-    super(storage);
-
     this.loadStructure();
 
     this.viewGoals = this.toolbarService.viewGoals;

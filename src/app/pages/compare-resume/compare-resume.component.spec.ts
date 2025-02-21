@@ -505,7 +505,7 @@ describe('CompareResumeComponent', () => {
     expect(result).toEqual(expected);
   });
 
-  it('expects "onSubmit" to handle record creation', () => {
+  it('expects "onSubmit" to handle record creation', async () => {
     const resumes: Array<ResumeDetails> = [
       { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
       { name: 'IT EXISTS', content: '', keywords: [] },
@@ -518,12 +518,12 @@ describe('CompareResumeComponent', () => {
     spyOn(component.keywordExtractor, 'extract').and.returnValue([]);
     spyOn(component['service'], 'setResumes').and.stub();
 
-    component.onSubmit();
+    await component.onSubmit();
     expect(component.keywordExtractor.extract).toHaveBeenCalled();
     expect(component['service'].setResumes).toHaveBeenCalledWith([...resumes, { name: '', content: '', keywords: [] }]);
   });
 
-  it('expects "onSubmit" to handle record overwrite', () => {
+  it('expects "onSubmit" to handle record overwrite', async () => {
     const resumes: Array<ResumeDetails> = [
       { name: 'IT DOES NOT EXIST HERE', content: '', keywords: [] },
       { name: 'IT EXISTS', content: '', keywords: [] },
@@ -540,7 +540,7 @@ describe('CompareResumeComponent', () => {
       { name: 'IT EXISTS', content: 'CONTENT HERE', keywords: ['CONTENT', 'HERE'] },
     ];
 
-    component.onSubmit();
+    await component.onSubmit();
     expect(component.keywordExtractor.extract).toHaveBeenCalled();
     expect(component['service'].setResumes).toHaveBeenCalledWith(expected);
   });

@@ -56,12 +56,12 @@ describe('CompareResumeService', () => {
   });
 
   it('expects "getResumes" to return an empty array of nothing stored', async () => {
-    spyOn(service.storage, 'getItem').and.resolveTo(null);
-    spyOn(service.storage, 'setItem').and.stub();
+    spyOn(service['storage'], 'getItem').and.resolveTo(null);
+    spyOn(service['storage'], 'setItem').and.stub();
     spyOn(service.resumesSignal, 'set').and.stub();
 
     await service.getResumes();
-    expect(service.storage.setItem).toHaveBeenCalledWith('resumes', 'job-squid--resumes', []);
+    expect(service['storage'].setItem).toHaveBeenCalledWith('resumes', 'job-squid--resumes', []);
     expect(service.resumesSignal.set).toHaveBeenCalledWith([]);
   });
 
@@ -69,7 +69,7 @@ describe('CompareResumeService', () => {
     const resumes: Array<ResumeDetails> = [
       { name: 'TEST', content: 'TEST', keywords: [] }
     ];
-    spyOn(service.storage, 'getItem').and.resolveTo(resumes);
+    spyOn(service['storage'], 'getItem').and.resolveTo(resumes);
     spyOn(service.resumesSignal, 'set').and.stub();
 
     await service.getResumes();
@@ -87,43 +87,43 @@ describe('CompareResumeService', () => {
       { name: 'TEST-B', content: 'TEST', keywords: [] },
       { name: 'TEST-C', content: 'TEST', keywords: [] },
     ];
-    spyOn(service.storage, 'setItem').and.stub();
+    spyOn(service['storage'], 'setItem').and.stub();
     spyOn(service, 'getResumes').and.stub();
 
     await service.setResumes(resumesUnsorted);
-    expect(service.storage.setItem).toHaveBeenCalledWith('resumes', 'job-squid--resumes', resumesSorted);
+    expect(service['storage'].setItem).toHaveBeenCalledWith('resumes', 'job-squid--resumes', resumesSorted);
     expect(service.getResumes).toHaveBeenCalled();
   });
 
   it('expects "setDefaultIgnoreList" to get null and write default to storage', async () => {
     const list: Array<string> | null = null;
-    spyOn(service.storage, 'getItem').and.resolveTo(null);
-    spyOn(service.storage, 'setItem').and.stub();
+    spyOn(service['storage'], 'getItem').and.resolveTo(null);
+    spyOn(service['storage'], 'setItem').and.stub();
 
     await service.setDefaultIgnoreList(list);
-    expect(service.storage.setItem).toHaveBeenCalledWith('resumes', 'job-squid--ignore-list', list);
+    expect(service['storage'].setItem).toHaveBeenCalledWith('resumes', 'job-squid--ignore-list', service.defaultIgnoreList);
   });
 
   it('expects "setDefaultIgnoreList" to get null and do nothing if there is content in storage', async () => {
     const list: Array<string> | null = null;
-    spyOn(service.storage, 'getItem').and.resolveTo('CONTENT');
-    spyOn(service.storage, 'setItem').and.stub();
+    spyOn(service['storage'], 'getItem').and.resolveTo('CONTENT');
+    spyOn(service['storage'], 'setItem').and.stub();
 
     await service.setDefaultIgnoreList(list);
-    expect(service.storage.setItem).not.toHaveBeenCalledWith('resumes', 'job-squid--ignore-list', list);
+    expect(service['storage'].setItem).not.toHaveBeenCalledWith('resumes', 'job-squid--ignore-list', list);
   });
 
   it('expects "setDefaultIgnoreList" to write the new content passed in', async () => {
     const list: Array<string> | null = ['test1', 'test2'];
-    spyOn(service.storage, 'setItem').and.stub();
+    spyOn(service['storage'], 'setItem').and.stub();
 
     await service.setDefaultIgnoreList(list);
-    expect(service.storage.setItem).toHaveBeenCalledWith('resumes', 'job-squid--ignore-list', list);
+    expect(service['storage'].setItem).toHaveBeenCalledWith('resumes', 'job-squid--ignore-list', list);
   });
 
   it('expects "getIgnoreList" to return content of storage', async () => {
     const list: Array<string> | null = ['test1', 'test2'];
-    spyOn(service.storage, 'getItem').and.resolveTo(list);
+    spyOn(service['storage'], 'getItem').and.resolveTo(list);
     
     const response: Array<string> = await service.getIgnoreList();
     expect(response).toEqual(list);

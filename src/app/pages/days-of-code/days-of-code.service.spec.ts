@@ -107,7 +107,7 @@ describe('DaysOfCodeService', () => {
   });
 
   it('expects "loadStructure" to do nothing of not in local storage', async () => {
-    spyOn(service.storage, 'getItem').and.resolveTo(null);
+    spyOn(service['storage'], 'getItem').and.resolveTo(null);
     spyOn(service.structureSignal, 'set').and.stub();
 
     await service.loadStructure();
@@ -125,7 +125,7 @@ describe('DaysOfCodeService', () => {
         { description: 'DESCRIPTION', done: false },
       ],
     };
-    spyOn(service.storage, 'getItem').and.resolveTo(structure);
+    spyOn(service['storage'], 'getItem').and.resolveTo(structure);
     spyOn(service.structureSignal, 'set').and.stub();
 
     await service.loadStructure();
@@ -144,10 +144,10 @@ describe('DaysOfCodeService', () => {
         { description: 'DESCRIPTION', done: false },
       ],
     };
-    spyOn(service.storage, 'setItem').and.stub();
+    spyOn(service['storage'], 'setItem').and.stub();
 
     await service.storeStructure(structure);
-    expect(service.storage.setItem).toHaveBeenCalledWith('dasy-of-code', 'job-squid--100-days', structure);
+    expect(service['storage'].setItem).toHaveBeenCalledWith('days-of-code', 'job-squid--100-days', structure);
   });
 
   it('expects "structureChange" to store the new structure', () => {

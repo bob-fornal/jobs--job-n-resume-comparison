@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { FaviconService } from './core/services/favicon.service';
 
 @Component({
@@ -10,7 +9,6 @@ import { FaviconService } from './core/services/favicon.service';
 })
 export class AppComponent {
 
-  
   constructor(
     faviconService: FaviconService,
   ) {

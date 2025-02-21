@@ -2,8 +2,6 @@ import { effect, Injectable, signal } from '@angular/core';
 
 import saveAs from 'file-saver';
 
-import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
-
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 import { MenuItem } from '../../core/interfaces/menu-item.interface';
 
@@ -15,7 +13,7 @@ import { StorageLayerService } from '../../core/services/storage-layer.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CompareResumeService extends StorageClassAbstraction {
+export class CompareResumeService {
 
   saveAs: any = saveAs;
 
@@ -27,11 +25,9 @@ export class CompareResumeService extends StorageClassAbstraction {
   menuItem: any;
 
   constructor(
-    storage: StorageLayerService,
+    private storage: StorageLayerService,
     private toolbarService: TopToolbarService,
   ) {
-    super(storage);
-
     this.setDefaultIgnoreList();
 
     this.menuItem = this.toolbarService.menuItem;
