@@ -4,6 +4,9 @@ import { AppComponent } from './app.component';
 
 import { MockTopToolbarComponent } from './shared/_specs/components/mock-top-toolbar.spec';
 
+import { FaviconService } from './core/services/favicon.service';
+import { MockFaviconService } from './shared/_specs/services/mock-favicon-service.spec';
+
 describe('AppComponent', () => {
   let app: any;
   let fixture: any;
@@ -18,6 +21,9 @@ describe('AppComponent', () => {
 
         MockTopToolbarComponent,
       ],
+      providers: [
+        { provide: FaviconService, useValue: MockFaviconService },
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);

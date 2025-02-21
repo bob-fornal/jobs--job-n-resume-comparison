@@ -1,17 +1,18 @@
 import { Injectable, signal } from '@angular/core';
-import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
+import { StorageLayerService } from '../../core/services/storage-layer.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TopToolbarService extends StorageClassAbstraction {
+export class TopToolbarService {
 
   private activePageSignal = signal('resumes');
   private viewGoalsSignal = signal(false);
   private menuItemSignal = signal({ page: '', item: '' });
 
-  constructor() {
-    super();
+  constructor(
+    private storage: StorageLayerService,
+  ) {
     this.init();
   }
 
@@ -20,50 +21,45 @@ export class TopToolbarService extends StorageClassAbstraction {
     this.initViewGoals();
   };
 
-  initActivePage = (): void => {
-    const activePage: any = this.localstorage.getItem('job-squid--active-page');
+  initActivePage = async (): Promise<void> => {
+    const activePage: any = await this.storage.getItem('toolbar', 'job-squid--active-page', false);
     if (activePage !== null) {
       this.setActivePage(activePage, false);
     }
   };
 
-  initViewGoals = (): void => {
-    const viewGoalsString: any = this.localstorage.getItem('job-squid--view-goals');
-    if (viewGoalsString === null) {
-      this.viewGoalsSignal.set(false);
-    } else {
-      this.viewGoalsSignal.set(viewGoalsString === 'true');
-    }
+  initViewGoals = async (): Promise<void> => {
+    const viewGoals: any = await this.storage.getItem('toolbar', 'job-squid--view-goals', false);
+    this.viewGoalsSignal.set(viewGoals === null ? false : viewGoals);
   };
 
-  getDarkMode = (): boolean => {
-    const mode = this.localstorage.getItem('job-squid--dark-mode');
+  getDarkMode = async (): Promise<boolean> => {
+    const mode = await this.storage.getItem('toolbar', 'job-squid--dark-mode', false);
     if (mode === null) {
-      this.localstorage.setItem('job-squid--dark-mode', 'false');
+      this.storage.setItem('toolbar', 'job-squid--dark-mode', false, false);
       return false;
     } else {
-      return mode === 'true';
+      return mode === true;
     }
   };
 
-  setDarkMode = (mode: boolean): void => {
-    const modeString: string = JSON.stringify(mode);
-    this.localstorage.setItem('job-squid--dark-mode', modeString);
+  setDarkMode = async (mode: boolean): Promise<void> => {
+    await this.storage.setItem('toolbar', 'job-squid--dark-mode', mode, false);
   };
 
   readonly viewGoals = this.viewGoalsSignal.asReadonly();
 
-  setViewGoals = (state: boolean): void => {
+  setViewGoals = async (state: boolean): Promise<void> => {
     this.viewGoalsSignal.set(state);
-    this.localstorage.setItem('job-squid--view-goals', state + '');
+    await this.storage.setItem('toolbar', 'job-squid--view-goals', state, false);
   };
 
   readonly activePage = this.activePageSignal.asReadonly();
 
-  setActivePage = (page: string, setLocalStorage: boolean = true): void => {
+  setActivePage = async (page: string, setLocalStorage: boolean = true): Promise<void> => {
     this.activePageSignal.set(page);
     if (setLocalStorage === true) {
-      this.localstorage.setItem('job-squid--active-page', page);
+      await this.storage.setItem('toolbar', 'job-squid--active-page', page, false);
     }
   };
 

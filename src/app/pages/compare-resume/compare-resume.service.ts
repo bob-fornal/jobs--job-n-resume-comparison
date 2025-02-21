@@ -2,19 +2,18 @@ import { effect, Injectable, signal } from '@angular/core';
 
 import saveAs from 'file-saver';
 
-import { StorageClassAbstraction } from '../../core/services/storage-class-abstraction.abstract';
-
 import { ResumeDetails } from '../../core/interfaces/resume-details.interface';
 import { MenuItem } from '../../core/interfaces/menu-item.interface';
 
 import ignoreList from '../../core/constants/ignore-list.json';
 
 import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
+import { StorageLayerService } from '../../core/services/storage-layer.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompareResumeService extends StorageClassAbstraction {
+export class CompareResumeService {
 
   saveAs: any = saveAs;
 
@@ -26,10 +25,9 @@ export class CompareResumeService extends StorageClassAbstraction {
   menuItem: any;
 
   constructor(
+    private storage: StorageLayerService,
     private toolbarService: TopToolbarService,
   ) {
-    super();
-
     this.setDefaultIgnoreList();
 
     this.menuItem = this.toolbarService.menuItem;
@@ -53,18 +51,17 @@ export class CompareResumeService extends StorageClassAbstraction {
     }
   };
 
-  getResumes = (): void => {
-    const resumes = this.localstorage.getItem('job-squid--resumes');
+  getResumes = async (): Promise<void> => {
+    const resumes = await this.storage.getItem('resumes', 'job-squid--resumes');
     if (resumes === null) {
-      this.localstorage.setItem('job-squid--resumes', '[]');
+      await this.storage.setItem('resumes', 'job-squid--resumes', []);
       this.resumesSignal.set([]);
     } else {
-      const items: Array<ResumeDetails> = JSON.parse(resumes);
-      this.resumesSignal.set(items);
+      this.resumesSignal.set(resumes);
     }
   };
 
-  setResumes = (resumes: Array<ResumeDetails>): void => {
+  setResumes = async (resumes: Array<ResumeDetails>): Promise<void> => {
     const sortedResumes: Array<ResumeDetails> = resumes
       .sort((a: ResumeDetails, b: ResumeDetails) => a.name.localeCompare(b.name))
       .map((resume: ResumeDetails) => {
@@ -72,30 +69,28 @@ export class CompareResumeService extends StorageClassAbstraction {
         return resume;
       });
 
-    const resumesString: string = JSON.stringify(sortedResumes);
-    this.localstorage.setItem('job-squid--resumes', resumesString);
+    await this.storage.setItem('resumes', 'job-squid--resumes', sortedResumes);
     this.getResumes();
   };
 
-  setDefaultIgnoreList = (list: Array<string> | null = null): void => {
+  setDefaultIgnoreList = async (list: Array<string> | null = null): Promise<void> => {
     if (list === null) {
-      const listString = this.localstorage.getItem('job-squid--ignore-list');
-      if (listString === null) {
-        this.localstorage.setItem('job-squid--ignore-list', JSON.stringify(this.defaultIgnoreList));
+      const list: Array<string> | null = await this.storage.getItem('resumes', 'job-squid--ignore-list');
+      if (list === null || list === undefined) {
+        await this.storage.setItem('resumes', 'job-squid--ignore-list', this.defaultIgnoreList);
       }
     } else {
-      this.localstorage.setItem('job-squid--ignore-list', JSON.stringify(list));
+      await this.storage.setItem('resumes', 'job-squid--ignore-list', list);
     }
   };
 
-  getIgnoreList = (): Array<string> => {
-    const listString: string = this.localstorage.getItem('job-squid--ignore-list');
-    const list: Array<string> = JSON.parse(listString);
+  getIgnoreList = async (): Promise<Array<string>> => {
+    const list: Array<string> = (await this.storage.getItem('resumes', 'job-squid--ignore-list') || []);
     return list;
   };
 
-  extractIgnoreList = (list: Array<string>): Array<string> => {
-    const ignoreList: Array<string> = this.getIgnoreList();
+  extractIgnoreList = async (list: Array<string>): Promise<Array<string>> => {
+    const ignoreList: Array<string> = await this.getIgnoreList();
     return list.filter((item: string) => !ignoreList.includes(item));
   };
 

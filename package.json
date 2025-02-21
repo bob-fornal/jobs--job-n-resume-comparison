@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@blakewatson/datastore": "^0.2.0",
     "file-saver": "^2.0.5",
     "keyword-extractor": "^0.0.28",
     "rxjs": "~7.8.0",
