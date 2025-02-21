@@ -114,8 +114,8 @@ export class CompareResumeComponent {
     }
   };
 
-  openIgnoreListModal = (): void => {
-    const listString: string = this.service.getIgnoreList().join(', ');
+  openIgnoreListModal = async (): Promise<void> => {
+    const listString: string = (await this.service.getIgnoreList()).join(', ');
     const dialogRef = this.dialog.open(ModalIgnoreListComponent, { data: listString });
     dialogRef.afterClosed().subscribe(this.handleIgnoreListModalClose.bind(this));
   };
@@ -161,7 +161,7 @@ export class CompareResumeComponent {
     this.validationChecks['jobContentLength'] = lengthError;
   };
 
-  getJobKeywords = (): Array<string> => {
+  getJobKeywords = async (): Promise<Array<string>> => {
     const jobPosting = this.jobPosting.nativeElement.value;
     
     const firstPassKeywords: Array<string> = this
@@ -174,7 +174,7 @@ export class CompareResumeComponent {
       })
       .sort();
 
-    const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
+    const keywords: Array<string> = await this.service.extractIgnoreList(firstPassKeywords);
     return keywords;
   };
 
@@ -186,7 +186,7 @@ export class CompareResumeComponent {
     return adjustedContent;
   };
 
-  getActiveResumeKeywords = (): Array<string> => {
+  getActiveResumeKeywords = async (): Promise<Array<string>> => {
     const resumeContent: string = this.resumeContent.nativeElement.value;
     const content: string = this.adjustResumeContent(resumeContent);
 
@@ -200,7 +200,7 @@ export class CompareResumeComponent {
       })
       .sort();
 
-    const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
+    const keywords: Array<string> = await this.service.extractIgnoreList(firstPassKeywords);
     return keywords;
   };
 
@@ -213,11 +213,11 @@ export class CompareResumeComponent {
     });
   };
 
-  runComparison = () => {
-    const jobKeywords: Array<string> = this.getJobKeywords();
+  runComparison = async (): Promise<void> => {
+    const jobKeywords: Array<string> = await this.getJobKeywords();
     this.generateResumePercentages(jobKeywords);
 
-    const resumeKeywords: Array<string> = this.getActiveResumeKeywords();
+    const resumeKeywords: Array<string> = await this.getActiveResumeKeywords();
 
     this.jobKeywords = {...this.emptyJobKeywords()};
     jobKeywords.forEach((keyword: string) => {
@@ -285,7 +285,7 @@ export class CompareResumeComponent {
     return { name, content };
   };
 
-  getKeywords = (content: string): Array<string> => {
+  getKeywords = async (content: string): Promise<Array<string>> => {
     const adjustedContent: string = this.adjustResumeContent(content);
 
     const firstPassKeywords: Array<string> = this
@@ -298,13 +298,13 @@ export class CompareResumeComponent {
       })
       .sort();
 
-    const keywords: Array<string> = this.service.extractIgnoreList(firstPassKeywords);
+    const keywords: Array<string> = await this.service.extractIgnoreList(firstPassKeywords);
     return keywords;
   };
 
-  onSubmit = (): void => {
+  onSubmit = async (): Promise<void> => {
     const { name, content } = this.captureContent();
-    const keywords = this.getKeywords(content);
+    const keywords: Array<string> = await this.getKeywords(content);
   
     const result: ResumeDetails = { name, content, keywords };
     const resumes: Array<ResumeDetails> = [...this.resumes];

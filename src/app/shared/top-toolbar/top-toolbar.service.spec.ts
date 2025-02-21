@@ -23,107 +23,106 @@ describe('TopToolbarService', () => {
     expect(service.initViewGoals).toHaveBeenCalled();
   });
 
-  it('expects "initActivePage" to do nothing if null is returned', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue(null);
+  it('expects "initActivePage" to do nothing if null is returned', async () => {
+    spyOn(service['storage'], 'getItem').and.resolveTo(null);
     spyOn(service, 'setActivePage').and.stub();
 
-    service.initActivePage();
     expect(service.setActivePage).not.toHaveBeenCalled();
   });
 
-  it('expects "initActivePage" to set the active page', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue('ACTIVE');
+  it('expects "initActivePage" to set the active page', async () => {
+    spyOn(service['storage'], 'getItem').and.resolveTo('ACTIVE');
     spyOn(service, 'setActivePage').and.stub();
 
-    service.initActivePage();
+    await service.initActivePage();
     expect(service.setActivePage).toHaveBeenCalledWith('ACTIVE', false);
   });
 
-  it('expects "initViewGoals" to set to false if null is returned', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue(null);
+  it('expects "initViewGoals" to set to false if null is returned', async () => {
+    spyOn(service['storage'], 'getItem').and.resolveTo(null);
     spyOn(service['viewGoalsSignal'], 'set').and.stub();
 
-    service.initViewGoals();
+    await service.initViewGoals();
     expect(service['viewGoalsSignal'].set).toHaveBeenCalledWith(false);
   });
 
-  it('expects "initViewGoals" to set to false if false is returned', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue('false');
+  it('expects "initViewGoals" to set to false if false is returned', async () => {
+    spyOn(service['storage'], 'getItem').and.resolveTo(false);
     spyOn(service['viewGoalsSignal'], 'set').and.stub();
 
-    service.initViewGoals();
+    await service.initViewGoals();
     expect(service['viewGoalsSignal'].set).toHaveBeenCalledWith(false);
   });
 
-  it('expects "initViewGoals" to set to true if true is returned', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue('true');
+  it('expects "initViewGoals" to set to true if true is returned', async () => {
+    spyOn(service['storage'], 'getItem').and.resolveTo(true);
     spyOn(service['viewGoalsSignal'], 'set').and.stub();
 
-    service.initViewGoals();
+    await service.initViewGoals();
     expect(service['viewGoalsSignal'].set).toHaveBeenCalledWith(true);
   });
 
-  it('expects "getDarkMode to return false if nothing in local storage', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue(null);
-    spyOn(service.localstorage, 'setItem').and.stub();
+  it('expects "getDarkMode to return false if nothing in local storage', async () => {
+    spyOn(service['storage'], 'getItem').and.resolveTo(null);
+    spyOn(service['storage'], 'setItem').and.stub();
 
-    const result: boolean = service.getDarkMode();
+    const result: boolean = await service.getDarkMode();
     expect(result).toEqual(false);
-    expect(service.localstorage.setItem).toHaveBeenCalledWith('job-squid--dark-mode', 'false');
+    expect(service['storage'].setItem).toHaveBeenCalledWith('toolbar', 'job-squid--dark-mode', false, false);
   });
 
-  it('expects "getDarkMode" to return true of mode is true', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue('true');
+  it('expects "getDarkMode" to return true of mode is true', async () => {
+    spyOn(service['storage'], 'getItem').and.resolveTo(true);
 
-    const result: boolean = service.getDarkMode();
+    const result: boolean = await service.getDarkMode();
     expect(result).toEqual(true);
   });
 
-  it('expects "getDarkMode" to return false of mode is false', () => {
-    spyOn(service.localstorage, 'getItem').and.returnValue('false');
+  it('expects "getDarkMode" to return false of mode is false', async () => {
+    spyOn(service['storage'], 'getItem').and.resolveTo(false);
 
-    const result: boolean = service.getDarkMode();
+    const result: boolean = await service.getDarkMode();
     expect(result).toEqual(false);
   });
 
-  it('expects "setDarkMode" to change the storage item', () => {
-    spyOn(service.localstorage, 'setItem').and.stub();
+  it('expects "setDarkMode" to change the storage item', async () => {
+    spyOn(service['storage'], 'setItem').and.stub();
     const mode: boolean = true;
 
-    service.setDarkMode(mode);
-    expect(service.localstorage.setItem).toHaveBeenCalledWith('job-squid--dark-mode', 'true');
+    await service.setDarkMode(mode);
+    expect(service['storage'].setItem).toHaveBeenCalledWith('toolbar', 'job-squid--dark-mode', true, false);
   });
 
-  it('expects "setViewGoals" to set and store state', () => {
+  it('expects "setViewGoals" to set and store state', async () => {
     const state: boolean = true;
     spyOn(service['viewGoalsSignal'], 'set').and.stub();
-    spyOn(service.localstorage, 'setItem').and.stub();
+    spyOn(service['storage'], 'setItem').and.stub();
 
-    service.setViewGoals(state);
+    await service.setViewGoals(state);
     expect(service['viewGoalsSignal'].set).toHaveBeenCalledWith(state);
-    expect(service.localstorage.setItem).toHaveBeenCalledWith('job-squid--view-goals', 'true');
+    expect(service['storage'].setItem).toHaveBeenCalledWith('toolbar', 'job-squid--view-goals', true, false);
   });
 
-  it('expects "setActivePage" to only set state when local storage is false', () => {
+  it('expects "setActivePage" to only set state when local storage is false', async () => {
     const page: string = 'PAGE';
     const setLocalStorage: boolean = false;
     spyOn(service['activePageSignal'], 'set').and.stub();
-    spyOn(service.localstorage, 'setItem').and.stub();
+    spyOn(service['storage'], 'setItem').and.stub();
 
-    service.setActivePage(page, setLocalStorage);
+    await service.setActivePage(page, setLocalStorage);
     expect(service['activePageSignal'].set).toHaveBeenCalledWith(page);
-    expect(service.localstorage.setItem).not.toHaveBeenCalled();
+    expect(service['storage'].setItem).not.toHaveBeenCalled();
   });
 
-  it('expects "setActivePage" to set state and store when local storage is true', () => {
+  it('expects "setActivePage" to set state and store when local storage is true', async () => {
     const page: string = 'PAGE';
     const setLocalStorage: boolean = true;
     spyOn(service['activePageSignal'], 'set').and.stub();
-    spyOn(service.localstorage, 'setItem').and.stub();
+    spyOn(service['storage'], 'setItem').and.stub();
 
     service.setActivePage(page, setLocalStorage);
     expect(service['activePageSignal'].set).toHaveBeenCalledWith(page);
-    expect(service.localstorage.setItem).toHaveBeenCalledWith('job-squid--active-page', page);
+    expect(service['storage'].setItem).toHaveBeenCalledWith('toolbar', 'job-squid--active-page', page, false);
   });
 
   it('expects "setMenuItem" to set the signal', () => {
