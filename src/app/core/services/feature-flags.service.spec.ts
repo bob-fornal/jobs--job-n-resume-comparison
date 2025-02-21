@@ -15,6 +15,14 @@ const mockActivatedRoute: any = {
   data: of({ key: 'mockData' })
 };
 
+const MockImportMetaEnv = {
+  meta: {
+    env: {
+      NG_APP_ENABLED_FEATURES: '[]',
+    },
+  },
+};
+
 describe('FeatureFlagsService', () => {
   let service: FeatureFlagsService;
 
@@ -28,13 +36,7 @@ describe('FeatureFlagsService', () => {
   });
 
   beforeEach(() => {
-    (globalThis as any).import = {
-      meta: {
-        env: {
-          NG_APP_ENABLED_FEATURES: '[]',
-        }
-      }
-    }
+    (globalThis as any).import = MockImportMetaEnv;
   });
 
   it('should be created', () => {
