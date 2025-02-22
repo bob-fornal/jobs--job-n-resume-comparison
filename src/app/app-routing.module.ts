@@ -10,6 +10,9 @@ import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
 import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-connections.component';
 
+import { DocumentationCompareResumeComponent } from './shared/menu-page-level/documentation-compare-resume/documentation-compare-resume.component';
+import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
+
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'company-tracking', component: CompanyTrackingComponent },
@@ -19,6 +22,9 @@ const routes: Routes = [
   { path: 'long-term-goals', component: LongTermGoalsComponent },
   { path: 'resumes', component: CompareResumeComponent },
   { path: 'top-10-connections', component: Top10ConnectionsComponent },
+
+  { path: 'documentation/resumes', component: DocumentationCompareResumeComponent },
+  { path: 'documentation/days-of-code', component: DocumentationDaysOfCodeComponent },
 
   { path: '', redirectTo: '/resumes', pathMatch: 'full' },
 ];
