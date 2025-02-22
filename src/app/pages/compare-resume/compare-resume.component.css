@@ -134,7 +134,6 @@
 
   .full-width {
     margin-bottom: 0.5em;
-    max-height: 50vh;
     overflow: auto;
     width: 100%;
   }
