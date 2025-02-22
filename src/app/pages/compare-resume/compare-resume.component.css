@@ -130,6 +130,8 @@
 }
 
 .resume-form {
+  --mat-form-field-container-height: auto;
+  
   width: 100%;
 
   .full-width {
