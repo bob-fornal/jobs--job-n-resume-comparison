@@ -37,11 +37,11 @@ export class MenuPageLevelComponent {
       .subscribe(this.handleNavigationEnd.bind(this));
   };
 
-  checkForNavigationEnd = (event: any) => {
+  checkForNavigationEnd = (event: any): boolean => {
     return event instanceof NavigationEnd;
   };
 
-  handleNavigationEnd = (event: NavigationEnd) => {
+  handleNavigationEnd = (event: any) => {
     this.pageLevelActive = !event.url.includes('documentation/');
   }
 

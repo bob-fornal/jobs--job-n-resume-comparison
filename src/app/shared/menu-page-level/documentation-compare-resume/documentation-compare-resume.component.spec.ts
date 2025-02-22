@@ -20,4 +20,11 @@ describe('DocumentationCompareResumeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('expects "back" to navigate to /resumes', () => {
+    spyOn(component['router'], 'navigateByUrl').and.stub();
+
+    component.back();
+    expect(component['router'].navigateByUrl).toHaveBeenCalledWith('/resumes');
+  });
 });

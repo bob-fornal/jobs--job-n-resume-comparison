@@ -20,4 +20,11 @@ describe('DocumentationDaysOfCodeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('expects "back" to navigate to /days-of-code', () => {
+    spyOn(component['router'], 'navigateByUrl').and.stub();
+
+    component.back();
+    expect(component['router'].navigateByUrl).toHaveBeenCalledWith('/days-of-code');
+  });
 });
