@@ -22,20 +22,29 @@ export class DaysOfCodeService {
   viewGoals: any;
   menuItem: any;
 
+  initalLoad: boolean = false;
+
   constructor(
     private storage: StorageLayerService,
     private toolbarService: TopToolbarService,
   ) {
-    this.loadStructure();
+    this.init();
 
     this.viewGoals = this.toolbarService.viewGoals;
-    effect(this.handleViewGoalsEffect.bind(this));
-
     this.menuItem = this.toolbarService.menuItem;
+
+    effect(this.handleViewGoalsEffect.bind(this));
     effect(this.handleMenuItemEffect.bind(this));
   }
 
+  init = async (): Promise<void> => {
+    await this.loadStructure();
+    this.initalLoad = true;
+  };
+    
   handleViewGoalsEffect = (): void => {
+    if (this.initalLoad === false) return;
+
     const value: boolean = this.viewGoals();
     this._structure.useGoals = value;
     this.storeStructure(this._structure);
