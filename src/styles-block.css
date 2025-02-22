@@ -1,8 +1,16 @@
-.about-wrapper {
+.documentation-wrapper {
   margin-top: 1em;
 
   .bottom {
     height: 10em;
+  }
+
+  .list-item {
+    margin: 0.5em 0;
+
+    .bold {
+      font-weight: bold;
+    }
   }
 }
 
