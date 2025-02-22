@@ -32,17 +32,15 @@
 
   }
 
-  .menu-logo {
-    position: relative;
-    height: 3.5em;
-    top: 0.25em;
-  }
-
   .fully-center-logo {
-    position: absolute;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     width: 100%;
     top: -1px;
+    padding: 0 1em;
+
+    .menu-logo {
+      height: 3.5em;
+    }
   }
 }
