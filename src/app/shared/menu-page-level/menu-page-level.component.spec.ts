@@ -36,6 +36,16 @@ describe('MenuPageLevelComponent', () => {
     expect(result).toEqual(false);
   });
 
+  it('expects "handleNavigationEnd" to set page level active to face if on the about page', () => {
+    const event: any = {
+      url: '/about',
+    };
+    component.pageLevelActive = true;
+
+    component.handleNavigationEnd(event);
+    expect(component.pageLevelActive).toEqual(false);
+  });
+
   it('expects "handleNavigationEnd" to set page level active to true if not documentation', () => {
     const event: any = {
       url: 'not-doc/',
