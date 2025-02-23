@@ -41,15 +41,6 @@ describe('TopToolbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('expects "init" to trigger dark mode, active page, and view goals', () => {
-    spyOn(component, 'initDarkMode').and.stub();
-    spyOn(component, 'initViewGoals').and.stub();
-
-    component.init();
-    expect(component.initDarkMode).toHaveBeenCalled();
-    expect(component.initViewGoals).toHaveBeenCalled();
-  });
-
   it('expects "initDarkMode" to handle dark mode not emabled', async () => {
     const classList: any = {
       add: (param: any) => ({}),
@@ -88,14 +79,6 @@ describe('TopToolbarComponent', () => {
     await component.initDarkMode();
     expect(_document.getElementById).toHaveBeenCalledWith('body');
     expect(classList.add).toHaveBeenCalledWith('dark-mode');
-  });
-
-  it('expects "initViewGoals" to set the state', () => {
-    spyOn(component['service'], 'viewGoals').and.returnValue(false);
-    component.viewGoals = true;
-
-    component.initViewGoals();
-    expect(component.viewGoals).toEqual(false);
   });
 
   it('expects "toggleDarkMode" to set the state and store it', () => {

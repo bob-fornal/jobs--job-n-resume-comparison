@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 
 import { TopToolbarService } from './top-toolbar.service';
 
@@ -20,13 +20,10 @@ export class TopToolbarComponent {
   constructor(
     private service: TopToolbarService,
   ) {
-    this.init();
-  }
-
-  init = (): void => {
     this.initDarkMode();
-    this.initViewGoals();
-  };
+
+    effect(this.handleViewGoalsEffect.bind(this));
+  }
 
   initDarkMode = async (): Promise<void> => {
     this.dark_enabled = await this.service.getDarkMode();
@@ -37,7 +34,7 @@ export class TopToolbarComponent {
     }
   };
 
-  initViewGoals = (): void => {
+  handleViewGoalsEffect = (): void => {
     const viewGoals: boolean = this.service.viewGoals();
     this.viewGoals = viewGoals;
   };

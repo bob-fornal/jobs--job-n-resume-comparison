@@ -35,16 +35,19 @@ export class DaysOfCodeComponent {
     private dialog: MatDialog,
     private service: DaysOfCodeService,
   ) {
+    effect(this.handleGoalsVisibleEffect.bind(this));
     effect(this.handleStructureEffect.bind(this));
     effect(this.handleTriggerImportEffect.bind(this));
   }
 
+  handleGoalsVisibleEffect = (): void => {
+    const value: boolean = this.service.goalsVisible();
+    this.useGoals = value;
+  };
+
   handleStructureEffect = (): void => {
     const structure: Structure = this.service.structure();
     this._structure = { ...structure };
-    
-    this.useGoals = structure.useGoals;
-    this.useNotes = structure.useNotes;
     
     this.days = structure.days;
     this.goals = structure.goals;
