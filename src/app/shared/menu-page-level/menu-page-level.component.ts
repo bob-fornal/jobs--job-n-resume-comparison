@@ -15,7 +15,7 @@ export class MenuPageLevelComponent {
   @Input('selectedPageMenu') selectedPageMenu: string = '';
   @Input('viewGoals') viewGoals: boolean = false;
 
-  activePages: Array<string> = ['resumes', 'days-of-code'];
+  activePages: Array<string> = ['about', 'resumes', 'days-of-code'];
 
   pageLevelActive: boolean = true;
   routeChange$: any;
@@ -42,6 +42,10 @@ export class MenuPageLevelComponent {
   };
 
   handleNavigationEnd = (event: any) => {
+    if (event.url.includes('/about')) {
+      this.pageLevelActive = false;
+      return;
+    }
     this.pageLevelActive = !event.url.includes('documentation/');
   }
 
