@@ -9,7 +9,7 @@ import { StorageLayerService } from '../../core/services/storage-layer.service';
   styleUrl: './marketing-panel.component.css'
 })
 export class MarketingPanelComponent {
-  private maxSteps: number = 20;
+  private maxSteps: number = 10;
   public showPanel: boolean = false;
 
   public contentCount: number = 0;
