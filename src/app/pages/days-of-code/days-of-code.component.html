@@ -16,7 +16,7 @@
       </div>
 
       <div class="goals-wrapper">
-        @for (goal of goals; track goal; let index = $index;) {
+        @for (goal of goals; track $index; let index = $index;) {
           <div class="goal-card">
             <div class="done" [class.finished]="goal.done === true">
               <span class="text">{{ goal.done ? 'Complete' : 'Pending' }}</span>
