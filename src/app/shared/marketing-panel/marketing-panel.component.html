@@ -1,0 +1,8 @@
+@if (showPanel === true) {
+  <div class="marketing-panel-wrapper">
+    <span class="content" [innerHTML]="content[contentCount]"></span>
+    <button mat-icon-button class="close" (click)="closePanel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+}
