@@ -17,8 +17,6 @@ describe('DaysOfCodeService', () => {
 
   it('expects "handleViewGoalEffects" to capture value and update structure', () => {
     const structure: Structure = {
-      useGoals: false,
-      useNotes: false,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -91,8 +89,6 @@ describe('DaysOfCodeService', () => {
 
   it('expects "generateBlank" to generate an empty structure (100 Days)', () => {
     const emptyStructure: Structure = service.generateBlank();
-    expect(emptyStructure.useGoals).toEqual(true);
-    expect(emptyStructure.useNotes).toEqual(true);
     expect(emptyStructure.days.length).toEqual(100);
     expect(emptyStructure.goals).toEqual([]);
   });
@@ -100,8 +96,6 @@ describe('DaysOfCodeService', () => {
   it('expects "generateBlank" to generate an empty structure (365 Days)', () => {
     const days: number = 365;
     const emptyStructure: Structure = service.generateBlank(days);
-    expect(emptyStructure.useGoals).toEqual(true);
-    expect(emptyStructure.useNotes).toEqual(true);
     expect(emptyStructure.days.length).toEqual(days);
     expect(emptyStructure.goals).toEqual([]);
   });
@@ -116,8 +110,6 @@ describe('DaysOfCodeService', () => {
 
   it('expects "loadStructure" to trigger structure signal with stored structure', async () => {
     const structure: Structure = {
-      useGoals: false,
-      useNotes: false,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -135,8 +127,6 @@ describe('DaysOfCodeService', () => {
 
   it('expects "storeStructure" to save it in local storage', async () => {
     const structure: Structure = {
-      useGoals: false,
-      useNotes: false,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -152,8 +142,6 @@ describe('DaysOfCodeService', () => {
 
   it('expects "structureChange" to store the new structure', () => {
     const structure: Structure = {
-      useGoals: false,
-      useNotes: false,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],

@@ -33,8 +33,6 @@ describe('DaysOfCodeComponent', () => {
 
   it('expects "handleStructureEffect" to get a structure and assign data', () => {
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -88,8 +86,6 @@ describe('DaysOfCodeComponent', () => {
 
   it('expects "toggleDay" to toggle state and update structure if useNotes is false', () => {
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -109,8 +105,6 @@ describe('DaysOfCodeComponent', () => {
 
   it('expects "toggleDay" to toggle state and open modal for a new note', () => {
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: '', done: false },
       ],
@@ -131,8 +125,6 @@ describe('DaysOfCodeComponent', () => {
 
   it('expects "toggleDay" to toggle state and clear the note', () => {
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -178,8 +170,6 @@ describe('DaysOfCodeComponent', () => {
   it('expects "handleDayModalClose" to update the structure and store', () => {
     const note: string | undefined = 'TEST-NOTE';
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -223,8 +213,6 @@ describe('DaysOfCodeComponent', () => {
   it('expects "handleAddNewGoalClose" to update the structure and store', () => {
     const goal: Goal | undefined = { description: 'NEW-DESCRIPTION', done: true };
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -243,8 +231,6 @@ describe('DaysOfCodeComponent', () => {
 
   it('expects "toggleGoal" to invert and store update goal state', () => {
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -301,8 +287,6 @@ describe('DaysOfCodeComponent', () => {
   it('expects "handleEditGoalClose" to update the structure and store', () => {
     const goal: Goal | undefined = { description: 'NEW-DESCRIPTION', done: true };
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -327,8 +311,6 @@ describe('DaysOfCodeComponent', () => {
     ];
     component.goals = goals;
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
@@ -387,8 +369,6 @@ describe('DaysOfCodeComponent', () => {
 
   it('expects "readerOnload" to update to the passed structure', () => {
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [
         { number: 1, note: 'NOTE', done: false },
       ],
