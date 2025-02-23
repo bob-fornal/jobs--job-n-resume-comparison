@@ -41,15 +41,11 @@ describe('DaysOfCodeComponent', () => {
       ],
     };
     spyOn(component['service'], 'structure').and.returnValue(structure);
-    component.useGoals = false;
-    component.useNotes = false;
     component.days = [];
     component.goals = [];
 
     component.handleStructureEffect();
     expect(component._structure).toEqual(structure);
-    expect(component.useGoals).toEqual(true);
-    expect(component.useNotes).toEqual(true);
     expect(component.days).toEqual(structure.days);
     expect(component.goals).toEqual(structure.goals);
   });

@@ -15,24 +15,13 @@ describe('DaysOfCodeService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('expects "handleViewGoalEffects" to capture value and update structure', () => {
-    const structure: Structure = {
-      days: [
-        { number: 1, note: 'NOTE', done: false },
-      ],
-      goals: [
-        { description: 'DESCRIPTION', done: false },
-      ],
-    };
-    service._structure = structure;
+  it('expects "handleViewGoalsEffects" to capture value and update structure', () => {
     spyOn(service, 'viewGoals').and.returnValue(true);
-    spyOn(service, 'storeStructure').and.stub();
-    spyOn(service, 'loadStructure').and.stub();
+    spyOn(service['goalsVisibleSignal'], 'set').and.stub();
 
     service.handleViewGoalsEffect();
     expect(service.viewGoals).toHaveBeenCalled();
-    expect(service.storeStructure).toHaveBeenCalledWith(structure);
-    expect(service.loadStructure).toHaveBeenCalled();
+    expect(service['goalsVisibleSignal'].set).toHaveBeenCalledWith(true);
   });
 
   it('expects "handleMenuItem" to do nothing if page is not days-fo-code', () => {
