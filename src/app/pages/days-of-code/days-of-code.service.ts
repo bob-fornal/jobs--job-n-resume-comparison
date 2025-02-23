@@ -19,27 +19,35 @@ export class DaysOfCodeService {
   structureSignal = signal(this._structure);
   readonly structure: Signal<Structure> = this.structureSignal.asReadonly();
 
+  goalsVisibleSignal = signal(false);
+  readonly goalsVisible: Signal<boolean> = this.goalsVisibleSignal.asReadonly();
+
   viewGoals: any;
   menuItem: any;
+
+  initalLoad: boolean = false;
 
   constructor(
     private storage: StorageLayerService,
     private toolbarService: TopToolbarService,
   ) {
-    this.loadStructure();
+    this.init();
 
     this.viewGoals = this.toolbarService.viewGoals;
-    effect(this.handleViewGoalsEffect.bind(this));
-
     this.menuItem = this.toolbarService.menuItem;
+
+    effect(this.handleViewGoalsEffect.bind(this));
     effect(this.handleMenuItemEffect.bind(this));
   }
 
+  init = async (): Promise<void> => {
+    await this.loadStructure();
+    this.initalLoad = true;
+  };
+    
   handleViewGoalsEffect = (): void => {
     const value: boolean = this.viewGoals();
-    this._structure.useGoals = value;
-    this.storeStructure(this._structure);
-    this.loadStructure();
+    this.goalsVisibleSignal.set(value);
   };
 
   handleMenuItemEffect = (): void => {
@@ -61,8 +69,6 @@ export class DaysOfCodeService {
 
   generateBlank (numberOfDays: number = 100): Structure {
     const structure: Structure = {
-      useGoals: true,
-      useNotes: true,
       days: [],
       goals: []
     };
