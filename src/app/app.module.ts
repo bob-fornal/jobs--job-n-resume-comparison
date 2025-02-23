@@ -38,6 +38,7 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
 
 import { DocumentationCompareResumeComponent } from './shared/menu-page-level/documentation-compare-resume/documentation-compare-resume.component';
 import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
+import { MarketingPanelComponent } from './shared/marketing-panel/marketing-panel.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/docum
     ModalIgnoreListComponent,
     Top10ConnectionsComponent,
     TopToolbarComponent,
+    MarketingPanelComponent,
   ],
   imports: [
     BrowserModule,

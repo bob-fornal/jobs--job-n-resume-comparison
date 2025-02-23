@@ -1,0 +1,15 @@
+.marketing-panel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em 1em;
+  position: relative;
+
+  background-color: var(--color-goal-toolbar2);
+  color: var(--color-goal-off-black);
+
+  .close {
+    position: absolute;
+    right: 1em;
+  }
+}
