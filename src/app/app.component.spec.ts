@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
+import { MockMarketingPanelComponent } from './shared/_specs/components/mock-marketing-panel.spec';
 import { MockTopToolbarComponent } from './shared/_specs/components/mock-top-toolbar.spec';
 
 import { FaviconService } from './core/services/favicon.service';
@@ -19,6 +20,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
 
+        MockMarketingPanelComponent,
         MockTopToolbarComponent,
       ],
       providers: [
