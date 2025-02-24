@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 import { FaviconService } from './core/services/favicon.service';
 
 @Component({
@@ -9,9 +11,18 @@ import { FaviconService } from './core/services/favicon.service';
 })
 export class AppComponent {
 
+  isDesktop: boolean = true;
+
   constructor(
-    faviconService: FaviconService,
+    private deviceService: DeviceDetectorService,
+    private faviconService: FaviconService,
   ) {
-    faviconService.init();
+    this.faviconService.init();
+    this.init();
   }
+
+  init = (): void => {
+    // this.isDesktop = false;
+    this.isDesktop = this.deviceService.isDesktop();
+  };
 }
