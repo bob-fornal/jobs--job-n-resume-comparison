@@ -22,7 +22,6 @@ export class AppComponent {
   }
 
   init = (): void => {
-    // this.isDesktop = false;
     this.isDesktop = this.deviceService.isDesktop();
   };
 }
