@@ -1,4 +1,8 @@
-<top-toolbar />
-<marketing-panel />
+@if (isDesktop === true) {
+  <top-toolbar />
+  <marketing-panel />
 
-<router-outlet />
+  <router-outlet />
+} @else {
+  <img class="non-desktop-overlay" src="/images/not-mobile-ready.png" />
+}
