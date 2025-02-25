@@ -35,4 +35,11 @@ describe('AppComponent', () => {
   it('should create the app', () => {
     expect(app).toBeTruthy();
   });
+
+  it('expects "init" to trigger desktop detection', () => {
+    spyOn(app['deviceService'], 'isDesktop').and.stub();
+
+    app.init();
+    expect(app['deviceService'].isDesktop).toHaveBeenCalled();
+  });
 });
