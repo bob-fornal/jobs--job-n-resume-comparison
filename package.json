@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --no-watch --no-progress --browsers=ChromeHeadless --code-coverage"
+    "test": "ng test --no-watch --no-progress --browsers=ChromeHeadless --code-coverage",
+    "lint": "ng lint",
+    "lint:quiet": "ng lint --quiet"
   },
   "private": true,
   "dependencies": {
@@ -34,12 +36,15 @@
     "@ngx-env/builder": "^19.0.4",
     "@types/file-saver": "^2.0.7",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "19.1.0",
+    "eslint": "^9.20.0",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.6.2"
+    "typescript": "~5.6.2",
+    "typescript-eslint": "8.23.0"
   }
 }

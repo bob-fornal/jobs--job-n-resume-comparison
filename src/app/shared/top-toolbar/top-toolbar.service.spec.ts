@@ -87,14 +87,14 @@ describe('TopToolbarService', () => {
 
   it('expects "setDarkMode" to change the storage item', async () => {
     spyOn(service['storage'], 'setItem').and.stub();
-    const mode: boolean = true;
+    const mode = true;
 
     await service.setDarkMode(mode);
     expect(service['storage'].setItem).toHaveBeenCalledWith('toolbar', 'job-squid--dark-mode', true, false);
   });
 
   it('expects "setViewGoals" to set and store state', async () => {
-    const state: boolean = true;
+    const state = true;
     spyOn(service['viewGoalsSignal'], 'set').and.stub();
     spyOn(service['storage'], 'setItem').and.stub();
 
@@ -104,8 +104,8 @@ describe('TopToolbarService', () => {
   });
 
   it('expects "setActivePage" to only set state when local storage is false', async () => {
-    const page: string = 'PAGE';
-    const setLocalStorage: boolean = false;
+    const page = 'PAGE';
+    const setLocalStorage = false;
     spyOn(service['activePageSignal'], 'set').and.stub();
     spyOn(service['storage'], 'setItem').and.stub();
 
@@ -115,8 +115,8 @@ describe('TopToolbarService', () => {
   });
 
   it('expects "setActivePage" to set state and store when local storage is true', async () => {
-    const page: string = 'PAGE';
-    const setLocalStorage: boolean = true;
+    const page = 'PAGE';
+    const setLocalStorage = true;
     spyOn(service['activePageSignal'], 'set').and.stub();
     spyOn(service['storage'], 'setItem').and.stub();
 
@@ -126,8 +126,8 @@ describe('TopToolbarService', () => {
   });
 
   it('expects "setMenuItem" to set the signal', () => {
-    const page: string = 'PAGE';
-    const item: string = 'ITEM';
+    const page = 'PAGE';
+    const item = 'ITEM';
     spyOn(service['menuItemSignal'], 'set').and.stub();
 
     service.setMenuItem(page, item);

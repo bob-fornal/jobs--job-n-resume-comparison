@@ -46,7 +46,7 @@ describe('ModalDayComponent', () => {
 
   it('expects "save" to close the modal and pass the note', () => {
     spyOn(component['dialogRef'], 'close').and.stub();
-    const note: string = 'CLOSE-NOTE';
+    const note = 'CLOSE-NOTE';
     component.day.note = note;
 
     component.save();

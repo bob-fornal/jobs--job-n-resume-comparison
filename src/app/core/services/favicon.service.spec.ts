@@ -33,32 +33,32 @@ describe('FaviconService', () => {
   });
 
   it('expects "getEnvironment" to return localhost', () => {
-    const url: string = 'https://localhost:3000/';
-    const expected: string = 'localhost';
+    const url = 'https://localhost:3000/';
+    const expected = 'localhost';
 
     const result: string = service['getEnvironment'](url);
     expect(result).toEqual(expected);
   });
 
   it('expects "getEnvironment" to return dev', () => {
-    const url: string = 'https://dev.job-squid.com/';
-    const expected: string = 'dev';
+    const url = 'https://dev.job-squid.com/';
+    const expected = 'dev';
 
     const result: string = service['getEnvironment'](url);
     expect(result).toEqual(expected);
   });
 
   it('expects "getEnvironment" to return dev', () => {
-    const url: string = 'https://pre-prod.job-squid.com/';
-    const expected: string = 'pre-prod';
+    const url = 'https://pre-prod.job-squid.com/';
+    const expected = 'pre-prod';
 
     const result: string = service['getEnvironment'](url);
     expect(result).toEqual(expected);
   });
 
   it('expects "getEnvironment" to return dev', () => {
-    const url: string = 'https://job-squid.com/';
-    const expected: string = 'production';
+    const url = 'https://job-squid.com/';
+    const expected = 'production';
 
     const result: string = service['getEnvironment'](url);
     expect(result).toEqual(expected);

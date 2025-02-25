@@ -9,13 +9,13 @@ import { TopToolbarService } from './top-toolbar.service';
   styleUrl: './top-toolbar.component.css'
 })
 export class TopToolbarComponent {
-  dark_enabled: boolean = false;
+  dark_enabled = false;
 
   _document: any = document;
 
-  viewGoals: boolean = false;
+  viewGoals = false;
 
-  selectedPageMenu: string = 'resumes';
+  selectedPageMenu = 'resumes';
 
   constructor(
     private service: TopToolbarService,

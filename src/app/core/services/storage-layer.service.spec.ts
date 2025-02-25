@@ -4,8 +4,8 @@ import { StorageLayerService } from './storage-layer.service';
 
 let mockResult: any;
 class MockDataStore {
-  name: string = '';
-  store: string = '';
+  name = '';
+  store = '';
 
   constructor(name: string, store: string) {
     this.name = name;
@@ -30,9 +30,9 @@ class MockDataStore {
 }
 
 const MockLocalStorage = {
-  getItem: (key: string): any => {},
-  setItem: (key: string, data: any): void => {},
-  removeItem: (key: string): void => {},
+  getItem: (key: string): any => ({}),
+  setItem: (key: string, data: any): any => ({}),
+  removeItem: (key: string): any => ({}),
 };
 
 describe('StorageLayerService', () => {
@@ -52,7 +52,7 @@ describe('StorageLayerService', () => {
 
   it('expects "init" to trigger DB setup', () => {
     service['dataStore'] = {
-      setupDb: (dbConfig: any) => {},
+      setupDb: (dbConfig: any) => ({}),
     };
     spyOn(service['dataStore'], 'setupDb').and.stub();
 
@@ -61,9 +61,9 @@ describe('StorageLayerService', () => {
   });
 
   it('expects "getItem" to retrieve null via localstorage', async () => {
-    const storeKey: string = 'STORE';
-    const itemKey: string = 'ITEM';
-    const useDB: boolean = false;
+    const storeKey = 'STORE';
+    const itemKey = 'ITEM';
+    const useDB = false;
     const expected: any = null;
     spyOn(service['localstorage'], 'getItem').and.returnValue(expected);
 
@@ -72,9 +72,9 @@ describe('StorageLayerService', () => {
   });
 
   it('expects "getItem" to retrieve content via localstorage', async () => {
-    const storeKey: string = 'STORE';
-    const itemKey: string = 'ITEM';
-    const useDB: boolean = false;
+    const storeKey = 'STORE';
+    const itemKey = 'ITEM';
+    const useDB = false;
     const expected: any = 'RESULT';
     const expectedString: string = JSON.stringify(expected);
     spyOn(service['localstorage'], 'getItem').and.returnValue(expectedString);
@@ -84,8 +84,8 @@ describe('StorageLayerService', () => {
   });
 
   it('expects "getItem" to retrieve null via database', async () => {
-    const storeKey: string = 'STORE';
-    const itemKey: string = 'null';
+    const storeKey = 'STORE';
+    const itemKey = 'null';
     const expected: any = null;
     
     const result: any = await service.getItem(storeKey, itemKey);
@@ -93,8 +93,8 @@ describe('StorageLayerService', () => {
   });
 
   it('expects "getItem" to retrieve item via database', async () => {
-    const storeKey: string = 'STORE';
-    const itemKey: string = 'ITEM';
+    const storeKey = 'STORE';
+    const itemKey = 'ITEM';
     const expected: any = 'ITEM';
     
     const result: any = await service.getItem(storeKey, itemKey);
@@ -102,9 +102,9 @@ describe('StorageLayerService', () => {
   });
 
   it('expects "setItem" to set item to localstorage as a string', async () => {
-    const storeKey: string = 'STORE';
-    const itemKey: string = 'ITEM';
-    const useDB: boolean = false;
+    const storeKey = 'STORE';
+    const itemKey = 'ITEM';
+    const useDB = false;
     const itemData: any = { item: 'DATA' };
     const itemDataString: string = JSON.stringify(itemData);
     spyOn(service['localstorage'], 'setItem').and.stub();
@@ -114,8 +114,8 @@ describe('StorageLayerService', () => {
   });
 
   it('expects "setItem" to set item to database', async () => {
-    const storeKey: string = 'STORE';
-    const itemKey: string = 'ITEM';
+    const storeKey = 'STORE';
+    const itemKey = 'ITEM';
     const itemData: any = { item: 'DATA' };
     const expected: any = {
       type: 'setItem Fired',
@@ -128,9 +128,9 @@ describe('StorageLayerService', () => {
   });
 
   it('expects "removeItem" to remove item from localstorage', async () => {
-    const storeKey: string = 'STORE';
-    const itemKey: string = 'ITEM';
-    const useDB: boolean = false;
+    const storeKey = 'STORE';
+    const itemKey = 'ITEM';
+    const useDB = false;
     spyOn(service['localstorage'], 'removeItem').and.stub();
 
     await service.removeItem(storeKey, itemKey, useDB);
@@ -138,8 +138,8 @@ describe('StorageLayerService', () => {
   });
 
   it('expects "removeItem" to set item to database', async () => {
-    const storeKey: string = 'STORE';
-    const itemKey: string = 'ITEM';
+    const storeKey = 'STORE';
+    const itemKey = 'ITEM';
     const expected: any = {
       type: 'removeItem Fired',
     };

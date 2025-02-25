@@ -10,5 +10,5 @@ import { Item } from '../../core/interfaces/item.interface';
   styleUrls: ['./item-image.component.css']
 })
 export class ItemImageComponent {
-  @Input('item') item: Item = { number: -1, note: '', done: false };
+  @Input() item: Item = { number: -1, note: '', done: false };
 }

@@ -100,6 +100,7 @@ export class CompareResumeComponent {
   };
 
   showMatchPercent = (resume: ResumeDetails): boolean => {
+    // eslint-disable-next-line no-prototype-builtins
     return resume.hasOwnProperty('matchPercent') && resume.matchPercent !== null
   };
 
@@ -126,7 +127,7 @@ export class CompareResumeComponent {
     this.service.setDefaultIgnoreList(list);
   };
 
-  textareaAdjust = (event: any, isTarget: boolean = false): void => {
+  textareaAdjust = (event: any, isTarget = false): void => {
     const target: any = isTarget ? event.nativeElement : event.target;
     target.style.height = '1px';
     target.style.height = 16 + target.scrollHeight + 'px';
@@ -321,7 +322,7 @@ export class CompareResumeComponent {
     this.clearComparison();
   };
 
-  wideElement: string = '';
+  wideElement = '';
 
   toggleResumeWide = (): void => {
     if (this.wideElement === 'resume') {
@@ -339,7 +340,7 @@ export class CompareResumeComponent {
     }
   };
 
-  requiredFileType: string = 'application/JSON';
+  requiredFileType = 'application/JSON';
 
   onFileSelect = (event: any): void => {
     const file: File = event.target.files[0];

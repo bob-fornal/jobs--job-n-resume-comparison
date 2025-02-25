@@ -15,11 +15,11 @@ import { PageMenuItem } from '../../core/interfaces/page-menu-item.interface';
 })
 export class MenuApplicationComponent {
 
-  @Input('pageSelectedFn') pageSelectedFn: any = () => {};
+  @Input() pageSelectedFn: any = () => ({});
 
   pageMenuList: Array<PageMenuItem> = pageMenuList;
 
-  selectedPageMenu: string = 'resumes';
+  selectedPageMenu = 'resumes';
 
   setTimeout: any = window.setTimeout;
 
