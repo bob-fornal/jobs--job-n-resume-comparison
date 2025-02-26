@@ -120,6 +120,17 @@
               "src/**/*.html"
             ]
           }
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "jobs--job-n-resume-comparson:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "jobs--job-n-resume-comparson:serve:production"
+            }
+          }
         }
       }
     }
