@@ -1,4 +1,4 @@
-<h3 data-testid="title" class="page-title">Resume(s) to Job Comparison</h3>
+<h3 data-testid="h3--title" class="page-title">Resume(s) to Job Comparison</h3>
 <div class="compare-wrapper">
   <div class="resume-wrapper" [class.wide]="wideElement === 'resume'">
     <mat-toolbar class="title-toolbar">
@@ -64,13 +64,14 @@
           name="resumeName"
           formControlName="resumeName"
           minLength="3"
+          data-testid="input--resume-name"
           (input)="triggerResumeNameValidation($event)"
         />
         @if (validationChecks['resumeNameInList'] === true) {
           <mat-hint class="hint">Warning: Resume Name will be overwritten.</mat-hint>
         }
         @if (resumeForm.value.resumeName) {
-          <mat-error>Must have a Resume Name.</mat-error>
+          <mat-error data-testid="mat-error--resume-name">Must have a Resume Name.</mat-error>
         }
       </mat-form-field>
       <mat-form-field
@@ -84,11 +85,12 @@
           name="resumeContent"
           formControlName="resumeContent"
           minLength="5"
+          data-testid="input--resume-content"
           (input)="triggerResumeContentValidation($event)"
           (keyup)="textareaAdjust($event)"
         ></textarea>
         @if (resumeForm.value.resumeContent) {
-          <mat-error>Must have Resume Conent.</mat-error>
+          <mat-error data-testid="mat-error--resume-content">Must have Resume Conent.</mat-error>
         }
       </mat-form-field>
       <div class="resume-form-functionality">
@@ -96,12 +98,14 @@
           class="functional-button form-button"
           mat-flat-button
           type="button"
+          data-testid="button--clear-resume"
           (click)="clearResumeDetails()"
         >Clear Resume</button>
         <button
           class="functional-button form-button"
           mat-flat-button
           type="submit"
+          data-testid="button--save-resume"
           [disabled]="doesValidationDisable()"
         >Save</button>
       </div>
