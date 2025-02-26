@@ -25,6 +25,7 @@
     "@blakewatson/datastore": "^0.2.0",
     "file-saver": "^2.0.5",
     "keyword-extractor": "^0.0.28",
+    "ngx-device-detector": "^9.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

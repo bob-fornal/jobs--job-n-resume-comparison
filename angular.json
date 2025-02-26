@@ -41,15 +41,19 @@
               "src/styles.css",
               "src/styles-block.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "file-saver",
+              "keyword-extractor"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1.2M",
-                  "maximumError": "2MB"
+                  "maximumWarning": "1.5mB",
+                  "maximumError": "2mB"
                 },
                 {
                   "type": "anyComponentStyle",
