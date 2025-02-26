@@ -52,4 +52,10 @@ export class MenuApplicationComponent {
     this.service.setActivePage(page);
     this.router.navigateByUrl(`/${page}`);
   };
+
+  getTestId = (menuItem: PageMenuItem) => {
+    const item = menuItem.path.replace('/', '');
+    console.log(item);
+    return `button--application-menu--${item}`;
+  };
 }
