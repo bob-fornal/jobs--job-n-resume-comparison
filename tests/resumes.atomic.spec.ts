@@ -1,18 +1,6 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('Resume Page', () => {
-
-  test.beforeEach(async ({ page }) => {
-    // One of these needs to be included in each test suite.
-    // Block Google Analytics
-    await page.route('https://www.google-analytics.com/g/collect*', (route) => {
-      route.fulfill({
-        status: 204,
-        body: '',
-      });
-    });
-  });
-
   test('has title', async ({ page }) => {
     await page.goto('/resumes');
     
