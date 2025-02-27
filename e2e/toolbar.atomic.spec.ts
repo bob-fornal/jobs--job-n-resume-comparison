@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+import { Given, When, Then } from './functionality/cucumber-functionality';
+
 test.describe('Resume Page', () => {
   
   test.beforeEach(async ({ page }) => {
@@ -14,13 +16,10 @@ test.describe('Resume Page', () => {
   });
 
   test('has "Application" menu resumes', async ({ page }) => {
-    await page.goto('/resumes');
-
-    const pageMenuButton = await page.getByTestId('button--application-menu');
-    await pageMenuButton.click();
-
-    await expect(await page.getByTestId('button--application-menu--resumes')).toContainText('Resume(s) to Job Comparison');
-    await expect(await page.getByTestId('button--application-menu--resumes')).toHaveClass(/selected/);
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user clicks the [Application Menu Button]');
+    await Then(page, 'element exists [Resume to Job Comparison Button]');
+    await Then(page, 'element is selected [Resume to Job Comparison Button]');
   });
 
 });

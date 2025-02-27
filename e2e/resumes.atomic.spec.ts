@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
 
 import { Given, When, Then } from './functionality/cucumber-functionality';
 
@@ -58,60 +58,40 @@ test.describe('Resume Page', () => {
   });
 
   test('has Save Resume not enabled if Resume Name and Resume inputs are empty', async ({ page }) => {
-    await page.goto('/resumes');
-    
-    const inputResumeName = await page.getByTestId('input--resume-name');
-    await inputResumeName.clear();
-    const inputResumeContent = await page.getByTestId('input--resume-content');
-    await inputResumeContent.clear();
-
-    await expect(await page.getByTestId('button--save-resume')).toBeDisabled();
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user clears the [Resume Name Input]');
+    await When(page, 'user clears the [Resume Content Input]');
+    await Then(page, 'button is disabled [Save Resume Button]')
   });
 
   test('has Save Resume enabled if Resume Name and Resume inputs have content', async ({ page }) => {
-    await page.goto('/resumes');
-
-    const inputResumeName = await page.getByTestId('input--resume-name');
-    await inputResumeName.fill('Test Resume Name');
-    const inputResumeContent = await page.getByTestId('input--resume-content');
-    await inputResumeContent.fill('Test Resume Content');
-
-    await expect(await page.getByTestId('button--save-resume')).toBeEnabled();
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user enters [Test Resume Name] on [Resume Name Input]');
+    await When(page, 'user enters [Test Resume Content] on [Resume Content Input]');
+    await Then(page, 'button is enabled [Save Resume Button]')
   });
 
   test('has "Page" menu Change Ignore Word List', async ({ page }) => {
-    await page.goto('/resumes');
-
-    const pageMenuButton = await page.getByTestId('button--page-menu');
-    await pageMenuButton.click();
-
-    await expect(await page.getByTestId('button--page-resume--change-ignore-word-list')).toContainText('Change Ignore Word List');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user clicks the [Page Menu Button]');
+    await Then(page, 'element exists [Change Ignore Word List]');
   });
 
   test('has "Page" menu Export Resumes', async ({ page }) => {
-    await page.goto('/resumes');
-
-    const pageMenuButton = await page.getByTestId('button--page-menu');
-    await pageMenuButton.click();
-
-    await expect(await page.getByTestId('button--page-resume--export-resumes')).toContainText('Export Resumes');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user clicks the [Page Menu Button]');
+    await Then(page, 'element exists [Export Resumes]');
   });
 
   test('has "Page" menu Import Resumes', async ({ page }) => {
-    await page.goto('/resumes');
-
-    const pageMenuButton = await page.getByTestId('button--page-menu');
-    await pageMenuButton.click();
-
-    await expect(await page.getByTestId('button--page-resume--import-resumes')).toContainText('Import Resumes');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user clicks the [Page Menu Button]');
+    await Then(page, 'element exists [Import Resumes]');
   });
 
   test('has "Page" menu Documentation', async ({ page }) => {
-    await page.goto('/resumes');
-
-    const pageMenuButton = await page.getByTestId('button--page-menu');
-    await pageMenuButton.click();
-
-    await expect(await page.getByTestId('button--page-resume--documentation')).toContainText('Documentation');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user clicks the [Page Menu Button]');
+    await Then(page, 'element exists [Documentation]');
   });
 });

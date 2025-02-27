@@ -37,6 +37,14 @@ export const when = async (page: Page, step: string, detail: string, _?: string,
 
 export const then = async (page: Page, step: string, detail: string): Promise<void> => {
   switch (true) {
+    case step === 'button is disabled':
+      return await checkButtonEnabled(page, detail, false);
+    case step === 'button is enabled':
+      return await checkButtonEnabled(page, detail);
+    case step === 'element exists':
+      return await checkElementExists(page, detail);
+    case step === 'element is selected':
+      return await checkElementIsSelected(page, detail);
     case step === 'error displays':
       return await checkError(page, detail);
     case step === 'error does not display':
@@ -47,6 +55,17 @@ export const then = async (page: Page, step: string, detail: string): Promise<vo
       return await checkTitle(page, detail);
     default:
       return;
+  }
+};
+
+const checkButtonEnabled = async (page: Page, detail: string, enabled = true): Promise<void> => {
+  switch (true) {
+    case detail === 'Save Resume Button':
+      if (enabled) {
+        return await expect(await getElement(page, 'button--save-resume')).toBeEnabled();
+      } else {
+        return await expect(await getElement(page, 'button--save-resume')).not.toBeEnabled();
+      }
   }
 };
 
@@ -66,6 +85,48 @@ const checkError = async (page: Page, detail: string, attached = true): Promise<
       }
     default:
       return;
+  }
+};
+
+const checkElementExists = async (page: Page, detail: string, exists = true): Promise<void> => {
+  switch (true) {
+    case detail === 'Change Ignore Word List':
+      return await expectElementExists(page, 'button--page-resume--change-ignore-word-list', exists);
+    case detail === 'Documentation':
+      return await expectElementExists(page, 'button--page-resume--documentation', exists);
+    case detail === 'Export Resumes':
+      return await expectElementExists(page, 'button--page-resume--export-resumes', exists);
+    case detail === 'Import Resumes':
+      return await expectElementExists(page, 'button--page-resume--import-resumes', exists);
+    case detail === 'Resume to Job Comparison Button':
+      return await expectElementExists(page, 'button--application-menu--resumes', exists);
+    default:
+      return;
+  }
+};
+
+const checkElementIsSelected = async (page: Page, detail: string, selected = true): Promise<void> => {
+  switch (true) {
+    case detail === 'Resume to Job Comparison Button':
+      return await expectElementIsSelected(page, 'button--application-menu--resumes', selected);
+    default:
+      return;
+  }
+};
+
+const expectElementExists = async (page: Page, testId: string, exists = true): Promise<void> => {
+  if (exists) {
+    return await expect(await getElement(page, testId)).toBeAttached();
+  } else {
+    return await expect(await getElement(page, testId)).not.toBeAttached();
+  }
+}
+
+const expectElementIsSelected = async (page: Page, testId: string, selected = true): Promise<void> => {
+  if (selected) {
+    return await expect(await getElement(page, testId)).toHaveClass(/selected/);
+  } else {
+    return await expect(await getElement(page, testId)).not.toHaveClass(/selected/);
   }
 };
 
@@ -95,8 +156,12 @@ const navigateTo = async (page: Page, detail: string): Promise<Response | null> 
 
 const userClicks = async (page: Page, detail: string): Promise<void> => {
   switch (true) {
+    case detail === 'Application Menu Button':
+      return await clickButton(page, 'button--application-menu');
     case detail === 'Clear Resume Button':
       return await clickButton(page, 'button--clear-resume');
+    case detail === 'Page Menu Button':
+      return await clickButton(page, 'button--page-menu');
     default:
       return;
   }

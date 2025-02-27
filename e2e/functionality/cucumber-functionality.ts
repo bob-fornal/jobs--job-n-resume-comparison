@@ -23,6 +23,7 @@ export const When = async (page: Page, action: string): Promise<void> => {
   const [step, ...details] = actions;
   switch (step) {
     case 'user clicks the':
+    case 'user clears the':
       return await when(page, step, details[0]);
     case 'user enters':
     case 'user presses':
@@ -37,6 +38,10 @@ export const Then = async (page: Page, action: string): Promise<void> => {
 
   const [step, ...details] = actions;
   switch (step) {
+    case 'button is disabled':
+    case 'button is enabled':
+    case 'element exists':
+    case 'element is selected':
     case 'error displays':
     case 'error does not display':
     case 'input is empty':
