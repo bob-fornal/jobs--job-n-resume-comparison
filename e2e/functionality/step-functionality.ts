@@ -13,7 +13,7 @@ import {
   gotoPage, pressKey
 } from "./core-functionality";
 
-export const Given = async (page: Page, step: string, detail: string): Promise<Response | null> => {
+export const given = async (page: Page, step: string, detail: string): Promise<Response | null> => {
   switch (true) {
     case step === 'user navigates to the':
       return await navigateTo(page, detail);
@@ -22,7 +22,7 @@ export const Given = async (page: Page, step: string, detail: string): Promise<R
   }
 };
 
-export const When = async (page: Page, step: string, detail: string, _?: string, detail2?: string): Promise<void> => {
+export const when = async (page: Page, step: string, detail: string, _?: string, detail2?: string): Promise<void> => {
   switch (true) {
     case step === 'user clicks the':
       return await userClicks(page, detail);
@@ -35,7 +35,7 @@ export const When = async (page: Page, step: string, detail: string, _?: string,
   }
 };
 
-export const Then = async (page: Page, step: string, detail: string): Promise<void> => {
+export const then = async (page: Page, step: string, detail: string): Promise<void> => {
   switch (true) {
     case step === 'error displays':
       return await checkError(page, detail);

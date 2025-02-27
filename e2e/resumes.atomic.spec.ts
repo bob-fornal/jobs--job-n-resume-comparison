@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { Given, Then, When } from './functionality/step-functionality';
+import { Given, When, Then } from './functionality/cucumber-functionality';
 
 test.describe('Resume Page', () => {
   
@@ -16,45 +16,45 @@ test.describe('Resume Page', () => {
   });
 
   test('has title', async ({ page }) => {
-    await Given(page, 'user navigates to the', 'Resume Page');
-    await Then(page, 'title is', 'Resume(s) to Job Comparison');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await Then(page, 'title is [Resume(s) to Job Comparison]');
   });
 
   test('has "Resume Name" input, error when less than 3 characters', async ({ page }) => {
-    await Given(page, 'user navigates to the', 'Resume Page');
-    await When(page, 'user enters', '12', 'on', 'Resume Name Input');
-    await When(page, 'user presses', 'Tab', 'from', 'Resume Name Input');
-    await Then(page, 'error displays', 'Resume Name Error');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user enters [12] on [Resume Name Input]');
+    await When(page, 'user presses [Tab] from [Resume Name Input]');
+    await Then(page, 'error displays [Resume Name Error]');
   });
 
   test('has "Resume Name" input, no error when 3 or more', async ({ page }) => {
-    await Given(page, 'user navigates to the', 'Resume Page');
-    await When(page, 'user enters', '12345', 'on', 'Resume Name Input');
-    await When(page, 'user presses', 'Tab', 'from', 'Resume Name Input');
-    await Then(page, 'error does not display', 'Resume Name Error');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user enters [12345] on [Resume Name Input]');
+    await When(page, 'user presses [Tab] from [Resume Name Input]');
+    await Then(page, 'error does not display [Resume Name Error]');
   });
 
   test('has "Resume" input, error when less than 5 characters', async ({ page }) => {
-    await Given(page, 'user navigates to the', 'Resume Page');
-    await When(page, 'user enters', '12', 'on', 'Resume Content Input');
-    await When(page, 'user presses', 'Tab', 'from', 'Resume Content Input');
-    await Then(page, 'error displays', 'Resume Content Error');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user enters [12] on [Resume Content Input]');
+    await When(page, 'user presses [Tab] from [Resume Content Input]');
+    await Then(page, 'error displays [Resume Content Error]');
   });
 
   test('has "Resume" input, no error when 5 or more', async ({ page }) => {
-    await Given(page, 'user navigates to the', 'Resume Page');
-    await When(page, 'user enters', '1234567890', 'on', 'Resume Content Input');
-    await When(page, 'user presses', 'Tab', 'from', 'Resume Content Input');
-    await Then(page, 'error does not display', 'Resume Content Error');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user enters [1234567890] on [Resume Content Input]');
+    await When(page, 'user presses [Tab] from [Resume Content Input]');
+    await Then(page, 'error does not display [Resume Content Error]');
   });
 
   test('has Clear Resume that removes content from Resume Name and Resume inputs', async ({ page }) => {
-    await Given(page, 'user navigates to the', 'Resume Page');
-    await When(page, 'user enters', 'Test Resume Name', 'on', 'Resume Name Input');
-    await When(page, 'user enters', 'Test Resume Content', 'on', 'Resume Content Input');
-    await When(page, 'user clicks the', 'Clear Resume Button');
-    await Then(page, 'input is empty', 'Resume Name Input');
-    await Then(page, 'input is empty', 'Resume Name Input');
+    await Given(page, 'user navigates to the [Resume Page]');
+    await When(page, 'user enters [Test Resume Name] on [Resume Name Input]');
+    await When(page, 'user enters [Test Resume Content] on [Resume Content Input]');
+    await When(page, 'user clicks the [Clear Resume Button]');
+    await Then(page, 'input is empty [Resume Name Input]');
+    await Then(page, 'input is empty [Resume Name Input]');
   });
 
   test('has Save Resume not enabled if Resume Name and Resume inputs are empty', async ({ page }) => {
