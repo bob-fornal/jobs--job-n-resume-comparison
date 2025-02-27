@@ -9,6 +9,7 @@ import {
   fillInput,
   getElement,
   getErrorElement,
+  getLocalStorage,
   getTitle,
   gotoPage, pressKey
 } from "./core-functionality";
@@ -36,22 +37,24 @@ export const when = async (page: Page, step: string, detail: string, _?: string,
 };
 
 export const then = async (page: Page, step: string, detail: string): Promise<void> => {
-  switch (true) {
-    case step === 'button is disabled':
+  switch (step) {
+    case 'button is disabled':
       return await checkButtonEnabled(page, detail, false);
-    case step === 'button is enabled':
+    case 'button is enabled':
       return await checkButtonEnabled(page, detail);
-    case step === 'element exists':
+    case 'element exists':
       return await checkElementExists(page, detail);
-    case step === 'element is selected':
+    case 'element is selected':
       return await checkElementIsSelected(page, detail);
-    case step === 'error displays':
+    case 'error displays':
       return await checkError(page, detail);
-    case step === 'error does not display':
+    case 'error does not display':
       return await checkError(page, detail, false);
-    case step === 'input is empty':
+    case 'input is empty':
       return await checkIsEmpty(page, detail);
-    case step === 'title is':
+    case 'local storage does not have':
+      return await checkLocalStorage(page, detail, false);
+    case 'title is':
       return await checkTitle(page, detail);
     default:
       return;
@@ -89,19 +92,21 @@ const checkError = async (page: Page, detail: string, attached = true): Promise<
 };
 
 const checkElementExists = async (page: Page, detail: string, exists = true): Promise<void> => {
-  switch (true) {
-    case detail === 'Change Ignore Word List':
+  switch (detail) {
+    case 'Change Ignore Word List':
       return await expectElementExists(page, 'button--page-resume--change-ignore-word-list', exists);
-    case detail === 'Days Of Code Button':
+    case 'Days Of Code Button':
       return await expectElementExists(page, 'button--application-menu--days-of-code', exists);
-    case detail === 'Documentation':
+    case 'Documentation':
       return await expectElementExists(page, 'button--page-resume--documentation', exists);
-    case detail === 'Export Resumes':
+    case 'Export Resumes':
       return await expectElementExists(page, 'button--page-resume--export-resumes', exists);
-    case detail === 'Import Resumes':
+    case 'Import Resumes':
       return await expectElementExists(page, 'button--page-resume--import-resumes', exists);
-    case detail === 'Resume to Job Comparison Button':
+    case 'Resume to Job Comparison Button':
       return await expectElementExists(page, 'button--application-menu--resumes', exists);
+    case 'View Goals Checkbox':
+      return await expectElementExists(page, 'checkbox--days-of-code--view-goals', exists);
     default:
       return;
   }
@@ -141,6 +146,15 @@ const checkIsEmpty = async (page: Page, detail: string): Promise<void> => {
       return await expect(await getElement(page, 'input--resume-content')).toBeEmpty();
     case detail === 'Resume Name Input':
       return await expect(await getElement(page, 'input--resume-name')).toBeEmpty();
+    default:
+      return;
+  }
+};
+
+const checkLocalStorage = async (page: Page, detail: string, setting = true): Promise<void> => {
+  switch (detail) {
+    case 'Goals set':
+      return await expect(await getLocalStorage(page, 'job-squid--100-days.useGoals')).toEqual(setting);
     default:
       return;
   }

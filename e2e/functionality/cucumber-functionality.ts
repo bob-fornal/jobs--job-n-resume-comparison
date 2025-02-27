@@ -45,6 +45,7 @@ export const Then = async (page: Page, action: string): Promise<void> => {
     case 'error displays':
     case 'error does not display':
     case 'input is empty':
+    case 'local storage does not have':
     case 'title is':
         return await then(page, step, details[0]);
     default:

@@ -22,6 +22,19 @@ export const getErrorElement = async (page: Page, testId: string): Promise<Locat
   return await page.getByTestId(testId);
 };
 
+export const getLocalStorage = async (page: Page, pattern: string): Promise<boolean> => {
+  const patterns: Array<string> = pattern.split('.');
+  const storage = await page.context().storageState();
+
+  let result: any = storage.origins[0].localStorage;
+  patterns.forEach((pattern: string) => {
+    console.log(result);
+    result = result[pattern];
+  });
+
+  return result;
+};
+
 export const getTitle = async (page: Page, testId: string): Promise<Locator> => {
   return await page.getByTestId(testId);
 };
