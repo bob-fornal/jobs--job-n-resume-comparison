@@ -5,7 +5,7 @@ import {
 
 import { given, then, when } from "./step-functionality";
 
-export const Given = async (page: Page, action: string): Promise<Response | null> => {
+export const Given = async (page: Page, action: string): Promise<Response | null | void> => {
   const actions: Array<string> = splitString(action, [/\s*\[/, /\]\s*/], ',');
 
   const [step, ...details] = actions;

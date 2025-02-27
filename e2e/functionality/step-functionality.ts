@@ -13,7 +13,7 @@ import {
   gotoPage, pressKey
 } from "./core-functionality";
 
-export const given = async (page: Page, step: string, detail: string): Promise<Response | null> => {
+export const given = async (page: Page, step: string, detail: string): Promise<Response | null | void> => {
   switch (true) {
     case step === 'user navigates to the':
       return await navigateTo(page, detail);
@@ -92,6 +92,8 @@ const checkElementExists = async (page: Page, detail: string, exists = true): Pr
   switch (true) {
     case detail === 'Change Ignore Word List':
       return await expectElementExists(page, 'button--page-resume--change-ignore-word-list', exists);
+    case detail === 'Days Of Code Button':
+      return await expectElementExists(page, 'button--application-menu--days-of-code', exists);
     case detail === 'Documentation':
       return await expectElementExists(page, 'button--page-resume--documentation', exists);
     case detail === 'Export Resumes':
@@ -107,6 +109,9 @@ const checkElementExists = async (page: Page, detail: string, exists = true): Pr
 
 const checkElementIsSelected = async (page: Page, detail: string, selected = true): Promise<void> => {
   switch (true) {
+    case detail === 'Days Of Code Button':
+      console.log('checkElementIsSelected', await page.url());
+      return await expectElementIsSelected(page, 'button--application-menu--days-of-code', selected);
     case detail === 'Resume to Job Comparison Button':
       return await expectElementIsSelected(page, 'button--application-menu--resumes', selected);
     default:
@@ -145,9 +150,13 @@ const checkTitle = async (page: Page, detail: string): Promise<void> => {
   return await expect(await getTitle(page, 'h3--title')).toContainText(detail);
 };
 
-const navigateTo = async (page: Page, detail: string): Promise<Response | null> => {
-  switch (true) {
-    case detail === 'Resume Page':
+const navigateTo = async (page: Page, detail: string): Promise<Response | null | void> => {
+  switch (detail) {
+    case 'Days Of Code Page':
+      await gotoPage(page, '/resumes');
+      await userClicks(page, 'Application Menu Button');
+      return await userClicks(page, 'Days Of Code Button');
+    case 'Resume Page':
       return await gotoPage(page, '/resumes');
     default:
       return null;
@@ -160,6 +169,8 @@ const userClicks = async (page: Page, detail: string): Promise<void> => {
       return await clickButton(page, 'button--application-menu');
     case detail === 'Clear Resume Button':
       return await clickButton(page, 'button--clear-resume');
+    case detail === 'Days Of Code Button':
+      return await clickButton(page, 'button--application-menu--days-of-code');
     case detail === 'Page Menu Button':
       return await clickButton(page, 'button--page-menu');
     default:
