@@ -24,5 +24,13 @@ test.describe('Days Of Code Page', () => {
     await Given(page, 'user navigates to the [Days Of Code Page]');
     await When(page, 'user clicks the [Page Menu Button]');
     await Then(page, 'element exists [View Goals Checkbox]');
+    await Then(page, 'element is not checked [View Goals Checkbox]');
+  });
+
+  test.skip('has notes that can be toggled on', async ({ page }) => {
+    await Given(page, 'user navigates to the [Days Of Code Page]');
+    await When(page, 'user clicks the [Page Menu Button]');
+    await Then(page, 'user checks the [View Goals Checkbox]');
+    await Then(page, 'element is checked [View Goals Checkbox]');
   });
 });

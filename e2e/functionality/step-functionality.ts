@@ -11,8 +11,11 @@ import {
   getErrorElement,
   getLocalStorage,
   getTitle,
-  gotoPage, pressKey
+  gotoPage, pressKey,
+  setCheckbox
 } from "./core-functionality";
+
+import { testId } from "./core-elements";
 
 export const given = async (page: Page, step: string, detail: string): Promise<Response | null | void> => {
   switch (true) {
@@ -23,14 +26,16 @@ export const given = async (page: Page, step: string, detail: string): Promise<R
   }
 };
 
-export const when = async (page: Page, step: string, detail: string, _?: string, detail2?: string): Promise<void> => {
-  switch (true) {
-    case step === 'user clicks the':
+export const when = async (page: Page, step: string, detail: string, _?: string, detail2?: boolean | string): Promise<void> => {
+  switch (step) {
+    case 'user checks the':
+      return await userChecks(page, detail, (detail2! as boolean));
+    case 'user clicks the':
       return await userClicks(page, detail);
-    case step === 'user enters':
-      return await userEnters(page, detail, detail2!);
-    case step === 'user presses':
-      return await userPresses(page, detail, detail2!);
+    case 'user enters':
+      return await userEnters(page, detail, (detail2! as string));
+    case 'user presses':
+      return await userPresses(page, detail, (detail2! as string));
     default:
       return;
   }
@@ -44,6 +49,10 @@ export const then = async (page: Page, step: string, detail: string): Promise<vo
       return await checkButtonEnabled(page, detail);
     case 'element exists':
       return await checkElementExists(page, detail);
+    case 'element is checked':
+      return await checkElementIsChecked(page, detail);
+    case 'element is not checked':
+      return await checkElementIsChecked(page, detail, false);
     case 'element is selected':
       return await checkElementIsSelected(page, detail);
     case 'error displays':
@@ -94,19 +103,28 @@ const checkError = async (page: Page, detail: string, attached = true): Promise<
 const checkElementExists = async (page: Page, detail: string, exists = true): Promise<void> => {
   switch (detail) {
     case 'Change Ignore Word List':
-      return await expectElementExists(page, 'button--page-resume--change-ignore-word-list', exists);
+      return await expectElementExists(page, testId['buttonPageResumeChangeIgnoreWordList'], exists);
     case 'Days Of Code Button':
-      return await expectElementExists(page, 'button--application-menu--days-of-code', exists);
+      return await expectElementExists(page, testId['buttonApplicationMenuDaysOfCode'], exists);
     case 'Documentation':
-      return await expectElementExists(page, 'button--page-resume--documentation', exists);
+      return await expectElementExists(page, testId['buttonPageResumeDocumentation'], exists);
     case 'Export Resumes':
-      return await expectElementExists(page, 'button--page-resume--export-resumes', exists);
+      return await expectElementExists(page, testId['buttonPageResumeExportResumes'], exists);
     case 'Import Resumes':
-      return await expectElementExists(page, 'button--page-resume--import-resumes', exists);
+      return await expectElementExists(page, testId['buttonPageResumeImportResumes'], exists);
     case 'Resume to Job Comparison Button':
-      return await expectElementExists(page, 'button--application-menu--resumes', exists);
+      return await expectElementExists(page, testId['buttonApplicationMenuResumes'], exists);
     case 'View Goals Checkbox':
-      return await expectElementExists(page, 'checkbox--days-of-code--view-goals', exists);
+      return await expectElementExists(page, testId['checkboxDaysOfCodeViewGoals'], exists);
+    default:
+      return;
+  }
+};
+
+const checkElementIsChecked = async (page: Page, detail: string, checked = true): Promise<void> => {
+  switch (detail) {
+    case 'View Goals Checkbox':
+      return await expectElementIsChecked(page, testId['checkboxDaysOfCodeViewGoals'], checked);
     default:
       return;
   }
@@ -115,10 +133,9 @@ const checkElementExists = async (page: Page, detail: string, exists = true): Pr
 const checkElementIsSelected = async (page: Page, detail: string, selected = true): Promise<void> => {
   switch (true) {
     case detail === 'Days Of Code Button':
-      console.log('checkElementIsSelected', await page.url());
-      return await expectElementIsSelected(page, 'button--application-menu--days-of-code', selected);
+      return await expectElementIsSelected(page, testId['buttonApplicationMenuDaysOfCode'], selected);
     case detail === 'Resume to Job Comparison Button':
-      return await expectElementIsSelected(page, 'button--application-menu--resumes', selected);
+      return await expectElementIsSelected(page, testId['buttonApplicationMenuResumes'], selected);
     default:
       return;
   }
@@ -131,6 +148,14 @@ const expectElementExists = async (page: Page, testId: string, exists = true): P
     return await expect(await getElement(page, testId)).not.toBeAttached();
   }
 }
+
+const expectElementIsChecked = async (page: Page, testId: string, checked = true): Promise<void> => {
+  if (checked) {
+    return await expect(await getElement(page, testId, 'input[type=checkbox]')).toBeChecked();
+  } else {
+    return await expect(await getElement(page, testId, 'input[type=checkbox]')).not.toBeChecked();
+  }
+};
 
 const expectElementIsSelected = async (page: Page, testId: string, selected = true): Promise<void> => {
   if (selected) {
@@ -177,16 +202,25 @@ const navigateTo = async (page: Page, detail: string): Promise<Response | null |
   }
 };
 
+const userChecks = async (page: Page, detail: string, state: boolean): Promise<void> => {
+  switch (detail) {
+    case 'View Goals Checkbox':
+      return await setCheckbox(page, testId['checkboxDaysOfCodeViewGoals'], state);
+    default:
+      return;
+  }
+};
+
 const userClicks = async (page: Page, detail: string): Promise<void> => {
-  switch (true) {
-    case detail === 'Application Menu Button':
-      return await clickButton(page, 'button--application-menu');
-    case detail === 'Clear Resume Button':
-      return await clickButton(page, 'button--clear-resume');
-    case detail === 'Days Of Code Button':
-      return await clickButton(page, 'button--application-menu--days-of-code');
-    case detail === 'Page Menu Button':
-      return await clickButton(page, 'button--page-menu');
+  switch (detail) {
+    case 'Application Menu Button':
+      return await clickButton(page, testId['buttonApplicationMenu']);
+    case 'Clear Resume Button':
+      return await clickButton(page, testId['buttonClearResume']);
+    case 'Days Of Code Button':
+      return await clickButton(page, testId['buttonApplicationMenuDaysOfCode']);
+    case 'Page Menu Button':
+      return await clickButton(page, testId['buttonPageMenu']);
     default:
       return;
   }

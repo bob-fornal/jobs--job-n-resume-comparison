@@ -4,9 +4,11 @@ import {
   type Response,
 } from "@playwright/test";
 
-export const clickButton = async (page: Page, testId: string): Promise<void> => {
-  const input = await page.getByTestId(testId);
-  return await input.click();
+export const clickButton = async (page: Page, testId: string, locator?: string): Promise<void> => {
+  if (locator) {
+    return await page.getByTestId(testId).locator(locator).click();
+  }
+  return await page.getByTestId(testId).click();
 };
 
 export const fillInput = async (page: Page, testId: string, value: string): Promise<void> => {
@@ -14,7 +16,10 @@ export const fillInput = async (page: Page, testId: string, value: string): Prom
   return await input.fill(value);
 };
 
-export const getElement = async (page: Page, testId: string): Promise<Locator> => {
+export const getElement = async (page: Page, testId: string, locator?: string): Promise<Locator> => {
+  if (locator) {
+    return await page.getByTestId(testId).locator(locator);
+  }
   return await page.getByTestId(testId);
 };
 
@@ -46,4 +51,10 @@ export const gotoPage = async (page: Page, path: string): Promise<Response | nul
 export const pressKey = async (page: Page, testId: string, key: string): Promise<void> => {
   const input = await page.getByTestId(testId);
   return await input.press(key);
+};
+
+export const setCheckbox = async (page: Page, testId: string, state: boolean, locator?: string): Promise<void> => {
+  if (locator) {
+    return await page.getByTestId(testId).locator(locator).setChecked(true);
+  }
 };
