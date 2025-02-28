@@ -44,7 +44,7 @@ describe('FeatureFlagsService', () => {
   });
 
   it('expects "hasUrlParam" to return false if param does not exist', () => {
-    const param: string = 'PARAM';
+    const param = 'PARAM';
     service['route'].snapshot.params = {};
 
     const result: boolean = service['hasUrlParam'](param);
@@ -52,7 +52,7 @@ describe('FeatureFlagsService', () => {
   });
 
   it('expects "hasUrlParam" to return true if param does exist', () => {
-    const param: string = 'PARAM';
+    const param = 'PARAM';
     service['route'].snapshot.params = {
       [param]: 'true'
     };

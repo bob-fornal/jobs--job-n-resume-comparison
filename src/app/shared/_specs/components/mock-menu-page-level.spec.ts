@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   standalone: false,
 })
 export class MockMenuPageLevelComponent {
-  @Input('selectedPageMenu') selectedPageMenu: string = '';
-  @Input('viewGoals') viewGoals: boolean = false;
+  @Input() selectedPageMenu = '';
+  @Input() viewGoals = false;
 }

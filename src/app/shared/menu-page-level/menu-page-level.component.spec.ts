@@ -75,8 +75,8 @@ describe('MenuPageLevelComponent', () => {
   });
 
   it('expects "menuItemSelected" to trigger set menu item in service', () => {
-    const page: string = 'PAGE';
-    const item: string = 'ITEM';
+    const page = 'PAGE';
+    const item = 'ITEM';
     spyOn(component['service'], 'setMenuItem').and.stub();
 
     component.menuItemSelected(page, item);
@@ -84,8 +84,8 @@ describe('MenuPageLevelComponent', () => {
   });
 
   it('expects "documentationSelected" to navigate to a navigation page', () => {
-    const page: string = 'TEST-PAGE';
-    const route: string = '/documentation/TEST-PAGE';
+    const page = 'TEST-PAGE';
+    const route = '/documentation/TEST-PAGE';
     component.navigation[page] = route;
     spyOn(component['router'], 'navigateByUrl').and.stub();
 
@@ -94,7 +94,7 @@ describe('MenuPageLevelComponent', () => {
   });
 
   it('expects "updateViewGoals" to store the state', () => {
-    const viewGoals: boolean = true;
+    const viewGoals = true;
     spyOn(component['service'], 'setViewGoals').and.stub();
 
     component.updateViewGoals(viewGoals);

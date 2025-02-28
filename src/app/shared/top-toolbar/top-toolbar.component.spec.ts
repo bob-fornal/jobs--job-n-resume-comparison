@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TopToolbarComponent } from './top-toolbar.component';
@@ -94,7 +95,7 @@ describe('TopToolbarComponent', () => {
     component._document = _document;
     spyOn(_document, 'getElementById').and.callThrough();
     spyOn(classList, 'toggle').and.stub();
-    spyOn(component['service'], 'setDarkMode').and.stub;
+    spyOn(component['service'], 'setDarkMode').and.stub();
     component.dark_enabled = true;
 
     component.toggleDarkMode();
@@ -105,7 +106,7 @@ describe('TopToolbarComponent', () => {
   });
 
   it('expects "pageSelected" to set the active page', () => {
-    const page: string = 'PAGE';
+    const page = 'PAGE';
     component.selectedPageMenu = '';
 
     component.pageSelected(page);
