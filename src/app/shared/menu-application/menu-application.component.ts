@@ -55,7 +55,6 @@ export class MenuApplicationComponent {
 
   getTestId = (menuItem: PageMenuItem) => {
     const item = menuItem.path.replace('/', '');
-    console.log(item);
     return `button--application-menu--${item}`;
   };
 }
