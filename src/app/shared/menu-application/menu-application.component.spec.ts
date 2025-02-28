@@ -69,7 +69,7 @@ describe('MenuApplicationComponent', () => {
   });
 
   it('expects "pageMenuSelection" to set the page and navigate', () => {
-    const page: string = 'PAGE';
+    const page = 'PAGE';
     component.selectedPageMenu = '';
     spyOn(component['service'], 'setActivePage').and.stub();
 

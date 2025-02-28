@@ -9,10 +9,10 @@ import { StorageLayerService } from '../../core/services/storage-layer.service';
   styleUrl: './marketing-panel.component.css'
 })
 export class MarketingPanelComponent {
-  private maxSteps: number = 10;
-  public showPanel: boolean = false;
+  private maxSteps = 10;
+  public showPanel = false;
 
-  public contentCount: number = 0;
+  public contentCount = 0;
   public content: Array<string> = [
     'There will never be a cost for this site. Support by <a href="https://buymeacoffee.com/bob.ts">Buying Me A Coffee.</a>',
     'Code-Squid.com, check out my <a href="https://code-squid.com/p/unit-tests-react">React Unit Testing Course</a>.',

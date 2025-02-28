@@ -29,7 +29,7 @@ export class StorageLayerService {
     this.dataStore.setupDb(this.database);
   };
 
-  public getItem = async (storeKey: string, itemKey: string, useDB: boolean = true): Promise<DataType> => {
+  public getItem = async (storeKey: string, itemKey: string, useDB = true): Promise<DataType> => {
     if (useDB === false) {
       const itemString: string | null = this.localstorage.getItem(itemKey);
       return itemString === null ? null : JSON.parse(itemString);
@@ -40,7 +40,7 @@ export class StorageLayerService {
     return item || null;
   };
 
-  public setItem = async (storeKey: string, itemKey: string, itemData: any, useDB: boolean = true): Promise<void> => {
+  public setItem = async (storeKey: string, itemKey: string, itemData: any, useDB = true): Promise<void> => {
     if (useDB === false) {
       const itemDataString = JSON.stringify(itemData);
       this.localstorage.setItem(itemKey, itemDataString);
@@ -51,7 +51,7 @@ export class StorageLayerService {
     await store.setItem(itemKey, itemData);
   };
 
-  public removeItem = async (storeKey: string, itemKey: string, useDB: boolean = true): Promise<void> => {
+  public removeItem = async (storeKey: string, itemKey: string, useDB = true): Promise<void> => {
     if (useDB === false) {
       this.localstorage.removeItem(itemKey);
       return;

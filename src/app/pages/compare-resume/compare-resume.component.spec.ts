@@ -168,21 +168,21 @@ describe('CompareResumeComponent', () => {
   });
 
   it('expects "getRange" to return range-61-80 if value is in range', () => {
-    const match: number = 72;
+    const match = 72;
 
     const result: string = component.getRange(match);
     expect(result).toEqual('range-61-80');
   });
 
   it('expects "getRange" to return range-81-100 if value is in range', () => {
-    const match: number = 92;
+    const match = 92;
 
     const result: string = component.getRange(match);
     expect(result).toEqual('range-81-100');
   });
 
   it('expects "getRange" to return range-0-60 if value is in range', () => {
-    const match: number = 42;
+    const match = 42;
 
     const result: string = component.getRange(match);
     expect(result).toEqual('range-0-60');
@@ -282,14 +282,14 @@ describe('CompareResumeComponent', () => {
   });
 
   it('expects "changeValidationState to set the state', () => {
-    const key: string = 'jobContentLength';
+    const key = 'jobContentLength';
     component.validationChecks[key] = true;
     const event: any = {
       target: {
         value: 'TESTING',
       },
     };
-    const check: number = 5;
+    const check = 5;
 
     component.changeValidationState(key, event, check);
     expect(component.validationChecks[key]).toEqual(false);
@@ -338,8 +338,8 @@ describe('CompareResumeComponent', () => {
   });
 
   it('expects "adjustResumeContent" to remove comment text', () => {
-    const content: string = '1\n## 2\n3';
-    const expected: string = '1\n3';
+    const content = '1\n## 2\n3';
+    const expected = '1\n3';
 
     const result: string = component.adjustResumeContent(content);
     expect(result).toEqual(expected);
@@ -495,7 +495,7 @@ describe('CompareResumeComponent', () => {
   });
 
   it('expects "getKeywords" to return resume keywords', async () => {
-    const content: string = 'TEST1 TEST2 TEST3 TEST4';
+    const content = 'TEST1 TEST2 TEST3 TEST4';
     const expected: Array<string> = ['TEST1', 'TEST4']
     spyOn(component, 'adjustResumeContent').and.returnValue('TEST1 TEST2 TEST4');
     spyOn(component.keywordExtractor, 'extract').and.returnValue(['TEST1', 'TEST2', 'TEST4']);
@@ -574,7 +574,7 @@ describe('CompareResumeComponent', () => {
   });
 
     it('expects "onFileSelect" to do nothing if file is undefined', () => {
-      let triggered: boolean = false;
+      let triggered = false;
       class MockFileReader {
         onload: any;
         readAsText() {
@@ -593,7 +593,7 @@ describe('CompareResumeComponent', () => {
     });
   
     it('expects "onFileSelect" to process file if file exists', () => {
-      let triggered: boolean = false;
+      let triggered = false;
       class MockFileReader {
         onload: any;
         readAsText() {

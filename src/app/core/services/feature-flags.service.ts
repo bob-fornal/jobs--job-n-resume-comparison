@@ -29,6 +29,7 @@ export class FeatureFlagsService {
   };
 
   private hasUrlParam = (param: string): boolean => {
+    // eslint-disable-next-line no-prototype-builtins
     return this.route.snapshot.params.hasOwnProperty(param);
   };
 

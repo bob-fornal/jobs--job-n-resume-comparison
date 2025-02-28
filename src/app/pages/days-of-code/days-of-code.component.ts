@@ -17,15 +17,15 @@ import { ModalGoalComponent } from '../../shared/modal-goal/modal-goal.component
   styleUrl: './days-of-code.component.css'
 })
 export class DaysOfCodeComponent {
-  useGoals: boolean = true;
-  useNotes: boolean = true;
+  useGoals = true;
+  useNotes = true;
 
   days: Array<Item> = [];
   goals: Array<Goal> = [];
   _structure: Structure | null = null;
 
-  selectedIndex: number = -1;
-  draggingIndex: number = -1;
+  selectedIndex = -1;
+  draggingIndex = -1;
 
   @ViewChild('fileUpload') fileUpload: any;
 
@@ -62,7 +62,7 @@ export class DaysOfCodeComponent {
   };
 
   toggleDay = (index: number): void => {
-    const isDone: boolean = !this._structure!.days[index].done;
+    const isDone = !this._structure!.days[index].done;
     this._structure!.days[index].done = isDone;
 
     switch (true) {
@@ -70,10 +70,12 @@ export class DaysOfCodeComponent {
         this.service.structureChange(this._structure!);
         break;
       case isDone === true && this._structure!.days[index].note === '':
-        const day: Item = { ... this._structure!.days[index] };
-        this.selectedIndex = index;
-        this.openDayModal(day);
-        break;
+        {
+          const day: Item = { ...this._structure!.days[index] };
+          this.selectedIndex = index;
+          this.openDayModal(day);
+          break;
+        }
       default:
         this._structure!.days[index].note = '';
         this.service.structureChange(this._structure!);
@@ -110,7 +112,7 @@ export class DaysOfCodeComponent {
     this.service.structureChange(this._structure!);
   };
 
-  editIndex: number = -1;
+  editIndex = -1;
   editGoal = (index: number): void => {
     this.editIndex = index;
     const editGoal: Goal = { ...this.goals[index], type: 'Edit' };
@@ -133,7 +135,7 @@ export class DaysOfCodeComponent {
     this.service.structureChange(this._structure!);
   };
 
-  requiredFileType: string = 'application/JSON';
+  requiredFileType = 'application/JSON';
 
   onFileSelect = (event: any): void => {
     const file: File = event.target.files[0];

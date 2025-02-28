@@ -24,7 +24,7 @@ describe('MarketingPanelComponent', () => {
   });
 
   it('expects "init" to get status and content count, triggering status check, ahdnling null', async () => {
-    spyOn(component['service'], 'getItem').and.callFake(async (storeKey: string, itemKey: string, useDB: boolean = true): Promise<DataType> => {
+    spyOn(component['service'], 'getItem').and.callFake(async (storeKey: string, itemKey: string, useDB = true): Promise<DataType> => {
       if (itemKey === 'job-squid--marketing-count') {
         return null;
       } else {
@@ -39,7 +39,7 @@ describe('MarketingPanelComponent', () => {
   });
 
   it('expects "init" to get status and content count, triggering status check', async () => {
-    spyOn(component['service'], 'getItem').and.callFake(async (storeKey: string, itemKey: string, useDB: boolean = true): Promise<DataType> => {
+    spyOn(component['service'], 'getItem').and.callFake(async (storeKey: string, itemKey: string, useDB = true): Promise<DataType> => {
       if (itemKey === 'job-squid--marketing-count') {
         return 1;
       } else {
@@ -54,7 +54,7 @@ describe('MarketingPanelComponent', () => {
   });
 
   it('expects "triggerStatusCheck" to show panel, update to next content, and step', () => {
-    const status: number = 0;
+    const status = 0;
     spyOn(component, 'triggerNextContent').and.stub();
     spyOn(component, 'triggerNextStep').and.stub();
 
@@ -65,7 +65,7 @@ describe('MarketingPanelComponent', () => {
   });
 
   it('expects "triggerStatusCheck" to hide panel and step', () => {
-    const status: number = 1;
+    const status = 1;
     spyOn(component, 'triggerNextContent').and.stub();
     spyOn(component, 'triggerNextStep').and.stub();
 
@@ -76,7 +76,7 @@ describe('MarketingPanelComponent', () => {
   });
 
   it('expects "triggerNextStep" to reset to zero and store', async () => {
-    const status: number = 9;
+    const status = 9;
     component['maxSteps'] = 10;
     spyOn(component['service'], 'setItem').and.stub();
 
@@ -85,7 +85,7 @@ describe('MarketingPanelComponent', () => {
   });
 
   it('expects "triggerNextStep" to reset to increment and store', async () => {
-    const status: number = 0;
+    const status = 0;
     component['maxSteps'] = 10;
     spyOn(component['service'], 'setItem').and.stub();
 

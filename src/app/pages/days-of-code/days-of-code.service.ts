@@ -25,7 +25,7 @@ export class DaysOfCodeService {
   viewGoals: any;
   menuItem: any;
 
-  initalLoad: boolean = false;
+  initalLoad = false;
 
   constructor(
     private storage: StorageLayerService,
@@ -67,7 +67,7 @@ export class DaysOfCodeService {
     }
   };
 
-  generateBlank (numberOfDays: number = 100): Structure {
+  generateBlank (numberOfDays = 100): Structure {
     const structure: Structure = {
       days: [],
       goals: []
