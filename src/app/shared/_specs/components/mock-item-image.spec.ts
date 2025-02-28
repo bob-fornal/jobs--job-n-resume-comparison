@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   standalone: false,
 })
 export class MockItemImageComponent {
-  @Input('item') item: any = { number: -1, note: '', done: false };
+  @Input() item: any = { number: -1, note: '', done: false };
 }

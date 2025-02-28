@@ -1,4 +1,8 @@
-<button mat-flat-button [matMenuTriggerFor]="pageMenu" class="menu-button functional-button">
+<button
+  mat-flat-button
+  [matMenuTriggerFor]="pageMenu"
+  data-testid="button--application-menu"
+  class="menu-button functional-button">
   <mat-icon>menu</mat-icon>
   <span>Application</span>
 </button>
@@ -15,6 +19,7 @@
         <button 
           mat-menu-item
           class="page-menu"
+          [attr.data-testid]="getTestId(menuItem)"
           (click)="pageMenuSelection(menuItem.path)"
           [class.selected]="selectedPageMenu === menuItem.path"
         >
@@ -40,6 +45,7 @@
         mat-menu-item
         class="page-menu"
         (click)="pageMenuSelection(menuItem.path)"
+        [attr.data-testid]="getTestId(menuItem)"
         [class.selected]="selectedPageMenu === menuItem.path"
       >
         <mat-icon fontSet="material-icons-outlined">

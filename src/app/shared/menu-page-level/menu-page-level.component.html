@@ -4,6 +4,7 @@
     class="menu-button functional-button"
     [matMenuTriggerFor]="functionalityMenu"
     [disabled]="pageLevelActive === false"
+    data-testid="button--page-menu"
   >
     <mat-icon class="material-icons-outlined">menu_open</mat-icon>
     <span>Page</span>
@@ -11,49 +12,79 @@
   <mat-menu #functionalityMenu="matMenu">
     @switch (selectedPageMenu) {
       @case ('resumes') {
-        <button mat-menu-item (click)="menuItemSelected('resumes', 'change-ignore-list')">
+        <button
+          mat-menu-item
+          data-testid="button--page-resume--change-ignore-word-list"
+          (click)="menuItemSelected('resumes', 'change-ignore-list')"
+        >
           <mat-icon fontSet="material-icons-outlined">subject</mat-icon>
           <span>Change Ignore Word List</span>
         </button>
 
         <mat-divider></mat-divider>
 
-        <button mat-menu-item (click)="menuItemSelected('resumes', 'export-current-recordset')">
+        <button
+          mat-menu-item
+          data-testid="button--page-resume--export-resumes"
+          (click)="menuItemSelected('resumes', 'export-current-recordset')"
+        >
           <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
           <span>Export Resumes</span>
         </button>
 
-        <button mat-menu-item (click)="menuItemSelected('resumes', 'import-saved-recordset')">
+        <button
+          mat-menu-item
+          data-testid="button--page-resume--import-resumes"
+          (click)="menuItemSelected('resumes', 'import-saved-recordset')"
+        >
           <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
           <span>Import Resumes</span>
         </button>
 
         <mat-divider></mat-divider>
 
-        <button mat-menu-item (click)="documentationSelected('resumes')">
+        <button
+          mat-menu-item
+          data-testid="button--page-resume--documentation"
+          (click)="documentationSelected('resumes')"
+        >
           <mat-icon fontSet="material-icons-outlined">not_listed_location</mat-icon>
           <span>Documentation</span>
         </button>
       }
       @case ('days-of-code') {
         <mat-checkbox
+          class="menu-checkbox"
           [checked]="viewGoals"
+          data-testid="checkbox--days-of-code--view-goals"
           (change)="updateViewGoals($event.checked)">
           View Goals
         </mat-checkbox>
 
         <mat-divider></mat-divider>
         
-        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'export-blank-recordset')">
+        <button
+          mat-menu-item
+          data-testid="button--days-of-code--export-blank-recordset"
+          (click)="menuItemSelected('days-of-code', 'export-blank-recordset')"
+        >
           <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
           <span>Export Blank Recordset</span>
         </button>
-        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'export-current-recordset')">
+        <button
+          mat-menu-item
+          data-testid="button--days-of-code--export-current-recordset"
+          (click)="menuItemSelected('days-of-code', 'export-current-recordset')"
+        >
           <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
           <span>Export Current Recordset</span>
         </button>
 
-        <button mat-menu-item (click)="menuItemSelected('days-of-code', 'import-saved-recordset')">
+        <button
+          mat-menu-item
+          data-testid="button--days-of-code--import-saved-recordset"
+          (click)="menuItemSelected('days-of-code', 'import-saved-recordset')"
+        >
           <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
           <span>Import Saved Recordset</span>
         </button>

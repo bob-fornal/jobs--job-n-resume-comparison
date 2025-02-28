@@ -56,7 +56,7 @@ export class TopToolbarService {
 
   readonly activePage = this.activePageSignal.asReadonly();
 
-  setActivePage = async (page: string, setLocalStorage: boolean = true): Promise<void> => {
+  setActivePage = async (page: string, setLocalStorage = true): Promise<void> => {
     this.activePageSignal.set(page);
     if (setLocalStorage === true) {
       await this.storage.setItem('toolbar', 'job-squid--active-page', page, false);

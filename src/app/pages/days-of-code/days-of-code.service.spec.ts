@@ -83,7 +83,7 @@ describe('DaysOfCodeService', () => {
   });
 
   it('expects "generateBlank" to generate an empty structure (365 Days)', () => {
-    const days: number = 365;
+    const days = 365;
     const emptyStructure: Structure = service.generateBlank(days);
     expect(emptyStructure.days.length).toEqual(days);
     expect(emptyStructure.goals).toEqual([]);
