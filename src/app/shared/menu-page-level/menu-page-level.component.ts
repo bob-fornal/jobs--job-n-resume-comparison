@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 import { TopToolbarService } from '../top-toolbar/top-toolbar.service';
-import { filter } from 'rxjs';
+
+import { NavigationList } from '../../core/interfaces/navigation-list.interface';
 
 @Component({
   selector: 'menu-page-level',
@@ -12,14 +14,14 @@ import { filter } from 'rxjs';
 })
 export class MenuPageLevelComponent {
 
-  @Input('selectedPageMenu') selectedPageMenu: string = '';
-  @Input('viewGoals') viewGoals: boolean = false;
+  @Input() selectedPageMenu = '';
+  @Input() viewGoals = false;
 
   activePages: Array<string> = ['about', 'resumes', 'days-of-code'];
 
-  pageLevelActive: boolean = true;
+  pageLevelActive = true;
   routeChange$: any;
-  navigation: { [page: string]: string } = {
+  navigation: NavigationList = {
     'resumes': '/documentation/resumes',
     'days-of-code': '/documentation/days-of-code',
   };

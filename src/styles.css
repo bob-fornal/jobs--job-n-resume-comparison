@@ -114,3 +114,7 @@ body {
   font-size: 1em;
   font-weight: bold;
 }
+
+.menu-checkbox {
+  margin-left: 1em;
+}

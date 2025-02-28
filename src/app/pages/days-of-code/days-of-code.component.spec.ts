@@ -91,7 +91,7 @@ describe('DaysOfCodeComponent', () => {
     };
     component._structure = structure;
     component.useNotes = false;
-    const index: number = 0;
+    const index = 0;
     spyOn(component['service'], 'structureChange').and.stub();
 
     component.toggleDay(index);
@@ -110,7 +110,7 @@ describe('DaysOfCodeComponent', () => {
     };
     component._structure = structure;
     component.useNotes = true;
-    const index: number = 0;
+    const index = 0;
     spyOn(component, 'openDayModal');
 
     component.toggleDay(index);
@@ -130,7 +130,7 @@ describe('DaysOfCodeComponent', () => {
     };
     component._structure = structure;
     component.useNotes = true;
-    const index: number = 0;
+    const index = 0;
     spyOn(component['service'], 'structureChange').and.stub();
 
     component.toggleDay(index);
@@ -240,7 +240,7 @@ describe('DaysOfCodeComponent', () => {
       { description: 'DESCRIPTION-2', done: false },
     ];
     component.goals = goals;
-    const index: number = 1;
+    const index = 1;
     spyOn(component['service'], 'structureChange').and.stub();
 
     component.toggleGoal(index);
@@ -264,7 +264,7 @@ describe('DaysOfCodeComponent', () => {
     ];
     component.goals = goals;
     const expected: Goal = { type: 'Edit', description: 'DESCRIPTION-1', done: true };
-    const index: number = 0;
+    const index = 0;
 
     component.editGoal(index);
     expect(component.editIndex).toEqual(index);
@@ -313,7 +313,7 @@ describe('DaysOfCodeComponent', () => {
       goals: goals,
     };
     component._structure = structure;
-    const index: number = 1;
+    const index = 1;
     const expected: Array<Goal> = [
       { description: 'DESCRIPTION-1', done: true },
       { description: 'DESCRIPTION-3', done: false },
@@ -326,7 +326,7 @@ describe('DaysOfCodeComponent', () => {
   });
 
   it('expects "onFileSelect" to do nothing if file is undefined', () => {
-    let triggered: boolean = false;
+    let triggered = false;
     class MockFileReader {
       onload: any;
       readAsText() {
@@ -345,7 +345,7 @@ describe('DaysOfCodeComponent', () => {
   });
 
   it('expects "onFileSelect" to process file if file exists', () => {
-    let triggered: boolean = false;
+    let triggered = false;
     class MockFileReader {
       onload: any;
       readAsText() {

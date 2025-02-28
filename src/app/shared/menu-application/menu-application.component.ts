@@ -15,11 +15,11 @@ import { PageMenuItem } from '../../core/interfaces/page-menu-item.interface';
 })
 export class MenuApplicationComponent {
 
-  @Input('pageSelectedFn') pageSelectedFn: any = () => {};
+  @Input() pageSelectedFn: any = () => ({});
 
   pageMenuList: Array<PageMenuItem> = pageMenuList;
 
-  selectedPageMenu: string = 'resumes';
+  selectedPageMenu = 'resumes';
 
   setTimeout: any = window.setTimeout;
 
@@ -51,5 +51,10 @@ export class MenuApplicationComponent {
     this.pageSelectedFn(page);
     this.service.setActivePage(page);
     this.router.navigateByUrl(`/${page}`);
+  };
+
+  getTestId = (menuItem: PageMenuItem) => {
+    const item = menuItem.path.replace('/', '');
+    return `button--application-menu--${item}`;
   };
 }
