@@ -70,9 +70,11 @@
   }
 
   .pseudo-table {
+    --pseudo-table-radius: 0.5em;
+
     font-size: 0.9em;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 1em;
+    border-radius: var(--pseudo-table-radius);
 
     margin-top: 1.5em;
     margin-bottom: 1.5em;
@@ -95,13 +97,22 @@
     }
 
     .pseudo-1.pseudo-left {
-      border-top-left-radius: 1em;
+      border-top-left-radius: var(--pseudo-table-radius);
       padding: 1.25em 2em;
     }
     .pseudo-1.pseudo-right {
-      border-top-right-radius: 1em;
+      border-top-right-radius: var(--pseudo-table-radius);
       padding: 1.25em 2em 1.25em 0;
     }
+    .pseudo-5.pseudo-left {
+      border-bottom-left-radius: var(--pseudo-table-radius);
+      padding: 0 2em 1.25em 2em;
+    }
+    .pseudo-5.pseudo-right {
+      border-bottom-right-radius: var(--pseudo-table-radius);
+      padding: 0 2em 1.25em 0;
+    }
+
     .pseudo-2.pseudo-left,
     .pseudo-3.pseudo-left,
     .pseudo-4.pseudo-left {
@@ -112,13 +123,29 @@
     .pseudo-4.pseudo-right {
       padding: 0 2em 1.25em 0;
     }
-    .pseudo-5.pseudo-left {
-      border-bottom-left-radius: 1em;
-      padding: 0 2em 1.25em 2em;
-    }
-    .pseudo-5.pseudo-right {
-      border-bottom-right-radius: 1em;
-      padding: 0 2em 1.25em 0;
+  }
+
+  .pseudo-table-base {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .pseudo-pole {
+      background-image: linear-gradient(to right, var(--color-squid-darkgreen), var(--color-goal-toolbar4));
+      height: 3em;
+      width: 3em;
+      position: relative;
+      top: -1.35em;
+      display: flex;
+      align-items: center;
+      justify-content: baseline;
+
+      .pseudo-grass {
+        width: 180%;
+        position: relative;
+        left: -40%;
+        bottom: -0.2em;
+      }
     }
   }
 
