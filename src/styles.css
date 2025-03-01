@@ -33,6 +33,7 @@ body {
   --color-goal-toolbar: #ffaf7b;
   --color-goal-toolbar2: #fef758;
   --color-goal-toolbar3: #FF817A;
+  --color-goal-toolbar4: #aea708;
 
   --mat-menu-container-color: var(--color-squid-mid4green);
   --mat-menu-item-hover-state-layer-color: var(--color-squid-mid2green);
