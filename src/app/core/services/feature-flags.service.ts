@@ -10,7 +10,7 @@ export class FeatureFlagsService {
 
   private flags: any = {
     howToUse: false,
-    longTermGoals: false,
+    longTermGoals: true,
     companyTracking: false,
     interviewingResearch: false,
     top10Connections: false,

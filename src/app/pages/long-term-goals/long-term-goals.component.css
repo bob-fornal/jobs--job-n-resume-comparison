@@ -1,0 +1,9 @@
+.long-term-goals-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2em;
+  gap: 1em;
+  
+}
