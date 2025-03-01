@@ -46,6 +46,7 @@
   }
 
   .title-center {
+    font-family: MetropolisBold, sans-serif;
     text-align: center;
 
     .strikethrough {
