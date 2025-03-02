@@ -6,6 +6,7 @@ export interface ChecklistItem {
 
 export interface LongTermGoal {
   title: string;
+  active: boolean;
   description: string;
   summary: string;
   checklist: Array<ChecklistItem>;
