@@ -3,11 +3,19 @@
 <div class="long-term-goals-wrapper">
   <div class="active-goal-wrapper">
     <button
-    class="functional-button"
-    mat-flat-button
-    type="button"
-    data-testid="button--save-goal"
-  >Save</button>
+      class="functional-button"
+      mat-flat-button
+      type="button"
+      data-testid="button--save-goal"
+      (click)="navigate('add')"
+    >Add</button>
+    <button
+      class="functional-button"
+      mat-flat-button
+      type="button"
+      data-testid="button--save-goal"
+      (click)="navigate('edit', 0)"
+    >Edit</button>
   </div>
 
   <div class="list-of-goals-wrapper">

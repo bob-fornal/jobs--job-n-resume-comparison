@@ -22,8 +22,9 @@ export class MenuPageLevelComponent {
   pageLevelActive = true;
   routeChange$: any;
   navigation: NavigationList = {
-    'resumes': '/documentation/resumes',
     'days-of-code': '/documentation/days-of-code',
+    'long-term-goals': '/documentation/long-term-goals',
+    'resumes': '/documentation/resumes',
   };
 
   constructor(

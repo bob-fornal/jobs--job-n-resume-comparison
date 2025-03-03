@@ -1,6 +1,8 @@
 import { effect, Injectable, Signal, signal } from '@angular/core';
+
 import { StorageLayerService } from '../../core/services/storage-layer.service';
 import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
+
 import { LongTermGoal } from '../../core/interfaces/structure-goals.interface';
 
 @Injectable({
@@ -41,5 +43,4 @@ export class LongTermGoalsService {
     this._structure = [...data];
     this.structureSignal.set(this._structure);
   };
-
 }
