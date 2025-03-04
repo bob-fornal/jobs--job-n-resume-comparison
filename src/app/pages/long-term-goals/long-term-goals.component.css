@@ -1,9 +1,27 @@
 .long-term-goals-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-start;
   align-items: flex-start;
   padding: 2em;
   gap: 1em;
-  
+
+  .goal-card {
+    background-color: var(--color-goal-off-white2);
+    width: calc(calc(100% - 5em) / 2);
+
+    .goal-card-title {
+      font-family: MetropolisBold, sans-serif;
+      margin-bottom: 1em;
+    }
+
+    .goal-card-content {
+      
+      .content-item {
+        margin-left: 1em;
+        margin-bottom: 1em;
+      }
+    }
+  }
 }

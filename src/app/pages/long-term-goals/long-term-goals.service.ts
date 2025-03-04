@@ -26,7 +26,7 @@ export class LongTermGoalsService {
   }
 
   init = async (): Promise<void> => {
-    // await this.loadGoals();
+    await this.loadGoals();
   };
 
   handleMenuItemEffect = (): void => {
@@ -36,11 +36,24 @@ export class LongTermGoalsService {
     }
   };
 
-  loadGoals = async () => {
-    const data: Array<LongTermGoal> | null = await this.storage.getItem('long-term-goals', 'job-squid--long-term-goals');
-    if (data === null) return;
+  loadGoals = async (): Promise<void> => {
+    const goals: Array<LongTermGoal> | null = await this.storage.getItem('long-term-goals', 'job-squid--long-term-goals');
+    if (goals === null) return;
 
-    this._structure = [...data];
+    goals.sort((a: LongTermGoal, b: LongTermGoal) => {
+      if (a.active === b.active) {
+        return a.title.localeCompare(b.title);
+      }
+      return a.active ? -1 : 1;
+    });
+
+    this._structure = [...goals];
     this.structureSignal.set(this._structure);
+  };
+
+  saveGoals = async (goals: Array<LongTermGoal>): Promise<void> => {
+    this._structure = [...goals];
+    this.structureSignal.set(this._structure);
+    await this.storage.setItem('long-term-goals', 'job-squid--long-term-goals', goals);
   };
 }

@@ -10,9 +10,7 @@
       <mat-label>Title</mat-label>
       <input
         matInput
-        #GoalTitle
-        name="goalTitle"
-        formControlName="goalTitle"
+        formControlName="title"
         minLength="3"
         data-testId="input--goal-title"
       />
@@ -20,11 +18,9 @@
 
     <mat-checkbox
       class="goal-checkbox"
-      #GoalTitle
-      name="goalActive"
-      formControlName="goalActive"
+      formControlName="active"
       data-testId="checkbox--goal-active"
-      [checked]="goal.controls['goalActive'].value"
+      [checked]="goal.controls['active'].value"
     >
       Is this an Active Goal?
     </mat-checkbox>
@@ -33,9 +29,7 @@
       <mat-label>Description</mat-label>
       <textarea
         matInput
-        #goalDescription
-        name="goalDescription"
-        formControlName="goalDescription"
+        formControlName="description"
         minLength="5"
         data-testid="input--goal-description"
       ></textarea>
@@ -47,7 +41,7 @@
         matInput
         #goalSummary
         name="goalSummary"
-        formControlName="goalSummary"
+        formControlName="summary"
         minLength="5"
         data-testid="input--goal-summary"
       ></textarea>
@@ -68,17 +62,37 @@
         </button>
       </div>
 
-      <div class="goal-checklist-items">
-        @if (goal.controls['goalChecklist'].value!.length === 0) {
+      <div class="goal-checklist-items" formArrayName="checklist">
+        @if (goal.controls['checklist'].value!.length === 0) {
           <div class="no-goals">No Checklist Items</div>
         } @else {
-          @for (item of goal.controls['goalChecklist'].value; track item.title; let index = $index) {
-            <mat-card class="goal-checkbox goal-checklist-item">
+          @for (item of checklistControls.controls; track item; let index = $index) {
+            <mat-card class="goal-checkbox goal-checklist-item" [formGroup]="item">
               <mat-card-header class="goal-checklist-header">Checklist Item</mat-card-header>
               <mat-card-content>
+                <mat-form-field class="full-width">
+                  <mat-label>Title</mat-label>
+                  <input
+                    matInput
+                    minLength="3"
+                    formControlName="title"
+                    [attr.data-testId]="'input--checklist-title-' + index"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    matInput
+                    minLength="5"
+                    formControlName="description"
+                    [attr.data-testid]="'input--checklist-description-' + index"
+                  ></textarea>
+                </mat-form-field>
+
                 <mat-checkbox
                   class="goal-checklist-item-finished"
-                  [checked]="item.finished"
+                  formControlName="finished"
                 >
                   Finished
                 </mat-checkbox>
@@ -99,7 +113,7 @@
   <div class="block goal-functionality">
     <button (click)="back()" class="functional-button" mat-flat-button>Cancel</button>
   
-    <button class="functional-button" mat-flat-button>Save</button>
+    <button (click)="save()" class="functional-button" mat-flat-button>Save</button>
   </div>
 
 </div>

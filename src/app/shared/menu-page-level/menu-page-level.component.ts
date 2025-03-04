@@ -51,7 +51,6 @@ export class MenuPageLevelComponent {
     const regex = /^\/([^/]*)/gm;
     const result = regex.exec(event.url);
     this.selectedPageMenu = result![1];
-    console.log(this.selectedPageMenu);
 
     if (event.url.includes('/about')) {
       this.pageLevelActive = false;

@@ -1,9 +1,9 @@
 import { Component, effect } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { LongTermGoalsService } from './long-term-goals.service';
 
-import { LongTermGoal } from '../../core/interfaces/structure-goals.interface';
+import { ChecklistItem, LongTermGoal } from '../../core/interfaces/structure-goals.interface';
 
 @Component({
   selector: 'app-long-term-goals',
@@ -17,7 +17,6 @@ export class LongTermGoalsComponent {
   goals: Array<LongTermGoal> = [];
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private service: LongTermGoalsService,
   ) {
@@ -27,6 +26,14 @@ export class LongTermGoalsComponent {
   handleGoalsEffect = (): void => {
     const value: Array<LongTermGoal> = this.service.structure();
     this.goals = value;
+  };
+
+  getChecklistStatus = (list: Array<ChecklistItem>): string => {
+    const total: number = list.length;
+    const finished: number = (list.filter((item: ChecklistItem) => item.finished === true)).length;
+    console.log({ total, finished });
+
+    return `Finished ${finished} of ${total}`;
   };
 
   navigate = (to: string, data: number | null = null): void => {

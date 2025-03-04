@@ -1,7 +1,7 @@
 <h3 data-testid="h3--title" class="page-title">Long Term Goals</h3>
 
 <div class="long-term-goals-wrapper">
-  <div class="active-goal-wrapper">
+  <div class="functionality-goal-wrapper block">
     <button
       class="functional-button"
       mat-flat-button
@@ -18,13 +18,34 @@
     >Edit</button>
   </div>
 
-  <div class="list-of-goals-wrapper">
-    @for (goal of goals; track goals) {
-      <mat-card>
-        <mat-card-header>{{goal.title}}</mat-card-header>
-        <mat-card-content></mat-card-content>
-        <mat-card-actions></mat-card-actions>
-      </mat-card>  
-    }
+  <div class="block mid-green-1">
+    <div class="list-of-goals-wrapper">
+      @if (goals.length === 0) {
+        No Goals Listed
+      } @else {
+        @for (goal of goals; track goals) {
+          <mat-card class="goal-card" [class.goal-active]="goal.active">
+            <mat-card-header class="goal-card-title">
+              {{goal.title}}
+            </mat-card-header>
+            <mat-card-content class="goal-card-content">
+              <div class="content-title">Description</div>
+              <div class="content-item">
+                {{ goal.description }}
+              </div>
+              <div class="content-title">Summary</div>
+              <div class="content-item">
+                {{ goal.summary }}
+              </div>
+              <div class="content-title">Checklist</div>
+              <div class="content-item">
+                {{ getChecklistStatus(goal.checklist) }}
+              </div>
+            </mat-card-content>
+            <mat-card-actions class="goal-card-actions"></mat-card-actions>
+          </mat-card>  
+        }
+      }
+    </div>
   </div>
 </div>

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ChecklistItem, LongTermGoal } from '../../../core/interfaces/structure-goals.interface';
+import { LongTermGoalsService } from '../long-term-goals.service';
 
 @Component({
   selector: 'app-add-edit-ltg',
@@ -15,17 +16,21 @@ export class AddEditLtgComponent {
   type = '';
   index = -1
 
-  goal = new FormGroup({
-    goalTitle: new FormControl<string>('', [Validators.minLength(3)]),
-    goalActive: new FormControl<boolean>(true),
-    goalDescription: new FormControl<string>('', [Validators.minLength(5)]),
-    goalSummary: new FormControl<string>('', [Validators.minLength(5)]),
-    goalChecklist: new FormControl<Array<ChecklistItem>>([]),
-  });
+  // goal = new FormGroup({
+  //   title: new FormControl<string>('', [Validators.minLength(3)]),
+  //   active: new FormControl<boolean>(true),
+  //   description: new FormControl<string>('', [Validators.minLength(5)]),
+  //   summary: new FormControl<string>('', [Validators.minLength(5)]),
+  //   checklist: new FormArray<any>([]),
+  // });
+
+  goal!: FormGroup;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
     private router: Router,
+    private service: LongTermGoalsService,
   ) {
     this.init();
   }
@@ -35,7 +40,22 @@ export class AddEditLtgComponent {
     if (this.type === 'edit') {
       this.index = this.activatedRoute.snapshot.params['index'];
     }
+    this.initGoals();
   };
+
+  initGoals = (): void => {
+    this.goal = this.fb.group({
+      title: new FormControl<string>('', [Validators.minLength(3)]),
+      active: new FormControl<boolean>(true),
+      description: new FormControl<string>('', [Validators.minLength(5)]),
+      summary: new FormControl<string>('', [Validators.minLength(5)]),
+      checklist: this.fb.array([]),
+    });
+  };
+
+  get checklistControls(): any {
+    return this.goal.get('checklist') as FormArray;
+  }
 
   getType = (): string => {
     const type: string = this.type[0].toUpperCase() + this.type.substring(1);
@@ -47,18 +67,34 @@ export class AddEditLtgComponent {
   };
 
   addChecklistItem = (): void => {
-    const goalChecklist: Array<ChecklistItem> = this.goal.get('goalChecklist')!.value || [];
-    goalChecklist.push({ title: '', finished: false, description: '' });
-    this.goal.patchValue({
-      goalChecklist: goalChecklist,
-    });
+    const checklist: FormArray<any> = this.goal.get('checklist') as FormArray;
+    if (!checklist.invalid) {
+      checklist.push(this.fb.group({
+        title: '',
+        finished: false,
+        description: ''
+      }));
+    }
   };
 
   deleteChecklistItem = (index: number): void => {
-    const goalChecklist: Array<ChecklistItem> = this.goal.get('goalChecklist')!.value || [];
-    goalChecklist.splice(index, 1);
-    this.goal.patchValue({
-      goalChecklist: goalChecklist,
-    });
+    const goalChecklist: FormArray = this.goal.get('checklist') as FormArray;
+    goalChecklist.removeAt(index);
+  };
+
+  save = (): void => {
+    const goals: Array<LongTermGoal> = this.service.structure();
+
+    const goal: LongTermGoal = {
+      title: this.goal.get('title')!.value || '',
+      active: this.goal.get('active')!.value || false,
+      description: this.goal.get('description')!.value || '',
+      summary: this.goal.get('summary')!.value || '',
+      checklist: this.goal.get('checklist')!.value || [],
+    };
+    goals.push(goal);
+
+    this.service.saveGoals(goals);
+    this.back();
   };
 }
