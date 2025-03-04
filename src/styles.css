@@ -29,6 +29,7 @@ body {
   --color-goal-highlight: var(--color-squid-button);
   --color-goal-tooltip: #555555;
   --color-goal-tooltip2: #bbbbbb;
+  --color-goal-tooltip3: #dddddd;
   --color-goal-silver: silver;
   --color-goal-toolbar: #ffaf7b;
   --color-goal-toolbar2: #fef758;

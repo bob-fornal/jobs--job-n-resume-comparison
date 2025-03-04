@@ -4,8 +4,6 @@ import { filter } from 'rxjs';
 
 import { TopToolbarService } from '../top-toolbar/top-toolbar.service';
 
-import { NavigationList } from '../../core/interfaces/navigation-list.interface';
-
 @Component({
   selector: 'menu-page-level',
   standalone: false,
@@ -17,15 +15,20 @@ export class MenuPageLevelComponent {
   @Input() selectedPageMenu = '';
   @Input() viewGoals = false;
 
-  activePages: Array<string> = ['about', 'resumes', 'days-of-code'];
+  activePages: Array<string> = [
+    'about',
+    'long-term-goals',
+    'resumes',
+    'days-of-code'
+  ];
+  navigation: Array<string> = [
+    '/days-of-code',
+    '/long-term-goals',
+    '/resumes',
+  ];
 
   pageLevelActive = true;
   routeChange$: any;
-  navigation: NavigationList = {
-    'days-of-code': '/documentation/days-of-code',
-    'long-term-goals': '/documentation/long-term-goals',
-    'resumes': '/documentation/resumes',
-  };
 
   constructor(
     private router: Router,
@@ -45,21 +48,31 @@ export class MenuPageLevelComponent {
   };
 
   handleNavigationEnd = (event: any) => {
+    const regex = /^\/([^/]*)/gm;
+    const result = regex.exec(event.url);
+    this.selectedPageMenu = result![1];
+    console.log(this.selectedPageMenu);
+
     if (event.url.includes('/about')) {
       this.pageLevelActive = false;
       return;
     }
-    this.pageLevelActive = !event.url.includes('documentation/');
-  }
 
-  isActivePage = (): boolean => this.activePages.includes(this.selectedPageMenu);
+    let isActive = false;
+    this.navigation.forEach((page: string) => {
+      if (event.url === page) {
+        isActive = true;
+      }
+    });
+    this.pageLevelActive = isActive;
+  }
 
   menuItemSelected = (page: string, item: string): void => {
     this.service.setMenuItem(page, item);
   };
 
   documentationSelected = (page: string): void => {
-    this.router.navigateByUrl(this.navigation[page]);
+    this.router.navigateByUrl(`/documentation/${page}`);
   };
 
   updateViewGoals = (viewGoals: boolean): void => {

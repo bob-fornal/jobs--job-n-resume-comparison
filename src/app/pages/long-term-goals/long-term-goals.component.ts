@@ -1,5 +1,5 @@
 import { Component, effect } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { LongTermGoalsService } from './long-term-goals.service';
 
@@ -17,6 +17,7 @@ export class LongTermGoalsComponent {
   goals: Array<LongTermGoal> = [];
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private service: LongTermGoalsService,
   ) {
@@ -30,9 +31,9 @@ export class LongTermGoalsComponent {
 
   navigate = (to: string, data: number | null = null): void => {
     if (data === null) {
-      this.router.navigateByUrl(`/${to}/long-term-goal`);
+      this.router.navigateByUrl(`/long-term-goals/${to}`);
     } else {
-      this.router.navigateByUrl(`/${to}/long-term-goal/${data}`);
+      this.router.navigateByUrl(`/long-term-goals/${to}/${data}`);
     }
   };
 }

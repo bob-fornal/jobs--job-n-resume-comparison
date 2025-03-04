@@ -44,7 +44,7 @@ export class CompareResumeComponent {
 
   resumeForm = new FormGroup({
     resumeName: new FormControl('', [Validators.minLength(3)]),
-    resumeContent: new FormControl('', [ Validators.minLength(5)]),
+    resumeContent: new FormControl('', [Validators.minLength(5)]),
   });
 
   setTimeout: any = window.setTimeout;

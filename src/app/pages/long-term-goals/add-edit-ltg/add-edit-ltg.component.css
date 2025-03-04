@@ -1,0 +1,59 @@
+.goal-form {
+
+  .full-width {
+    margin-bottom: 0.5em;
+    overflow: auto;
+    width: 100%;
+  }
+
+  .goal-checkbox {
+    --mat-checkbox-label-text-color: var(--color-squid-darkgreen);
+    --mdc-checkbox-unselected-icon-color: var(--color-squid-darkgreen);
+  }
+}
+
+.goal-subtitle {
+  margin-bottom: 1em;
+
+  .gs-title {
+    font-family: MetropolisBold, sans-serif;
+  }
+}
+
+.goal-checklist-wrapper {
+
+  .goal-checklist-functionality {
+    display: flex;
+    justify-content: right;
+    gap: 1em;
+  }
+}
+
+.goal-functionality {
+  display: flex;
+  justify-content: right;
+  gap: 1em;
+}
+
+.goal-checklist-items {
+  --mdc-elevated-card-container-color: var(--color-goal-tooltip3);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+
+  .goal-checklist-header {
+    padding: 1em 1.5em;
+  }
+
+  .goal-checklist-item {
+    width: 100%;
+  }
+
+  .goal-checklist-actions {
+    display: flex;
+    justify-content: right;
+    padding: 1em;
+  }
+}

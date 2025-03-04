@@ -22,15 +22,17 @@ const routes: Routes = [
   { path: 'days-of-code', component: DaysOfCodeComponent },
   { path: 'how-to-use', component: HowToUseComponent },
   { path: 'interviewing-research', component: InterviewResearchComponent },
+
   { path: 'long-term-goals', component: LongTermGoalsComponent },
+  { path: 'long-term-goals/:type', component: AddEditLtgComponent },
+  { path: 'long-term-goals/:type/:index', component: AddEditLtgComponent },
+
   { path: 'resumes', component: CompareResumeComponent },
   { path: 'top-10-connections', component: Top10ConnectionsComponent },
 
   { path: 'documentation/resumes', component: DocumentationCompareResumeComponent },
   { path: 'documentation/days-of-code', component: DocumentationDaysOfCodeComponent },
 
-  { path: ':type/long-term-goal', component: AddEditLtgComponent },
-  { path: ':type/long-term-goal/:index', component: AddEditLtgComponent },
 
   { path: '', redirectTo: '/resumes', pathMatch: 'full' },
 ];
