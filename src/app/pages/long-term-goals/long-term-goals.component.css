@@ -24,6 +24,26 @@
       margin-bottom: 1em;
     }
 
+    .content-title {
+      text-decoration: underline;
+      margin-bottom: 0.5em;
+    }
+
+    .content-item {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      @supports (-webkit-line-clamp: 5) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+      }
+    }
+
     .goal-card-content {
       margin-bottom: 3.5em;
       .content-item {

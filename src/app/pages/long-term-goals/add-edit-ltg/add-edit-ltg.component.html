@@ -1,4 +1,10 @@
 <h3 class="page-title">{{ getType() }} Long Term Goal</h3>
+
+<div class="block goal-functionality">
+  <button (click)="back()" class="functional-button" mat-flat-button>Cancel</button>  
+  <button (click)="save()" class="functional-button" mat-flat-button>Save</button>
+</div>
+
 <div class="documentation-wrapper">
   <div class="goal-form block mid-green-1" [formGroup]="goal">
     
@@ -55,13 +61,6 @@
         </div>
       </div>
 
-      <div class="goal-checklist-functionality">
-        <button (click)="addChecklistItem()" class="functional-button" mat-flat-button>
-          <mat-icon>add</mat-icon>
-          <span>Add Checlist Item</span>
-        </button>
-      </div>
-
       <div class="goal-checklist-items" formArrayName="checklist">
         @if (goal.controls['checklist'].value!.length === 0) {
           <div class="no-goals">No Checklist Items</div>
@@ -107,12 +106,18 @@
           }
         }
       </div>
+
+      <div class="goal-checklist-functionality">
+        <button (click)="addChecklistItem()" class="functional-button" mat-flat-button>
+          <mat-icon>add</mat-icon>
+          <span>Add Checlist Item</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="block goal-functionality">
-    <button (click)="back()" class="functional-button" mat-flat-button>Cancel</button>
-  
+    <button (click)="back()" class="functional-button" mat-flat-button>Cancel</button>  
     <button (click)="save()" class="functional-button" mat-flat-button>Save</button>
   </div>
 
