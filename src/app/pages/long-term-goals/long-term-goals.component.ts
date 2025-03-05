@@ -31,7 +31,6 @@ export class LongTermGoalsComponent {
   getChecklistStatus = (list: Array<ChecklistItem>): string => {
     const total: number = list.length;
     const finished: number = (list.filter((item: ChecklistItem) => item.finished === true)).length;
-    console.log({ total, finished });
 
     return `Finished ${finished} of ${total}`;
   };

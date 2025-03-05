@@ -16,14 +16,6 @@ export class AddEditLtgComponent {
   type = '';
   index = -1
 
-  // goal = new FormGroup({
-  //   title: new FormControl<string>('', [Validators.minLength(3)]),
-  //   active: new FormControl<boolean>(true),
-  //   description: new FormControl<string>('', [Validators.minLength(5)]),
-  //   summary: new FormControl<string>('', [Validators.minLength(5)]),
-  //   checklist: new FormArray<any>([]),
-  // });
-
   goal!: FormGroup;
 
   constructor(
@@ -51,6 +43,25 @@ export class AddEditLtgComponent {
       summary: new FormControl<string>('', [Validators.minLength(5)]),
       checklist: this.fb.array([]),
     });
+
+    if (this.index > -1) {
+      const goals: Array<LongTermGoal> = this.service.structure();
+      const goal = goals[this.index];
+
+      this.goal.patchValue({
+        title: goal.title,
+        active: goal.active,
+        description: goal.description,
+        summary: goal.summary,
+      });
+
+      goal.checklist.forEach((item: ChecklistItem) => {
+        const checklist: FormArray<any> = this.goal.get('checklist') as FormArray;
+        if (!checklist.invalid) {
+          checklist.push(this.fb.group(item));
+        }
+      });
+    }
   };
 
   get checklistControls(): any {
@@ -85,14 +96,25 @@ export class AddEditLtgComponent {
   save = (): void => {
     const goals: Array<LongTermGoal> = this.service.structure();
 
-    const goal: LongTermGoal = {
-      title: this.goal.get('title')!.value || '',
-      active: this.goal.get('active')!.value || false,
-      description: this.goal.get('description')!.value || '',
-      summary: this.goal.get('summary')!.value || '',
-      checklist: this.goal.get('checklist')!.value || [],
-    };
-    goals.push(goal);
+    if (this.type === 'add') {
+      const goal: LongTermGoal = {
+        title: this.goal.get('title')!.value || '',
+        active: this.goal.get('active')!.value || false,
+        description: this.goal.get('description')!.value || '',
+        summary: this.goal.get('summary')!.value || '',
+        checklist: this.goal.get('checklist')!.value || [],
+      };
+      goals.push(goal);  
+    } else {
+      const goal: LongTermGoal = {
+        title: this.goal.get('title')!.value || '',
+        active: this.goal.get('active')!.value || false,
+        description: this.goal.get('description')!.value || '',
+        summary: this.goal.get('summary')!.value || '',
+        checklist: this.goal.get('checklist')!.value || [],
+      };
+      goals[this.index] = goal;
+    }
 
     this.service.saveGoals(goals);
     this.back();

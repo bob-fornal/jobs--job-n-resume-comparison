@@ -9,13 +9,6 @@
       data-testid="button--save-goal"
       (click)="navigate('add')"
     >Add</button>
-    <button
-      class="functional-button"
-      mat-flat-button
-      type="button"
-      data-testid="button--save-goal"
-      (click)="navigate('edit', 0)"
-    >Edit</button>
   </div>
 
   <div class="block mid-green-1">
@@ -23,7 +16,7 @@
       @if (goals.length === 0) {
         No Goals Listed
       } @else {
-        @for (goal of goals; track goals) {
+        @for (goal of goals; track goals; let index = $index;) {
           <mat-card class="goal-card" [class.goal-active]="goal.active">
             <mat-card-header class="goal-card-title">
               {{goal.title}}
@@ -42,7 +35,17 @@
                 {{ getChecklistStatus(goal.checklist) }}
               </div>
             </mat-card-content>
-            <mat-card-actions class="goal-card-actions"></mat-card-actions>
+            <mat-card-actions class="goal-card-actions">
+              <button
+                class="functional-button"
+                mat-icon-button
+                type="button"
+                [attr.data-testid]="'button--edit-goal--' + index"
+                (click)="navigate('edit', index)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-card-actions>
           </mat-card>  
         }
       }
