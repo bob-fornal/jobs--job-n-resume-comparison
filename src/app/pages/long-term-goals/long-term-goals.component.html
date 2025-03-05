@@ -8,7 +8,7 @@
       type="button"
       data-testid="button--save-goal"
       (click)="navigate('add')"
-    >Add</button>
+    >Add New Goal</button>
   </div>
 
   <div class="block mid-green-1">
@@ -40,10 +40,22 @@
                 class="functional-button"
                 mat-icon-button
                 type="button"
+                matTooltip="Edit Goal"
                 [attr.data-testid]="'button--edit-goal--' + index"
                 (click)="navigate('edit', index)"
               >
                 <mat-icon>edit</mat-icon>
+              </button>
+
+              <button
+                class="functional-button"
+                mat-icon-button
+                type="button"
+                matTooltip="Delete Goal"
+                [attr.data-testid]="'button--delete-goal--' + index"
+                (click)="delete(index)"
+              >
+                <mat-icon>delete</mat-icon>
               </button>
             </mat-card-actions>
           </mat-card>  

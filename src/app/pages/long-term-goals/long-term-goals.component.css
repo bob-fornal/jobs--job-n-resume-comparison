@@ -7,21 +7,37 @@
   padding: 2em;
   gap: 1em;
 
+  .list-of-goals-wrapper {
+    display: flex;
+    gap: 1em;
+  }
+
   .goal-card {
+    --mdc-icon-button-icon-color: var(--color-squid-mid4green);
+
     background-color: var(--color-goal-off-white2);
-    width: calc(calc(100% - 5em) / 2);
+    width: calc(calc(100% - 1em) / 2);
 
     .goal-card-title {
+      color: var(--color-squid-mid4green);
       font-family: MetropolisBold, sans-serif;
       margin-bottom: 1em;
     }
 
     .goal-card-content {
-      
+      margin-bottom: 3.5em;
       .content-item {
         margin-left: 1em;
         margin-bottom: 1em;
       }
+    }
+
+    .goal-card-actions {
+      display: flex;
+      justify-content: right;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
     }
   }
 }

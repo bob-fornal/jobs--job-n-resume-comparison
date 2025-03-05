@@ -42,4 +42,10 @@ export class LongTermGoalsComponent {
       this.router.navigateByUrl(`/long-term-goals/${to}/${data}`);
     }
   };
+
+  delete = (index: number): void => {
+    const goals: Array<LongTermGoal> = [...this.goals];
+    goals.splice(index, 1);
+    this.service.saveGoals(goals);
+  };
 }

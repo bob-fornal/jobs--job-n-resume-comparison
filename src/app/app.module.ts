@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
@@ -85,6 +86,7 @@ import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-ed
     MatListModule,
     MatMenuModule,
     MatToolbarModule,
+    MatTooltipModule,
   ],
   providers: [
     provideAnimationsAsync(),
