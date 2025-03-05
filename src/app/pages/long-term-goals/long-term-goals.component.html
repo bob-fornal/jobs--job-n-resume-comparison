@@ -19,7 +19,10 @@
         @for (goal of goals; track goals; let index = $index;) {
           <mat-card class="goal-card" [class.goal-active]="goal.active">
             <mat-card-header class="goal-card-title">
-              {{goal.title}}
+              <span class="header-title">{{goal.title}}</span>
+              <span class="header-status">
+                {{ goal.active ? 'Active' : 'Inactive' }}
+              </span>
             </mat-card-header>
             <mat-card-content class="goal-card-content">
               <div class="content-title">Description</div>

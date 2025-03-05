@@ -9,19 +9,51 @@
 
   .list-of-goals-wrapper {
     display: flex;
+    flex-flow: wrap;
     gap: 1em;
   }
 
   .goal-card {
-    --mdc-icon-button-icon-color: var(--color-squid-mid4green);
-
-    background-color: var(--color-goal-off-white2);
     width: calc(calc(100% - 1em) / 2);
 
+    &.goal-active {
+      --mdc-icon-button-icon-color: var(--color-squid-mid4green);
+
+      background-color: var(--color-goal-off-white2);
+
+      .header-title {
+        color: var(--color-squid-mid4green);
+      }
+      .header-status {
+        color: var(--color-squid-mid4green);
+      }
+    }
+    &:not(.goal-active) {
+      --mdc-icon-button-icon-color: var(--color-squid-mid4green);
+
+      background-color: var(--color-goal-toolbar);
+
+      .header-title {
+        color: var(--color-squid-mid4green);
+      }
+      .header-status {
+        color: var(--color-squid-mid4green);
+      }
+    }
+
     .goal-card-title {
-      color: var(--color-squid-mid4green);
-      font-family: MetropolisBold, sans-serif;
       margin-bottom: 1em;
+      position: relative;
+
+      .header-title {
+        font-family: MetropolisBold, sans-serif;
+        position: relative;
+        left: 0;
+      }
+      .header-status {
+        position: absolute;
+        right: 1em;
+      }
     }
 
     .content-title {
@@ -46,6 +78,7 @@
 
     .goal-card-content {
       margin-bottom: 3.5em;
+      
       .content-item {
         margin-left: 1em;
         margin-bottom: 1em;

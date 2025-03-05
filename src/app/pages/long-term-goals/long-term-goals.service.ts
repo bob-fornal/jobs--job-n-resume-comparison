@@ -40,6 +40,11 @@ export class LongTermGoalsService {
     const goals: Array<LongTermGoal> | null = await this.storage.getItem('long-term-goals', 'job-squid--long-term-goals');
     if (goals === null) return;
 
+    this._structure = [...goals];
+    this.structureSignal.set(this._structure);
+  };
+
+  saveGoals = async (goals: Array<LongTermGoal>): Promise<void> => {
     goals.sort((a: LongTermGoal, b: LongTermGoal) => {
       if (a.active === b.active) {
         return a.title.localeCompare(b.title);
@@ -47,11 +52,6 @@ export class LongTermGoalsService {
       return a.active ? -1 : 1;
     });
 
-    this._structure = [...goals];
-    this.structureSignal.set(this._structure);
-  };
-
-  saveGoals = async (goals: Array<LongTermGoal>): Promise<void> => {
     this._structure = [...goals];
     this.structureSignal.set(this._structure);
     await this.storage.setItem('long-term-goals', 'job-squid--long-term-goals', goals);
