@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Update Checklist</h2>
+<mat-dialog-content>
+  <div class="content-wrapper">
+    <h3>{{ goalTitle }}</h3>
+
+    <div class="checklist-item--header">
+      <mat-icon class="icon">check_box</mat-icon>
+      <span class="mock-input-title">Feeling or weight</span>
+      <span class="title">Item Title</span>
+    </div>
+    @for(item of checklist; track $index; let index = $index;) {
+      <div class="checklist-item">
+        <mat-checkbox [checked]="item.finished"></mat-checkbox>
+        <input type="text" class="input description" [value]="item.description" />
+        <span class="title">{{ item.title }}</span>
+      </div>
+    }
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="functional-button cancel-button" mat-flat-button (click)="cancel()">cancel</button>
+  <button class="functional-button" mat-flat-button (click)="save()">save</button>
+</mat-dialog-actions>

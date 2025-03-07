@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { LongTermGoalsService } from './long-term-goals.service';
 
 import { ChecklistItem, LongTermGoal } from '../../core/interfaces/structure-goals.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { LtgChecklistModalComponent } from './ltg-checklist-modal/ltg-checklist-modal.component';
 
 @Component({
   selector: 'app-long-term-goals',
@@ -17,6 +19,7 @@ export class LongTermGoalsComponent {
   goals: Array<LongTermGoal> = [];
 
   constructor(
+    private dialog: MatDialog,
     private router: Router,
     private service: LongTermGoalsService,
   ) {
@@ -33,6 +36,12 @@ export class LongTermGoalsComponent {
     const finished: number = (list.filter((item: ChecklistItem) => item.finished === true)).length;
 
     return `Finished ${finished} of ${total}`;
+  };
+
+  editChecklist = (index: number): void => {
+    this.dialog.open(LtgChecklistModalComponent, {
+      data: { index },
+    });
   };
 
   navigate = (to: string, data: number | null = null): void => {

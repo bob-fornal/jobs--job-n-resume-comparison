@@ -49,6 +49,7 @@ body {
   --mdc-dialog-container-color: var(--color-squid-mid4green);
   --mdc-dialog-subhead-color: var(--color-light-background);
   --mdc-dialog-container-shape: 5px;
+  --mat-dialog-container-max-width: 800px;
 
   margin: 0;
   font-family: Metropolis, sans-serif;

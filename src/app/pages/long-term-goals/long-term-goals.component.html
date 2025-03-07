@@ -40,7 +40,15 @@
             </mat-card-content>
             <mat-card-actions class="goal-card-actions">
               <button
-                class="functional-button"
+                mat-icon-button
+                type="button"
+                matTooltip="Update Checklist"
+                [attr.data-testid]="'button--edit-goal--' + index"
+                (click)="editChecklist(index)"
+              >
+                <mat-icon>fact_check</mat-icon>
+              </button>
+              <button
                 mat-icon-button
                 type="button"
                 matTooltip="Edit Goal"
@@ -51,7 +59,6 @@
               </button>
 
               <button
-                class="functional-button"
                 mat-icon-button
                 type="button"
                 matTooltip="Delete Goal"

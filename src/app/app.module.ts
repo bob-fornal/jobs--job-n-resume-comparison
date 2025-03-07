@@ -42,6 +42,7 @@ import { DocumentationCompareResumeComponent } from './shared/menu-page-level/do
 import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
 import { MarketingPanelComponent } from './shared/marketing-panel/marketing-panel.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
+import { LtgChecklistModalComponent } from './pages/long-term-goals/ltg-checklist-modal/ltg-checklist-modal.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-ed
     TopToolbarComponent,
     MarketingPanelComponent,
     AddEditLtgComponent,
+    LtgChecklistModalComponent,
   ],
   imports: [
     BrowserModule,

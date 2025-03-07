@@ -1,0 +1,63 @@
+.content-wrapper {
+  --mdc-checkbox-unselected-icon-color: var(--color-goal-off-black);
+  --checklist-input-width: 15em;
+
+  background-color: var(--color-goal-off-white);
+  padding: 0.5em 2em 1em 2em;
+
+  .checklist-item--header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+
+    font-family: MetropolisBold, sans-serif;
+    color: var(--color-squid-mid4green);
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .mock-input-title {
+      display: inline-block;
+      width: calc(var(--checklist-input-width) - 1em);
+      padding: 0 1em;
+    }
+    .title {
+      padding: 0 0.25em;
+    }
+  }
+
+  .checklist-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+
+    .input {
+      width: var(--checklist-input-width);
+      box-sizing: border-box;
+      transition: 0.5s;
+      outline: none;
+    
+      border-top: 1px solid transparent;
+      border-right: 1px solid transparent;
+      border-left: 1px solid transparent;
+
+      padding: 0.5em 1em;
+      margin: 0 1em;
+
+      &:not(:focus) {
+        border-bottom: 2px solid var(--color-goal-tooltip2);
+      }
+      &:focus {
+        border-bottom: 2px solid var(--color-goal-off-black)
+      }
+    }
+  }
+}
