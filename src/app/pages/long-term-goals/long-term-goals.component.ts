@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LongTermGoalsService } from './long-term-goals.service';
@@ -18,12 +18,16 @@ export class LongTermGoalsComponent {
 
   goals: Array<LongTermGoal> = [];
 
+  @ViewChild('fileUpload') fileUpload: any;
+  fileReader: any = FileReader;
+
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private service: LongTermGoalsService,
   ) {
     effect(this.handleGoalsEffect.bind(this));
+    effect(this.handleTriggerImportEffect.bind(this));
   }
 
   handleGoalsEffect = (): void => {
@@ -55,6 +59,31 @@ export class LongTermGoalsComponent {
   delete = (index: number): void => {
     const goals: Array<LongTermGoal> = [...this.goals];
     goals.splice(index, 1);
+    this.service.saveGoals(goals);
+  };
+
+  handleTriggerImportEffect = (): void => {
+    const triggerImport: string = this.service.triggerImport();
+    if (triggerImport === 'active') {
+      this.service.clearTriggerImport();
+      this.fileUpload.nativeElement.click();
+    }
+  };
+
+  requiredFileType = 'application/JSON';
+
+  onFileSelect = (event: any): void => {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new this.fileReader();
+      reader.onload = this.readerOnload.bind(this);
+      reader.readAsText(file);
+    }
+  };
+
+  readerOnload = (event: any) => {
+    const content: string = event.target.result;
+    const goals: Array<LongTermGoal> = JSON.parse(content);
     this.service.saveGoals(goals);
   };
 }

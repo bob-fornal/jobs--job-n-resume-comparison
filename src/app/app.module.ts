@@ -44,6 +44,7 @@ import { MarketingPanelComponent } from './shared/marketing-panel/marketing-pane
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
 import { LtgChecklistModalComponent } from './pages/long-term-goals/ltg-checklist-modal/ltg-checklist-modal.component';
 import { BlurModalService } from './core/services/blur-modal-service.service';
+import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { BlurModalService } from './core/services/blur-modal-service.service';
     MarketingPanelComponent,
     AddEditLtgComponent,
     LtgChecklistModalComponent,
+    DocumentationLongTermGoalsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { effect, Injectable, Signal, signal } from '@angular/core';
+import saveAs from 'file-saver';
 
 import { StorageLayerService } from '../../core/services/storage-layer.service';
 import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
@@ -9,6 +10,9 @@ import { LongTermGoal } from '../../core/interfaces/structure-goals.interface';
   providedIn: 'root'
 })
 export class LongTermGoalsService {
+  
+  saveAs: any = saveAs;
+
   _structure: Array<LongTermGoal> = [];
   structureSignal = signal(this._structure);
   readonly structure: Signal<Array<LongTermGoal>> = this.structureSignal.asReadonly();
@@ -32,7 +36,14 @@ export class LongTermGoalsService {
   handleMenuItemEffect = (): void => {
     const { page, item } = this.menuItem();
     if (page === 'long-term-goals') {
-      // TODO
+      switch (item) {
+        case 'export-current-long-term-goals':
+          this.exportLongTermGoals();
+          break;
+        case 'import-saved-long-term-goals':
+          this.importLongTermGoals();
+          break;
+      }
     }
   };
 
@@ -55,5 +66,23 @@ export class LongTermGoalsService {
     this._structure = [...goals];
     this.structureSignal.set(this._structure);
     await this.storage.setItem('long-term-goals', 'job-squid--long-term-goals', goals);
+  };
+
+  exportLongTermGoals = (): void => {
+    const goals = this.structure();
+    const currentRecorset: string = JSON.stringify(goals);
+    const blob = new Blob([currentRecorset], { type: 'text/plain;charset=utf-8'});
+    this.saveAs(blob, 'current-long-term-goals.json');
+  };
+
+  triggerImportSignal = signal('inactive');
+  readonly triggerImport = this.triggerImportSignal.asReadonly();
+
+  importLongTermGoals = (): void => {
+    this.triggerImportSignal.set('active');
+  };
+
+  clearTriggerImport = (): void => {
+    this.triggerImportSignal.set('inactive');
   };
 }

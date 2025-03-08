@@ -78,6 +78,10 @@ body {
   margin: 1em 2em 0 2em;
 }
 
+.import-html {
+  display: none;
+}
+
 .mat-mdc-menu-panel {
 
   .menu-heading {

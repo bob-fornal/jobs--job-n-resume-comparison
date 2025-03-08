@@ -26,7 +26,6 @@ export class CompareResumeComponent {
   @ViewChild('jobPosting') jobPosting: any;
 
   @ViewChild('fileUpload') fileUpload: any;
-
   fileReader: any = FileReader;
 
   private emptyJobKeywords = (): JobKeywords => ({
