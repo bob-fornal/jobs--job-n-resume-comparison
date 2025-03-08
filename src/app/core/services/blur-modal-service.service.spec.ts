@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BlurModalServiceService } from './blur-modal-service.service';
+import { BlurModalService } from './blur-modal-service.service';
 
-describe('BlurModalServiceService', () => {
-  let service: BlurModalServiceService;
+describe('BlurModalService', () => {
+  let service: BlurModalService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BlurModalServiceService);
+    service = TestBed.inject(BlurModalService);
   });
 
   it('should be created', () => {

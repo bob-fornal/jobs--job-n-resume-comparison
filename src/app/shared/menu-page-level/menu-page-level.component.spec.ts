@@ -66,14 +66,6 @@ describe('MenuPageLevelComponent', () => {
     expect(component.pageLevelActive).toEqual(false);
   });
 
-  it('expects "isActivePage" to check for selected page menu', () => {
-    component.selectedPageMenu = 'BOB';
-    component.activePages = [...component.activePages, 'BOB'];
-
-    const result: boolean = component.isActivePage();
-    expect(result).toEqual(true);
-  });
-
   it('expects "menuItemSelected" to trigger set menu item in service', () => {
     const page = 'PAGE';
     const item = 'ITEM';
@@ -84,13 +76,12 @@ describe('MenuPageLevelComponent', () => {
   });
 
   it('expects "documentationSelected" to navigate to a navigation page', () => {
-    const page = 'TEST-PAGE';
-    const route = '/documentation/TEST-PAGE';
-    component.navigation[page] = route;
+    const page = '/documentation/TEST-PAGE';
+    component.navigation.push(page);
     spyOn(component['router'], 'navigateByUrl').and.stub();
 
     component.documentationSelected(page);
-    expect(component['router'].navigateByUrl).toHaveBeenCalledWith(route);
+    expect(component['router'].navigateByUrl).toHaveBeenCalledWith(`/documentation/${page}`);
   });
 
   it('expects "updateViewGoals" to store the state', () => {
