@@ -10,8 +10,18 @@
     </div>
     @for(item of checklist; track $index; let index = $index;) {
       <div class="checklist-item">
-        <mat-checkbox [checked]="item.finished"></mat-checkbox>
-        <input type="text" class="input description" [value]="item.description" />
+        <mat-checkbox
+          [checked]="item.finished"
+          [attr.data-testid]="'checkbox--finished-' + index"
+          (change)="changeFinishedStatus(index, $event)"
+        />
+        <input
+          type="text"
+          class="job-squid--input description"
+          [value]="item.description"
+          [attr.data-testid]="'input--description-' + index"
+          (input)="changeDescription(index, $event)"
+        />
         <span class="title">{{ item.title }}</span>
       </div>
     }

@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -43,6 +43,7 @@ import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/docum
 import { MarketingPanelComponent } from './shared/marketing-panel/marketing-panel.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
 import { LtgChecklistModalComponent } from './pages/long-term-goals/ltg-checklist-modal/ltg-checklist-modal.component';
+import { BlurModalService } from './core/services/blur-modal-service.service';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { LtgChecklistModalComponent } from './pages/long-term-goals/ltg-checklis
   ],
   providers: [
     provideAnimationsAsync(),
+    { provide: MatDialog, useClass: BlurModalService }
   ],
   bootstrap: [AppComponent],
 })

@@ -13,6 +13,8 @@ import { ChecklistItem, LongTermGoal } from '../../../core/interfaces/structure-
 export class LtgChecklistModalComponent {
 
   goals: Array<LongTermGoal> = [];
+  checklist: Array<ChecklistItem> = [];
+  goalTitle = '';
 
   constructor(
     public dialogRef: MatDialogRef<LtgChecklistModalComponent>,
@@ -25,17 +27,16 @@ export class LtgChecklistModalComponent {
   handleGoalsEffect = () => {
     const value: Array<LongTermGoal> = this.service.structure();
     this.goals = value;
+    this.checklist = JSON.parse(JSON.stringify(value[this.data.index].checklist));
+    this.goalTitle = value[this.data.index].title;
   };
 
-  get checklist (): Array<ChecklistItem> {
-    const goal: LongTermGoal = this.goals[this.data.index];
-    const checklist: Array<ChecklistItem> = [...goal.checklist];
-    return checklist;
+  changeFinishedStatus = (index: number, event: any): void => {
+    this.checklist[index].finished = event.checked;
   };
 
-  get goalTitle (): string {
-    const goal: LongTermGoal = this.goals[this.data.index];
-    return goal.title;
+  changeDescription = (index: number, event: any): void => {
+    this.checklist[index].description = event.target.value;
   };
 
   cancel = (): void => {
@@ -43,6 +44,8 @@ export class LtgChecklistModalComponent {
   };
 
   save = (): void => {
+    this.goals[this.data.index].checklist = this.checklist;
+    this.service.saveGoals(this.goals);
     this.dialogRef.close();
   };
 }

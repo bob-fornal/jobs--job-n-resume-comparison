@@ -49,6 +49,16 @@
 
   .goal-checklist-item {
     width: 100%;
+
+    .goal-checklist-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .width-50-percent {
+      width: 70%;
+    }
   }
 
   .goal-checklist-actions {
