@@ -95,6 +95,36 @@
         <span>Documentation</span>
       </button>
     }
+    @case ('long-term-goals') {
+      <button
+        mat-menu-item
+        data-testid="button--page-long-term-goals--export-long-term-goals"
+        (click)="menuItemSelected('long-term-goals', 'export-current-long-term-goals')"
+      >
+        <mat-icon fontSet="material-icons-outlined">cloud_download</mat-icon>
+        <span>Export Long Term Goals</span>
+      </button>
+
+      <button
+        mat-menu-item
+        data-testid="button--page-long-term-goals--import-long-term-goals"
+        (click)="menuItemSelected('long-term-goals', 'import-saved-long-term-goals')"
+      >
+        <mat-icon fontSet="material-icons-outlined">cloud_upload</mat-icon>
+        <span>Import Long Term Goals</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button
+        mat-menu-item
+        data-testid="button--page-long-term-goals--documentation"
+        (click)="documentationSelected('long-term-goals')"
+      >
+        <mat-icon fontSet="material-icons-outlined">not_listed_location</mat-icon>
+        <span>Documentation</span>
+      </button>
+    }
     @default {
       <div class="no-menu-item">No Menu</div>
     }
