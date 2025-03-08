@@ -12,7 +12,7 @@ import { TopToolbarService } from '../top-toolbar/top-toolbar.service';
 })
 export class MenuPageLevelComponent {
 
-  @Input() selectedPageMenu = '';
+  @Input() selectedPageMenu = 'resumes';
   @Input() viewGoals = false;
 
   activePages: Array<string> = [
@@ -54,6 +54,11 @@ export class MenuPageLevelComponent {
 
     if (event.url.includes('/about')) {
       this.pageLevelActive = false;
+      return;
+    }
+
+    if (event.url === '/') {
+      this.pageLevelActive = true;
       return;
     }
 
