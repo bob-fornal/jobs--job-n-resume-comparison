@@ -1,5 +1,17 @@
-@if (item.done === false) {
-  <img class="image" src="./images/gray-HAL.webp" alt="gray button" />
-} @else {
-  <img class="image" src="./images/green-HAL.webp" alt="green button" />
-}
+<span class="image-wrapper">
+  @switch (true) {
+    @case (item.done === true && isAprilFoolsDay()) {
+      <img class="image" src="./images/green-HAL.webp" alt="green button" />
+    }
+    @case (item.done === true && !isAprilFoolsDay()) {
+      <img class="image" src="./images/HAL-9000.webp" alt="HAL 9000 button" />
+    }
+    @default {
+      <img class="image" src="./images/gray-HAL.webp" alt="gray button" />
+    }
+  }
+
+  @if (item.note.length > 0) {
+    <span class="tooltip-text">{{ getItemNote() }}</span>
+  }
+</span>
