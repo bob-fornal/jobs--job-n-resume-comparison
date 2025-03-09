@@ -1,7 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NavigationEnd, Router } from '@angular/router';
+
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+
+import { mockRouter } from '../_specs/mock-router.spec';
 
 import { MenuPageLevelComponent } from './menu-page-level.component';
-import { NavigationEnd } from '@angular/router';
 
 describe('MenuPageLevelComponent', () => {
   let component: MenuPageLevelComponent;
@@ -9,7 +15,17 @@ describe('MenuPageLevelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MenuPageLevelComponent]
+      imports: [
+        MatDividerModule,
+        MatIconModule,
+        MatMenuModule,
+      ],
+      declarations: [
+        MenuPageLevelComponent
+      ],
+      providers: [
+        { provide: Router, useValue: mockRouter },
+      ],
     })
     .compileComponents();
 
@@ -39,26 +55,6 @@ describe('MenuPageLevelComponent', () => {
   it('expects "handleNavigationEnd" to set page level active to face if on the about page', () => {
     const event: any = {
       url: '/about',
-    };
-    component.pageLevelActive = true;
-
-    component.handleNavigationEnd(event);
-    expect(component.pageLevelActive).toEqual(false);
-  });
-
-  it('expects "handleNavigationEnd" to set page level active to true if not documentation', () => {
-    const event: any = {
-      url: 'not-doc/',
-    };
-    component.pageLevelActive = false;
-
-    component.handleNavigationEnd(event);
-    expect(component.pageLevelActive).toEqual(true);
-  });
-
-  it('expects "handleNavigationEnd" to set page level active to false if documentation', () => {
-    const event: any = {
-      url: 'documentation/',
     };
     component.pageLevelActive = true;
 

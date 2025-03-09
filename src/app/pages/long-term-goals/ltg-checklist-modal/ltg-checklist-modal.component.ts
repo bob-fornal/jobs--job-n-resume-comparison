@@ -27,6 +27,13 @@ export class LtgChecklistModalComponent {
   handleGoalsEffect = () => {
     const value: Array<LongTermGoal> = this.service.structure();
     this.goals = value;
+
+    if (this.data.index === -1) {
+      this.checklist = [];
+      this.goalTitle = 'No Goal Title';
+      return;
+    }
+
     this.checklist = JSON.parse(JSON.stringify(value[this.data.index].checklist));
     this.goalTitle = value[this.data.index].title;
   };
