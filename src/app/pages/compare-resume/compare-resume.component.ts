@@ -26,7 +26,6 @@ export class CompareResumeComponent {
   @ViewChild('jobPosting') jobPosting: any;
 
   @ViewChild('fileUpload') fileUpload: any;
-
   fileReader: any = FileReader;
 
   private emptyJobKeywords = (): JobKeywords => ({
@@ -44,7 +43,7 @@ export class CompareResumeComponent {
 
   resumeForm = new FormGroup({
     resumeName: new FormControl('', [Validators.minLength(3)]),
-    resumeContent: new FormControl('', [ Validators.minLength(5)]),
+    resumeContent: new FormControl('', [Validators.minLength(5)]),
   });
 
   setTimeout: any = window.setTimeout;

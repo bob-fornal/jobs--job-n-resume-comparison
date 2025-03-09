@@ -13,19 +13,26 @@ export class StorageLayerService {
   private localstorage: any = window.localStorage;
 
   private dataStore: any = DataStore;
-  private database: { name: string, storesToCreate: Array<string> } = {
+  private database: { name: string, storesToCreate: Array<string>, version?: number } = {
     name: 'job-squid',
     storesToCreate: [
+      'company-tracker',
       'days-of-code',
+      'emergency-contacts',
+      'event-tracker',
+      'interview-research',
+      'long-term-goals',
+      'network-tracker',
       'resumes',
     ],
-  };
+    version: 2,
+};
 
   constructor() {
     this.init();
   }
 
-  private init = (): void => {
+  private init = async (): Promise<void> => {
     this.dataStore.setupDb(this.database);
   };
 
