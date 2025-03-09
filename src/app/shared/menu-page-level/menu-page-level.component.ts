@@ -48,19 +48,19 @@ export class MenuPageLevelComponent {
   };
 
   handleNavigationEnd = (event: any) => {
-    const regex = /^\/([^/]*)/gm;
-    const result = regex.exec(event.url);
-    this.selectedPageMenu = result![1];
+    if (event.url === '/') {
+      this.pageLevelActive = true;
+      return;
+    }
 
     if (event.url.includes('/about')) {
       this.pageLevelActive = false;
       return;
     }
 
-    if (event.url === '/') {
-      this.pageLevelActive = true;
-      return;
-    }
+    const regex = /^\/([^/]*)/gm;
+    const result = regex.exec(event.url);
+    this.selectedPageMenu = result![1];
 
     let isActive = false;
     this.navigation.forEach((page: string) => {

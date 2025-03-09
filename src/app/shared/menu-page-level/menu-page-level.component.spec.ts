@@ -52,11 +52,41 @@ describe('MenuPageLevelComponent', () => {
     expect(result).toEqual(false);
   });
 
-  it('expects "handleNavigationEnd" to set page level active to face if on the about page', () => {
+  it('expects "handleNavigationEnd" to set page level not active to face if on the about page', () => {
     const event: any = {
       url: '/about',
     };
     component.pageLevelActive = true;
+
+    component.handleNavigationEnd(event);
+    expect(component.pageLevelActive).toEqual(false);
+  });
+
+  it('expects "handleNavigationEnd" to set page level active to face if on the about page', () => {
+    const event: any = {
+      url: '/',
+    };
+    component.pageLevelActive = false;
+
+    component.handleNavigationEnd(event);
+    expect(component.pageLevelActive).toEqual(true);
+  });
+
+  it('expects "handleNavigationEnd" to get the route and set page level active if in list', () => {
+    const event: any = {
+      url: '/resumes',
+    };
+    component.pageLevelActive = false;
+
+    component.handleNavigationEnd(event);
+    expect(component.pageLevelActive).toEqual(true);
+  });
+
+  it('expects "handleNavigationEnd" to get the route and set page level inactive if not in list', () => {
+    const event: any = {
+      url: '/documentation',
+    };
+    component.pageLevelActive = false;
 
     component.handleNavigationEnd(event);
     expect(component.pageLevelActive).toEqual(false);
