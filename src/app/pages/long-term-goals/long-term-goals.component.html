@@ -1,1 +1,85 @@
-<p>long-term-goals works!</p>
+<h3 data-testid="h3--title" class="page-title">Long Term Goals</h3>
+
+<div class="long-term-goals-wrapper">
+  <div class="functionality-goal-wrapper block">
+    <button
+      class="functional-button"
+      mat-flat-button
+      type="button"
+      data-testid="button--save-goal"
+      (click)="navigate('add')"
+    >Add New Goal</button>
+  </div>
+
+  <div class="block mid-green-1">
+    <div class="list-of-goals-wrapper">
+      @if (goals.length === 0) {
+        No Goals Listed
+      } @else {
+        @for (goal of goals; track $index; let index = $index;) {
+          <mat-card class="goal-card" [class.goal-active]="goal.active">
+            <mat-card-header class="goal-card-title">
+              <span class="header-title">{{goal.title}}</span>
+              <span class="header-status">
+                {{ goal.active ? 'Active' : 'Inactive' }}
+              </span>
+            </mat-card-header>
+            <mat-card-content class="goal-card-content">
+              <div class="content-title">Description</div>
+              <div class="content-item">
+                {{ goal.description }}
+              </div>
+              <div class="content-title">Summary</div>
+              <div class="content-item">
+                {{ goal.summary }}
+              </div>
+              <div class="content-title">Checklist</div>
+              <div class="content-item">
+                {{ getChecklistStatus(goal.checklist) }}
+              </div>
+            </mat-card-content>
+            <mat-card-actions class="goal-card-actions">
+              <button
+                mat-icon-button
+                type="button"
+                matTooltip="Update Checklist"
+                [attr.data-testid]="'button--edit-goal--' + index"
+                (click)="editChecklist(index)"
+              >
+                <mat-icon>fact_check</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
+                matTooltip="Edit Goal"
+                [attr.data-testid]="'button--edit-goal--' + index"
+                (click)="navigate('edit', index)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button
+                mat-icon-button
+                type="button"
+                matTooltip="Delete Goal"
+                [attr.data-testid]="'button--delete-goal--' + index"
+                (click)="delete(index)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>  
+        }
+      }
+    </div>
+  </div>
+
+  <div class="import-html">
+    <input
+      type="file"
+      [accept]="requiredFileType"
+      (change)="onFileSelect($event)"
+      #fileUpload
+    />
+  </div>
+</div>

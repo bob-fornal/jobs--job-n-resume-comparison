@@ -54,10 +54,6 @@
         (click)="toggleDay(index)"
       >
         <item-image [item]="day" />
-        @if (day.note.length > 0) {
-          <span class="tooltip-text">{{ day.note }}</span>
-        }
-
         <span class="number">{{ day.number }}</span>
       </span>
     }

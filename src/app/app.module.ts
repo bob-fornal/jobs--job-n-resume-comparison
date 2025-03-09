@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
@@ -39,6 +41,10 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
 import { DocumentationCompareResumeComponent } from './shared/menu-page-level/documentation-compare-resume/documentation-compare-resume.component';
 import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
 import { MarketingPanelComponent } from './shared/marketing-panel/marketing-panel.component';
+import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
+import { LtgChecklistModalComponent } from './pages/long-term-goals/ltg-checklist-modal/ltg-checklist-modal.component';
+import { BlurModalService } from './core/services/blur-modal-service.service';
+import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +68,9 @@ import { MarketingPanelComponent } from './shared/marketing-panel/marketing-pane
     Top10ConnectionsComponent,
     TopToolbarComponent,
     MarketingPanelComponent,
+    AddEditLtgComponent,
+    LtgChecklistModalComponent,
+    DocumentationLongTermGoalsComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +80,7 @@ import { MarketingPanelComponent } from './shared/marketing-panel/marketing-pane
     ReactiveFormsModule,
 
     MatButtonModule,
+    MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
     MatDialogModule,
@@ -81,9 +91,11 @@ import { MarketingPanelComponent } from './shared/marketing-panel/marketing-pane
     MatListModule,
     MatMenuModule,
     MatToolbarModule,
+    MatTooltipModule,
   ],
   providers: [
     provideAnimationsAsync(),
+    { provide: MatDialog, useClass: BlurModalService }
   ],
   bootstrap: [AppComponent],
 })

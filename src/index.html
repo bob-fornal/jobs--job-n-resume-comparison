@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
   <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-PJXCML98');</script>
+  <script>
+    const locations = ['localhost', 'dev.job-squid.com', 'pre-prod.job-squid.com'];
+    if (!locations.includes(window.location.hostname)) {
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PJXCML98');
+    }
+  </script>
   <!-- End Google Tag Manager -->
 
   <link id="favicon" rel="icon" type="image/x-icon" href="favicon-prod.ico">
@@ -29,7 +34,7 @@
   <!-- LinkedIn Metadata -->
   <meta name="title" property="og:title" content="Job-Squid">
   <meta name="type" property="og:type" content="website">
-  <meta name="image" property="og:image" content="https://job-squid.com/images/Job-Squid-2to1.png">
+  <meta name="image" property="og:image" content="https://job-squid.com/images/Job-Squid-2to1.webp">
   <meta name="url" property="og:url" content="https://job-squid.com">
   <meta name="description" property="og:description" content="This site is designed for those on the job hunt with various tools, including: a resume to job comparison tool and #100DaysOfCode Tracker.">
   <!-- End LinkedIn Metadata -->

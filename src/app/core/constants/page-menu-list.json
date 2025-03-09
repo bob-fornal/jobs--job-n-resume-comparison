@@ -22,8 +22,8 @@
     "category": "Planning",
     "icon": "sports_score",
     "title": "Long Term Goals",
-    "featureFlag": true,
-    "featureName": "longTermGoals",
+    "featureFlag": false,
+    "featureName": "",
     "dividerAfter": false,
     "dividerBefore": false
   }, {
@@ -70,6 +70,6 @@
     "featureFlag": false,
     "featureName": "",
     "dividerAfter": false,
-    "dividerBefore": false
+    "dividerBefore": true
   }
 ]
