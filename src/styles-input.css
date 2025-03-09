@@ -1,0 +1,38 @@
+.job-squid--input-wrapper {
+  position: relative;
+  padding: 0 1em;
+
+  .job-squid--label {
+    position: absolute;
+    color: var(--color-goal-tooltip4);
+    font-size: 0.85em;
+    font-family: MetropolisBold, sans-serif;
+    left: 3.25em;
+    top: -0.65em;
+  }
+  .job-squid--input {
+    width: 100%;
+  }
+}
+.job-squid--input {
+  width: var(--checklist-input-width);
+  box-sizing: border-box;
+  transition: 0.5s;
+  outline: none;
+
+  border-top-left-radius: 0.25em;
+  border-top-right-radius: 0.25em;
+  border-top: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+
+  padding: 0.5em 1em;
+  margin: 0 1em;
+
+  &:not(:focus) {
+    border-bottom: 2px solid var(--color-goal-tooltip2);
+  }
+  &:focus {
+    border-bottom: 2px solid var(--color-goal-off-black)
+  }
+}

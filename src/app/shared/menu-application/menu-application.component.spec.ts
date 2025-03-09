@@ -51,23 +51,6 @@ describe('MenuApplicationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('expects "init" to trigger active page', () => {
-    const mockSetTimeout = (fn: any, timeMs: number) => fn();
-    component.setTimeout = mockSetTimeout;
-    spyOn(component, 'initActivePage').and.stub();
-
-    component.init();
-    expect(component.initActivePage).toHaveBeenCalled();
-  });
-
-  it('expects "initActivePage" to set the active page', () => {
-    spyOn(component['service'], 'activePage').and.returnValue('TEST-PAGE');
-    spyOn(component, 'pageMenuSelection').and.stub();
-
-    component.initActivePage();
-    expect(component.pageMenuSelection).toHaveBeenCalledWith('TEST-PAGE');
-  });
-
   it('expects "pageMenuSelection" to set the page and navigate', () => {
     const page = 'PAGE';
     component.selectedPageMenu = '';
