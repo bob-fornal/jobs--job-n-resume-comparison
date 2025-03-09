@@ -20,4 +20,11 @@ describe('DocumentationLongTermGoalsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('expects "back" to navigate to long term goals', () => {
+    spyOn(component['router'], 'navigateByUrl').and.stub();
+
+    component.back();
+    expect(component['router'].navigateByUrl).toHaveBeenCalledWith('/long-term-goals');
+  });
 });
