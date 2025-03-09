@@ -11,7 +11,7 @@ import { FaviconService } from './core/services/favicon.service';
 })
 export class AppComponent {
 
-  isDesktop: boolean = true;
+  isDesktop = true;
 
   constructor(
     private deviceService: DeviceDetectorService,

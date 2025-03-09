@@ -1,0 +1,123 @@
+<h3 class="page-title">{{ getType() }} Long Term Goal</h3>
+
+<div class="block goal-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Cancel</button>  
+  <button (click)="save()" class="functional-button" mat-flat-button>Save</button>
+</div>
+
+<div class="documentation-wrapper">
+  <div class="goal-form block mid-green-1" [formGroup]="goal">
+    
+    <div class="goal-subtitle">
+      <div class="gs-title">Long Term Goal</div>
+    </div>
+
+    <mat-form-field class="full-width">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        minLength="3"
+        data-testId="input--goal-title"
+      />
+    </mat-form-field>
+
+    <mat-checkbox
+      class="goal-checkbox"
+      formControlName="active"
+      data-testId="checkbox--goal-active"
+      [checked]="goal.controls['active'].value"
+    >
+      Is this an Active Goal?
+    </mat-checkbox>
+
+    <mat-form-field class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        minLength="5"
+        data-testid="input--goal-description"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Summary</mat-label>
+      <textarea
+        matInput
+        #goalSummary
+        name="goalSummary"
+        formControlName="summary"
+        data-testid="input--goal-summary"
+      ></textarea>
+    </mat-form-field>
+
+    <div class="goal-checklist-wrapper">
+      <div class="goal-subtitle">
+        <div class="gs-title">Checklist</div>
+        <div class="gs-description">
+          These are the steps to take (things to learn) to get to this goal.
+        </div>
+      </div>
+
+      <div class="goal-checklist-items" formArrayName="checklist">
+        @if (goal.controls['checklist'].value!.length === 0) {
+          <div class="no-goals">No Checklist Items</div>
+        } @else {
+          @for (item of checklistControls.controls; track $index; let index = $index) {
+            <mat-card class="goal-checkbox goal-checklist-item" [formGroup]="item">
+              <mat-card-header class="goal-checklist-header">Checklist Item</mat-card-header>
+              <mat-card-content class="goal-checklist-content">
+                <mat-checkbox
+                  class="goal-checklist-item-finished"
+                  formControlName="finished"
+                >
+                  Finished
+                </mat-checkbox>
+
+                <span class="job-squid--input-wrapper width-50-percent">
+                  <span class="job-squid--label">Item Title</span>
+                  <input
+                    type="text"
+                    formControlName="title"
+                    class="job-squid--input"
+                    [attr.data-testId]="'input--checklist-title-' + index"
+                  />
+                </span>
+
+                <span class="job-squid--input-wrapper">
+                  <span class="job-squid--label">Feeling or weight</span>
+                  <input
+                    type="text"
+                    formControlName="description"
+                    class="job-squid--input"
+                    [attr.data-testId]="'input--checklist-description-' + index"
+                  />
+                </span>
+              </mat-card-content>
+              <mat-card-actions class="goal-checklist-actions">
+                <button (click)="deleteChecklistItem(index)" class="functional-button" mat-flat-button>
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete Checklist Item</span>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        }
+      </div>
+
+      <div class="goal-checklist-functionality">
+        <button (click)="addChecklistItem()" class="functional-button" mat-flat-button>
+          <mat-icon>add</mat-icon>
+          <span>Add Checlist Item</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block goal-functionality">
+    <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Cancel</button>  
+    <button (click)="save()" class="functional-button" mat-flat-button>Save</button>
+  </div>
+
+</div>
