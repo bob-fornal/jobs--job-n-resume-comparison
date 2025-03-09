@@ -20,7 +20,7 @@ export class ItemImageComponent {
   getItemNote = (): string => {
     let note: string = this.item.note;
 
-    if (!this.isAprilFoolsDay()) {
+    if (this.isAprilFoolsDay()) {
       note = '"I\'m sorry Dave, I\'m afraid I can\'t do that."\n\n' + note;
     }
     return note;
