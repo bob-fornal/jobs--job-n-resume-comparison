@@ -63,6 +63,15 @@
     "dividerAfter": false,
     "dividerBefore": false
   }, {
+    "path": "pledge",
+    "category": "",
+    "icon": "webp:oath.webp",
+    "title": "My Pledge For Job-Squid",
+    "featureFlag": false,
+    "featureName": "",
+    "dividerAfter": false,
+    "dividerBefore": true
+  }, {
     "path": "about",
     "category": "",
     "icon": "info",

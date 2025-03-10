@@ -44,14 +44,19 @@
       <button
         mat-menu-item
         class="page-menu"
+        [class.button-menu-icon]="!isIcon(menuItem.icon)"
         (click)="pageMenuSelection(menuItem.path)"
         [attr.data-testid]="getTestId(menuItem)"
         [class.selected]="selectedPageMenu === menuItem.path"
       >
-        <mat-icon fontSet="material-icons-outlined">
-          {{ menuItem.icon }}
-        </mat-icon>
-        <span>
+        @if (isIcon(menuItem.icon)) {
+          <mat-icon fontSet="material-icons-outlined">
+            {{ menuItem.icon }}
+          </mat-icon>
+        } @else {
+          <img class="menu-icon" [src]="getImage(menuItem.icon)" alt="menu icon" />
+        }
+        <span class="menu-title">
           {{ menuItem.title }}
         </span>
       </button>

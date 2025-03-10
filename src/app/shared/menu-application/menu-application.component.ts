@@ -57,4 +57,13 @@ export class MenuApplicationComponent {
     const item = menuItem.path.replace('/', '');
     return `button--application-menu--${item}`;
   };
+
+  isIcon = (imageText: string): boolean => {
+    return imageText.includes('webp:') === false;
+  }
+
+  getImage = (imageText: string): string => {
+    const icon: string = imageText.replace('webp:', '');
+    return `/images/${icon}`;
+  };
 }

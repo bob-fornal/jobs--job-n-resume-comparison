@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './pages/about/about.component';
+import { AboutPledgeComponent } from './pages/about-pledge/about-pledge.component';
 import { CompareResumeComponent } from './pages/compare-resume/compare-resume.component';
 import { CompanyTrackingComponent } from './pages/company-tracking/company-tracking.component';
 import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component';
@@ -15,6 +16,7 @@ import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/docum
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
+  { path: 'pledge', component: AboutPledgeComponent },
   { path: 'company-tracking', component: CompanyTrackingComponent },
   { path: 'days-of-code', component: DaysOfCodeComponent },
   { path: 'how-to-use', component: HowToUseComponent },
