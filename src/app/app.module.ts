@@ -28,6 +28,7 @@ import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component
 import { InterviewResearchComponent } from './pages/interview-research/interview-research.component';
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
 import { ItemImageComponent } from './shared/item-image/item-image.component';
+import { JobApplicationsComponent } from './pages/job-applications/job-applications.component';
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
 import { MarketingPanelComponent } from './shared/marketing-panel/marketing-panel.component';
 import { MenuApplicationComponent } from './shared/menu-application/menu-application.component';
@@ -59,6 +60,8 @@ import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/docum
 
     InterviewResearchComponent,
     ItemImageComponent,
+
+    JobApplicationsComponent,
 
     LongTermGoalsComponent,
 

@@ -6,6 +6,15 @@
     "title": "Resume(s) to Job Comparison",
     "featureFlag": false,
     "featureName": "",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "job-applications",
+    "category": "",
+    "icon": "auto_stories",
+    "title": "Job Applications",
+    "featureFlag": false,
+    "featureName": "",
     "dividerAfter": true,
     "dividerBefore": false
   }, {
