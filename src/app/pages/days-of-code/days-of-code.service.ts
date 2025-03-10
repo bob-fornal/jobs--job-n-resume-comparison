@@ -25,7 +25,7 @@ export class DaysOfCodeService {
   viewGoals: any;
   menuItem: any;
 
-  initalLoad = false;
+  initialLoad = false;
 
   constructor(
     private storage: StorageLayerService,
@@ -34,15 +34,15 @@ export class DaysOfCodeService {
     this.init();
 
     this.viewGoals = this.toolbarService.viewGoals;
-    this.menuItem = this.toolbarService.menuItem;
-
     effect(this.handleViewGoalsEffect.bind(this));
+
+    this.menuItem = this.toolbarService.menuItem;
     effect(this.handleMenuItemEffect.bind(this));
   }
 
   init = async (): Promise<void> => {
     await this.loadStructure();
-    this.initalLoad = true;
+    this.initialLoad = true;
   };
     
   handleViewGoalsEffect = (): void => {

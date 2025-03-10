@@ -29,10 +29,13 @@ body {
   --color-goal-highlight: var(--color-squid-button);
   --color-goal-tooltip: #555555;
   --color-goal-tooltip2: #bbbbbb;
+  --color-goal-tooltip3: #dddddd;
+  --color-goal-tooltip4: #888888;
   --color-goal-silver: silver;
   --color-goal-toolbar: #ffaf7b;
   --color-goal-toolbar2: #fef758;
   --color-goal-toolbar3: #FF817A;
+  --color-goal-toolbar4: #aea708;
 
   --mat-menu-container-color: var(--color-squid-mid4green);
   --mat-menu-item-hover-state-layer-color: var(--color-squid-mid2green);
@@ -47,6 +50,7 @@ body {
   --mdc-dialog-container-color: var(--color-squid-mid4green);
   --mdc-dialog-subhead-color: var(--color-light-background);
   --mdc-dialog-container-shape: 5px;
+  --mat-dialog-container-max-width: 800px;
 
   margin: 0;
   font-family: Metropolis, sans-serif;
@@ -72,6 +76,10 @@ body {
 
 .page-title {
   margin: 1em 2em 0 2em;
+}
+
+.import-html {
+  display: none;
 }
 
 .mat-mdc-menu-panel {
@@ -103,16 +111,14 @@ body {
   --mdc-filled-button-container-shape: 0;
   --mdc-filled-button-disabled-container-color: var(--color-goal-tooltip2);
 
+  font-family: MetropolisBold, sans-serif;
+
   &:not(.cancel-button) {
     --mdc-filled-button-container-color: var(--color-squid-mid2green);
   }
   &.cancel-button {
     --mdc-filled-button-container-color: var(--color-dark-background);
   }
-
-  font-family: MetropolisBold, sans-serif;
-  font-size: 1em;
-  font-weight: bold;
 }
 
 .menu-checkbox {

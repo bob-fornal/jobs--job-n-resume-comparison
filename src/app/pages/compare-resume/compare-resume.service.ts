@@ -47,7 +47,7 @@ export class CompareResumeService {
         case 'import-saved-recordset':
           this.importSavedRecordset();
           break;
-        }
+      }
     }
   };
 

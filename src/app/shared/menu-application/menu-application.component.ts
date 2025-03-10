@@ -27,20 +27,7 @@ export class MenuApplicationComponent {
     private features: FeatureFlagsService,
     private router: Router,
     private service: TopToolbarService,
-  ) {
-    this.init();
-  }
-
-  init = (): void => {
-    this.setTimeout(() => {
-      this.initActivePage();
-    }, 20);
-  };
-
-  initActivePage = (): void => {
-    const page: string = this.service.activePage();
-    this.pageMenuSelection(page);
-  };
+  ) {}
 
   isFeatureActive = (key: string): boolean => {
     return this.features.showFeature(key)
