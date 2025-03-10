@@ -1,1 +1,22 @@
-<p>job-applications works!</p>
+<h3 data-testid="h3--title" class="page-title">Job Applications</h3>
+
+<div class="job-applications-wrapper">
+  <div class="functionality-wrapper block">
+    <button
+      class="functional-button"
+      mat-flat-button
+      type="button"
+      data-testid="button--save-job-application"
+      (click)="navigate('add')"
+    >Add Job Application</button>
+  </div>
+
+  <div class="block mid-green-1">
+    <div class="list-of-goals-wrapper">
+      @if (applications.length === 0) {
+        No Job Applications Listed
+      } @else {
+      }
+    </div>
+  </div>
+</div>

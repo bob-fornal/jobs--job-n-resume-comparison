@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { JobApplication } from '../../core/interfaces/job-application';
+
 @Component({
   selector: 'app-job-applications',
   standalone: false,
@@ -9,4 +11,9 @@ import { Component } from '@angular/core';
 })
 export class JobApplicationsComponent {
 
+  applications: Array<JobApplication> = [];
+
+  navigate = (type: string): void => {
+    // TODO
+  };
 }

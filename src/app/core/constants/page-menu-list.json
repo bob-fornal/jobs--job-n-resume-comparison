@@ -88,6 +88,6 @@
     "featureFlag": false,
     "featureName": "",
     "dividerAfter": false,
-    "dividerBefore": true
+    "dividerBefore": false
   }
 ]
