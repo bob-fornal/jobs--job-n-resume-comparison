@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Applied",
+    "backgroundColor": "#fdffb6",
+    "foregroundColor": "#264653"
+  }, {
+    "title": "Email Sent",
+    "backgroundColor": "#ffd6a5",
+    "foregroundColor": "#264653"
+  }, {
+    "title": "Email Received",
+    "backgroundColor": "#9bf6ff",
+    "foregroundColor": "#264653"
+  }, {
+    "title": "Interview",
+    "backgroundColor": "#bdb2ff",
+    "foregroundColor": "#264653"
+  }, {
+    "title": "Closed (+)",
+    "backgroundColor": "#a0c4ff",
+    "foregroundColor": "#264653"
+  }, {
+    "title": "Closed (-)",
+    "backgroundColor": "#ffadad",
+    "foregroundColor": "#264653"
+  }
+]

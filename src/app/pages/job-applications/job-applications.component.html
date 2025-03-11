@@ -19,4 +19,10 @@
       }
     </div>
   </div>
+
+  <div class="block mid-green-1" style="display: flex; gap: 0.5em;">
+    @for (tag of tags; track tag.title;) {
+      <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
+    }
+  </div>
 </div>
