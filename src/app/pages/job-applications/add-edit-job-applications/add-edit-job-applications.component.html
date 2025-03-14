@@ -1,0 +1,78 @@
+<h3 class="page-title">{{ getType() }} Long Term Goal</h3>
+
+<div class="block application-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Cancel</button>  
+  <button (click)="save()" class="functional-button" mat-flat-button>Save</button>
+</div>
+
+<div class="documentation-wrapper">
+  <div class="application-form block mid-green-1" [formGroup]="application">
+    
+    <div class="application-subtitle">
+      <div class="gs-title">Job Application</div>
+    </div>
+
+    <mat-form-field class="full-width">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        minLength="3"
+        data-testId="input--application-title"
+      />
+    </mat-form-field>
+
+    <mat-checkbox
+      class="application-checkbox"
+      formControlName="active"
+      data-testId="checkbox--application-active"
+      [checked]="application.controls['active'].value"
+    >
+      Is this an Active Application?
+    </mat-checkbox>
+
+    <mat-form-field class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        minLength="5"
+        data-testid="input--application-description"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date of Application</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="applicationDate"
+        data-testId="input--application-date"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Link to Posting</mat-label>
+      <input
+        matInput
+        formControlName="linkToPosting"
+        minLength="3"
+        data-testId="input--link-to-posting"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Link to Careers Page</mat-label>
+      <input
+        matInput
+        formControlName="linkToCareersPage"
+        minLength="3"
+        data-testId="input--link-to-careers-page"
+      />
+    </mat-form-field>
+
+  </div>
+</div>

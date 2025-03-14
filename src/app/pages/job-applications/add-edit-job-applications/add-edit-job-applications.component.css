@@ -1,0 +1,27 @@
+.application-form {
+
+  .full-width {
+    margin-bottom: 0.5em;
+    overflow: auto;
+    width: 100%;
+  }
+
+  .application-checkbox {
+    --mat-checkbox-label-text-color: var(--color-squid-darkgreen);
+    --mdc-checkbox-unselected-icon-color: var(--color-squid-darkgreen);
+  }
+}
+
+.application-subtitle {
+  margin-bottom: 1em;
+
+  .gs-title {
+    font-family: MetropolisBold, sans-serif;
+  }
+}
+
+.application-functionality {
+  display: flex;
+  justify-content: right;
+  gap: 1em;
+}

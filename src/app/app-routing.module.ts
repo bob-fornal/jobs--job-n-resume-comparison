@@ -10,6 +10,7 @@ import { InterviewResearchComponent } from './pages/interview-research/interview
 import { JobApplicationsComponent } from './pages/job-applications/job-applications.component';
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
 
+import { AddEditJobApplicationsComponent } from './pages/job-applications/add-edit-job-applications/add-edit-job-applications.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
 
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
@@ -25,7 +26,9 @@ const routes: Routes = [
   { path: 'days-of-code', component: DaysOfCodeComponent },
   { path: 'how-to-use', component: HowToUseComponent },
   { path: 'interviewing-research', component: InterviewResearchComponent },
+
   { path: 'job-applications', component: JobApplicationsComponent },
+  { path: 'job-applications/:type', component: AddEditJobApplicationsComponent },
 
   { path: 'long-term-goals', component: LongTermGoalsComponent },
   { path: 'long-term-goals/:type', component: AddEditLtgComponent },

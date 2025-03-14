@@ -4,6 +4,7 @@ import jobTags from '../../core/constants/job-application.tags.json';
 
 import { JobApplication } from '../../core/interfaces/job-application';
 import { Tag } from '../../core/interfaces/tag';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job-applications',
@@ -18,8 +19,16 @@ export class JobApplicationsComponent {
 
   tags: Array<Tag> = jobTags
 
-  navigate = (type: string): void => {
-    // TODO
+  constructor(
+    private router: Router,
+  ) {}
+
+  navigate = (to: string, data: number | null = null): void => {
+    if (data === null) {
+      this.router.navigateByUrl(`/job-applications/${to}`);
+    } else {
+      this.router.navigateByUrl(`/job-applications/${to}/${data}`);
+    }
   };
 
   getTagStyle = (tag: Tag): string => {

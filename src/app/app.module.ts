@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -50,6 +53,7 @@ import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/docum
 import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
 
 import { BlurModalService } from './core/services/blur-modal-service.service';
+import { AddEditJobApplicationsComponent } from './pages/job-applications/add-edit-job-applications/add-edit-job-applications.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +90,7 @@ import { BlurModalService } from './core/services/blur-modal-service.service';
 
     Top10ConnectionsComponent,
     TopToolbarComponent,
+    AddEditJobApplicationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +103,7 @@ import { BlurModalService } from './core/services/blur-modal-service.service';
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -110,7 +116,8 @@ import { BlurModalService } from './core/services/blur-modal-service.service';
   ],
   providers: [
     provideAnimationsAsync(),
-    { provide: MatDialog, useClass: BlurModalService }
+    provideNativeDateAdapter(),
+    { provide: MatDialog, useClass: BlurModalService },
   ],
   bootstrap: [AppComponent],
 })
