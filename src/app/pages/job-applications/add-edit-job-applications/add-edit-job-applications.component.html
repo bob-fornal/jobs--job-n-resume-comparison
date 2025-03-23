@@ -1,15 +1,15 @@
-<h3 class="page-title">{{ getType() }} Long Term Goal</h3>
+<h3 class="page-title">{{ getType() }} Job Application</h3>
 
-<div class="block application-functionality">
+<div class="block job-squid-form-functionality">
   <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Cancel</button>  
   <button (click)="save()" class="functional-button" mat-flat-button>Save</button>
 </div>
 
 <div class="documentation-wrapper">
-  <div class="application-form block mid-green-1" [formGroup]="application">
+  <div class="job-squid-form block mid-green-1" [formGroup]="application">
     
-    <div class="application-subtitle">
-      <div class="gs-title">Job Application</div>
+    <div class="list-subtitle">
+      <div class="list-title">Job Application</div>
     </div>
 
     <mat-form-field class="full-width">
@@ -22,14 +22,26 @@
       />
     </mat-form-field>
 
+    <mat-form-field class="full-width">
+      <mat-label>Company</mat-label>
+      <input
+        matInput
+        formControlName="company"
+        minLength="3"
+        data-testId="input--company"
+      />
+    </mat-form-field>
+
     <mat-checkbox
-      class="application-checkbox"
+      class="form-checkbox"
       formControlName="active"
       data-testId="checkbox--application-active"
       [checked]="application.controls['active'].value"
     >
       Is this an Active Application?
     </mat-checkbox>
+
+    <div class="form-comment">Date of application will be tracked in Job Application Activity.</div>
 
     <mat-form-field class="full-width">
       <mat-label>Description</mat-label>
@@ -41,38 +53,74 @@
       ></textarea>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Date of Application</mat-label>
-      <input
-        matInput
-        [matDatepicker]="picker"
-        formControlName="applicationDate"
-        data-testId="input--application-date"
-      />
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
     <mat-form-field class="full-width">
-      <mat-label>Link to Posting</mat-label>
-      <input
+      <mat-label>Requirements</mat-label>
+      <textarea
         matInput
-        formControlName="linkToPosting"
-        minLength="3"
-        data-testId="input--link-to-posting"
-      />
+        formControlName="requirements"
+        minLength="5"
+        data-testid="input--application-requirements"
+      ></textarea>
     </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <mat-label>Link to Careers Page</mat-label>
-      <input
-        matInput
-        formControlName="linkToCareersPage"
-        minLength="3"
-        data-testId="input--link-to-careers-page"
-      />
-    </mat-form-field>
+    <div class="list-wrapper">
+      <div class="list-subtitle">
+        <div class="list-title">Links</div>
+        <div class="list-description">
+          These are links related to this Job Application.
+        </div>
+      </div>
 
+      <div class="list-items" formArrayName="links">
+        @if (application.controls['links'].value!.length === 0) {
+          <div class="no-links">No Link Items</div>
+        } @else {
+          @for (item of linkControls.controls; track $index; let index = $index;) {
+            <mat-card class="form-checkbox list-item" [formGroup]="item">
+              <mat-card-header class="list-header">Link Item</mat-card-header>
+              <mat-card-content class="list-content">
+                <span class="job-squid--input-wrapper width-50-percent">
+                  <span class="job-squid--label">URL</span>
+                  <input
+                    type="text"
+                    formControlName="url"
+                    class="job-squid--input"
+                    [attr.data-testId]="'input--link-url-' + index"
+                  />
+                </span>
+
+                <span class="job-squid--input-wrapper">
+                  <span class="job-squid--label">Type</span>
+                  <input
+                    type="text"
+                    formControlName="type"
+                    class="job-squid--input"
+                    [attr.data-testId]="'input--link-type-' + index"
+                  />
+                </span>
+              </mat-card-content>
+              <mat-card-actions class="list-actions">
+                <button (click)="deleteLinkItem(index)" class="functional-button" mat-flat-button>
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete Link Item</span>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        }
+      </div>
+
+      <div class="list-functionality">
+        <button (click)="addLinkItem()" class="functional-button" mat-flat-button>
+          <mat-icon>add</mat-icon>
+          <span>Add Link Item</span>
+        </button>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="block job-squid-form-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Cancel</button>  
+  <button (click)="save()" class="functional-button" mat-flat-button>Save</button>
 </div>

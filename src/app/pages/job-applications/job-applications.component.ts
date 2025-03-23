@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
+import { Router } from '@angular/router';
 
 import jobTags from '../../core/constants/job-application.tags.json';
 
 import { JobApplication } from '../../core/interfaces/job-application';
 import { Tag } from '../../core/interfaces/tag';
-import { Router } from '@angular/router';
+
+import { JobApplicationsService } from './job-applications.service';
 
 @Component({
   selector: 'app-job-applications',
@@ -21,7 +23,15 @@ export class JobApplicationsComponent {
 
   constructor(
     private router: Router,
-  ) {}
+    private service: JobApplicationsService,
+  ) {
+    effect(this.handleApplicationsEffect.bind(this));
+  }
+
+  handleApplicationsEffect = (): void => {
+    const value: Array<JobApplication> = this.service.structure();
+    this.applications = value;
+  };
 
   navigate = (to: string, data: number | null = null): void => {
     if (data === null) {

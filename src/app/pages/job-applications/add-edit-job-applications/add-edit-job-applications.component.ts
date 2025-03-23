@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { JobApplication } from '../../../core/interfaces/job-application';
+import { SiteLink } from "../../../core/interfaces/site-link";
+
+import { JobApplicationsService } from '../job-applications.service';
 
 @Component({
   selector: 'app-add-edit-job-applications',
   standalone: false,
-  
   templateUrl: './add-edit-job-applications.component.html',
-  styleUrl: './add-edit-job-applications.component.css'
 })
 export class AddEditJobApplicationsComponent {
   type = '';
@@ -19,6 +22,7 @@ export class AddEditJobApplicationsComponent {
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
+    private service: JobApplicationsService,
   ) {
     this.init();
   }
@@ -33,20 +37,47 @@ export class AddEditJobApplicationsComponent {
 
   initApplications = (): void => {
     this.initApplicationStructure();
+
+    if (this.index > -1) {
+      const applications: Array<JobApplication> = this.service.structure();
+      const application: JobApplication = applications[this.index];
+      this.patchStructure(application);
+    }
   };
 
   initApplicationStructure = (): void => {
     this.application = this.fb.group({
       title: new FormControl<string>('', [Validators.minLength(3)]),
+      company: new FormControl<string>('', [Validators.minLength(3)]),
       active: new FormControl<boolean>(true),
       description: new FormControl<string>('', [Validators.minLength(5)]),
-      applicationDate: new FormControl<string>('', [Validators.minLength(5)]),
-      linkToPosting: new FormControl<string>('', [Validators.minLength(5)]),
-      linkToCareersPage: new FormControl<string>('', [Validators.minLength(5)]),
+      requirements: new FormControl<string>('', [Validators.minLength(5)]),
+      links: this.fb.array([]),
       tracking: this.fb.array([]),
       connections: this.fb.array([]),
     })
   };
+
+  patchStructure = (application: JobApplication): void => {
+    this.application.patchValue({
+      title: application.title,
+      company: application.company,
+      active: application.active,
+      description: application.description,
+      requirements: application.requirements,
+    });
+
+    application.links.forEach((item: SiteLink) => {
+      const link: FormArray<any> = this.application.get('links') as FormArray;
+      if (!link.invalid) {
+        link.push(this.fb.group(item));
+      }
+    });
+  };
+
+  get linkControls(): any {
+    return this.application.get('links') as FormArray;
+  }
 
   getType = (): string => {
     const type: string = this.type[0].toUpperCase() + this.type.substring(1);
@@ -57,7 +88,42 @@ export class AddEditJobApplicationsComponent {
     this.router.navigateByUrl('/job-applications');
   };
 
+  addLinkItem = (): void => {
+    const linksList: FormArray = this.application.get('links') as FormArray;
+    if (!linksList.invalid) {
+      linksList.push(this.fb.group({
+        url: '',
+        type: '',
+      }));
+    }
+  };
+
+  deleteLinkItem = (index: number): void => {
+    const linksList: FormArray = this.application.get('links') as FormArray;
+    linksList.removeAt(index);
+  };
+
   save = (): void => {
+    const applications: Array<JobApplication> = this.service.structure();
+
+    const application: JobApplication = {
+      title: this.application.get('title')!.value,
+      company: this.application.get('company')!.value,
+      active: this.application.get('active')!.value,
+      description: this.application.get('description')!.value,
+      requirements: this.application.get('requirements')!.value,
+      links: this.application.get('links')!.value,
+      tracking: [],
+      connections: [],
+    };
+
+    if (this.type === 'add') {
+      applications.push(application);
+    } else {
+      applications[this.index] = application;
+    }
+
+    this.service.saveApplications(applications)
     this.back();
   };
 }

@@ -10,9 +10,10 @@ export interface JobActivity {
 export interface JobApplication {
   title: string;
   company: string;
-  links: Array<SiteLink>;
+  active: boolean;
   description: string;
   requirements: string;
-  notes: string;
-  activites: Array<JobActivity>
+  links: Array<SiteLink>;
+  tracking: Array<JobActivity>;
+  connections: Array<any>;
 }

@@ -40,7 +40,9 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css",
               "src/styles-block.css",
-              "src/styles-input.css"
+              "src/styles-forms.css",
+              "src/styles-input.css",
+              "src/styles-list.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
@@ -107,7 +109,9 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css",
               "src/styles-block.css",
-              "src/styles-input.css"
+              "src/styles-forms.css",
+              "src/styles-input.css",
+              "src/styles-list.css"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",
