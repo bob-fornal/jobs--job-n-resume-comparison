@@ -40,6 +40,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css",
               "src/styles-block.css",
+              "src/styles-cards.css",
               "src/styles-forms.css",
               "src/styles-input.css",
               "src/styles-list.css"
@@ -109,6 +110,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css",
               "src/styles-block.css",
+              "src/styles-cards.css",
               "src/styles-forms.css",
               "src/styles-input.css",
               "src/styles-list.css"

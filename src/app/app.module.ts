@@ -54,6 +54,7 @@ import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/do
 
 import { BlurModalService } from './core/services/blur-modal-service.service';
 import { AddEditJobApplicationsComponent } from './pages/job-applications/add-edit-job-applications/add-edit-job-applications.component';
+import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracking/ja-view-tracking.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,8 @@ import { AddEditJobApplicationsComponent } from './pages/job-applications/add-ed
     ItemImageComponent,
 
     JobApplicationsComponent,
+    AddEditJobApplicationsComponent,
+    JAViewTrackingComponent,
 
     LongTermGoalsComponent,
     AddEditLtgComponent,
@@ -90,7 +93,6 @@ import { AddEditJobApplicationsComponent } from './pages/job-applications/add-ed
 
     Top10ConnectionsComponent,
     TopToolbarComponent,
-    AddEditJobApplicationsComponent,
   ],
   imports: [
     BrowserModule,

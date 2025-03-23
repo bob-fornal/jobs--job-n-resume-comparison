@@ -19,6 +19,7 @@ import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-con
 import { DocumentationCompareResumeComponent } from './shared/menu-page-level/documentation-compare-resume/documentation-compare-resume.component';
 import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
 import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
+import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracking/ja-view-tracking.component';
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
@@ -28,7 +29,9 @@ const routes: Routes = [
   { path: 'interviewing-research', component: InterviewResearchComponent },
 
   { path: 'job-applications', component: JobApplicationsComponent },
+  { path: 'job-applications/view-tracking/:index', component: JAViewTrackingComponent },
   { path: 'job-applications/:type', component: AddEditJobApplicationsComponent },
+  { path: 'job-applications/:type/:index', component: AddEditJobApplicationsComponent },
 
   { path: 'long-term-goals', component: LongTermGoalsComponent },
   { path: 'long-term-goals/:type', component: AddEditLtgComponent },

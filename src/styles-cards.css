@@ -1,0 +1,64 @@
+.base-card {
+
+  &.half-card {
+    width: calc(calc(100% - 1em) / 2);
+  }
+  .whole-card {
+    width: 100%;
+  }
+
+  .card-title {
+    margin-bottom: 1em;
+    position: relative;
+
+    .header-title {
+      font-family: MetropolisBold, sans-serif;
+      position: relative;
+      left: 0;
+    }
+    .header-status {
+      position: absolute;
+      right: 1em;
+    }
+  }
+
+  .content-title {
+    text-decoration: underline;
+    margin-bottom: 0.5em;
+  }
+
+  .content-item {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    @supports (-webkit-line-clamp: 5) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: initial;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  .card-content {
+    margin-bottom: 3.5em;
+    
+    .content-item {
+      margin-left: 1em;
+      margin-bottom: 1em;
+
+      display: flex;
+      gap: 0.5em;
+    }
+  }
+
+  .card-actions {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+}

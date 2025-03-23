@@ -33,6 +33,10 @@ export class JobApplicationsComponent {
     this.applications = value;
   };
 
+  editTracking = (index: number): void => {
+    this.router.navigateByUrl(`job-applications/view-tracking/${index}`);
+  };
+
   navigate = (to: string, data: number | null = null): void => {
     if (data === null) {
       this.router.navigateByUrl(`/job-applications/${to}`);
@@ -41,7 +45,29 @@ export class JobApplicationsComponent {
     }
   };
 
+  delete = (index: number): void => {
+    const applications: Array<JobApplication> = [...this.applications];
+    applications.splice(index, 1);
+    this.service.saveApplications(applications);
+  };
+
   getTagStyle = (tag: Tag): string => {
     return `--mdc-chip-elevated-container-color: ${tag.backgroundColor}; --color-light-foreground: ${tag.foregroundColor}; --mdc-chip-outline-color: ${tag.foregroundColor}; --mdc-chip-outline-width: 2px;`;
+  };
+
+  getCardColor = (application: JobApplication): string => {
+    const classes: Array<string> = ['base-card whole-card'];
+    if (application.active === false) {
+      classes.push('inactive');
+    } else {
+      classes.push('active');
+    }
+    if (application.tracking.length === 0) classes.push('no-tracking');
+
+    return classes.join(' ');
+  };
+
+  getTitleCompany = (application: JobApplication): string => {
+    return `${application.company} (${application.title})`;
   };
 }

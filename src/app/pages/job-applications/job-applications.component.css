@@ -1,4 +1,4 @@
-.long-term-goals-wrapper {
+.job-applications-wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -6,4 +6,29 @@
   align-items: flex-start;
   padding: 2em;
   gap: 1em;
+
+  .base-card {
+    --mdc-icon-button-icon-color: var(--color-squid-mid4green);
+
+    &.active {
+      background-color: var(--color-goal-off-white2);
+
+      .header-title {
+        color: var(--color-squid-mid4green);
+      }
+      .header-status {
+        color: var(--color-squid-mid4green);
+      }
+    }
+    .inactive {
+      background-color: var(--color-goal-toolbar);
+
+      .header-title {
+        color: var(--color-squid-mid4green);
+      }
+      .header-status {
+        color: var(--color-squid-mid4green);
+      }
+    }
+  }
 }
