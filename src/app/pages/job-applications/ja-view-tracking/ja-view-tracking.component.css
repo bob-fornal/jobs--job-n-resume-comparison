@@ -1,67 +1,74 @@
+.tracking-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  border: none;
+
+  tr {
+    border: none;
+
+    td {
+      border: none;
+      position: relative;
+    }
+  }
+}
+
 .tracking-item-wrapper {
-  position: relative;
-  display: flex;
   box-sizing: border-box;
 
   .tracking-item {
-    display: inline-block;
-    padding: 1em;
     width: 45%;
+  }
+
+  .tracking-item-border {
+    padding: 1em;
     border-radius: 0.75em;
+    position: relative;
+
+    -webkit-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.75);
   }
   
   .tracking-center {
-    width: 10%;
+    width: 5%;
     position: relative;
     box-sizing: border-box;
 
+    &.left {
+      border-right: 0.25em solid var(--color-squid-mid2green);
+    }
+
     .center-vertical {
-      width: 100%;
-      height: 50%;
+      width: calc(100% + 4px);
       position: relative;
-      top: 0;
-      border-bottom: 2px solid green;
-      display: inline-block;
+      left: -2px;
+      height: 50%;
+      border-bottom: 0.25em solid var(--color-squid-mid2green);
       box-sizing: border-box;
-
-      &::after {
-        content: ' ';
-      }
     }
+  }
 
-    .center-left {
-      height: calc(100% + 2em);
-      top: -1em;
-      position: absolute;
-      left: 0;
-      display: inline-block;
-      box-sizing: border-box;
-
-      &.active {
-        border-right: 2px solid green;
-        width: calc(50% - 1px);
-      }
-      &::after {
-        content: ' ';
-      }
-    }
-
-    .center-right {
-      width: 50%;
-      height: calc(100% + 2em);
-      top: -1em;
-      position: absolute;
-      right: 0;
-      display: inline-block;
-      box-sizing: border-box;
-
-      &.active {
-        border-left: 2px solid green;
-        width: calc(50% - 1px);
-      }
-      &::after {
-        content: ' ';
-      }
-    }
+  .tracking-title {
+    font-family: MetropolisBold, sans-serif;
+    margin-bottom: 0.5em;
+    margin-right: 4em;
+  }
+  .tracking-datetime {
+    margin-left: 1em;
+    margin-right: 4em;
+    margin-bottom: 0.5em;
+  }
+  .tracking-description {
+    margin-left: 1em;
+    margin-right: 4em;
+  }
+  .tracking-functionality {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+    display: flex;
+    flex-direction: column;
   }
 }

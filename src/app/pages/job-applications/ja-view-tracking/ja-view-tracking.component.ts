@@ -50,7 +50,7 @@ export class JAViewTrackingComponent {
 
   addTrackingItem = (): void => {
     const emptyTag: Tag = { title: '', backgroundColor: '', foregroundColor: '' };
-    const dialogRef = this.dialog.open(JsTrackingModalComponent, {
+    this.dialog.open(JsTrackingModalComponent, {
       data: {
         index: this.index,
         title: 'Add',
@@ -60,12 +60,24 @@ export class JAViewTrackingComponent {
         connection: {},
       },
     });
-
-    dialogRef.afterClosed().subscribe(this.handleAddTrackingItemClosed.bind(this));
   };
 
   handleAddTrackingItemClosed = (): void => {
     //
+  };
+
+  editTrackingItem = (index: number): void => {
+    const trackingItem: JobActivity = this.application!.tracking[index];
+    this.dialog.open(JsTrackingModalComponent, {
+      data: {
+        index,
+        title: 'Edit',
+        datetimestamp: trackingItem.datetimestamp,
+        description: trackingItem.description,
+        tag: trackingItem.tag,
+        connection: trackingItem.connection,
+      },
+    });
   };
 
   deleteTrackingItem = (index: number): void => {

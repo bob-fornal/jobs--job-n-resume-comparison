@@ -57,33 +57,30 @@
         <table class="tracking-table">
           @for (item of application.tracking; track $index; let index = $index;) {
             <tr class="tracking-item-wrapper">
-              @if (isIndexOdd(index) === true) {
-                <td class="left tracking-item" [style]="getTrackingStyle(item)">
-                  <div class="tracking-title">{{ item.tag.title }}</div>
-                  <div class="tracking-description">{{ item.description }}</div>
-                  <div class="tracking-datetime">{{ getDatetime(item.datetimestamp) }}</div>
-                  <button (click)="deleteTrackingItem(index)">DELETE</button>
+              @if (isIndexOdd(index) === false) {
+                <td class="left tracking-item">
+                  <ng-container [ngTemplateOutlet]="trackingCard" [ngTemplateOutletContext]="{ item }"></ng-container>
                 </td>
               } @else {
                 <td class="left tracking-item"></td>
               }
-              <td class="tracking-center">
-                <div class="center-left" [class.active]="isIndexOdd(index) === true">
-                  @if (isIndexOdd(index) === true) {
-                    <div class="center-vertical">&nbsp;</div>
-                  }
-                </div>
-                <div class="center-right" [class.active]="isIndexOdd(index) === false">
+              <td class="tracking-center left">
+                <div class="center-left">
                   @if (isIndexOdd(index) === false) {
-                    <div class="center-vertical">&nbsp;</div>
+                    <div class="center-vertical"></div>
                   }
                 </div>
               </td>
-              @if (isIndexOdd(index) === false) {
-                <td class="right tracking-item" [style]="getTrackingStyle(item)">
-                  <div class="tracking-title">{{ item.tag.title }}</div>
-                  <div class="tracking-description">{{ item.description }}</div>
-                  <div class="tracking-datetime">{{ getDatetime(item.datetimestamp) }}</div>
+              <td class="tracking-center right">
+                <div class="center-right">
+                  @if (isIndexOdd(index) === true) {
+                    <div class="center-vertical"></div>
+                  }
+                </div>
+              </td>
+              @if (isIndexOdd(index) === true) {
+                <td class="right tracking-item">
+                  <ng-container [ngTemplateOutlet]="trackingCard" [ngTemplateOutletContext]="{ item }"></ng-container>
                 </td>
               } @else {
                 <td class="right tracking-item"></td>
@@ -107,3 +104,33 @@
 <div class="block job-squid-form-functionality">
   <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Return</button>
 </div>
+
+<div class="bottom"></div>
+
+<ng-template #trackingCard let-item="item">
+  <div class="tracking-item-border" [style]="getTrackingStyle(item)">
+    <div class="tracking-title">{{ item.tag.title }}</div>
+    <div class="tracking-datetime">{{ getDatetime(item.datetimestamp) }}</div>
+    <div class="tracking-description">{{ item.description }}</div>
+    <div class="tracking-functionality">
+      <button
+        mat-icon-button
+        type="button"
+        matTooltip="Edit Tracking"
+        [attr.data-testid]="'button--edit-application--' + index"
+        (click)="editTrackingItem(index)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        type="button"
+        matTooltip="Delete Tracking"
+        [attr.data-testid]="'button--edit-application--' + index"
+        (click)="deleteTrackingItem(index)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>
