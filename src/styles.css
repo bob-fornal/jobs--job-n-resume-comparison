@@ -82,6 +82,13 @@ body {
   display: none;
 }
 
+.mat-mdc-dialog-content>:first-child {
+  margin-top: 1em !important;
+}
+.mat-mdc-dialog-content>:last-child {
+  margin-bottom: 1em !important;
+}
+
 .mat-mdc-menu-panel {
 
   .menu-heading {

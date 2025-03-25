@@ -1,11 +1,5 @@
 .job-squid-form {
 
-  .full-width {
-    margin-bottom: 0.5em;
-    overflow: auto;
-    width: 100%;
-  }
-
   .form-checkbox {
     --mat-checkbox-label-text-color: var(--color-squid-darkgreen);
     --mdc-checkbox-unselected-icon-color: var(--color-squid-darkgreen);
@@ -23,4 +17,10 @@
   display: flex;
   justify-content: right;
   gap: 1em;
+}
+
+.full-width {
+  margin-bottom: 0.5em;
+  overflow: auto;
+  width: 100%;
 }

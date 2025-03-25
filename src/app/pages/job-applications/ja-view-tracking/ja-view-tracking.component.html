@@ -54,20 +54,43 @@
       @if (!application || application.tracking.length === 0) {
         <div class="no-goals">No Tracking Items</div>
       } @else {
-        @for (item of application.tracking; track $index; let index = $index;) {
-          <mat-card class="form-checkbox list-item">
-            <mat-card-header class="list-header">Tracking Item</mat-card-header>
-            <mat-card-content class="list-content">
-              Content
-            </mat-card-content>
-            <mat-card-actions class="list-actions">
-              <button (click)="deleteTrackingItem(index)" class="functional-button" mat-flat-button>
-                <mat-icon>delete</mat-icon>
-                <span>Delete Tracking Item</span>
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        }
+        <table class="tracking-table">
+          @for (item of application.tracking; track $index; let index = $index;) {
+            <tr class="tracking-item-wrapper">
+              @if (isIndexOdd(index) === true) {
+                <td class="left tracking-item" [style]="getTrackingStyle(item)">
+                  <div class="tracking-title">{{ item.tag.title }}</div>
+                  <div class="tracking-description">{{ item.description }}</div>
+                  <div class="tracking-datetime">{{ getDatetime(item.datetimestamp) }}</div>
+                  <button (click)="deleteTrackingItem(index)">DELETE</button>
+                </td>
+              } @else {
+                <td class="left tracking-item"></td>
+              }
+              <td class="tracking-center">
+                <div class="center-left" [class.active]="isIndexOdd(index) === true">
+                  @if (isIndexOdd(index) === true) {
+                    <div class="center-vertical">&nbsp;</div>
+                  }
+                </div>
+                <div class="center-right" [class.active]="isIndexOdd(index) === false">
+                  @if (isIndexOdd(index) === false) {
+                    <div class="center-vertical">&nbsp;</div>
+                  }
+                </div>
+              </td>
+              @if (isIndexOdd(index) === false) {
+                <td class="right tracking-item" [style]="getTrackingStyle(item)">
+                  <div class="tracking-title">{{ item.tag.title }}</div>
+                  <div class="tracking-description">{{ item.description }}</div>
+                  <div class="tracking-datetime">{{ getDatetime(item.datetimestamp) }}</div>
+                </td>
+              } @else {
+                <td class="right tracking-item"></td>
+              }
+            </tr>
+          }  
+        </table>
       }
     </div>
 

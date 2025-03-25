@@ -1,28 +1,56 @@
 <h2 mat-dialog-title>{{data?.title}} Tracking Item</h2>
 
 <mat-dialog-content>
-  <div class="datetimefield-row">
-    <mat-form-field>
-      <mat-label>Event Date</mat-label>
+  <div class="dialog--content-wrapper">
+    <div class="datetimefield-row">
+      <mat-form-field>
+        <mat-label>Event Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datepicker"
+          [(ngModel)]="datetimeValue"
+        />
+        <mat-datepicker #datepicker />
+        <mat-datepicker-toggle [for]="datepicker" matSuffix />
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>Event Time</mat-label>
+        <input matInput
+          [matTimepicker]="timepicker"
+          [(ngModel)]="datetimeValue"
+          [ngModelOptions]="{updateOn: 'blur'}"
+        />
+        <mat-timepicker #timepicker />
+        <mat-timepicker-toggle [for]="timepicker" matSuffix />
+      </mat-form-field>
+    </div>
+  
+    <mat-form-field class="full-width">
+      <mat-label>Description</mat-label>
       <input
         matInput
-        [matDatepicker]="datepicker"
-        [(ngModel)]="datetimeValue"
+        [(ngModel)]="description"
       />
-      <mat-datepicker #datepicker />
-      <mat-datepicker-toggle [for]="datepicker" matSuffix />
     </mat-form-field>
-    
-    <mat-form-field>
-      <mat-label>Event Time</mat-label>
-      <input matInput
-        [matTimepicker]="timepicker"
-        [(ngModel)]="datetimeValue"
-        [ngModelOptions]="{updateOn: 'blur'}"
-      />
-      <mat-timepicker #timepicker />
-      <mat-timepicker-toggle [for]="timepicker" matSuffix />
-    </mat-form-field>
+  
+    <button
+      class="functional-button"
+      mat-flat-button
+      [matMenuTriggerFor]="tagMenu"
+      [style]="getTagStyle(tag)"
+    >Select Tag (Current: {{tag.title}})</button>
+    <mat-menu #tagMenu="matMenu">
+      @for (tag of tags; track tag.title; let index = $index) {
+        <button
+          mat-menu-item
+          [style]="getTagStyle(tag)"
+          (click)="selectTag(index)"
+        >
+          {{tag.title}}
+        </button>
+      }
+    </mat-menu>
   </div>
 </mat-dialog-content>
 
