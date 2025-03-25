@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTimepickerModule } from '@angular/material/timepicker'
 import { provideNativeDateAdapter } from '@angular/material/core';
 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -33,7 +34,11 @@ import { DaysOfCodeComponent } from './pages/days-of-code/days-of-code.component
 import { InterviewResearchComponent } from './pages/interview-research/interview-research.component';
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
 import { ItemImageComponent } from './shared/item-image/item-image.component';
+
 import { JobApplicationsComponent } from './pages/job-applications/job-applications.component';
+import { AddEditJobApplicationsComponent } from './pages/job-applications/add-edit-job-applications/add-edit-job-applications.component';
+import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracking/ja-view-tracking.component';
+import { JsTrackingModalComponent } from './pages/job-applications/js-tracking-modal/js-tracking-modal.component';
 
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
@@ -53,8 +58,6 @@ import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/docum
 import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
 
 import { BlurModalService } from './core/services/blur-modal-service.service';
-import { AddEditJobApplicationsComponent } from './pages/job-applications/add-edit-job-applications/add-edit-job-applications.component';
-import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracking/ja-view-tracking.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,7 @@ import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracki
     JobApplicationsComponent,
     AddEditJobApplicationsComponent,
     JAViewTrackingComponent,
+    JsTrackingModalComponent,
 
     LongTermGoalsComponent,
     AddEditLtgComponent,
@@ -113,6 +117,7 @@ import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracki
     MatInputModule,
     MatListModule,
     MatMenuModule,
+    MatTimepickerModule,
     MatToolbarModule,
     MatTooltipModule,
   ],

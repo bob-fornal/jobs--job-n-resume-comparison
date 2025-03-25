@@ -1,8 +1,13 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { JobApplicationsService } from '../job-applications.service';
 import { JobApplication } from '../../../core/interfaces/job-application';
+
+import { Tag } from '../../../core/interfaces/tag';
+
+import { JsTrackingModalComponent } from '../js-tracking-modal/js-tracking-modal.component';
 
 @Component({
   selector: 'app-ja-view-tracking',
@@ -12,6 +17,8 @@ import { JobApplication } from '../../../core/interfaces/job-application';
   styleUrl: './ja-view-tracking.component.css'
 })
 export class JAViewTrackingComponent {
+  readonly dialog = inject(MatDialog);
+  
   index = -1;
 
   application: JobApplication | null = null;
@@ -39,5 +46,28 @@ export class JAViewTrackingComponent {
 
   getCompanyTitle = (): string => {
     return `${this.application?.company} (${this.application?.title})`;
+  };
+
+  addTrackingItem = (): void => {
+    const emptyTag: Tag = { title: '', backgroundColor: '', foregroundColor: '' };
+    const dialogRef = this.dialog.open(JsTrackingModalComponent, {
+      data: {
+        title: 'Add',
+        datetimestamp: '',
+        description: '',
+        tag: emptyTag,
+        connection: {},
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(this.handleAddTrackingItemClosed.bind(this));
+  };
+
+  handleAddTrackingItemClosed = (): void => {
+    //
+  };
+
+  deleteTrackingItem = (index: number): void => {
+    //
   };
 }
