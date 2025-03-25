@@ -43,7 +43,8 @@
               "src/styles-cards.css",
               "src/styles-forms.css",
               "src/styles-input.css",
-              "src/styles-list.css"
+              "src/styles-list.css",
+              "src/styles-tracker.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
@@ -113,7 +114,8 @@
               "src/styles-cards.css",
               "src/styles-forms.css",
               "src/styles-input.css",
-              "src/styles-list.css"
+              "src/styles-list.css",
+              "src/styles-tracker.css"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",

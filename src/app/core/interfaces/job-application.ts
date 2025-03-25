@@ -5,6 +5,7 @@ export interface JobActivity {
   datetimestamp: string;
   description: string;
   tag: Tag;
+  connection?: any;
 }
 
 export interface JobApplication {

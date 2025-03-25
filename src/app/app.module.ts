@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -122,5 +122,8 @@ import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracki
     { provide: MatDialog, useClass: BlurModalService },
   ],
   bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ]
 })
 export class AppModule { }

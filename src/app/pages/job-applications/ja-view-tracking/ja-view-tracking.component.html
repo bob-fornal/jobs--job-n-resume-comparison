@@ -1,1 +1,57 @@
-<p>view-tracking works!</p>
+<h3 class="page-title">Job Application Tracker</h3>
+
+<div class="block job-squid-form-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Return</button>
+</div>
+
+<div class="documentation-wrapper">
+  <div class="block mid-green-1">
+
+    @if (application !== null) {
+      <div class="tracker-title-wrapper">
+        <div class="tracker-title">
+          {{ getCompanyTitle() }}
+        </div>
+        <span class="tracker-status">
+          {{ application.active ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+
+      <div class="tracker-content-wrapper">
+        <div class="tracker-title">Links</div>
+        @for (item of application.links; track item.url;) {
+          <a class="tracker-item-link" [href]="item.url" target="_blank">
+            {{ item.type }}
+          </a>
+        }
+      </div>
+
+      <div class="tracker-content-wrapper">
+        <div class="tracker-title">Description</div>
+        <md-block class="tracker-content" [mdContent]="application.description"></md-block>
+      </div>
+
+      <div class="tracker-content-wrapper">
+        <div class="tracker-title">Requirements</div>
+        <md-block class="tracker-content" [mdContent]="application.requirements"></md-block>
+      </div>
+    } @else {
+      <div class="content-title">
+        Company Not Listed
+      </div>
+    }
+
+  </div>
+
+  <div class="block pale">
+    <div class="tracker-title-wrapper">
+      <div class="tracker-title">
+        Job Application Tracking
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block job-squid-form-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Return</button>
+</div>
