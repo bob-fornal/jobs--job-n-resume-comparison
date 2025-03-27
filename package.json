@@ -27,6 +27,7 @@
     "@vercel/analytics": "^1.5.0",
     "file-saver": "^2.0.5",
     "keyword-extractor": "^0.0.28",
+    "ngx-colors": "^3.6.0",
     "ngx-device-detector": "^9.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

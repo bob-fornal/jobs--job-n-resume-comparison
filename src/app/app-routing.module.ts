@@ -20,6 +20,7 @@ import { DocumentationCompareResumeComponent } from './shared/menu-page-level/do
 import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
 import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
 import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracking/ja-view-tracking.component';
+import { TagManagementComponent } from './pages/tag-management/tag-management.component';
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
 
   { path: 'pledge', component: AboutPledgeComponent },
   { path: 'resumes', component: CompareResumeComponent },
+  { path: 'tag-management/:from', component: TagManagementComponent },
   { path: 'top-10-connections', component: Top10ConnectionsComponent },
 
   { path: 'documentation/days-of-code', component: DocumentationDaysOfCodeComponent },

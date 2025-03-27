@@ -44,6 +44,7 @@
               "src/styles-forms.css",
               "src/styles-input.css",
               "src/styles-list.css",
+              "src/styles-tagging.css",
               "src/styles-tracker.css"
             ],
             "scripts": [],
@@ -115,6 +116,7 @@
               "src/styles-forms.css",
               "src/styles-input.css",
               "src/styles-list.css",
+              "src/styles-tagging.css",
               "src/styles-tracker.css"
             ],
             "scripts": [],

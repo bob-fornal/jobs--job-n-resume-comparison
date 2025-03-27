@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NgxColorsModule } from 'ngx-colors';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -58,6 +60,7 @@ import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/docum
 import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
 
 import { BlurModalService } from './core/services/blur-modal-service.service';
+import { TagManagementComponent } from './pages/tag-management/tag-management.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +100,7 @@ import { BlurModalService } from './core/services/blur-modal-service.service';
 
     Top10ConnectionsComponent,
     TopToolbarComponent,
+    TagManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +108,8 @@ import { BlurModalService } from './core/services/blur-modal-service.service';
 
     FormsModule,
     ReactiveFormsModule,
+
+    NgxColorsModule,
 
     MatButtonModule,
     MatCardModule,

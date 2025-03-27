@@ -4,8 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { JobApplicationsService } from '../job-applications.service';
 
 import { JobActivity, JobApplication } from '../../../core/interfaces/job-application';
-import tags from '../../../core/constants/job-application.tags.json';
 import { Tag } from '../../../core/interfaces/tag';
+import { TaggingService } from '../../../core/services/tagging.service';
 
 @Component({
   selector: 'app-js-add-tracking-modal',
@@ -19,14 +19,23 @@ export class JsTrackingModalComponent {
   readonly dialogRef = inject(MatDialogRef<JsTrackingModalComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
   readonly service = inject(JobApplicationsService);
+  readonly tagService = inject(TaggingService)
 
-  tags: Array<Tag> = tags;
+  tags: Array<Tag> = [];
   tagSelected = 0;
 
   datetimeValue: Date = new Date();
   description = '';
   tag: Tag = this.tags[this.tagSelected];
   
+  constructor() {
+    this.init();
+  }
+
+  init = async (): Promise<void> => {
+    this.tags = await this.tagService.getTags('job-applications');
+  };
+
   save(): void {
     const applications: Array<JobApplication> = this.service.structure();
     const application: JobApplication = applications[this.data.index];

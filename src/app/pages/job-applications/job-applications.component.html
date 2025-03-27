@@ -71,9 +71,18 @@
     </div>
   </div>
 
-  <div class="block mid-green-1" style="display: flex; gap: 0.5em;">
-    @for (tag of tags; track tag.title;) {
-      <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
-    }
+  <div class="block mid-green-1">
+    <div class="job-squid--tagging">
+      <button
+        class="functional-button"
+        mat-flat-button
+        type="button"
+        data-testid="button--save-job-application"
+        (click)="editTags()"
+      >Edit Tags</button>
+      @for (tag of tags; track tag.title;) {
+        <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
+      }
+    </div>
   </div>
 </div>

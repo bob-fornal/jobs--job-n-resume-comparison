@@ -1,0 +1,68 @@
+<h3 data-testid="h3--title" class="page-title">Adjust Site Tags</h3>
+
+<div class="block job-squid-form-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Return</button>
+</div>
+
+<div class="job-applications-wrapper">
+  <div class="block mid-green-2">
+
+    <div class="list-subtitle">
+      <div class="list-title">Tags for {{ currentTitle }}</div>
+      <div class="list-description">
+        Click the tag to edit.
+      </div>
+    </div>
+
+    <div class="job-squid--tagging gap-below">
+      @for (tag of currentTags; track tag.title;) {
+        <mat-chip
+          [style]="getTagStyle(tag)"
+          (click)="editTag(from, tag)"
+        >{{ tag.title }}</mat-chip>
+      }
+    </div>
+
+    @if (editingCurrentTag !== null) {
+      <div class="job-squid--tag-editing">
+        <div class="tag-editor-space">
+          <div class="tag-editor-title">Visual</div>
+          <mat-chip
+            [style]="getTagStyle(editingCurrentTag)"
+          >{{ editingCurrentTag.title }}</mat-chip>
+        </div>
+        <div class="tag-editor-space">
+          <div class="tag-editor-title">Tag Title</div>
+          <input
+            type="text"
+            class="job-squid--input"
+            [(ngModel)]="editingCurrentTag.title"
+          />
+        </div>
+        <div class="tag-editor-space">
+          <div class="tag-editor-title">Background</div>
+          <div class="tag-editor-color-wrapper">
+            <ngx-colors
+              ngx-colors-trigger
+              [(ngModel)]="editingCurrentTag.backgroundColor"
+            ></ngx-colors>
+            <div class="tag-color" [style]="getEditingStyle(editingCurrentTag)">{{ editingCurrentTag.backgroundColor }}</div>  
+          </div>
+        </div>
+        <div class="tag-editor-space">
+          <div class="tag-editor-title">Foreground</div>
+          <div class="tag-editor-color-wrapper">
+            <ngx-colors ngx-colors-trigger [(ngModel)]="editingCurrentTag.foregroundColor"></ngx-colors>
+            <div class="tag-color" [style]="getEditingStyle(editingCurrentTag, true)">{{ editingCurrentTag.foregroundColor }}</div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="block job-squid-form-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Return</button>
+</div>
+
+<div class="bottom"></div>

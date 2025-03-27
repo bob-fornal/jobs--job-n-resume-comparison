@@ -34,7 +34,11 @@ export class JobApplicationsComponent {
   };
 
   editTracking = (index: number): void => {
-    this.router.navigateByUrl(`job-applications/view-tracking/${index}`);
+    this.router.navigateByUrl(`/job-applications/view-tracking/${index}`);
+  };
+
+  editTags = (): void => {
+    this.router.navigateByUrl('/tag-management/job-applications')
   };
 
   navigate = (to: string, data: number | null = null): void => {
