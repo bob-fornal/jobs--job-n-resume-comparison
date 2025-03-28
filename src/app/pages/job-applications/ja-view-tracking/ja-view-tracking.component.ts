@@ -49,7 +49,12 @@ export class JAViewTrackingComponent {
   };
 
   addTrackingItem = (): void => {
-    const emptyTag: Tag = { title: '', backgroundColor: '', foregroundColor: '' };
+    const emptyTag: Tag = {
+      title: '',
+      backgroundColor: '',
+      foregroundColor: '',
+      original: false,
+    };
     this.dialog.open(JsTrackingModalComponent, {
       data: {
         index: this.index,

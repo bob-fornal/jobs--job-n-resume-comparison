@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-indexed-object-style */
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, Signal } from '@angular/core';
 
 import { StorageLayerService } from './storage-layer.service';
 
@@ -21,16 +21,23 @@ export class TaggingService {
     'job-applications': 'Job Applications'
   };
 
-  public getTags = async (type: string): Promise<Array<Tag>> => {
-    let tags: Array<Tag> = [];
+  public signals: { [key: string]: any } = {
+    'job-applications': signal([]),
+  };
 
+  public getTags = async (type: string): Promise<any> => {
     const results: Array<Tag> | null = await this.storage.getItem(type, 'job-squid--tags');
-    tags = results !== null ? results : this.tagOriginals[type];
-
-    return tags;
+    const tags = results !== null ? results : JSON.parse(JSON.stringify(this.tagOriginals[type]));
+    this.signals[type].set(tags);
   }
 
   public setTags = async (type: string, tags: Array<Tag>): Promise<void> => {
     await this.storage.setItem(type, 'job-squid--tags', tags);
+    this.signals[type].set(tags);
+  };
+
+  public resetTags = async (type: string): Promise<any> => {
+    await this.storage.removeItem(type, 'job-squid--tags');
+    this.signals[type].set(JSON.parse(JSON.stringify(this.tagOriginals[type])));
   };
 }

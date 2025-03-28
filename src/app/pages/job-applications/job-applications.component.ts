@@ -1,12 +1,11 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Router } from '@angular/router';
-
-import jobTags from '../../core/constants/job-application.tags.json';
 
 import { JobApplication } from '../../core/interfaces/job-application';
 import { Tag } from '../../core/interfaces/tag';
 
 import { JobApplicationsService } from './job-applications.service';
+import { TaggingService } from '../../core/services/tagging.service';
 
 @Component({
   selector: 'app-job-applications',
@@ -16,22 +15,33 @@ import { JobApplicationsService } from './job-applications.service';
   styleUrl: './job-applications.component.css'
 })
 export class JobApplicationsComponent {
+  readonly router = inject(Router);
+  readonly service = inject(JobApplicationsService);
+  readonly taggingService = inject(TaggingService);
 
   applications: Array<JobApplication> = [];
 
-  tags: Array<Tag> = jobTags
+  tags: Array<Tag> = [];
 
-  constructor(
-    private router: Router,
-    private service: JobApplicationsService,
-  ) {
+  constructor() {
+    this.init();
     effect(this.handleApplicationsEffect.bind(this));
+    effect(this.handleTags.bind(this));
+  }
+
+  init(): void {
+    this.taggingService.getTags('job-applications');
   }
 
   handleApplicationsEffect = (): void => {
     const value: Array<JobApplication> = this.service.structure();
     this.applications = value;
   };
+
+  handleTags(): void {
+    const value: Array<Tag> = this.taggingService.signals['job-applications']();
+    this.tags = value;
+  }
 
   editTracking = (index: number): void => {
     this.router.navigateByUrl(`/job-applications/view-tracking/${index}`);
@@ -55,8 +65,12 @@ export class JobApplicationsComponent {
     this.service.saveApplications(applications);
   };
 
-  getTagStyle = (tag: Tag): string => {
-    return `--mdc-chip-elevated-container-color: ${tag.backgroundColor}; --color-light-foreground: ${tag.foregroundColor}; --mdc-chip-outline-color: ${tag.foregroundColor}; --mdc-chip-outline-width: 2px;`;
+  getTagStyle(tag: Tag, reverse = false): string {
+    if (reverse === false) {
+      return `--mdc-chip-elevated-container-color: ${tag.backgroundColor}; --mdc-chip-label-text-color: ${tag.foregroundColor}; --mdc-chip-outline-color: ${tag.foregroundColor}; --mdc-chip-outline-width: 2px;`;
+    } else {
+      return `--mdc-chip-elevated-container-color: ${tag.backgroundColor}; --mdc-chip-label-text-color: ${tag.foregroundColor}; --mdc-chip-outline-color: ${tag.foregroundColor}; --mdc-chip-outline-width: 2px;`;
+    }
   };
 
   getCardColor = (application: JobApplication): string => {

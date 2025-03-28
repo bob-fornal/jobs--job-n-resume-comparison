@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TaggingService } from '../../core/services/tagging.service';
@@ -24,9 +24,11 @@ export class TagManagementComponent {
   currentTitle = '';
   currentTags: Array<Tag> = [];
   editingCurrentTag: Tag | null = null;
+  editingIndex = -1;
 
   constructor() {
     this.init();
+    effect(this.handleTagChange.bind(this));
   }
 
   async init(): Promise<void> {
@@ -35,8 +37,12 @@ export class TagManagementComponent {
 
     this.currentTags = await this.service.getTags(from);
     this.currentTitle = this.types[from];
-
   };
+
+  handleTagChange(): void {
+    const tags: Array<Tag> = this.service.signals[this.from]();
+    this.currentTags = tags;
+  }
 
   getTagStyle(tag: Tag, reverse = false): string {
     if (reverse === false) {
@@ -57,7 +63,62 @@ export class TagManagementComponent {
   editTag(from: string, tag: Tag): void {
     if (from === this.from) {
       this.editingCurrentTag = { ...tag };
+      this.editingIndex = this.currentTags.findIndex((item: Tag) => {
+        const matchTitle: boolean = item.title === tag.title;
+        const matchBG: boolean = item.backgroundColor === tag.backgroundColor;
+        const matchFG: boolean = item.foregroundColor === tag.foregroundColor;
+        return matchTitle && matchBG && matchFG;
+      });
     }
+  }
+
+  async stopEditing(): Promise<void> {
+    this.editingCurrentTag = null;
+    this.editingIndex = -1;
+  }
+
+  async saveTag(index: number, from = ''): Promise<void> {
+    const useFrom: string = from === '' ? this.from : from;
+    const adjusted: Array<Tag> = this.service.signals[useFrom]();
+    adjusted[index] = this.editingCurrentTag!;
+    await this.service.setTags(useFrom, adjusted);
+
+    if (from === this.from) {
+      this.currentTags = [...adjusted];
+    }
+    this.stopEditing();
+  }
+
+  async addNewTag(from = ''): Promise<void> {
+    const newTag: Tag = {
+      title: 'New Tag',
+      backgroundColor: '#000000',
+      foregroundColor: '#ffffff',
+      original: false,
+    };
+    const useFrom: string = from === '' ? this.from : from;
+    const adjusted: Array<Tag> = this.service.signals[useFrom]();
+    adjusted.push(newTag);
+    await this.service.setTags(useFrom, adjusted);
+
+    if (from === this.from) {
+      this.currentTags = [...adjusted];
+    }
+    this.stopEditing();
+  }
+
+  async resetTags(from = ''): Promise<void> {
+    const useFrom: string = from === '' ? this.from : from;
+    this.service.resetTags(useFrom);
+    this.stopEditing();
+  }
+
+  async deleteTag(index: number, from = ''): Promise<void> {
+    const useFrom: string = from === '' ? this.from : from;
+    const adjusted: Array<Tag> = this.service.signals[useFrom]();
+    adjusted.splice(index, 1);
+    await this.service.setTags(useFrom, adjusted);
+    this.stopEditing();
   }
 
   back(): void {

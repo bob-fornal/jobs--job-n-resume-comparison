@@ -15,12 +15,30 @@
     </div>
 
     <div class="job-squid--tagging gap-below">
-      @for (tag of currentTags; track tag.title;) {
-        <mat-chip
-          [style]="getTagStyle(tag)"
-          (click)="editTag(from, tag)"
-        >{{ tag.title }}</mat-chip>
-      }
+      <div class="visible-tags">
+        @for (tag of currentTags; track tag.title;) {
+          <mat-chip
+            [style]="getTagStyle(tag)"
+            (click)="editTag(from, tag)"
+          >{{ tag.title }}</mat-chip>
+        }
+      </div>
+      <div class="tagging-functionality">
+        <button
+          mat-icon-button
+          matTooltip="Add a new tag"
+          (click)="addNewTag()"
+        >
+         <mat-icon>add</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          matTooltip="Reset tags"
+          (click)="resetTags()"
+        >
+         <mat-icon>restart_alt</mat-icon>
+        </button>
+      </div>
     </div>
 
     @if (editingCurrentTag !== null) {
@@ -55,6 +73,25 @@
             <ngx-colors ngx-colors-trigger [(ngModel)]="editingCurrentTag.foregroundColor"></ngx-colors>
             <div class="tag-color" [style]="getEditingStyle(editingCurrentTag, true)">{{ editingCurrentTag.foregroundColor }}</div>
           </div>
+        </div>
+
+        <div class="editing-functionality">
+          <button
+            mat-icon-button
+            matTooltip="Save Tag"
+            (click)="saveTag(editingIndex)"
+          >
+            <mat-icon>save</mat-icon>
+          </button>
+          @if (editingCurrentTag.original === false) {
+            <button
+              mat-icon-button
+              matTooltip="Delete Tag"
+              (click)="deleteTag(editingIndex)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
         </div>
       </div>
     }
