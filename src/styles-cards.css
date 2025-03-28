@@ -8,23 +8,53 @@
   }
 
   .card-title {
-    margin-bottom: 1em;
-    position: relative;
 
     .header-title {
       font-family: MetropolisBold, sans-serif;
-      position: relative;
-      left: 0;
     }
-    .header-status {
-      position: absolute;
-      right: 1em;
+    &:not(.tall) {
+      margin-bottom: 1em;
+      position: relative;  
+
+      .header-title {
+        position: relative;
+        left: 0;
+      }
+      .header-status {
+        position: absolute;
+        right: 1em;
+      }
+    }
+
+    &.tall {
+      position: relative;
+      height: 2em;
+
+      .header-title {
+        position: absolute;
+        left: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .active-status {
+          margin-right: 2em;
+          width: 3.5em;
+        }
+      }
+      .header-status {
+        position: absolute;
+        right: 1em;
+        top: 0.25em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 
   .content-title {
     text-decoration: underline;
-    margin-bottom: 0.5em;
   }
 
   .content-item {

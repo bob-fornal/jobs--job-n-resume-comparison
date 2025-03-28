@@ -12,58 +12,75 @@
   </div>
 
   <div class="block mid-green-1">
+    <div class="job-squid--tagging">
+      <button
+        class="functional-button"
+        mat-flat-button
+        type="button"
+        data-testid="button--save-job-application"
+        (click)="editTags()"
+      >Edit Tags</button>
+      <div class="visible-tags">
+        @for (tag of tags; track tag.title;) {
+          <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="block mid-green-1">
     <div class="list-of-applications-wrapper">
       @if (applications.length === 0) {
         No Job Applications Listed
       } @else {
         @for (application of applications; track $index; let index = $index;) {
           <mat-card class="{{ getCardColor(application) }}">
-            <mat-card-header class="card-title">
-              <span class="header-title">{{ getTitleCompany(application) }}</span>
+            <mat-card-header class="card-title tall">
+              <span class="header-title">
+                <span class="active-status">
+                  [{{ application.active ? 'Active' : 'Inactive' }}]
+                </span>
+                <span>
+                  {{ getTitleCompany(application) }}
+                </span>
+              </span>
               <span class="header-status">
-                {{ application.active ? 'Active' : 'Inactive' }}
+                <button
+                  mat-icon-button
+                  type="button"
+                  matTooltip="Application Tracking"
+                  [attr.data-testid]="'button--edit-application--' + index"
+                  (click)="editTracking(index)"
+                >
+                  <mat-icon>fact_check</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  type="button"
+                  matTooltip="Edit Application"
+                  [attr.data-testid]="'button--edit-application--' + index"
+                  (click)="navigate('edit', index)"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+
+                <button
+                  mat-icon-button
+                  type="button"
+                  matTooltip="Delete Application"
+                  [attr.data-testid]="'button--delete-application--' + index"
+                  (click)="delete(index)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
               </span>
             </mat-card-header>
-            <mat-card-content class="card-content">
-              <div class="content-title">Links</div>
-              <div class="content-item">
-                @for (item of application.links; track item.url;) {
-                  <a class="content-item-link" [href]="item.url" target="_blank">
-                    {{ item.type }}
-                  </a>
-                }
-              </div>
-            </mat-card-content>
-            <mat-card-actions class="card-actions">
-              <button
-                mat-icon-button
-                type="button"
-                matTooltip="Application Tracking"
-                [attr.data-testid]="'button--edit-application--' + index"
-                (click)="editTracking(index)"
-              >
-                <mat-icon>fact_check</mat-icon>
-              </button>
-              <button
-                mat-icon-button
-                type="button"
-                matTooltip="Edit Application"
-                [attr.data-testid]="'button--edit-application--' + index"
-                (click)="navigate('edit', index)"
-              >
-                <mat-icon>edit</mat-icon>
-              </button>
 
-              <button
-                mat-icon-button
-                type="button"
-                matTooltip="Delete Application"
-                [attr.data-testid]="'button--delete-application--' + index"
-                (click)="delete(index)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-card-actions>
+            <!-- <mat-card-content class="card-content">
+            </mat-card-content> -->
+
+            <!-- <mat-card-actions class="card-actions">
+            </mat-card-actions> -->
 
           </mat-card>
         }
