@@ -1,13 +1,14 @@
 .job-squid--tagging {
   display: flex;
   justify-content: space-between;
+  gap: 1em;
 
   .visible-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5em;
     align-items: center;
-    max-width: 90%;
+    width: 85%;
   }
 
   &.gap-below {

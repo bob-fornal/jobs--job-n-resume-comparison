@@ -80,9 +80,11 @@
         data-testid="button--save-job-application"
         (click)="editTags()"
       >Edit Tags</button>
-      @for (tag of tags; track tag.title;) {
-        <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
-      }
+      <div class="visible-tags">
+        @for (tag of tags; track tag.title;) {
+          <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
+        }
+      </div>
     </div>
   </div>
 </div>
