@@ -1,0 +1,13 @@
+.table-header-row,
+.table-default-row {
+  --mat-table-header-headline-color: var(--color-dark-foreground);
+  background-color: var(--color-squid-darkgreen);
+}
+
+.table-header-row {
+  font-weight: bold;
+}
+
+.table-functionality {
+  --mat-checkbox-label-text-color: var(--color-squid-darkgreen);
+}

@@ -39,7 +39,7 @@
       mat-flat-button
       [matMenuTriggerFor]="tagMenu"
       [style]="getTagStyle(tag)"
-    >Select Tag (Current: {{tag.title}})</button>
+    >Select Tag (Current: {{tagTitle}})</button>
     <mat-menu #tagMenu="matMenu">
       @for (tag of tags; track tag.title; let index = $index) {
         <button

@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -61,6 +62,7 @@ import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/do
 
 import { BlurModalService } from './core/services/blur-modal-service.service';
 import { TagManagementComponent } from './pages/tag-management/tag-management.component';
+import { ApplicationsTableComponent } from './pages/job-applications/applications-table/applications-table.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +103,7 @@ import { TagManagementComponent } from './pages/tag-management/tag-management.co
     Top10ConnectionsComponent,
     TopToolbarComponent,
     TagManagementComponent,
+    ApplicationsTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,6 +126,7 @@ import { TagManagementComponent } from './pages/tag-management/tag-management.co
     MatInputModule,
     MatListModule,
     MatMenuModule,
+    MatTableModule,
     MatTimepickerModule,
     MatToolbarModule,
     MatTooltipModule,

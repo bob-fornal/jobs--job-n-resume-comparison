@@ -3,6 +3,7 @@ import { Injectable, Signal, signal } from '@angular/core';
 import { JobApplication } from '../../core/interfaces/job-application';
 
 import { StorageLayerService } from '../../core/services/storage-layer.service';
+import { FilterSettings } from '../../core/interfaces/filter-state.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,12 @@ export class JobApplicationsService {
   structureSignal = signal(this._structure);
   readonly structure: Signal<Array<JobApplication>> = this.structureSignal.asReadonly();
 
+  _filterState: FilterSettings = {
+    showActiveApplications: true,
+  };
+  filterStateSignal = signal(this._filterState);
+  readonly filterState: Signal<FilterSettings> = this.filterStateSignal.asReadonly();
+
   constructor(
     private storage: StorageLayerService,
   ) {
@@ -21,7 +28,7 @@ export class JobApplicationsService {
 
   init = async (): Promise<void> => {
     await this.loadApplications();
-  }
+  };
 
   loadApplications = async (): Promise<void> => {
     const applications: Array<JobApplication> | null = await this.storage.getItem('job-applications', 'job-squid--job-applications');
@@ -42,5 +49,24 @@ export class JobApplicationsService {
     this._structure = [...applications];
     this.structureSignal.set(this._structure);
     await this.storage.setItem('job-applications', 'job-squid--job-applications', applications);
+  };
+
+  // Filter Settings
+  initFilterSettings = async (): Promise<void> => {
+    await this.loadFilterSettings();
+  };
+
+  loadFilterSettings = async (): Promise<void> => {
+    const settings: FilterSettings | null = await this.storage.getItem('job-applications', 'job-squid--filter-settings');
+    if (settings === null) return;
+
+    this._filterState = {...settings};
+    this.filterStateSignal.set(this._filterState);
+  };
+
+  saveFilterSettings = async(settings: FilterSettings): Promise<void> => {
+    this._filterState = {...settings};
+    this.filterStateSignal.set(this._filterState);
+    await this.storage.setItem('job-applications', 'job-squid--filter-settings', settings);
   };
 }

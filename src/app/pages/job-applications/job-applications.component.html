@@ -34,7 +34,7 @@
         No Job Applications Listed
       } @else {
         @for (application of applications; track $index; let index = $index;) {
-          <mat-card class="{{ getCardColor(application) }}">
+          <!-- <mat-card class="{{ getCardColor(application) }}">
             <mat-card-header class="card-title tall">
               <span class="header-title">
                 <span class="active-status">
@@ -75,14 +75,13 @@
                 </button>
               </span>
             </mat-card-header>
-
-            <!-- <mat-card-content class="card-content">
-            </mat-card-content> -->
-
-            <!-- <mat-card-actions class="card-actions">
-            </mat-card-actions> -->
-
-          </mat-card>
+          </mat-card> -->
+          <applications-table
+            [data]="applications"
+            [editTracking]="editTracking.bind(this)"
+            [navigate]="navigate.bind(this)"
+            [delete]="delete.bind(this)"
+          />
         }
       }
     </div>

@@ -88,7 +88,12 @@ export class MarkdownElement extends HTMLElement {
 			langPrefix: "language-",
 		});
 
-		marked.use({renderer: this.renderer});
+		marked.use({
+			renderer: this.renderer,
+			langPrefix: '',
+			mangle: false,
+			headerIds: false
+		});
 
 		let html = this._parse();
 

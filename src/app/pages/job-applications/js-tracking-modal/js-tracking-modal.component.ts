@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { JobApplicationsService } from '../job-applications.service';
@@ -26,15 +26,31 @@ export class JsTrackingModalComponent {
 
   datetimeValue: Date = new Date();
   description = '';
-  tag: Tag = this.tags[this.tagSelected];
-  
-  constructor() {
-    this.init();
+  tag: Tag = {
+    title: '',
+    backgroundColor: '',
+    foregroundColor: '',
+    original: false,
+  };
+
+  get tagTitle() {
+    return this.tag === undefined ? '' : this.tag.title;
   }
 
-  init = async (): Promise<void> => {
-    this.tags = await this.tagService.getTags('job-applications');
-  };
+  constructor() {
+    this.init()
+    effect(this.handleTagging.bind(this));
+  }
+
+  init() {
+    this.tagService.getTags('job-applications');
+  }
+
+  handleTagging() {
+    const tags = this.tagService.signals['job-applications']();
+    this.tags = tags;
+    this.tag = this.tags[this.tagSelected];
+  }
 
   save(): void {
     const applications: Array<JobApplication> = this.service.structure();
@@ -57,6 +73,7 @@ export class JsTrackingModalComponent {
   }
 
   getTagStyle(tag: Tag) {
+    if (tag === undefined) return '';
     return `color: ${tag.foregroundColor}; background-color: ${tag.backgroundColor};`;
   }
 
