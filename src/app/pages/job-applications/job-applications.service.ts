@@ -1,6 +1,6 @@
 import { Injectable, Signal, signal } from '@angular/core';
 
-import { JobApplication } from '../../core/interfaces/job-application';
+import { JobActivity, JobApplication } from '../../core/interfaces/job-application';
 
 import { StorageLayerService } from '../../core/services/storage-layer.service';
 import { FilterSettings } from '../../core/interfaces/filter-state.interface';
@@ -16,6 +16,7 @@ export class JobApplicationsService {
 
   _filterState: FilterSettings = {
     showActiveApplications: true,
+    showMostRecent: true,
   };
   filterStateSignal = signal(this._filterState);
   readonly filterState: Signal<FilterSettings> = this.filterStateSignal.asReadonly();
@@ -34,6 +35,15 @@ export class JobApplicationsService {
     const applications: Array<JobApplication> | null = await this.storage.getItem('job-applications', 'job-squid--job-applications');
     if (applications === null) return;
 
+    applications.sort((a: JobApplication, b: JobApplication) => {
+      const newestTrackingA: JobActivity = a.tracking.reduce((a: JobActivity, b: JobActivity) => {
+        return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
+      });
+      const newestTrackingB: JobActivity = b.tracking.reduce((a: JobActivity, b: JobActivity) => {
+        return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
+      });
+      return new Date(newestTrackingA.datetimestamp).getTime() - new Date(newestTrackingB.datetimestamp).getTime();
+    });
     this._structure = [...applications];
     this.structureSignal.set(this._structure);
   };

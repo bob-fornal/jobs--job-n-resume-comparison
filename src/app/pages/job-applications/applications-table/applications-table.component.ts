@@ -25,16 +25,22 @@ export class ApplicationsTableComponent {
   }
 
   filteredApplications: Array<JobApplication> = this.data;
+  date: { title: string; showMostRecent: boolean; } = {
+    title: 'Date Applied',
+    showMostRecent: true,
+  };
 
   displayedColumns: Array<string> = [
     'company',
     'title',
     'status',
+    'date',
     'actions',
   ];
 
   filterSettings = signal<FilterSettings>({
     showActiveApplications: true,
+    showMostRecent: true,
   });
 
   constructor() {
@@ -51,13 +57,47 @@ export class ApplicationsTableComponent {
       return false;
     });
     this.filteredApplications = filtered;
+    this.setMostRecent(settings.showMostRecent);
   }
+
+  getDate(application: JobApplication): string {
+    const tracking: JobActivity | null = application.tracking
+      .reduce((a: JobActivity, b: JobActivity) => {
+        if (this.date.showMostRecent === true) {
+          return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
+        } else {
+          return new Date(a.datetimestamp) < new Date(b.datetimestamp) ? a : b;
+        }
+      });
+      return tracking.datetimestamp;
+  }
+
 
   toggleActiveApplications(): void {
     const state: FilterSettings = this.filterSettings();
     const value: boolean = state.showActiveApplications;
     state.showActiveApplications = !value;
     this.service.saveFilterSettings(state);
+  }
+
+  toggleMostRecent(): void {
+    const state: FilterSettings = this.filterSettings();
+    const value: boolean = state.showMostRecent;
+    state.showMostRecent = !value;
+    this.service.saveFilterSettings(state);
+    this.setMostRecent(state.showMostRecent);
+  }
+
+  setMostRecent(check: boolean): void {
+    this.date = check === true
+    ? {
+        title: 'Most Recent (newest)',
+        showMostRecent: true,
+      }
+    : {
+        title: 'Date Applied (oldest)',
+        showMostRecent: false,
+      };
   }
 
   getLastTrackingTagStyle(application: JobApplication): string {
