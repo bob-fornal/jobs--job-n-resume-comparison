@@ -4,6 +4,7 @@ import { JobApplicationsService } from '../job-applications.service';
 
 import { JobActivity, JobApplication } from '../../../core/interfaces/job-application';
 import { FilterSettings } from '../../../core/interfaces/filter-state.interface';
+import { UtilitiesService } from '../../../core/services/utilities.service';
 
 @Component({
   selector: 'applications-table',
@@ -14,6 +15,7 @@ import { FilterSettings } from '../../../core/interfaces/filter-state.interface'
 })
 export class ApplicationsTableComponent {
   readonly service = inject(JobApplicationsService);
+  readonly utilities = inject(UtilitiesService);
 
   @Input() editTracking: any;
   @Input() navigate: any;
@@ -56,9 +58,25 @@ export class ApplicationsTableComponent {
   }
 
   handleFilterSettings() {
-    let applications = this.service.structure();
     const settings = this.service.filterState();
     this.filterSettings.set(settings);
+    this.adjustForFilterSettings();
+  }
+
+  adjustForFilterSettings(triggerSetMostRecent = true): void {
+    const settings = this.filterSettings();
+    console.log(settings);
+
+    let applications = this.service.structure();
+    applications.sort((a: JobApplication, b: JobApplication) => {
+      const aTimestamp: string = this.getTimestamp(a.tracking);
+      const bTimestamp: string = this.getTimestamp(b.tracking);
+
+      if (aTimestamp < bTimestamp) return settings.showMostRecent ? 1 : -1;
+      if (aTimestamp > bTimestamp) return settings.showMostRecent ? -1 : 1;
+      return 0;
+    });
+    console.log(JSON.parse(JSON.stringify(applications)));
 
     if (settings.showActiveApplicationsOnly === true) {
       applications = applications.filter((item: JobApplication) => {
@@ -66,12 +84,21 @@ export class ApplicationsTableComponent {
         return true;
       });
     }
-    this.setMostRecent(settings.showMostRecent);
-    this.filteredApplications = applications;
+    if (triggerSetMostRecent === true) {
+      this.setMostRecent(settings.showMostRecent);
+    }
+    this.filteredApplications = [...applications];
+  }
+
+  getTimestamp(tracking: Array<JobActivity>): string {
+    if (tracking.length === 0) return this.utilities.toDatetimestamp(new Date());
+
+    return tracking.reduce((a: JobActivity, b: JobActivity) => {
+      return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
+    }).datetimestamp;
   }
 
   handlePageChange(pageData: Array<JobApplication>): void {
-    console.log('handlePageChange', { pageData });
     if (this.intialLoad === true) {
       this.intialLoad = false;
       return;
@@ -91,7 +118,7 @@ export class ApplicationsTableComponent {
           return new Date(a.datetimestamp) < new Date(b.datetimestamp) ? a : b;
         }
       });
-      return tracking.datetimestamp;
+    return tracking.datetimestamp;
   }
 
 
@@ -120,7 +147,9 @@ export class ApplicationsTableComponent {
         title: 'Date Applied (oldest)',
         showMostRecent: false,
       };
+    this.adjustForFilterSettings(false);
   }
+
 
   getLastTrackingTagStyle(application: JobApplication): string {
     const tracking: JobActivity | null = application.tracking.length === 0

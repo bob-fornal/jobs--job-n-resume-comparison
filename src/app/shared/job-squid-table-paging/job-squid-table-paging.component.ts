@@ -16,6 +16,7 @@ export class JobSquidTablePagingComponent {
     this._data = value;
     this.currentPage = 0;
     this.calculatePageDisplay();
+    console.log(value);
   }
 
   @Output() change = new EventEmitter<Array<JobApplication>>();
