@@ -20,7 +20,7 @@ export class JobSquidTablePagingComponent {
 
   @Output() change = new EventEmitter<Array<JobApplication>>();
 
-  recordsPerPage = 3;
+  recordsPerPage = 25;
   currentPage = 0;
 
   get totalPages(): number {

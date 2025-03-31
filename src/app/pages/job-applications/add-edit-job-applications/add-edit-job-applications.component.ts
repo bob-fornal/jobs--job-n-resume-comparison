@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { JobApplication } from '../../../core/interfaces/job-application';
+import { JobActivity, JobApplication } from '../../../core/interfaces/job-application';
 import { SiteLink } from "../../../core/interfaces/site-link";
 
 import { JobApplicationsService } from '../job-applications.service';
@@ -73,6 +73,12 @@ export class AddEditJobApplicationsComponent {
         link.push(this.fb.group(item));
       }
     });
+    application.tracking.forEach((item: JobActivity) => {
+      const activity: FormArray<any> = this.application.get('tracking') as FormArray;
+      if (!activity.invalid) {
+        activity.push(this.fb.group(item));
+      }
+    });
   };
 
   get linkControls(): any {
@@ -113,7 +119,7 @@ export class AddEditJobApplicationsComponent {
       description: this.application.get('description')!.value,
       requirements: this.application.get('requirements')!.value,
       links: this.application.get('links')!.value,
-      tracking: [],
+      tracking: this.application.get('tracking')!.value,
       connections: [],
     };
 
