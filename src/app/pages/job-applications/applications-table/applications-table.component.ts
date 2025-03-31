@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, Input, signal } from '@angular/core';
 
 import { JobApplicationsService } from '../job-applications.service';
 
@@ -23,6 +23,7 @@ export class ApplicationsTableComponent {
   @Input() set data(value: Array<JobApplication>) {
     this._data = value;
     this.filteredApplications = value;
+    this.pagedApplications = value;
   }
 
   filteredApplications: Array<JobApplication> = this.data;
@@ -45,30 +46,39 @@ export class ApplicationsTableComponent {
     showMostRecent: true,
   });
 
-  constructor() {
+  private intialLoad = true;
+
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {
     this.service.initFilterSettings();
     effect(this.handleFilterSettings.bind(this));
   }
 
   handleFilterSettings() {
+    let applications = this.service.structure();
     const settings = this.service.filterState();
     this.filterSettings.set(settings);
 
-    let filtered: Array<JobApplication> = this._data;
     if (settings.showActiveApplicationsOnly === true) {
-      filtered = this._data.filter((item: JobApplication) => {
-        if (item.active === true) return true;
-        return false;
-      });  
+      applications = applications.filter((item: JobApplication) => {
+        if (settings.showActiveApplicationsOnly === true) return item.active === true;
+        return true;
+      });
     }
-    this.filteredApplications = filtered;
-
     this.setMostRecent(settings.showMostRecent);
+    this.filteredApplications = applications;
   }
 
   handlePageChange(pageData: Array<JobApplication>): void {
+    console.log('handlePageChange', { pageData });
+    if (this.intialLoad === true) {
+      this.intialLoad = false;
+      return;
+    }
+
     this.pagedApplications = pageData;
-    // ChangeDetectorRef.detectChanges();
+    this.changeDetectorRef.detectChanges();
   }
 
   getDate(application: JobApplication): string {
