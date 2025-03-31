@@ -4,7 +4,7 @@ import { Tag } from "./tag";
 export interface JobActivity {
   datetimestamp: string;
   description: string;
-  tag: Tag;
+  tag?: Tag;
   connection?: any;
 }
 

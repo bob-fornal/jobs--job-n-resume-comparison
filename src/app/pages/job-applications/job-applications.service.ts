@@ -15,7 +15,7 @@ export class JobApplicationsService {
   readonly structure: Signal<Array<JobApplication>> = this.structureSignal.asReadonly();
 
   _filterState: FilterSettings = {
-    showActiveApplications: true,
+    showActiveApplicationsOnly: true,
     showMostRecent: true,
   };
   filterStateSignal = signal(this._filterState);
@@ -36,12 +36,16 @@ export class JobApplicationsService {
     if (applications === null) return;
 
     applications.sort((a: JobApplication, b: JobApplication) => {
-      const newestTrackingA: JobActivity = a.tracking.reduce((a: JobActivity, b: JobActivity) => {
-        return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
-      });
-      const newestTrackingB: JobActivity = b.tracking.reduce((a: JobActivity, b: JobActivity) => {
-        return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
-      });
+      const newestTrackingA: JobActivity = a.tracking.length === 0
+        ? { datetimestamp: '', description: '' }
+        : a.tracking.reduce((a: JobActivity, b: JobActivity) => {
+            return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
+          });
+      const newestTrackingB: JobActivity = b.tracking.length === 0
+        ? { datetimestamp: '', description: '' }
+        : b.tracking.reduce((a: JobActivity, b: JobActivity) => {
+            return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
+          });
       return new Date(newestTrackingA.datetimestamp).getTime() - new Date(newestTrackingB.datetimestamp).getTime();
     });
     this._structure = [...applications];

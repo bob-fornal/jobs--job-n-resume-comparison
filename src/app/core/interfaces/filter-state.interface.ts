@@ -1,4 +1,4 @@
 export interface FilterSettings {
-  showActiveApplications: boolean;
+  showActiveApplicationsOnly: boolean;
   showMostRecent: boolean;
 }

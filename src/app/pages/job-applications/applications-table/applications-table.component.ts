@@ -1,4 +1,4 @@
-import { Component, effect, inject, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, Input, signal } from '@angular/core';
 
 import { JobApplicationsService } from '../job-applications.service';
 
@@ -9,7 +9,8 @@ import { FilterSettings } from '../../../core/interfaces/filter-state.interface'
   selector: 'applications-table',
   standalone: false,
   templateUrl: './applications-table.component.html',
-  styleUrl: './applications-table.component.css'
+  styleUrl: './applications-table.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ApplicationsTableComponent {
   readonly service = inject(JobApplicationsService);
@@ -25,6 +26,7 @@ export class ApplicationsTableComponent {
   }
 
   filteredApplications: Array<JobApplication> = this.data;
+  pagedApplications: Array<JobApplication> = this.data;
   date: { title: string; showMostRecent: boolean; } = {
     title: 'Date Applied',
     showMostRecent: true,
@@ -39,7 +41,7 @@ export class ApplicationsTableComponent {
   ];
 
   filterSettings = signal<FilterSettings>({
-    showActiveApplications: true,
+    showActiveApplicationsOnly: true,
     showMostRecent: true,
   });
 
@@ -52,15 +54,25 @@ export class ApplicationsTableComponent {
     const settings = this.service.filterState();
     this.filterSettings.set(settings);
 
-    const filtered: Array<JobApplication> = this._data.filter((item: JobApplication) => {
-      if (item.active === settings.showActiveApplications) return true;
-      return false;
-    });
+    let filtered: Array<JobApplication> = this._data;
+    if (settings.showActiveApplicationsOnly === true) {
+      filtered = this._data.filter((item: JobApplication) => {
+        if (item.active === true) return true;
+        return false;
+      });  
+    }
     this.filteredApplications = filtered;
+
     this.setMostRecent(settings.showMostRecent);
   }
 
+  handlePageChange(pageData: Array<JobApplication>): void {
+    this.pagedApplications = pageData;
+    // ChangeDetectorRef.detectChanges();
+  }
+
   getDate(application: JobApplication): string {
+    if (application.tracking.length === 0) return '';
     const tracking: JobActivity | null = application.tracking
       .reduce((a: JobActivity, b: JobActivity) => {
         if (this.date.showMostRecent === true) {
@@ -75,8 +87,8 @@ export class ApplicationsTableComponent {
 
   toggleActiveApplications(): void {
     const state: FilterSettings = this.filterSettings();
-    const value: boolean = state.showActiveApplications;
-    state.showActiveApplications = !value;
+    const value: boolean = state.showActiveApplicationsOnly;
+    state.showActiveApplicationsOnly = !value;
     this.service.saveFilterSettings(state);
   }
 
@@ -101,14 +113,15 @@ export class ApplicationsTableComponent {
   }
 
   getLastTrackingTagStyle(application: JobApplication): string {
-    const tracking: JobActivity | null = application.tracking
-      .reduce((a: JobActivity, b: JobActivity) => {
-        return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
-      });
+    const tracking: JobActivity | null = application.tracking.length === 0
+      ? { datetimestamp: '', description: '' }
+      : application.tracking.reduce((a: JobActivity, b: JobActivity) => {
+          return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
+        });
     return `
-      --mat-table-row-item-label-text-color: ${tracking.tag.foregroundColor};
-      --mat-icon-color: ${tracking.tag.foregroundColor};
-      background-color: ${tracking.tag.backgroundColor};
+      --mat-table-row-item-label-text-color: ${ tracking.tag?.foregroundColor || '#000000' };
+      --mat-icon-color: ${ tracking.tag?.foregroundColor || '#000000' };
+      background-color: ${ tracking.tag?.backgroundColor || '#ffffff' };
     `.replaceAll('  ', ' ');
   }
 }

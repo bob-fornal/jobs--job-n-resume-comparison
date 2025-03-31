@@ -1,7 +1,7 @@
 <div class="table-functionality">
   <section>
     <mat-checkbox
-      [checked]="filterSettings().showActiveApplications"
+      [checked]="filterSettings().showActiveApplicationsOnly"
       (change)="toggleActiveApplications()"
     >
       Active Only
@@ -17,7 +17,7 @@
   <div class="subtitle">(sorted by most recent activity)</div>
 </div>
 
-<table mat-table [dataSource]="filteredApplications" class="mat-elevation-z8">
+<table mat-table [dataSource]="pagedApplications" class="mat-elevation-z8">
   <!-- Company Column -->
   <ng-container matColumnDef="company">
     <th mat-header-cell *matHeaderCellDef>Company</th>
@@ -89,3 +89,8 @@
     [style]="getLastTrackingTagStyle(row)"
   ></tr>
 </table>
+
+<job-squid-table-paging
+  [data]="filteredApplications"
+  (change)="handlePageChange($event)"
+/>

@@ -103,9 +103,9 @@ export class JAViewTrackingComponent {
 
   getTrackingStyle(item: JobActivity): string {
     return `
-      color: ${item.tag.foregroundColor};
-      background-color: ${item.tag.backgroundColor};
-      border: 2px solid ${item.tag.foregroundColor};
+      color: ${item.tag!.foregroundColor};
+      background-color: ${item.tag!.backgroundColor};
+      border: 2px solid ${item.tag!.foregroundColor};
     `;
   }
 
