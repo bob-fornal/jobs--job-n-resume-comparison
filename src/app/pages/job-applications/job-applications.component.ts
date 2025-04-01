@@ -44,7 +44,9 @@ export class JobApplicationsComponent {
   }
 
   editTracking = (index: number): void => {
-    this.router.navigateByUrl(`/job-applications/view-tracking/${index}`);
+    const company: string = this.applications[index].company.replaceAll('.', '-').toLowerCase();
+    const title: string = this.applications[index].title.replaceAll(' ', '-').toLowerCase();
+    this.router.navigateByUrl(`/job-applications/view-tracking/${company}/${title}`);
   };
 
   editTags = (): void => {

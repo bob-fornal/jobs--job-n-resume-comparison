@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'interviewing-research', component: InterviewResearchComponent },
 
   { path: 'job-applications', component: JobApplicationsComponent },
-  { path: 'job-applications/view-tracking/:index', component: JAViewTrackingComponent },
+  { path: 'job-applications/view-tracking/:company/:title', component: JAViewTrackingComponent },
   { path: 'job-applications/:type', component: AddEditJobApplicationsComponent },
   { path: 'job-applications/:type/:index', component: AddEditJobApplicationsComponent },
 

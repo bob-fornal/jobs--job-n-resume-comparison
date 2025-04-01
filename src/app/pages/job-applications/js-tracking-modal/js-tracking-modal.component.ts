@@ -17,11 +17,12 @@ import { UtilitiesService } from '../../../core/services/utilities.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JsTrackingModalComponent {
-  readonly dialogRef = inject(MatDialogRef<JsTrackingModalComponent>);
-  readonly data = inject<any>(MAT_DIALOG_DATA);
   readonly service = inject(JobApplicationsService);
   readonly tagService = inject(TaggingService);
   readonly utilities = inject(UtilitiesService);
+
+  readonly dialogRef = inject(MatDialogRef<JsTrackingModalComponent>);
+  readonly data = inject<any>(MAT_DIALOG_DATA);
 
   tags: Array<Tag> = [];
   tagSelected = 0;
@@ -63,9 +64,6 @@ export class JsTrackingModalComponent {
       description: this.description,
       tag: this.tag,
     })
-    tracking.sort((a: JobActivity, b: JobActivity) => {
-      return +a.datetimestamp - +b.datetimestamp;
-    });
     this.service.saveApplications(applications);
     this.dialogRef.close();
   }

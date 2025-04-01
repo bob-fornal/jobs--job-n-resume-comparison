@@ -76,7 +76,6 @@ export class ApplicationsTableComponent {
       if (aTimestamp > bTimestamp) return settings.showMostRecent ? -1 : 1;
       return 0;
     });
-    console.log(JSON.parse(JSON.stringify(applications)));
 
     if (settings.showActiveApplicationsOnly === true) {
       applications = applications.filter((item: JobApplication) => {
@@ -152,11 +151,19 @@ export class ApplicationsTableComponent {
 
 
   getLastTrackingTagStyle(application: JobApplication): string {
-    const tracking: JobActivity | null = application.tracking.length === 0
-      ? { datetimestamp: '', description: '' }
-      : application.tracking.reduce((a: JobActivity, b: JobActivity) => {
+    const applicationTracking: Array<JobActivity> = application.tracking.filter((track: JobActivity) => track.tag?.title !== 'Creation');
+    const tracking: JobActivity = applicationTracking.length === 0
+      ? { datetimestamp: '', description: '', tag: {
+            title: 'Creation',
+            backgroundColor: '#f0efef',
+            foregroundColor: '#000011',
+            original: true,
+          }
+        }
+      : applicationTracking.reduce((a: JobActivity, b: JobActivity) => {
           return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
         });
+
     return `
       --mat-table-row-item-label-text-color: ${ tracking.tag?.foregroundColor || '#000000' };
       --mat-icon-color: ${ tracking.tag?.foregroundColor || '#000000' };

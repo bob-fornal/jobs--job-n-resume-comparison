@@ -55,11 +55,11 @@
         <div class="no-goals">No Tracking Items</div>
       } @else {
         <table class="tracking-table">
-          @for (item of application.tracking; track $index; let index = $index;) {
+          @for (item of application.tracking.reverse(); track $index; let index = $index;) {
             <tr class="tracking-item-wrapper">
               @if (isIndexOdd(index) === false) {
                 <td class="left tracking-item">
-                  <ng-container [ngTemplateOutlet]="trackingCard" [ngTemplateOutletContext]="{ item }"></ng-container>
+                  <ng-container [ngTemplateOutlet]="trackingCard" [ngTemplateOutletContext]="{ item, index }"></ng-container>
                 </td>
               } @else {
                 <td class="left tracking-item"></td>
@@ -80,7 +80,7 @@
               </td>
               @if (isIndexOdd(index) === true) {
                 <td class="right tracking-item">
-                  <ng-container [ngTemplateOutlet]="trackingCard" [ngTemplateOutletContext]="{ item }"></ng-container>
+                  <ng-container [ngTemplateOutlet]="trackingCard" [ngTemplateOutletContext]="{ item, index }"></ng-container>
                 </td>
               } @else {
                 <td class="right tracking-item"></td>
@@ -107,30 +107,32 @@
 
 <div class="bottom"></div>
 
-<ng-template #trackingCard let-item="item">
+<ng-template #trackingCard let-item="item" let-index="index">
   <div class="tracking-item-border" [style]="getTrackingStyle(item)">
     <div class="tracking-title">{{ item.tag.title }}</div>
     <div class="tracking-datetime">{{ getDatetime(item.datetimestamp) }}</div>
     <div class="tracking-description">{{ item.description }}</div>
-    <div class="tracking-functionality">
-      <button
-        mat-icon-button
-        type="button"
-        matTooltip="Edit Tracking"
-        [attr.data-testid]="'button--edit-application--' + index"
-        (click)="editTrackingItem(index)"
-      >
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        type="button"
-        matTooltip="Delete Tracking"
-        [attr.data-testid]="'button--edit-application--' + index"
-        (click)="deleteTrackingItem(index)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
+    @if (item.tag.title !== 'Creation') {
+      <div class="tracking-functionality">
+        <button
+          mat-icon-button
+          type="button"
+          matTooltip="Edit Tracking"
+          [attr.data-testid]="'button--edit-application--' + index"
+          (click)="editTrackingItem(index)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          type="button"
+          matTooltip="Delete Tracking"
+          [attr.data-testid]="'button--edit-application--' + index"
+          (click)="deleteTrackingItem(index)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    }
   </div>
 </ng-template>

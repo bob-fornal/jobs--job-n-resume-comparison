@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -6,6 +6,7 @@ import { JobActivity, JobApplication } from '../../../core/interfaces/job-applic
 import { SiteLink } from "../../../core/interfaces/site-link";
 
 import { JobApplicationsService } from '../job-applications.service';
+import { UtilitiesService } from '../../../core/services/utilities.service';
 
 @Component({
   selector: 'app-add-edit-job-applications',
@@ -13,6 +14,8 @@ import { JobApplicationsService } from '../job-applications.service';
   templateUrl: './add-edit-job-applications.component.html',
 })
 export class AddEditJobApplicationsComponent {
+  readonly utilities = inject(UtilitiesService);
+
   type = '';
   index = -1
 
@@ -124,6 +127,16 @@ export class AddEditJobApplicationsComponent {
     };
 
     if (this.type === 'add') {
+      application.tracking = [{
+        datetimestamp: this.utilities.toDatetimestamp(new Date()),
+        description: 'Job Application Creation',
+        tag: {
+          title: 'Creation',
+          backgroundColor: '#f0efef',
+          foregroundColor: '#000011',
+          original: true,
+        }
+      }]
       applications.push(application);
     } else {
       applications[this.index] = application;
