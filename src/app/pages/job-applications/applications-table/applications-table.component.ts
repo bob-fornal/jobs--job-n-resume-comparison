@@ -5,6 +5,7 @@ import { JobApplicationsService } from '../job-applications.service';
 import { JobActivity, JobApplication } from '../../../core/interfaces/job-application';
 import { FilterSettings } from '../../../core/interfaces/filter-state.interface';
 import { UtilitiesService } from '../../../core/services/utilities.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'applications-table',
@@ -14,22 +15,12 @@ import { UtilitiesService } from '../../../core/services/utilities.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ApplicationsTableComponent {
+  readonly changeRef = inject(ChangeDetectorRef);
+  readonly router = inject(Router);
   readonly service = inject(JobApplicationsService);
   readonly utilities = inject(UtilitiesService);
 
-  @Input() editTracking: any;
-  @Input() navigate: any;
-  @Input() delete: any;
-
-  private _data: Array<JobApplication> = [];
-  @Input() set data(value: Array<JobApplication>) {
-    this._data = value;
-    this.filteredApplications = value;
-    this.pagedApplications = value;
-  }
-
-  filteredApplications: Array<JobApplication> = this.data;
-  pagedApplications: Array<JobApplication> = this.data;
+  public applications: Array<JobApplication> = [];
   date: { title: string; showMostRecent: boolean; } = {
     title: 'Date Applied',
     showMostRecent: true,
@@ -48,63 +39,23 @@ export class ApplicationsTableComponent {
     showMostRecent: true,
   });
 
-  private intialLoad = true;
+  constructor() {
+    this.init();
+    effect(this.handleApplicationsChange.bind(this));
+  }
 
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-  ) {
-    this.service.initFilterSettings();
-    effect(this.handleFilterSettings.bind(this));
+  async init() {
+    await this.service.init();
+  }
+
+  handleApplicationsChange() {
+    this.applications = this.service.applications();
+    this.changeRef.detectChanges();
   }
 
   handleFilterSettings() {
     const settings = this.service.filterState();
     this.filterSettings.set(settings);
-    this.adjustForFilterSettings();
-  }
-
-  adjustForFilterSettings(triggerSetMostRecent = true): void {
-    const settings = this.filterSettings();
-    console.log(settings);
-
-    let applications = this.service.structure();
-    applications.sort((a: JobApplication, b: JobApplication) => {
-      const aTimestamp: string = this.getTimestamp(a.tracking);
-      const bTimestamp: string = this.getTimestamp(b.tracking);
-
-      if (aTimestamp < bTimestamp) return settings.showMostRecent ? 1 : -1;
-      if (aTimestamp > bTimestamp) return settings.showMostRecent ? -1 : 1;
-      return 0;
-    });
-
-    if (settings.showActiveApplicationsOnly === true) {
-      applications = applications.filter((item: JobApplication) => {
-        if (settings.showActiveApplicationsOnly === true) return item.active === true;
-        return true;
-      });
-    }
-    if (triggerSetMostRecent === true) {
-      this.setMostRecent(settings.showMostRecent);
-    }
-    this.filteredApplications = [...applications];
-  }
-
-  getTimestamp(tracking: Array<JobActivity>): string {
-    if (tracking.length === 0) return this.utilities.toDatetimestamp(new Date());
-
-    return tracking.reduce((a: JobActivity, b: JobActivity) => {
-      return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
-    }).datetimestamp;
-  }
-
-  handlePageChange(pageData: Array<JobApplication>): void {
-    if (this.intialLoad === true) {
-      this.intialLoad = false;
-      return;
-    }
-
-    this.pagedApplications = pageData;
-    this.changeDetectorRef.detectChanges();
   }
 
   getDate(application: JobApplication): string {
@@ -120,7 +71,6 @@ export class ApplicationsTableComponent {
     return tracking.datetimestamp;
   }
 
-
   toggleActiveApplications(): void {
     const state: FilterSettings = this.filterSettings();
     const value: boolean = state.showActiveApplicationsOnly;
@@ -133,22 +83,12 @@ export class ApplicationsTableComponent {
     const value: boolean = state.showMostRecent;
     state.showMostRecent = !value;
     this.service.saveFilterSettings(state);
-    this.setMostRecent(state.showMostRecent);
   }
 
-  setMostRecent(check: boolean): void {
-    this.date = check === true
-    ? {
-        title: 'Most Recent (newest)',
-        showMostRecent: true,
-      }
-    : {
-        title: 'Date Applied (oldest)',
-        showMostRecent: false,
-      };
-    this.adjustForFilterSettings(false);
+  getDateTitle(): string {
+    const state: FilterSettings = this.filterSettings();
+    return state.showMostRecent === true ? 'newest' : 'oldest'
   }
-
 
   getLastTrackingTagStyle(application: JobApplication): string {
     const applicationTracking: Array<JobActivity> = application.tracking.filter((track: JobActivity) => track.tag?.title !== 'Creation');
@@ -170,4 +110,16 @@ export class ApplicationsTableComponent {
       background-color: ${ tracking.tag?.backgroundColor || '#ffffff' };
     `.replaceAll('  ', ' ');
   }
+
+  edit(application: JobApplication): void {
+    this.router.navigateByUrl(`/job-applications/edit/${application.index!}`);
+  };
+
+  editTracking = (application: JobApplication): void => {
+    this.router.navigateByUrl(`/job-applications/view-tracking/${application.index!}`);
+  };
+
+  delete = (application: JobApplication): void => {
+    this.service.deleteApplication(application);
+  };
 }

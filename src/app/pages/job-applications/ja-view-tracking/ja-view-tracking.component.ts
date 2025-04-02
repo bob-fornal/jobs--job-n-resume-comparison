@@ -7,7 +7,7 @@ import { JobActivity, JobApplication } from '../../../core/interfaces/job-applic
 
 import { Tag } from '../../../core/interfaces/tag';
 
-import { JsTrackingModalComponent } from '../js-tracking-modal/js-tracking-modal.component';
+import { JsTrackingModalComponent } from './js-tracking-modal/js-tracking-modal.component';
 
 @Component({
   selector: 'app-ja-view-tracking',
@@ -22,8 +22,7 @@ export class JAViewTrackingComponent {
   readonly router = inject(Router);
   readonly service = inject(JobApplicationsService);
   
-  company = '';
-  title = '';
+  index = -1;
   application: JobApplication | null = null;
 
   constructor() {
@@ -31,27 +30,11 @@ export class JAViewTrackingComponent {
   }
 
   handleApplicationsEffect = (): void => {
-    this.company = this.activatedRoute.snapshot.params['company'];
-    this.title = this.activatedRoute.snapshot.params['title'];
+    this.index = this.activatedRoute.snapshot.params['index'];
 
-    const applications: Array<JobApplication> = this.service.structure();
-    const index: number = this.getApplicationIndex(applications, this.company, this.title);
-    this.application = applications[index];
+    const applications: Array<JobApplication> = this.service.applications();
+    this.application = applications[this.index];
   };
-
-  getApplicationIndex(applications: Array<JobApplication>, company: string, title: string): number {
-    let index = -1;
-    for (let i = 0, len = applications.length; i < len; i++) {
-      const compareCompany: string = applications[i].company.replaceAll('.', '-').toLowerCase();
-      const compareTitle: string = applications[i].title.replaceAll(' ', '-').toLowerCase();
-
-      if (compareCompany === company && compareTitle === title) {
-        index = i;
-        break;
-      }
-    }
-    return index;
-  }
 
   back = (): void => {
     this.router.navigateByUrl('/job-applications');
@@ -70,10 +53,7 @@ export class JAViewTrackingComponent {
     };
     this.dialog.open(JsTrackingModalComponent, {
       data: {
-        company: {
-          name: this.company,
-          title: this.title,
-        },
+        index: this.index,
         title: 'Add',
         datetimestamp: '',
         description: '',
@@ -102,10 +82,8 @@ export class JAViewTrackingComponent {
   };
 
   deleteTrackingItem = (index: number): void => {
-    const applications: Array<JobApplication> = this.service.structure();
-    
-    const applicationIndex: number = this.getApplicationIndex(applications, this.company, this.title);
-    const application: JobApplication = applications[applicationIndex];
+    const applications: Array<JobApplication> = this.service.applications();    
+    const application: JobApplication = applications[this.index];
 
     const tracking: Array<JobActivity> = application.tracking;
     const correctedIndex: number = tracking.length - index - 1;
@@ -114,7 +92,7 @@ export class JAViewTrackingComponent {
     tracking.sort((a: JobActivity, b: JobActivity) => {
       return +a.datetimestamp - +b.datetimestamp;
     });
-    this.service.saveApplications(applications);
+    this.service.saveApplication(application);
   };
 
   isIndexOdd = (index: number): boolean => {

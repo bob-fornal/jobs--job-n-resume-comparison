@@ -9,6 +9,7 @@ export interface JobActivity {
 }
 
 export interface JobApplication {
+  index?: number;
   title: string;
   company: string;
   active: boolean;

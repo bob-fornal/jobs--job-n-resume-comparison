@@ -42,7 +42,7 @@ import { ItemImageComponent } from './shared/item-image/item-image.component';
 import { JobApplicationsComponent } from './pages/job-applications/job-applications.component';
 import { AddEditJobApplicationsComponent } from './pages/job-applications/add-edit-job-applications/add-edit-job-applications.component';
 import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracking/ja-view-tracking.component';
-import { JsTrackingModalComponent } from './pages/job-applications/js-tracking-modal/js-tracking-modal.component';
+import { JsTrackingModalComponent } from './pages/job-applications/ja-view-tracking/js-tracking-modal/js-tracking-modal.component';
 
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';

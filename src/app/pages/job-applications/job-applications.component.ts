@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { JobApplication } from '../../core/interfaces/job-application';
 import { Tag } from '../../core/interfaces/tag';
 
-import { JobApplicationsService } from './job-applications.service';
 import { TaggingService } from '../../core/services/tagging.service';
 
 @Component({
@@ -16,16 +15,12 @@ import { TaggingService } from '../../core/services/tagging.service';
 })
 export class JobApplicationsComponent {
   readonly router = inject(Router);
-  readonly service = inject(JobApplicationsService);
   readonly taggingService = inject(TaggingService);
-
-  applications: Array<JobApplication> = [];
 
   tags: Array<Tag> = [];
 
   constructor() {
     this.init();
-    effect(this.handleApplicationsEffect.bind(this));
     effect(this.handleTags.bind(this));
   }
 
@@ -33,38 +28,13 @@ export class JobApplicationsComponent {
     this.taggingService.getTags('job-applications');
   }
 
-  handleApplicationsEffect = (): void => {
-    const value: Array<JobApplication> = this.service.structure();
-    this.applications = value;
-  };
-
   handleTags(): void {
     const value: Array<Tag> = this.taggingService.signals['job-applications']();
     this.tags = value;
   }
 
-  editTracking = (index: number): void => {
-    const company: string = this.applications[index].company.replaceAll('.', '-').toLowerCase();
-    const title: string = this.applications[index].title.replaceAll(' ', '-').toLowerCase();
-    this.router.navigateByUrl(`/job-applications/view-tracking/${company}/${title}`);
-  };
-
   editTags = (): void => {
     this.router.navigateByUrl('/tag-management/job-applications')
-  };
-
-  navigate = (to: string, data: number | null = null): void => {
-    if (data === null) {
-      this.router.navigateByUrl(`/job-applications/${to}`);
-    } else {
-      this.router.navigateByUrl(`/job-applications/${to}/${data}`);
-    }
-  };
-
-  delete = (index: number): void => {
-    const applications: Array<JobApplication> = [...this.applications];
-    applications.splice(index, 1);
-    this.service.saveApplications(applications);
   };
 
   getTagStyle(tag: Tag, reverse = false): string {
@@ -90,4 +60,8 @@ export class JobApplicationsComponent {
   getTitleCompany = (application: JobApplication): string => {
     return `${application.company} (${application.title})`;
   };
+
+  add(): void {
+    this.router.navigateByUrl(`/job-applications/add`);
+  }
 }

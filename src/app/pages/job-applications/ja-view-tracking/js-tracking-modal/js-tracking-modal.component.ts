@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { JobApplicationsService } from '../job-applications.service';
+import { JobApplicationsService } from '../../job-applications.service';
+import { UtilitiesService } from '../../../../core/services/utilities.service';
 
-import { JobActivity, JobApplication } from '../../../core/interfaces/job-application';
-import { Tag } from '../../../core/interfaces/tag';
-import { TaggingService } from '../../../core/services/tagging.service';
-import { UtilitiesService } from '../../../core/services/utilities.service';
+import { JobActivity, JobApplication } from '../../../../core/interfaces/job-application';
+import { Tag } from '../../../../core/interfaces/tag';
+import { TaggingService } from '../../../../core/services/tagging.service';
 
 @Component({
   selector: 'app-js-add-tracking-modal',
@@ -56,7 +56,7 @@ export class JsTrackingModalComponent {
   }
 
   save(): void {
-    const applications: Array<JobApplication> = this.service.structure();
+    const applications: Array<JobApplication> = this.service.applications();
     const application: JobApplication = applications[this.data.index];
     const tracking: Array<JobActivity> = application.tracking;
     tracking.push({
@@ -64,7 +64,7 @@ export class JsTrackingModalComponent {
       description: this.description,
       tag: this.tag,
     })
-    this.service.saveApplications(applications);
+    this.service.saveApplication(application);
     this.dialogRef.close();
   }
 

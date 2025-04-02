@@ -14,6 +14,10 @@ import { UtilitiesService } from '../../../core/services/utilities.service';
   templateUrl: './add-edit-job-applications.component.html',
 })
 export class AddEditJobApplicationsComponent {
+  readonly activatedRoute = inject(ActivatedRoute);
+  readonly fb = inject(FormBuilder);
+  readonly router = inject(Router);
+  readonly service = inject(JobApplicationsService);
   readonly utilities = inject(UtilitiesService);
 
   type = '';
@@ -21,12 +25,7 @@ export class AddEditJobApplicationsComponent {
 
   application!: FormGroup;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
-    private router: Router,
-    private service: JobApplicationsService,
-  ) {
+  constructor() {
     this.init();
   }
 
@@ -42,7 +41,7 @@ export class AddEditJobApplicationsComponent {
     this.initApplicationStructure();
 
     if (this.index > -1) {
-      const applications: Array<JobApplication> = this.service.structure();
+      const applications: Array<JobApplication> = this.service.applications();
       const application: JobApplication = applications[this.index];
       this.patchStructure(application);
     }
@@ -58,7 +57,7 @@ export class AddEditJobApplicationsComponent {
       links: this.fb.array([]),
       tracking: this.fb.array([]),
       connections: this.fb.array([]),
-    })
+    });
   };
 
   patchStructure = (application: JobApplication): void => {
@@ -112,9 +111,7 @@ export class AddEditJobApplicationsComponent {
     linksList.removeAt(index);
   };
 
-  save = (): void => {
-    const applications: Array<JobApplication> = this.service.structure();
-
+  save = async (): Promise<void> => {
     const application: JobApplication = {
       title: this.application.get('title')!.value,
       company: this.application.get('company')!.value,
@@ -136,13 +133,12 @@ export class AddEditJobApplicationsComponent {
           foregroundColor: '#000011',
           original: true,
         }
-      }]
-      applications.push(application);
+      }];
+      await this.service.saveNewApplication(application);
     } else {
-      applications[this.index] = application;
+      await this.service.saveApplication(application);
     }
 
-    this.service.saveApplications(applications)
     this.back();
   };
 }

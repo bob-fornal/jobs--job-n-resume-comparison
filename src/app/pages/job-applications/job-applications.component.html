@@ -7,7 +7,7 @@
       mat-flat-button
       type="button"
       data-testid="button--save-job-application"
-      (click)="navigate('add')"
+      (click)="add()"
     >Add Job Application</button>
   </div>
 
@@ -30,16 +30,7 @@
 
   <div class="block mid-green-1">
     <div class="list-of-applications-wrapper">
-      @if (applications.length === 0) {
-        No Job Applications Listed
-      } @else {
-        <applications-table
-          [data]="applications"
-          [editTracking]="editTracking.bind(this)"
-          [navigate]="navigate.bind(this)"
-          [delete]="delete.bind(this)"
-        />
-      }
+      <applications-table />
     </div>
   </div>
 
