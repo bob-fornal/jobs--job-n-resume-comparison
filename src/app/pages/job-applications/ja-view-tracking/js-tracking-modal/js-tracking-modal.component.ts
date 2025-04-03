@@ -25,19 +25,17 @@ export class JsTrackingModalComponent {
   readonly data = inject<any>(MAT_DIALOG_DATA);
 
   tags: Array<Tag> = [];
-  tagSelected = 0;
 
   datetimeValue: Date = new Date();
   description = '';
-  tag: Tag = {
-    title: '',
-    backgroundColor: '',
-    foregroundColor: '',
-    original: false,
-  };
+  tag!: Tag;
 
   get tagTitle() {
     return this.tag === undefined ? '' : this.tag.title;
+  }
+
+  get displayTags() {
+    return this.tags.filter((tag: Tag) => tag.showInModal === true);
   }
 
   constructor() {
@@ -45,26 +43,38 @@ export class JsTrackingModalComponent {
     effect(this.handleTagging.bind(this));
   }
 
-  init() {
-    this.tagService.getTags('job-applications');
+  async init(): Promise<void> {
+    await this.tagService.getTags('job-applications');
+    if (this.data.tagIndex !== -1) {
+      this.datetimeValue = new Date(this.data.datetimestamp);
+      this.description = this.data.description;
+      this.tag = this.data.tag;
+    }
   }
 
   handleTagging() {
     const tags = this.tagService.signals['job-applications']();
     this.tags = tags;
-    this.tag = this.tags[this.tagSelected];
+    this.tag = this.data.tagIndex === -1 ? this.displayTags[0] : this.data.tag;
   }
 
   save(): void {
-    const applications: Array<JobApplication> = this.service.applications();
-    const application: JobApplication = applications[this.data.index];
-    const tracking: Array<JobActivity> = application.tracking;
-    tracking.push({
-      datetimestamp: this.utilities.toDatetimestamp(this.datetimeValue),
-      description: this.description,
-      tag: this.tag,
-    })
-    this.service.saveApplication(application);
+    const application = this.service.getApplicationByIndex(this.data.index);
+    const tracking: Array<JobActivity> = application!.tracking;
+    if (this.data.tagIndex === -1) {
+      tracking.push({
+        datetimestamp: this.utilities.toDatetimestamp(this.datetimeValue),
+        description: this.description,
+        tag: this.tag,
+      });
+    } else {
+      tracking[this.data.tagIndex] = {
+        datetimestamp: this.utilities.toDatetimestamp(this.datetimeValue),
+        description: this.description,
+        tag: this.tag,
+      };
+    }
+    this.service.saveApplication(application!);
     this.dialogRef.close();
   }
 
@@ -77,8 +87,7 @@ export class JsTrackingModalComponent {
     return `color: ${tag.foregroundColor}; background-color: ${tag.backgroundColor};`;
   }
 
-  selectTag(index: number) {
-    this.tagSelected = index;
-    this.tag = this.tags[index];
+  selectTag(tag: Tag) {
+    this.tag = tag;
   }
 }

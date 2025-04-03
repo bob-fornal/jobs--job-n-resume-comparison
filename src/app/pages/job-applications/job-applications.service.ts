@@ -28,7 +28,9 @@ export class JobApplicationsService {
 
   private _pagingState: PagingSettings = {
     pageIndex: 0,
-    recordsPerPage: 25,
+    recordsPerPage: 50,
+    totalPages: 0,
+    totalRecords: 0,
   };
   private pagingStateSignal = signal(this._pagingState);
   readonly pagingState: Signal<PagingSettings> = this.pagingStateSignal.asReadonly();
@@ -41,7 +43,7 @@ export class JobApplicationsService {
     if (this.initFired === false) {
       await this.loadFilterSettings();
       await this.loadApplications();
-      await this.applyFilterSettings();
+      await this.applyFilterAndPagingSettings();
       this.initFired = true;  
     }
   };
@@ -57,6 +59,12 @@ export class JobApplicationsService {
     this.nextIndex++;
   };
 
+  public getApplicationByIndex = (index: number): JobApplication | null => {
+    const application = this._applications.find((application: JobApplication) => application.index === index);
+    console.log(this._applications, application);
+    return application || null;
+  };
+
   public saveNewApplication = async (adding: JobApplication): Promise<void> => {
     adding.index = this.nextIndex;
     this.nextIndex++;
@@ -68,7 +76,8 @@ export class JobApplicationsService {
 
   public saveApplication = async (editing: JobApplication): Promise<void> => {
     const applications = [...this._applications];
-    applications[editing.index!] = editing;
+    const index: number = applications.findIndex((application: JobApplication) => application.index === editing.index);
+    applications[index] = editing;
     this.saveApplications(applications);
   };
 
@@ -98,7 +107,7 @@ export class JobApplicationsService {
     this._applications = [...applications];
     this.applicationsSignal.set(this._applications);
     await this.storage.setItem('job-applications', 'job-squid--job-applications', applications);
-    this.applyFilterSettings();
+    this.applyFilterAndPagingSettings();
   };
 
   // Filter Settings
@@ -106,12 +115,11 @@ export class JobApplicationsService {
     const settings: FilterSettings | null = await this.storage.getItem('job-applications', 'job-squid--filter-settings');
     if (settings === null) return;
 
-    console.log(settings);
     this._filterState = { ...settings };
     this.filterStateSignal.set(this._filterState);
   };
 
-  private applyFilterSettings = async (): Promise<void> => {
+  private applyFilterAndPagingSettings = async (): Promise<void> => {
     let applications = [...this._applications];
     applications.sort((a: JobApplication, b: JobApplication) => {
       const aTimestamp: string = this.getTimestamp(a.tracking);
@@ -128,15 +136,25 @@ export class JobApplicationsService {
         return true;
       });
     }
-    this.applicationsSignal.set(applications);
+
+    const totalPages: number = Math.ceil(applications.length / this._pagingState.recordsPerPage);
+    this._pagingState.totalPages = totalPages;
+    this._pagingState.totalRecords = applications.length;
+
+    const startIndex: number = this._pagingState.pageIndex * this._pagingState.recordsPerPage;
+    const endIndex: number = startIndex + this._pagingState.recordsPerPage;
+    const pageApplications: Array<JobApplication> = applications.slice(startIndex, endIndex);
+
+    this.pagingStateSignal.set(this._pagingState);
+    this.applicationsSignal.set(pageApplications);
   };
 
   public saveFilterSettings = async (settings: FilterSettings): Promise<void> => {
     this._filterState = {...settings};
     this.filterStateSignal.set(this._filterState);
-    console.log(this._filterState);
+
     await this.storage.setItem('job-applications', 'job-squid--filter-settings', settings);
-    await this.applyFilterSettings();
+    await this.applyFilterAndPagingSettings();
   };
 
   public toggleActiveApplications(): void {
@@ -152,6 +170,39 @@ export class JobApplicationsService {
     state.showMostRecent = !value;
     this.saveFilterSettings(state);
   }
+
+  // Paging Code
+  public async toNextPage(): Promise<void> {
+    const updated = { ...this._pagingState };
+    updated.pageIndex++;
+    this._pagingState = updated;
+    this.pagingStateSignal.set(updated);
+    await this.applyFilterAndPagingSettings();
+  };
+
+  public async toLastPage(): Promise<void> {
+    const updated = { ...this._pagingState };
+    updated.pageIndex = updated.totalPages - 1;
+    this._pagingState = updated;
+    this.pagingStateSignal.set(updated);
+    await this.applyFilterAndPagingSettings();
+  };
+
+  public async toPreviousPage(): Promise<void> {
+    const updated = { ...this._pagingState };
+    updated.pageIndex--;
+    this._pagingState = updated;
+    this.pagingStateSignal.set(updated);
+    await this.applyFilterAndPagingSettings();
+  };
+
+  public async toFirstPage(): Promise<void> {
+    const updated = { ...this._pagingState };
+    updated.pageIndex = 0;
+    this._pagingState = updated;
+    this.pagingStateSignal.set(updated);
+    await this.applyFilterAndPagingSettings();
+  };
 
   // Utilities
   private getTimestamp(tracking: Array<JobActivity>): string {

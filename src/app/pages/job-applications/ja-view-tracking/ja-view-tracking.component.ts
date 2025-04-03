@@ -27,22 +27,13 @@ export class JAViewTrackingComponent {
 
   constructor() {
     this.init();
-    effect(this.handleApplicationsEffect.bind(this));
   }
 
-  init(): void {
-    this.service.init();
-  }
-
-  handleApplicationsEffect = (): void => {
+  async init(): Promise<void> {
+    await this.service.init();
     this.index = +this.activatedRoute.snapshot.params['index'];
-
-    const applications: Array<JobApplication> = this.service.applications();
-    const application: JobApplication | undefined = applications.find((application: JobApplication) => application.index === this.index);
-    if (application) {
-      this.application = application;
-    }
-  };
+    this.application = this.service.getApplicationByIndex(this.index);
+  }
 
   back = (): void => {
     this.router.navigateByUrl('/job-applications');
@@ -58,14 +49,16 @@ export class JAViewTrackingComponent {
       backgroundColor: '',
       foregroundColor: '',
       original: false,
+      showInModal: false,
     };
     this.dialog.open(JsTrackingModalComponent, {
       data: {
-        index: this.index,
+        index: this.application!.index,
         title: 'Add',
         datetimestamp: '',
         description: '',
         tag: emptyTag,
+        tagIndex: -1,
         connection: {},
       },
     });
@@ -79,28 +72,25 @@ export class JAViewTrackingComponent {
     const trackingItem: JobActivity = this.application!.tracking[index];
     this.dialog.open(JsTrackingModalComponent, {
       data: {
-        index,
+        index: this.application!.index,
         title: 'Edit',
         datetimestamp: trackingItem.datetimestamp,
         description: trackingItem.description,
         tag: trackingItem.tag,
+        tagIndex: index,
         connection: trackingItem.connection,
       },
     });
   };
 
   deleteTrackingItem = (index: number): void => {
-    const applications: Array<JobApplication> = this.service.applications();    
-    const application: JobApplication = applications[this.index];
-
-    const tracking: Array<JobActivity> = application.tracking;
-    const correctedIndex: number = tracking.length - index - 1;
-    tracking.splice(correctedIndex, 1);
+    const tracking: Array<JobActivity> = this.application!.tracking;
+    tracking.splice(index, 1);
 
     tracking.sort((a: JobActivity, b: JobActivity) => {
       return +a.datetimestamp - +b.datetimestamp;
     });
-    this.service.saveApplication(application);
+    this.service.saveApplication(this.application!);
   };
 
   isIndexOdd = (index: number): boolean => {

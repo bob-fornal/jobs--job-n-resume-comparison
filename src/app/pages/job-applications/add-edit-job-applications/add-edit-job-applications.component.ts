@@ -45,8 +45,7 @@ export class AddEditJobApplicationsComponent {
 
   initEdit = (): void => {
     if (this.index > -1) {
-      const applications: Array<JobApplication> = this.service.applications();
-      const application: JobApplication | undefined = applications.find((application: JobApplication) => application.index === this.index);
+      const application = this.service.getApplicationByIndex(this.index);
       if (application) {
         this.patchStructure(application);
       }
@@ -139,10 +138,12 @@ export class AddEditJobApplicationsComponent {
           backgroundColor: '#f0efef',
           foregroundColor: '#000011',
           original: true,
+          showInModal: false,
         }
       }];
       await this.service.saveNewApplication(application);
     } else {
+      console.log(application);
       await this.service.saveApplication(application);
     }
 

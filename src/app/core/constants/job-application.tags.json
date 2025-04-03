@@ -3,37 +3,44 @@
     "title": "Creation",
     "backgroundColor": "#f0efef",
     "foregroundColor": "#000011",
-    "original": true
+    "original": true,
+    "showInModal": false
   },
   {
     "title": "Applied",
     "backgroundColor": "#fdffb6",
     "foregroundColor": "#264653",
-    "original": true
+    "original": true,
+    "showInModal": true
   }, {
     "title": "Email Sent",
     "backgroundColor": "#ffd6a5",
     "foregroundColor": "#264653",
-    "original": true
+    "original": true,
+    "showInModal": true
   }, {
     "title": "Email Received",
     "backgroundColor": "#9bf6ff",
     "foregroundColor": "#264653",
-    "original": true
+    "original": true,
+    "showInModal": true
   }, {
     "title": "Interview",
     "backgroundColor": "#bdb2ff",
     "foregroundColor": "#264653",
-    "original": true
+    "original": true,
+    "showInModal": true
   }, {
     "title": "Closed (+)",
     "backgroundColor": "#a0c4ff",
     "foregroundColor": "#264653",
-    "original": true
+    "original": true,
+    "showInModal": true
   }, {
     "title": "Closed (-)",
     "backgroundColor": "#ffadad",
     "foregroundColor": "#264653",
-    "original": true
+    "original": true,
+    "showInModal": true
   }
 ]

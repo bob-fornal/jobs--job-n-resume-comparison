@@ -41,11 +41,11 @@
       [style]="getTagStyle(tag)"
     >Select Tag (Current: {{tagTitle}})</button>
     <mat-menu #tagMenu="matMenu">
-      @for (tag of tags; track tag.title; let index = $index) {
+      @for (tag of displayTags; track tag.title; let index = $index) {
         <button
           mat-menu-item
           [style]="getTagStyle(tag)"
-          (click)="selectTag(index)"
+          (click)="selectTag(tag)"
         >
           {{tag.title}}
         </button>

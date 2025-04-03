@@ -95,6 +95,7 @@ export class TagManagementComponent {
       backgroundColor: '#000000',
       foregroundColor: '#ffffff',
       original: false,
+      showInModal: true,
     };
     const useFrom: string = from === '' ? this.from : from;
     const adjusted: Array<Tag> = this.service.signals[useFrom]();

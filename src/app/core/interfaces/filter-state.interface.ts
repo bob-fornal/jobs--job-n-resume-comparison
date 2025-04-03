@@ -6,4 +6,6 @@ export interface FilterSettings {
 export interface PagingSettings {
   pageIndex: number;
   recordsPerPage: number;
+  totalPages: number;
+  totalRecords: number;
 }

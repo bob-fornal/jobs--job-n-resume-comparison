@@ -3,4 +3,5 @@ export interface Tag {
   backgroundColor: string;
   foregroundColor: string; 
   original: boolean;
+  showInModal: boolean;
 }

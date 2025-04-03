@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/no-output-native */
-import { Component, effect, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, EventEmitter, inject, Input, Output } from '@angular/core';
 import { JobApplication } from '../../../../core/interfaces/job-application';
 import { JobApplicationsService } from '../../job-applications.service';
 
@@ -11,19 +11,15 @@ import { JobApplicationsService } from '../../job-applications.service';
   styleUrl: './job-squid-table-paging.component.css'
 })
 export class JobSquidTablePagingComponent {
+  readonly changeRef = inject(ChangeDetectorRef);
   readonly service = inject(JobApplicationsService);
   
-  _data: Array<JobApplication> = [];
-  @Input()
-  set data(value: Array<JobApplication>) {
-    this._data = value;
-    this.calculatePageDisplay();
-  }
-
   @Output() change = new EventEmitter<Array<JobApplication>>();
 
   recordsPerPage = 25;
   pageIndex = 0;
+  totalPages = 0;
+  totalRecords = 0;
 
   constructor() {
     effect(this.handlePagingChange.bind(this));
@@ -33,33 +29,28 @@ export class JobSquidTablePagingComponent {
     const paging = this.service.pagingState();
     this.recordsPerPage = paging.recordsPerPage;
     this.pageIndex = paging.pageIndex;
+    this.totalPages = paging.totalPages;
+    this.totalRecords = paging.totalRecords;
   }
 
-  get totalPages(): number {
-    return Math.ceil(this._data.length / this.recordsPerPage);
+  async toFirstPage() {
+    await this.service.toFirstPage();
+    this.changeRef.detectChanges();
   }
 
-  calculatePageDisplay() {
-    const startIndex = this.pageIndex * this.recordsPerPage;
-    const endIndex = Math.min(startIndex + this.recordsPerPage, this._data.length);
-    const pageData = this._data.slice(startIndex, endIndex);
-    this.change.emit(pageData);
+  async toPreviousPage() {
+    await this.service.toPreviousPage();
+    this.changeRef.detectChanges();
   }
 
-  toFirstPage() {
-    //
+  async toNextPage() {
+    await this.service.toNextPage();
+    this.changeRef.detectChanges();
   }
 
-  toPreviousPage() {
-    //
-  }
-
-  toNextPage() {
-    //
-  }
-
-  toLastPage() {
-    //
+  async toLastPage() {
+    await this.service.toLastPage();
+    this.changeRef.detectChanges();
   }
 
   isEnabled(type: string): boolean {

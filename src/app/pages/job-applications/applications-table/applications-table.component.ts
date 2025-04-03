@@ -88,6 +88,7 @@ export class ApplicationsTableComponent {
             backgroundColor: '#f0efef',
             foregroundColor: '#000011',
             original: true,
+            showInModal: false,
           }
         }
       : applicationTracking.reduce((a: JobActivity, b: JobActivity) => {
