@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-indexed-object-style */
-import { inject, Injectable, signal, Signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 
 import { StorageLayerService } from './storage-layer.service';
 

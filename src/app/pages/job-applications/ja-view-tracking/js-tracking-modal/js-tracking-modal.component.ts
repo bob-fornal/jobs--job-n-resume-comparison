@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { JobApplicationsService } from '../../job-applications.service';
 import { UtilitiesService } from '../../../../core/services/utilities.service';
 
-import { JobActivity, JobApplication } from '../../../../core/interfaces/job-application';
+import { JobActivity } from '../../../../core/interfaces/job-application';
 import { Tag } from '../../../../core/interfaces/tag';
 import { TaggingService } from '../../../../core/services/tagging.service';
 

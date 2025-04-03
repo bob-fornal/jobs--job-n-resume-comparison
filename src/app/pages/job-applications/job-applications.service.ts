@@ -61,7 +61,6 @@ export class JobApplicationsService {
 
   public getApplicationByIndex = (index: number): JobApplication | null => {
     const application = this._applications.find((application: JobApplication) => application.index === index);
-    console.log(this._applications, application);
     return application || null;
   };
 
