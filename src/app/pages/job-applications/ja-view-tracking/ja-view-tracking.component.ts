@@ -35,10 +35,13 @@ export class JAViewTrackingComponent {
   }
 
   handleApplicationsEffect = (): void => {
-    this.index = this.activatedRoute.snapshot.params['index'];
+    this.index = +this.activatedRoute.snapshot.params['index'];
 
     const applications: Array<JobApplication> = this.service.applications();
-    this.application = applications[this.index];
+    const application: JobApplication | undefined = applications.find((application: JobApplication) => application.index === this.index);
+    if (application) {
+      this.application = application;
+    }
   };
 
   back = (): void => {

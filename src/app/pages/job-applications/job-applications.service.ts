@@ -98,6 +98,7 @@ export class JobApplicationsService {
     this._applications = [...applications];
     this.applicationsSignal.set(this._applications);
     await this.storage.setItem('job-applications', 'job-squid--job-applications', applications);
+    this.applyFilterSettings();
   };
 
   // Filter Settings

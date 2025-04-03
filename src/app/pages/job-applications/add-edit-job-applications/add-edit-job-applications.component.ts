@@ -32,7 +32,7 @@ export class AddEditJobApplicationsComponent {
   init = async (): Promise<void> => {
     this.type = this.activatedRoute.snapshot.params['type'];
     if (this.type === 'edit') {
-      this.index = this.activatedRoute.snapshot.params['index'];
+      this.index = +this.activatedRoute.snapshot.params['index'];
     }
     this.initApplications();
     await this.service.init();
@@ -46,8 +46,10 @@ export class AddEditJobApplicationsComponent {
   initEdit = (): void => {
     if (this.index > -1) {
       const applications: Array<JobApplication> = this.service.applications();
-      const application: JobApplication = applications[this.index];
-      this.patchStructure(application);
+      const application: JobApplication | undefined = applications.find((application: JobApplication) => application.index === this.index);
+      if (application) {
+        this.patchStructure(application);
+      }
     }
   };
 
