@@ -26,7 +26,12 @@ export class JAViewTrackingComponent {
   application: JobApplication | null = null;
 
   constructor() {
+    this.init();
     effect(this.handleApplicationsEffect.bind(this));
+  }
+
+  init(): void {
+    this.service.init();
   }
 
   handleApplicationsEffect = (): void => {

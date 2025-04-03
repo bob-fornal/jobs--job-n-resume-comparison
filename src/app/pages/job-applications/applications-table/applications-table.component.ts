@@ -34,14 +34,15 @@ export class ApplicationsTableComponent {
     'actions',
   ];
 
-  filterSettings = signal<FilterSettings>({
+  filterSettings = {
     showActiveApplicationsOnly: true,
     showMostRecent: true,
-  });
+  };
 
   constructor() {
     this.init();
     effect(this.handleApplicationsChange.bind(this));
+    effect(this.handleFilterSettings.bind(this));
   }
 
   async init() {
@@ -55,7 +56,7 @@ export class ApplicationsTableComponent {
 
   handleFilterSettings() {
     const settings = this.service.filterState();
-    this.filterSettings.set(settings);
+    this.filterSettings = { ...settings };
   }
 
   getDate(application: JobApplication): string {
@@ -71,22 +72,11 @@ export class ApplicationsTableComponent {
     return tracking.datetimestamp;
   }
 
-  toggleActiveApplications(): void {
-    const state: FilterSettings = this.filterSettings();
-    const value: boolean = state.showActiveApplicationsOnly;
-    state.showActiveApplicationsOnly = !value;
-    this.service.saveFilterSettings(state);
-  }
-
-  toggleMostRecent(): void {
-    const state: FilterSettings = this.filterSettings();
-    const value: boolean = state.showMostRecent;
-    state.showMostRecent = !value;
-    this.service.saveFilterSettings(state);
-  }
+  toggleActiveApplications = this.service.toggleActiveApplications.bind(this.service);
+  toggleMostRecent = this.service.toggleMostRecent.bind(this.service);
 
   getDateTitle(): string {
-    const state: FilterSettings = this.filterSettings();
+    const state: FilterSettings = this.service.filterState();
     return state.showMostRecent === true ? 'newest' : 'oldest'
   }
 

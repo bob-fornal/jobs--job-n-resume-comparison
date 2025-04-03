@@ -55,7 +55,7 @@
         <div class="no-goals">No Tracking Items</div>
       } @else {
         <table class="tracking-table">
-          @for (item of application.tracking.reverse(); track $index; let index = $index;) {
+          @for (item of application.tracking; track $index; let index = $index;) {
             <tr class="tracking-item-wrapper">
               @if (isIndexOdd(index) === false) {
                 <td class="left tracking-item">

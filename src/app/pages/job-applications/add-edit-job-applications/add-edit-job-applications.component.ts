@@ -29,17 +29,21 @@ export class AddEditJobApplicationsComponent {
     this.init();
   }
 
-  init = (): void => {
+  init = async (): Promise<void> => {
     this.type = this.activatedRoute.snapshot.params['type'];
     if (this.type === 'edit') {
       this.index = this.activatedRoute.snapshot.params['index'];
     }
     this.initApplications();
+    await this.service.init();
+    this.initEdit();
   }
 
   initApplications = (): void => {
     this.initApplicationStructure();
+  };
 
+  initEdit = (): void => {
     if (this.index > -1) {
       const applications: Array<JobApplication> = this.service.applications();
       const application: JobApplication = applications[this.index];
@@ -88,6 +92,7 @@ export class AddEditJobApplicationsComponent {
   }
 
   getType = (): string => {
+    if (this.type.length === 0) return '';
     const type: string = this.type[0].toUpperCase() + this.type.substring(1);
     return type;
   };

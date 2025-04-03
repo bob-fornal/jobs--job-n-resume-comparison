@@ -64,7 +64,7 @@ import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/do
 import { BlurModalService } from './core/services/blur-modal-service.service';
 import { TagManagementComponent } from './pages/tag-management/tag-management.component';
 import { ApplicationsTableComponent } from './pages/job-applications/applications-table/applications-table.component';
-import { JobSquidTablePagingComponent } from './shared/job-squid-table-paging/job-squid-table-paging.component';
+import { JobSquidTablePagingComponent } from './pages/job-applications/applications-table/job-squid-table-paging/job-squid-table-paging.component';
 
 @NgModule({
   declarations: [

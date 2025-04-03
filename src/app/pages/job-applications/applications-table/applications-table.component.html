@@ -4,14 +4,14 @@
   <div class="table-functionality">
     <section>
       <mat-checkbox
-        [checked]="filterSettings().showActiveApplicationsOnly"
+        [checked]="filterSettings.showActiveApplicationsOnly"
         (change)="toggleActiveApplications()"
       >
         Active Only
       </mat-checkbox>
   
       <mat-checkbox
-        [checked]="filterSettings().showMostRecent"
+        [checked]="filterSettings.showMostRecent"
         (change)="toggleMostRecent()"
       >
         Most Recent Activity

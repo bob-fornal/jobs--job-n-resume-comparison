@@ -12,6 +12,7 @@ import { UtilitiesService } from '../../core/services/utilities.service';
 export class JobApplicationsService {
   readonly utilities = inject(UtilitiesService);
 
+  public initFired = false;
   private nextIndex = 0;
 
   private _applications: Array<JobApplication> = [];
@@ -37,9 +38,12 @@ export class JobApplicationsService {
   ) {}
 
   public init = async (): Promise<void> => {
-    await this.loadFilterSettings();
-    await this.loadApplications();
-    await this.applyFilterSettings();
+    if (this.initFired === false) {
+      await this.loadFilterSettings();
+      await this.loadApplications();
+      await this.applyFilterSettings();
+      this.initFired = true;  
+    }
   };
 
   private loadApplications = async (): Promise<void> => {
@@ -101,7 +105,8 @@ export class JobApplicationsService {
     const settings: FilterSettings | null = await this.storage.getItem('job-applications', 'job-squid--filter-settings');
     if (settings === null) return;
 
-    this._filterState = {...settings};
+    console.log(settings);
+    this._filterState = { ...settings };
     this.filterStateSignal.set(this._filterState);
   };
 
@@ -125,12 +130,27 @@ export class JobApplicationsService {
     this.applicationsSignal.set(applications);
   };
 
-  public saveFilterSettings = async(settings: FilterSettings): Promise<void> => {
+  public saveFilterSettings = async (settings: FilterSettings): Promise<void> => {
     this._filterState = {...settings};
     this.filterStateSignal.set(this._filterState);
+    console.log(this._filterState);
     await this.storage.setItem('job-applications', 'job-squid--filter-settings', settings);
     await this.applyFilterSettings();
   };
+
+  public toggleActiveApplications(): void {
+    const state: FilterSettings = { ...this._filterState };
+    const value: boolean = state.showActiveApplicationsOnly;
+    state.showActiveApplicationsOnly = !value;
+    this.saveFilterSettings(state);
+  }
+
+  public toggleMostRecent(): void {
+    const state: FilterSettings = { ...this._filterState };
+    const value: boolean = state.showMostRecent;
+    state.showMostRecent = !value;
+    this.saveFilterSettings(state);
+  }
 
   // Utilities
   private getTimestamp(tracking: Array<JobActivity>): string {
