@@ -7,11 +7,14 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
   providedIn: 'root'
 })
 export class BlurModalService extends MatDialog {
+  private document = window.document;
+
   override open(
     content: ComponentType<unknown> | TemplateRef<unknown>,
     options?: MatDialogConfig<any> | undefined,
   ): MatDialogRef<any, any> {
-    const activeElement = document.activeElement as HTMLElement;
+    const activeElement = this.document.activeElement as HTMLElement;
+
     if (activeElement) {
       activeElement.blur();
     }
