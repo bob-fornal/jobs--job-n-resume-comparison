@@ -51,8 +51,8 @@ export class JobApplicationsService {
   private loadApplications = async (): Promise<void> => {
     const applications: Array<JobApplication> | null = await this.storage.getItem('job-applications', 'job-squid--job-applications');
     if (applications === null) return;
-    this._applications = [...applications];
 
+    this._applications = [...applications];
     applications.forEach((application: JobApplication) => {
       if (application.index! > this.nextIndex) this.nextIndex = application.index!;
     });
@@ -62,6 +62,12 @@ export class JobApplicationsService {
   public getApplicationByIndex = (index: number): JobApplication | null => {
     const application = this._applications.find((application: JobApplication) => application.index === index);
     return application || null;
+  };
+
+  private getArrayIndexOfApplication = (application: JobApplication): number => {
+    const applications = [...this._applications];
+    const arrayIndex: number = applications.findIndex((inner: JobApplication) => inner.index === application.index);
+    return arrayIndex;
   };
 
   public saveNewApplication = async (adding: JobApplication): Promise<void> => {
@@ -75,26 +81,37 @@ export class JobApplicationsService {
 
   public saveApplication = async (editing: JobApplication): Promise<void> => {
     const applications = [...this._applications];
-    const index: number = applications.findIndex((application: JobApplication) => application.index === editing.index);
-    applications[index] = editing;
+    const arrayIndex: number = this.getArrayIndexOfApplication(editing);
+    applications[arrayIndex] = editing;
     this.saveApplications(applications);
   };
 
   public deleteApplication = async (deleting: JobApplication): Promise<void> => {
     const applications = [...this._applications];
-    applications.splice(deleting.index!, 1);
+    const arrayIndex: number = this.getArrayIndexOfApplication(deleting);
+    applications.splice(arrayIndex, 1);
     this.saveApplications(applications);
   };
 
-  private saveApplications = async(applications: Array<JobApplication>): Promise<void> => {
+  private saveApplications = async (applications: Array<JobApplication>): Promise<void> => {
+    const sorted: Array<JobApplication> = this.sortApplications(applications);
+    this._applications = [...sorted];
+    this.applicationsSignal.set(this._applications);
+    await this.storage.setItem('job-applications', 'job-squid--job-applications', sorted);
+    this.applyFilterAndPagingSettings();
+  };
+
+  private sortApplications = (applications: Array<JobApplication>): Array<JobApplication> => {
     applications.sort((a: JobApplication, b: JobApplication) => {
-      if (a.active === b.active) {
-        return a.title.localeCompare(b.title);
-      }
+      if (a.active === b.active) return a.title.localeCompare(b.title);
       return a.active ? -1 : 1;
     });
+    
+    return this.sortTrackingActivities(applications);
+  };
 
-    applications = applications.map((application: JobApplication) => {
+  private sortTrackingActivities = (applications: Array<JobApplication>): Array<JobApplication> => {
+    return applications.map((application: JobApplication) => {
       application.tracking.sort((a: JobActivity, b: JobActivity) => {
         if (a.datetimestamp < b.datetimestamp) return 1;
         if (a.datetimestamp > b.datetimestamp) return -1;
@@ -102,11 +119,6 @@ export class JobApplicationsService {
       })
       return application;
     });
-
-    this._applications = [...applications];
-    this.applicationsSignal.set(this._applications);
-    await this.storage.setItem('job-applications', 'job-squid--job-applications', applications);
-    this.applyFilterAndPagingSettings();
   };
 
   // Filter Settings
@@ -118,34 +130,44 @@ export class JobApplicationsService {
     this.filterStateSignal.set(this._filterState);
   };
 
-  private applyFilterAndPagingSettings = async (): Promise<void> => {
+  private applyFilterAndPagingSettings = (): void => {
     let applications = [...this._applications];
+    applications = this.sortOnMostRecentSetting(applications, this._filterState.showMostRecent);
+    applications = this.filterOnActiveApplicationsOnlySetting(applications, this._filterState.showActiveApplicationsOnly);
+
+    const pageApplications: Array<JobApplication> = this.setPageData(applications);
+    this.pagingStateSignal.set(this._pagingState);
+    this.applicationsSignal.set(pageApplications);
+  };
+
+  private sortOnMostRecentSetting = (applications: Array<JobApplication>, showMostRecent: boolean): Array<JobApplication> => {
     applications.sort((a: JobApplication, b: JobApplication) => {
       const aTimestamp: string = this.getTimestamp(a.tracking);
       const bTimestamp: string = this.getTimestamp(b.tracking);
 
-      if (aTimestamp < bTimestamp) return this._filterState.showMostRecent ? 1 : -1;
-      if (aTimestamp > bTimestamp) return this._filterState.showMostRecent ? -1 : 1;
+      if (aTimestamp < bTimestamp) return showMostRecent ? 1 : -1;
+      if (aTimestamp > bTimestamp) return showMostRecent ? -1 : 1;
       return 0;
     });
+    return applications;
+  };
 
-    if (this._filterState.showActiveApplicationsOnly === true) {
-      applications = applications.filter((item: JobApplication) => {
-        if (this._filterState.showActiveApplicationsOnly === true) return item.active === true;
-        return true;
-      });
-    }
+  private filterOnActiveApplicationsOnlySetting = (applications: Array<JobApplication>, showActiveApplicationsOnly: boolean): Array<JobApplication> => {
+    if (showActiveApplicationsOnly === false) return applications;
+      
+    return applications.filter((item: JobApplication) => {
+      return item.active === true;
+    });
+  };
 
+  private setPageData = (applications: Array<JobApplication>): Array<JobApplication> => {
     const totalPages: number = Math.ceil(applications.length / this._pagingState.recordsPerPage);
     this._pagingState.totalPages = totalPages;
     this._pagingState.totalRecords = applications.length;
 
     const startIndex: number = this._pagingState.pageIndex * this._pagingState.recordsPerPage;
     const endIndex: number = startIndex + this._pagingState.recordsPerPage;
-    const pageApplications: Array<JobApplication> = applications.slice(startIndex, endIndex);
-
-    this.pagingStateSignal.set(this._pagingState);
-    this.applicationsSignal.set(pageApplications);
+    return applications.slice(startIndex, endIndex);
   };
 
   public saveFilterSettings = async (settings: FilterSettings): Promise<void> => {

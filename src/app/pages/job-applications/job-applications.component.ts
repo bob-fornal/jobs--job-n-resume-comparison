@@ -41,7 +41,7 @@ export class JobApplicationsComponent {
     if (reverse === false) {
       return `--mdc-chip-elevated-container-color: ${tag.backgroundColor}; --mdc-chip-label-text-color: ${tag.foregroundColor}; --mdc-chip-outline-color: ${tag.foregroundColor}; --mdc-chip-outline-width: 2px;`;
     } else {
-      return `--mdc-chip-elevated-container-color: ${tag.backgroundColor}; --mdc-chip-label-text-color: ${tag.foregroundColor}; --mdc-chip-outline-color: ${tag.foregroundColor}; --mdc-chip-outline-width: 2px;`;
+      return `--mdc-chip-elevated-container-color: ${tag.foregroundColor}; --mdc-chip-label-text-color: ${tag.backgroundColor}; --mdc-chip-outline-color: ${tag.backgroundColor}; --mdc-chip-outline-width: 2px;`;
     }
   };
 
