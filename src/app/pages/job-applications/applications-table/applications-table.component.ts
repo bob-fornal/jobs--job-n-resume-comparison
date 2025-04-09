@@ -83,7 +83,7 @@ export class ApplicationsTableComponent {
   }
 
   getLastTrackingTagStyle(application: JobApplication): string {
-    const applicationTracking: Array<JobActivity> = application.tracking.filter((track: JobActivity) => track.tag?.title !== 'Creation');
+    const applicationTracking: Array<JobActivity> = application.tracking.filter((track: JobActivity) => track.tag!.title !== 'Creation');
     const tracking: JobActivity = applicationTracking.length === 0
       ? { datetimestamp: '', description: '', tag: {
             title: 'Creation',

@@ -16,7 +16,7 @@ export class ApplicationsTablePagingComponent {
   
   @Output() change = new EventEmitter<Array<JobApplication>>();
 
-  recordsPerPage = 25;
+  recordsPerPage = 50;
   pageIndex = 0;
   totalPages = 0;
   totalRecords = 0;
