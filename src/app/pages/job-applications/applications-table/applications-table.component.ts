@@ -61,6 +61,7 @@ export class ApplicationsTableComponent {
 
   getDate(application: JobApplication): string {
     if (application.tracking.length === 0) return '';
+
     const tracking: JobActivity | null = application.tracking
       .reduce((a: JobActivity, b: JobActivity) => {
         if (this.date.showMostRecent === true) {
@@ -69,7 +70,8 @@ export class ApplicationsTableComponent {
           return new Date(a.datetimestamp) < new Date(b.datetimestamp) ? a : b;
         }
       });
-    return tracking.datetimestamp;
+    
+      return tracking.datetimestamp;
   }
 
   toggleActiveApplications = this.service.toggleActiveApplications.bind(this.service);
@@ -95,11 +97,11 @@ export class ApplicationsTableComponent {
           return new Date(a.datetimestamp) > new Date(b.datetimestamp) ? a : b;
         });
 
-    return `
-      --mat-table-row-item-label-text-color: ${ tracking.tag?.foregroundColor || '#000000' };
-      --mat-icon-color: ${ tracking.tag?.foregroundColor || '#000000' };
-      background-color: ${ tracking.tag?.backgroundColor || '#ffffff' };
-    `.replaceAll('  ', ' ');
+    return [
+      `--mat-table-row-item-label-text-color: ${ tracking.tag!.foregroundColor };`,
+      `--mat-icon-color: ${ tracking.tag!.foregroundColor };`,
+      `background-color: ${ tracking.tag!.backgroundColor };`,
+    ].join(' ');
   }
 
   edit(application: JobApplication): void {
