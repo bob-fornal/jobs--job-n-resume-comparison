@@ -40,9 +40,11 @@ import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
 import { ItemImageComponent } from './shared/item-image/item-image.component';
 
 import { JobApplicationsComponent } from './pages/job-applications/job-applications.component';
-import { AddEditJobApplicationsComponent } from './pages/job-applications/add-edit-job-applications/add-edit-job-applications.component';
-import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracking/ja-view-tracking.component';
-import { JsTrackingModalComponent } from './pages/job-applications/ja-view-tracking/js-tracking-modal/js-tracking-modal.component';
+import { ApplicationsAddEditComponent } from './pages/job-applications/applications-add-edit/applications-add-edit.component';
+import { ApplicationsViewTrackingComponent } from './pages/job-applications/applications-view-tracking/applications-view-tracking.component';
+import { ApplicationsTrackingModalComponent } from './pages/job-applications/applications-view-tracking/applications-tracking-modal/applications-tracking-modal.component';
+import { ApplicationsTableComponent } from './pages/job-applications/applications-table/applications-table.component';
+import { ApplicationsTablePagingComponent } from './pages/job-applications/applications-table/applications-table-paging/applications-table-paging.component';
 
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
@@ -63,8 +65,6 @@ import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/do
 
 import { BlurModalService } from './core/services/blur-modal-service.service';
 import { TagManagementComponent } from './pages/tag-management/tag-management.component';
-import { ApplicationsTableComponent } from './pages/job-applications/applications-table/applications-table.component';
-import { JobSquidTablePagingComponent } from './pages/job-applications/applications-table/job-squid-table-paging/job-squid-table-paging.component';
 
 @NgModule({
   declarations: [
@@ -87,9 +87,11 @@ import { JobSquidTablePagingComponent } from './pages/job-applications/applicati
     ItemImageComponent,
 
     JobApplicationsComponent,
-    AddEditJobApplicationsComponent,
-    JAViewTrackingComponent,
-    JsTrackingModalComponent,
+    ApplicationsAddEditComponent,
+    ApplicationsTableComponent,
+    ApplicationsTablePagingComponent,
+    ApplicationsTrackingModalComponent,
+    ApplicationsViewTrackingComponent,
 
     LongTermGoalsComponent,
     AddEditLtgComponent,
@@ -105,8 +107,6 @@ import { JobSquidTablePagingComponent } from './pages/job-applications/applicati
     Top10ConnectionsComponent,
     TopToolbarComponent,
     TagManagementComponent,
-    ApplicationsTableComponent,
-    JobSquidTablePagingComponent,
   ],
   imports: [
     BrowserModule,

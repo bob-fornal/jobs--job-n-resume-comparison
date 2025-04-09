@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { JAViewTrackingComponent } from './ja-view-tracking.component';
+import { ApplicationsViewTrackingComponent } from './applications-view-tracking.component';
 
 const mockActivatedRoute: any = {
   paramMap: of({ get: (key: string) => 'mockValue' }),
@@ -17,9 +17,9 @@ const mockActivatedRoute: any = {
 
 import { MatIconModule } from '@angular/material/icon';
 
-describe('JAViewTrackingComponent', () => {
-  let component: JAViewTrackingComponent;
-  let fixture: ComponentFixture<JAViewTrackingComponent>;
+describe('ApplicationsViewTrackingComponent', () => {
+  let component: ApplicationsViewTrackingComponent;
+  let fixture: ComponentFixture<ApplicationsViewTrackingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -27,7 +27,7 @@ describe('JAViewTrackingComponent', () => {
         MatIconModule,
       ],
       declarations: [
-        JAViewTrackingComponent,
+        ApplicationsViewTrackingComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
@@ -35,7 +35,7 @@ describe('JAViewTrackingComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(JAViewTrackingComponent);
+    fixture = TestBed.createComponent(ApplicationsViewTrackingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -9,19 +9,19 @@ import { Tag } from '../../../../core/interfaces/tag';
 import { TaggingService } from '../../../../core/services/tagging.service';
 
 @Component({
-  selector: 'app-js-add-tracking-modal',
+  selector: 'app-applications-add-tracking-modal',
   standalone: false,
   
-  templateUrl: './js-tracking-modal.component.html',
-  styleUrl: './js-tracking-modal.component.css',
+  templateUrl: './applications-tracking-modal.component.html',
+  styleUrl: './applications-tracking-modal.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JsTrackingModalComponent {
+export class ApplicationsTrackingModalComponent {
   readonly service = inject(JobApplicationsService);
   readonly tagService = inject(TaggingService);
   readonly utilities = inject(UtilitiesService);
 
-  readonly dialogRef = inject(MatDialogRef<JsTrackingModalComponent>);
+  readonly dialogRef = inject(MatDialogRef<ApplicationsTrackingModalComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
 
   tags: Array<Tag> = [];

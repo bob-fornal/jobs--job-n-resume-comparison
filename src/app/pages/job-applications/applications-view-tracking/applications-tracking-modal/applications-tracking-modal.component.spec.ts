@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 import { provideNativeDateAdapter } from '@angular/material/core';
 
-import { JsTrackingModalComponent } from './js-tracking-modal.component';
+import { ApplicationsTrackingModalComponent } from './applications-tracking-modal.component';
 
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -14,9 +14,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-describe('JsTrackingModalComponent', () => {
-  let component: JsTrackingModalComponent;
-  let fixture: ComponentFixture<JsTrackingModalComponent>;
+describe('ApplicationsTrackingModalComponent', () => {
+  let component: ApplicationsTrackingModalComponent;
+  let fixture: ComponentFixture<ApplicationsTrackingModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -31,7 +31,7 @@ describe('JsTrackingModalComponent', () => {
         MatTimepickerModule,
       ],
       declarations: [
-        JsTrackingModalComponent,
+        ApplicationsTrackingModalComponent,
       ],
       providers: [
         provideAnimationsAsync(),
@@ -42,7 +42,7 @@ describe('JsTrackingModalComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(JsTrackingModalComponent);
+    fixture = TestBed.createComponent(ApplicationsTrackingModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

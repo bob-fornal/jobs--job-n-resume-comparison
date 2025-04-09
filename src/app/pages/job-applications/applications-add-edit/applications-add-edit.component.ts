@@ -11,9 +11,9 @@ import { UtilitiesService } from '../../../core/services/utilities.service';
 @Component({
   selector: 'app-add-edit-job-applications',
   standalone: false,
-  templateUrl: './add-edit-job-applications.component.html',
+  templateUrl: './applications-add-edit.component.html',
 })
-export class AddEditJobApplicationsComponent {
+export class ApplicationsAddEditComponent {
   readonly activatedRoute = inject(ActivatedRoute);
   readonly fb = inject(FormBuilder);
   readonly router = inject(Router);
@@ -34,23 +34,10 @@ export class AddEditJobApplicationsComponent {
     if (this.type === 'edit') {
       this.index = +this.activatedRoute.snapshot.params['index'];
     }
-    this.initApplications();
+    this.initApplicationStructure();
     await this.service.init();
     this.initEdit();
   }
-
-  initApplications = (): void => {
-    this.initApplicationStructure();
-  };
-
-  initEdit = (): void => {
-    if (this.index > -1) {
-      const application = this.service.getApplicationByIndex(this.index);
-      if (application) {
-        this.patchStructure(application);
-      }
-    }
-  };
 
   initApplicationStructure = (): void => {
     this.application = this.fb.group({
@@ -63,6 +50,15 @@ export class AddEditJobApplicationsComponent {
       tracking: this.fb.array([]),
       connections: this.fb.array([]),
     });
+  };
+
+  initEdit = (): void => {
+    if (this.index > -1) {
+      const application = this.service.getApplicationByIndex(this.index);
+      if (application) {
+        this.patchStructure(application);
+      }
+    }
   };
 
   patchStructure = (application: JobApplication): void => {
@@ -143,7 +139,6 @@ export class AddEditJobApplicationsComponent {
       }];
       await this.service.saveNewApplication(application);
     } else {
-      console.log(application);
       await this.service.saveApplication(application);
     }
 

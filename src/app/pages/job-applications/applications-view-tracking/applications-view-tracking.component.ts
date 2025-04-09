@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -7,16 +7,16 @@ import { JobActivity, JobApplication } from '../../../core/interfaces/job-applic
 
 import { Tag } from '../../../core/interfaces/tag';
 
-import { JsTrackingModalComponent } from './js-tracking-modal/js-tracking-modal.component';
+import { ApplicationsTrackingModalComponent } from './applications-tracking-modal/applications-tracking-modal.component';
 
 @Component({
-  selector: 'app-ja-view-tracking',
+  selector: 'app-applications-view-tracking',
   standalone: false,
   
-  templateUrl: './ja-view-tracking.component.html',
-  styleUrl: './ja-view-tracking.component.css'
+  templateUrl: './applications-view-tracking.component.html',
+  styleUrl: './applications-view-tracking.component.css'
 })
-export class JAViewTrackingComponent {
+export class ApplicationsViewTrackingComponent {
   readonly dialog = inject(MatDialog);
   readonly activatedRoute = inject(ActivatedRoute);
   readonly router = inject(Router);
@@ -51,7 +51,7 @@ export class JAViewTrackingComponent {
       original: false,
       showInModal: false,
     };
-    this.dialog.open(JsTrackingModalComponent, {
+    this.dialog.open(ApplicationsTrackingModalComponent, {
       data: {
         index: this.application!.index,
         title: 'Add',
@@ -70,7 +70,7 @@ export class JAViewTrackingComponent {
 
   editTrackingItem = (index: number): void => {
     const trackingItem: JobActivity = this.application!.tracking[index];
-    this.dialog.open(JsTrackingModalComponent, {
+    this.dialog.open(ApplicationsTrackingModalComponent, {
       data: {
         index: this.application!.index,
         title: 'Edit',

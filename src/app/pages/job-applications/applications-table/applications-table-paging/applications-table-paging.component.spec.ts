@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JobSquidTablePagingComponent } from './job-squid-table-paging.component';
+import { ApplicationsTablePagingComponent } from './applications-table-paging.component';
 
 import { MatIconModule } from '@angular/material/icon';
 
-describe('JobSquidTablePagingComponent', () => {
-  let component: JobSquidTablePagingComponent;
-  let fixture: ComponentFixture<JobSquidTablePagingComponent>;
+describe('ApplicationsTablePagingComponent', () => {
+  let component: ApplicationsTablePagingComponent;
+  let fixture: ComponentFixture<ApplicationsTablePagingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -14,12 +14,12 @@ describe('JobSquidTablePagingComponent', () => {
         MatIconModule,
       ],
       declarations: [
-        JobSquidTablePagingComponent,
+        ApplicationsTablePagingComponent,
       ],
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(JobSquidTablePagingComponent);
+    fixture = TestBed.createComponent(ApplicationsTablePagingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -10,7 +10,7 @@ import { InterviewResearchComponent } from './pages/interview-research/interview
 import { JobApplicationsComponent } from './pages/job-applications/job-applications.component';
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
 
-import { AddEditJobApplicationsComponent } from './pages/job-applications/add-edit-job-applications/add-edit-job-applications.component';
+import { AddEditJobApplicationsComponent } from './pages/job-applications/applications-add-edit/applications-add-edit.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
 
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
@@ -19,7 +19,7 @@ import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-con
 import { DocumentationCompareResumeComponent } from './shared/menu-page-level/documentation-compare-resume/documentation-compare-resume.component';
 import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
 import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
-import { JAViewTrackingComponent } from './pages/job-applications/ja-view-tracking/ja-view-tracking.component';
+import { JAViewTrackingComponent } from './pages/job-applications/applications-view-tracking/applications-view-tracking.component';
 import { TagManagementComponent } from './pages/tag-management/tag-management.component';
 
 const routes: Routes = [

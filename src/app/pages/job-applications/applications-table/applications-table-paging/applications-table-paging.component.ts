@@ -4,13 +4,13 @@ import { JobApplication } from '../../../../core/interfaces/job-application';
 import { JobApplicationsService } from '../../job-applications.service';
 
 @Component({
-  selector: 'job-squid-table-paging',
+  selector: 'applications-table-paging',
   standalone: false,
   
-  templateUrl: './job-squid-table-paging.component.html',
-  styleUrl: './job-squid-table-paging.component.css'
+  templateUrl: './applications-table-paging.component.html',
+  styleUrl: './applications-table-paging.component.css'
 })
-export class JobSquidTablePagingComponent {
+export class ApplicationsTablePagingComponent {
   readonly changeRef = inject(ChangeDetectorRef);
   readonly service = inject(JobApplicationsService);
   
