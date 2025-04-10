@@ -8,6 +8,7 @@ import { JobActivity, JobApplication } from '../../../core/interfaces/job-applic
 import { Tag } from '../../../core/interfaces/tag';
 
 import { ApplicationsTrackingModalComponent } from './applications-tracking-modal/applications-tracking-modal.component';
+import { TaggingService } from '../../../core/services/tagging.service';
 
 @Component({
   selector: 'app-applications-view-tracking',
@@ -21,6 +22,7 @@ export class ApplicationsViewTrackingComponent {
   readonly activatedRoute = inject(ActivatedRoute);
   readonly router = inject(Router);
   readonly service = inject(JobApplicationsService);
+  readonly taggingService = inject(TaggingService);
   
   index = -1;
   application: JobApplication | null = null;
@@ -44,13 +46,7 @@ export class ApplicationsViewTrackingComponent {
   };
 
   addTrackingItem = (): void => {
-    const emptyTag: Tag = {
-      title: '',
-      backgroundColor: '',
-      foregroundColor: '',
-      original: false,
-      showInModal: false,
-    };
+    const emptyTag: Tag = this.taggingService.getEmptyTag();
     this.dialog.open(ApplicationsTrackingModalComponent, {
       data: {
         index: this.application!.index,
@@ -62,10 +58,6 @@ export class ApplicationsViewTrackingComponent {
         connection: {},
       },
     });
-  };
-
-  handleAddTrackingItemClosed = (): void => {
-    //
   };
 
   editTrackingItem = (index: number): void => {
@@ -98,12 +90,12 @@ export class ApplicationsViewTrackingComponent {
     return index % 2 !== 0;
   }
 
-  getTrackingStyle(item: JobActivity): string {
-    return `
-      color: ${item.tag!.foregroundColor};
-      background-color: ${item.tag!.backgroundColor};
-      border: 2px solid ${item.tag!.foregroundColor};
-    `;
+  getTrackingStyle(tracking: JobActivity): string {
+    return [
+      `color: ${tracking.tag!.foregroundColor};`,
+      `background-color: ${tracking.tag!.backgroundColor};`,
+      `border: 2px solid ${tracking.tag!.foregroundColor};`,
+    ].join(' ');
   }
 
   getDatetime(datetimestamp: string): string {

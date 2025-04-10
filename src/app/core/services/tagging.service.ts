@@ -25,11 +25,21 @@ export class TaggingService {
     'job-applications': signal([]),
   };
 
+  private emptyTag: Tag = {
+    title: '',
+    backgroundColor: '',
+    foregroundColor: '',
+    original: false,
+    showInModal: false,
+  };
+
   public getTags = async (type: string): Promise<any> => {
     const results: Array<Tag> | null = await this.storage.getItem(type, 'job-squid--tags');
     const tags = results !== null ? results : JSON.parse(JSON.stringify(this.tagOriginals[type]));
     this.signals[type].set(tags);
   }
+
+  public getEmptyTag = (): Tag => ({ ...this.emptyTag });
 
   public setTags = async (type: string, tags: Array<Tag>): Promise<void> => {
     await this.storage.setItem(type, 'job-squid--tags', tags);

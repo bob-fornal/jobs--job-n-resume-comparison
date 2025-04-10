@@ -72,7 +72,7 @@ export class TagManagementComponent {
     }
   }
 
-  async stopEditing(): Promise<void> {
+  stopEditing(): void {
     this.editingCurrentTag = null;
     this.editingIndex = -1;
   }
@@ -108,7 +108,7 @@ export class TagManagementComponent {
     this.stopEditing();
   }
 
-  async resetTags(from = ''): Promise<void> {
+  resetTags(from = ''): void {
     const useFrom: string = from === '' ? this.from : from;
     this.service.resetTags(useFrom);
     this.stopEditing();

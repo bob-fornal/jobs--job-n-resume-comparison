@@ -22,21 +22,13 @@ export class ApplicationsTrackingModalComponent {
   readonly utilities = inject(UtilitiesService);
 
   readonly dialogRef = inject(MatDialogRef<ApplicationsTrackingModalComponent>);
-  readonly data = inject<any>(MAT_DIALOG_DATA);
+  data = inject<any>(MAT_DIALOG_DATA);
 
   tags: Array<Tag> = [];
 
   datetimeValue: Date = new Date();
   description = '';
-  tag!: Tag;
-
-  get tagTitle() {
-    return this.tag === undefined ? '' : this.tag.title;
-  }
-
-  get displayTags() {
-    return this.tags.filter((tag: Tag) => tag.showInModal === true);
-  }
+  tag!: Tag | undefined;
 
   constructor() {
     this.init()
@@ -56,6 +48,14 @@ export class ApplicationsTrackingModalComponent {
     const tags = this.tagService.signals['job-applications']();
     this.tags = tags;
     this.tag = this.data.tagIndex === -1 ? this.displayTags[0] : this.data.tag;
+  }
+
+  get tagTitle() {
+    return this.tag === undefined ? '' : this.tag.title;
+  }
+
+  get displayTags() {
+    return this.tags.filter((tag: Tag) => tag.showInModal === true);
   }
 
   save(): void {
@@ -82,7 +82,7 @@ export class ApplicationsTrackingModalComponent {
     this.dialogRef.close();
   }
 
-  getTagStyle(tag: Tag) {
+  getTagStyle(tag: Tag | undefined) {
     if (tag === undefined) return '';
     return `color: ${tag.foregroundColor}; background-color: ${tag.backgroundColor};`;
   }
