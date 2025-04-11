@@ -22,7 +22,7 @@ export class ApplicationsTrackingModalComponent {
   readonly utilities = inject(UtilitiesService);
 
   readonly dialogRef = inject(MatDialogRef<ApplicationsTrackingModalComponent>);
-  data = inject<any>(MAT_DIALOG_DATA);
+  readonly data = inject<any>(MAT_DIALOG_DATA);
 
   tags: Array<Tag> = [];
 

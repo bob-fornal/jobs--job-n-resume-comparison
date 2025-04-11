@@ -14,7 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { Tag } from '../../../../core/interfaces/tag';
-import { JobActivity, JobApplication } from '../../../../core/interfaces/job-application';
+import { JobApplication } from '../../../../core/interfaces/job-application';
 
 describe('ApplicationsTrackingModalComponent', () => {
   let component: ApplicationsTrackingModalComponent;
@@ -56,6 +56,7 @@ describe('ApplicationsTrackingModalComponent', () => {
   });
 
   it('expects "init" to trigger get tags and set tag data', async () => {
+    Object.defineProperty(component, 'data', { writable: true });
     component.data.tagIndex = 3;
     component.data.datetimestamp = '2025-02-02 13:00:00';
     component.data.description = 'DESCRIPTION';
@@ -72,6 +73,7 @@ describe('ApplicationsTrackingModalComponent', () => {
   });
 
   it('expects "handleTagging" to set the tags and tag when index = -1', () => {
+    Object.defineProperty(component, 'data', { writable: true });
     const tags: Array<Tag> = [{
       "title": "Creation",
       "backgroundColor": "#f0efef",
@@ -94,6 +96,7 @@ describe('ApplicationsTrackingModalComponent', () => {
   });
 
   it('expects "handleTagging" to set the tags and tag when index = -1', () => {
+    Object.defineProperty(component, 'data', { writable: true });
     const tags: Array<Tag> = [{
       "title": "Creation",
       "backgroundColor": "#f0efef",
@@ -127,6 +130,7 @@ describe('ApplicationsTrackingModalComponent', () => {
   });
 
   it('expects "getTagTitle" to return title of tag', () => {
+    Object.defineProperty(component, 'data', { writable: true });
     const tag: Tag = {
       title: 'TITLE', backgroundColor: 'BACKGROUND-COLOR', foregroundColor: 'FOREGROUND-COLOR', original: false, showInModal: true,
     };
@@ -160,6 +164,7 @@ describe('ApplicationsTrackingModalComponent', () => {
   });
 
   it('expects "save" to add tracking, save, and close the dialog', () => {
+    Object.defineProperty(component, 'data', { writable: true });
     const application: JobApplication = {
       title: 'TITLE', company: 'COMPANY', active: true, description: '', requirements: '',
       links: [], connections: [], tracking: [],
@@ -188,6 +193,7 @@ describe('ApplicationsTrackingModalComponent', () => {
   });
 
   it('expects "save" to edit tracking, save, and close the dialog', () => {
+    Object.defineProperty(component, 'data', { writable: true });
     const tag: Tag = {
       title: 'TITLE', backgroundColor: 'BACKGROUND-COLOR', foregroundColor: 'FOREGROUND-COLOR', original: false, showInModal: true,
     };
