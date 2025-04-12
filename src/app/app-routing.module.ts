@@ -10,7 +10,7 @@ import { InterviewResearchComponent } from './pages/interview-research/interview
 import { JobApplicationsComponent } from './pages/job-applications/job-applications.component';
 import { LongTermGoalsComponent } from './pages/long-term-goals/long-term-goals.component';
 
-import { AddEditJobApplicationsComponent } from './pages/job-applications/applications-add-edit/applications-add-edit.component';
+import { ApplicationsAddEditComponent } from './pages/job-applications/applications-add-edit/applications-add-edit.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
 
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
@@ -19,7 +19,7 @@ import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-con
 import { DocumentationCompareResumeComponent } from './shared/menu-page-level/documentation-compare-resume/documentation-compare-resume.component';
 import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
 import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
-import { JAViewTrackingComponent } from './pages/job-applications/applications-view-tracking/applications-view-tracking.component';
+import { ApplicationsViewTrackingComponent } from './pages/job-applications/applications-view-tracking/applications-view-tracking.component';
 import { TagManagementComponent } from './pages/tag-management/tag-management.component';
 
 const routes: Routes = [
@@ -30,9 +30,9 @@ const routes: Routes = [
   { path: 'interviewing-research', component: InterviewResearchComponent },
 
   { path: 'job-applications', component: JobApplicationsComponent },
-  { path: 'job-applications/view-tracking/:index', component: JAViewTrackingComponent },
-  { path: 'job-applications/:type', component: AddEditJobApplicationsComponent },
-  { path: 'job-applications/:type/:index', component: AddEditJobApplicationsComponent },
+  { path: 'job-applications/view-tracking/:index', component: ApplicationsViewTrackingComponent },
+  { path: 'job-applications/:type', component: ApplicationsAddEditComponent },
+  { path: 'job-applications/:type/:index', component: ApplicationsAddEditComponent },
 
   { path: 'long-term-goals', component: LongTermGoalsComponent },
   { path: 'long-term-goals/:type', component: AddEditLtgComponent },
