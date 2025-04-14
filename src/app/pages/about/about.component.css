@@ -2,9 +2,16 @@
   position: relative;
   height: 280px;
 
+  .diamond {
+    position: absolute;
+    right: 5px;
+    bottom: 20px;
+    z-index: 1;
+  }
+
   .walker {
     position: absolute;
-    right: 30px;
+    right: 40px;
     bottom: 30px;
     z-index: 2;
 
@@ -12,7 +19,7 @@
     width: 250px;
     background: url("/images/job-squid-animated.webp");
 
-    &.animate-motion {
+    &.animate-walker {
       animation: walker-sprite 0.5s steps(48) infinite;
     }
   }
@@ -21,7 +28,11 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    z-index: 3
+    z-index: 3;
+
+    &.animate-wobble {
+      animation: wobble-animation 3s ease 0s 1 normal none;
+    }
   }
 }
 
@@ -29,3 +40,31 @@
   from { background-position: 0; }
   to { background-position: -12000px; }
 }
+
+@keyframes wobble-animation {
+    0%,
+    100% {
+      transform: translateX(0%);
+      transform-origin: 50% 50%;
+    }
+  
+    15% {
+      transform: translateX(-30px) rotate(6deg);
+    }
+  
+    30% {
+      transform: translateX(15px) rotate(-6deg);
+    }
+  
+    45% {
+      transform: translateX(-15px) rotate(3.6deg);
+    }
+  
+    60% {
+      transform: translateX(9px) rotate(-2.4deg);
+    }
+  
+    75% {
+      transform: translateX(-6px) rotate(1.2deg);
+    }
+  }

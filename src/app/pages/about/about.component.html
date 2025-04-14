@@ -119,14 +119,24 @@
   </div>
 
   <div class="block mid-green-4">
-    <h3 class="title-center">Job-Squid</h3>
+    <h3 class="title-center">Job-Squid.com</h3>
     <div class="easter-egg-wrapper">
-      <!-- <img class="background" /> -->
-       <div
+      <img
+        class="diamond"
+        src="/images/job-squid-diamond.webp"
+        alt="job squid com diamond behind character"
+      />
+      <div
         class="walker"
+        [class.animate-walker]="animateWalker"
         [style]="'right: ' + position + 'px;'"
-        [class.animate-motion]="animate"></div>
-       <img class="text" src="/images/job-squid-com.webp" alt="job squid dot com text" />
+      ></div>
+      <img
+        class="text"
+        [class.animate-wobble]="animateWobble"
+        src="/images/job-squid-com.webp"
+        alt="job squid dot com text"
+      />
     </div>
   </div>
 
