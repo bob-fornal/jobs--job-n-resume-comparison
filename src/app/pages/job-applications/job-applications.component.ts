@@ -1,10 +1,11 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { JobApplication } from '../../core/interfaces/job-application';
 import { Tag } from '../../core/interfaces/tag';
 
 import { TaggingService } from '../../core/services/tagging.service';
+import { JobApplicationsService } from './job-applications.service';
 
 @Component({
   selector: 'app-job-applications',
@@ -15,7 +16,11 @@ import { TaggingService } from '../../core/services/tagging.service';
 })
 export class JobApplicationsComponent {
   readonly router = inject(Router);
+  readonly service = inject(JobApplicationsService);
   readonly taggingService = inject(TaggingService);
+
+  @ViewChild('fileUpload') fileUpload: any;
+  fileReader: any = FileReader;
 
   tags: Array<Tag> = [];
 
@@ -64,4 +69,21 @@ export class JobApplicationsComponent {
   add(): void {
     this.router.navigateByUrl(`/job-applications/add`);
   }
+
+  requiredFileType = 'application/JSON';
+  
+  onFileSelect = (event: any): void => {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new this.fileReader();
+      reader.onload = this.readerOnload.bind(this);
+      reader.readAsText(file);
+    }
+  };
+
+  readerOnload = (event: any) => {
+    const content: string = event.target.result;
+    const applications: Array<JobApplication> = JSON.parse(content);
+    this.service.saveApplications(applications);
+  };
 }

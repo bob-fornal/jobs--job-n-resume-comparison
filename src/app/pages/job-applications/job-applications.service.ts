@@ -1,10 +1,14 @@
-import { inject, Injectable, Signal, signal } from '@angular/core';
+import { effect, inject, Injectable, Signal, signal } from '@angular/core';
+
+import saveAs from 'file-saver';
 
 import { JobActivity, JobApplication } from '../../core/interfaces/job-application';
 
 import { StorageLayerService } from '../../core/services/storage-layer.service';
 import { FilterSettings, PagingSettings } from '../../core/interfaces/filter-state.interface';
 import { UtilitiesService } from '../../core/services/utilities.service';
+import { TopToolbarService } from '../../shared/top-toolbar/top-toolbar.service';
+import { MenuItem } from '../../core/interfaces/menu-item.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +16,8 @@ import { UtilitiesService } from '../../core/services/utilities.service';
 export class JobApplicationsService {
   readonly utilities = inject(UtilitiesService);
 
+  saveAs: any = saveAs;
+  
   public initFired = false;
   private nextIndex = 0;
 
@@ -35,9 +41,15 @@ export class JobApplicationsService {
   private pagingStateSignal = signal(this._pagingState);
   readonly pagingState: Signal<PagingSettings> = this.pagingStateSignal.asReadonly();
 
+  menuItem: any;
+
   constructor(
     private storage: StorageLayerService,
-  ) {}
+    private toolbarService: TopToolbarService,
+  ) {
+    this.menuItem = this.toolbarService.menuItem;
+    effect(this.handleMenuItemEffect.bind(this));
+  }
 
   public init = async (): Promise<void> => {
     if (this.initFired === false) {
@@ -47,6 +59,20 @@ export class JobApplicationsService {
       this.initFired = true;  
     }
   };
+
+  handleMenuItemEffect = (): void => {
+      const { page, item }: MenuItem = this.menuItem();
+      if (page === 'resumes') {
+        switch (item) {
+          case 'export-current-recordset':
+            this.exportCurrentRecordset();
+            break;
+          case 'import-saved-recordset':
+            this.importSavedRecordset();
+            break;
+        }
+      }
+    };
 
   private loadApplications = async (): Promise<void> => {
     const applications: Array<JobApplication> | null = await this.storage.getItem('job-applications', 'job-squid--job-applications');
@@ -93,7 +119,7 @@ export class JobApplicationsService {
     this.saveApplications(applications);
   };
 
-  private saveApplications = async (applications: Array<JobApplication>): Promise<void> => {
+  public saveApplications = async (applications: Array<JobApplication>): Promise<void> => {
     const sorted: Array<JobApplication> = this.sortApplications(applications);
     this._applications = [...sorted];
     this.applicationsSignal.set(this._applications);
@@ -223,6 +249,24 @@ export class JobApplicationsService {
     this._pagingState = updated;
     this.pagingStateSignal.set(updated);
     await this.applyFilterAndPagingSettings();
+  };
+
+  exportCurrentRecordset = (): void => {
+    const applications = this.applications();
+    const currentRecorset: string = JSON.stringify(applications);
+    const blob = new Blob([currentRecorset], { type: 'text/plain;charset=utf-8'});
+    this.saveAs(blob, 'current-job-applications.json');
+  };
+
+  triggerImportSignal = signal('inactive');
+  readonly triggerImport = this.triggerImportSignal.asReadonly();
+
+  importSavedRecordset = (): void => {
+    this.triggerImportSignal.set('active');
+  };
+
+  clearTriggerImport = (): void => {
+    this.triggerImportSignal.set('inactive');
   };
 
   // Utilities
