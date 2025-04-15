@@ -147,4 +147,66 @@ describe('JobApplicationsComponent', () => {
     component.add();
     expect(component.router.navigateByUrl).toHaveBeenCalledWith('/job-applications/add');
   });
+
+  it('expects "onFileSelect" to do nothing if file is undefined', () => {
+    let triggered = false;
+    class MockFileReader {
+      onload: any;
+      readAsText() {
+        triggered = true;
+      }
+    }
+    component.fileReader = MockFileReader;
+    const event: any = {
+      target: {
+        files: [undefined],
+      },
+    };
+
+    component.onFileSelect(event);
+    expect(triggered).toEqual(false);
+  });
+
+  it('expects "onFileSelect" to process file if file exists', () => {
+    let triggered = false;
+    class MockFileReader {
+      onload: any;
+      readAsText() {
+        triggered = true;
+      }
+    }
+    component.fileReader = MockFileReader;
+    const event: any = {
+      target: {
+        files: [true],
+      },
+    };
+
+    component.onFileSelect(event);
+    expect(triggered).toEqual(true);
+  });
+
+  it('expects "readerOnload" to update to the passed structure', () => {
+    const applications: Array<JobApplication> = [{
+      index: 0, title: 'TITLE-1a', company: 'COMPANY-1a', active: true,
+      description: '', requirements: '', links: [], tracking: [{
+        datetimestamp: '1', description: '',
+      }], connections: [],
+    }, {
+      index: 0, title: 'TITLE-1b', company: 'COMPANY-1b', active: true,
+      description: '', requirements: '', links: [], tracking: [{
+        datetimestamp: '1', description: '',
+      }], connections: [],
+    }];
+    const structureString: string = JSON.stringify(applications);
+    const event: any = {
+      target: {
+        result: structureString,
+      },
+    };
+    spyOn(component['service'], 'saveApplications').and.stub();
+
+    component.readerOnload(event);
+    expect(component['service'].saveApplications).toHaveBeenCalledWith(applications);
+  });
 });

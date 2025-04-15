@@ -62,7 +62,7 @@ export class JobApplicationsService {
 
   handleMenuItemEffect = (): void => {
       const { page, item }: MenuItem = this.menuItem();
-      if (page === 'resumes') {
+      if (page === 'job-applications') {
         switch (item) {
           case 'export-current-recordset':
             this.exportCurrentRecordset();
@@ -251,6 +251,7 @@ export class JobApplicationsService {
     await this.applyFilterAndPagingSettings();
   };
 
+  // Import & Export
   exportCurrentRecordset = (): void => {
     const applications = this.applications();
     const currentRecorset: string = JSON.stringify(applications);

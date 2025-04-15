@@ -42,6 +42,28 @@ describe('JobApplicationsService', () => {
     expect(service.initFired).toEqual(true);
   });
 
+  it('expects "handleMenuItemEffect" to handle export of current recordset', () => {
+    spyOn(service, 'menuItem').and.returnValue({
+      page: 'job-applications',
+      item: 'export-current-recordset',
+    });
+    spyOn(service, 'exportCurrentRecordset').and.stub();
+
+    service.handleMenuItemEffect();
+    expect(service.exportCurrentRecordset).toHaveBeenCalled();
+  });
+
+  it('expects "handleMenuItemEffect" to handle import of current recordset', () => {
+    spyOn(service, 'menuItem').and.returnValue({
+      page: 'job-applications',
+      item: 'import-saved-recordset',
+    });
+    spyOn(service, 'importSavedRecordset').and.stub();
+
+    service.handleMenuItemEffect();
+    expect(service.importSavedRecordset).toHaveBeenCalled();
+  });
+
   it('expects "loadApplications" to handle retrieved data', async () => {
     const applications: Array<JobApplication> = [{
       index: 0, title: 'TITLE-1', company: 'COMPANY-1', active: true,
@@ -805,6 +827,7 @@ describe('JobApplicationsService', () => {
     expect(service['pagingStateSignal'].set).toHaveBeenCalledWith(expected);
     expect(service['applyFilterAndPagingSettings']).toHaveBeenCalled();
   });
+
   it('expects "toFirstPage" to update state and filter', async () => {
     service['_pagingState'] = {
       pageIndex: 3,
@@ -824,6 +847,41 @@ describe('JobApplicationsService', () => {
     await service.toFirstPage();
     expect(service['pagingStateSignal'].set).toHaveBeenCalledWith(expected);
     expect(service['applyFilterAndPagingSettings']).toHaveBeenCalled();
+  });
+
+  it('expects "exportCurrentRecordset" to generate the JSON file', () => {
+    const applications: Array<JobApplication> = [{
+      index: 0, title: 'TITLE-1a', company: 'COMPANY-1a', active: true,
+      description: '', requirements: '', links: [], tracking: [{
+        datetimestamp: '1', description: '',
+      }], connections: [],
+    }, {
+      index: 0, title: 'TITLE-1b', company: 'COMPANY-1b', active: true,
+      description: '', requirements: '', links: [], tracking: [{
+        datetimestamp: '1', description: '',
+      }], connections: [],
+    }];
+    spyOn(service, 'applications').and.returnValue(applications);
+    const applicationsString: string = JSON.stringify(applications);
+    const blob: Blob = new Blob([applicationsString], { type: 'text/plain; charset=utf-8' });
+    spyOn(service, 'saveAs').and.stub();
+
+    service.exportCurrentRecordset();
+    expect(service.saveAs).toHaveBeenCalledWith(blob, 'current-job-applications.json');
+  });
+
+  it('expects "importSavedRecordset" to trigger active', () => {
+    spyOn(service.triggerImportSignal, 'set').and.stub();
+
+    service.importSavedRecordset();
+    expect(service.triggerImportSignal.set).toHaveBeenCalledWith('active');
+  });
+
+  it('expects "clearTriggerImport" to trigger active', () => {
+    spyOn(service.triggerImportSignal, 'set').and.stub();
+
+    service.clearTriggerImport();
+    expect(service.triggerImportSignal.set).toHaveBeenCalledWith('inactive');
   });
 
   it('expects "getTimestamp" to return the newest datetimestamp', () => {

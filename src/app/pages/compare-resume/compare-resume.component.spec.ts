@@ -627,5 +627,4 @@ describe('CompareResumeComponent', () => {
       component.readerOnload(event);
       expect(component['service'].setResumes).toHaveBeenCalledWith(structure);
     });
-  
 });
