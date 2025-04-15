@@ -61,6 +61,7 @@ import { TopToolbarComponent } from './shared/top-toolbar/top-toolbar.component'
 
 import { DocumentationCompareResumeComponent } from './shared/menu-page-level/documentation-compare-resume/documentation-compare-resume.component';
 import { DocumentationDaysOfCodeComponent } from './shared/menu-page-level/documentation-days-of-code/documentation-days-of-code.component';
+import { DocumentationJobApplicationsComponent } from './shared/menu-page-level/documentation-job-applications/documentation-job-applications.component';
 import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/documentation-long-term-goals/documentation-long-term-goals.component';
 
 import { BlurModalService } from './core/services/blur-modal-service.service';
@@ -79,6 +80,7 @@ import { TagManagementComponent } from './pages/tag-management/tag-management.co
     DaysOfCodeComponent,
     DocumentationCompareResumeComponent,
     DocumentationDaysOfCodeComponent,
+    DocumentationJobApplicationsComponent,
     DocumentationLongTermGoalsComponent,
 
     HowToUseComponent,
