@@ -53,6 +53,50 @@ describe('TaggingService', () => {
     expect(service.signals[type].set).toHaveBeenCalledWith(jasmine.any(Array));
   });
 
+  it('expects "getTagMatch" to find the tag and return stored value', () => {
+    const type = 'TYPE'
+    service.signals[type] = signal([{
+      title: 'Creation',
+      backgroundColor: '#f0efef',
+      foregroundColor: '#000011',
+      original: true,
+      showInModal: false,
+    }])
+    const tag: Tag = {
+      title: 'Creation',
+      backgroundColor: '#ffffff',
+      foregroundColor: '#000000',
+      original: true,
+      showInModal: false,
+    };
+
+    const result: Tag = service.getTagMatch(type, tag);
+    expect(result.backgroundColor).toEqual('#f0efef');
+    expect(result.foregroundColor).toEqual('#000011');
+  });
+
+  it('expects "getTagMatch" to find the tag and return original value if title not found', () => {
+    const type = 'TYPE'
+    service.signals[type] = signal([{
+      title: 'Creation',
+      backgroundColor: '#f0efef',
+      foregroundColor: '#000011',
+      original: true,
+      showInModal: false,
+    }])
+    const tag: Tag = {
+      title: 'Creation2',
+      backgroundColor: '#ffffff',
+      foregroundColor: '#ffffff',
+      original: true,
+      showInModal: false,
+    };
+
+    const result: Tag = service.getTagMatch(type, tag);
+    expect(result.backgroundColor).toEqual('#ffffff');
+    expect(result.foregroundColor).toEqual('#ffffff');
+  });
+
   it('expects "setTags to set the item', async () => {
     const type = 'TYPE';
     const tags: Array<Tag> = [];

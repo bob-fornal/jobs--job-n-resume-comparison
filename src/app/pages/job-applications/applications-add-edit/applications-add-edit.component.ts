@@ -139,6 +139,7 @@ export class ApplicationsAddEditComponent {
       }];
       await this.service.saveNewApplication(application);
     } else {
+      application.index = this.index;
       await this.service.saveApplication(application);
     }
 

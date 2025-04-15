@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { ApplicationsAddEditComponent } from './applications-add-edit.component';
@@ -287,6 +287,7 @@ describe('ApplicationsAddEditComponent', () => {
     const expected: JobApplication = {
       title: 'TITLE-3',
       company: 'COMPANY-3',
+      index: 4,
       active: true,
       description: '',
       requirements: '',
@@ -299,6 +300,7 @@ describe('ApplicationsAddEditComponent', () => {
     };
     component.patchStructure(application);
     component.type = 'edit';
+    component.index = 4;
     spyOn(component.service, 'saveApplication').and.stub();
     spyOn(component, 'back').and.stub();
 

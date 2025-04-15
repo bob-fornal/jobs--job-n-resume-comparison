@@ -37,7 +37,13 @@ export class TaggingService {
     const results: Array<Tag> | null = await this.storage.getItem(type, 'job-squid--tags');
     const tags = results !== null ? results : JSON.parse(JSON.stringify(this.tagOriginals[type]));
     this.signals[type].set(tags);
-  }
+  };
+
+  public getTagMatch = (type: string, tag: Tag): Tag => {
+    const tags: Array<Tag> = this.signals[type]();
+    const match: Tag | undefined = tags.find((matchTag: Tag) => matchTag.title === tag.title);
+    return match || tag;
+  };
 
   public getEmptyTag = (): Tag => ({ ...this.emptyTag });
 

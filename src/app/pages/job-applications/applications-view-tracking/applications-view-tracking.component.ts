@@ -31,8 +31,10 @@ export class ApplicationsViewTrackingComponent {
     this.init();
   }
 
+
   async init(): Promise<void> {
     await this.service.init();
+    await this.taggingService.getTags('job-applications');
     this.index = +this.activatedRoute.snapshot.params['index'];
     this.application = this.service.getApplicationByIndex(this.index);
   }
@@ -91,10 +93,11 @@ export class ApplicationsViewTrackingComponent {
   }
 
   getTrackingStyle(tracking: JobActivity): string {
+    const tag: Tag = this.taggingService.getTagMatch('job-applications', tracking.tag!);
     return [
-      `color: ${tracking.tag!.foregroundColor};`,
-      `background-color: ${tracking.tag!.backgroundColor};`,
-      `border: 2px solid ${tracking.tag!.foregroundColor};`,
+      `color: ${tag.foregroundColor};`,
+      `background-color: ${tag.backgroundColor};`,
+      `border: 2px solid ${tag.foregroundColor};`,
     ].join(' ');
   }
 
