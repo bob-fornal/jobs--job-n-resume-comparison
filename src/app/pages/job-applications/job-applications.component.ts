@@ -27,11 +27,20 @@ export class JobApplicationsComponent {
   constructor() {
     this.init();
     effect(this.handleTags.bind(this));
+    effect(this.handleTriggerImportEffect.bind(this));
   }
 
   init(): void {
     this.taggingService.getTags('job-applications');
   }
+
+  handleTriggerImportEffect = (): void => {
+    const triggerImport: string = this.service.triggerImport();
+    if (triggerImport === 'active') {
+      this.service.clearTriggerImport();
+      this.fileUpload.nativeElement.click();
+    }
+  };
 
   handleTags(): void {
     const value: Array<Tag> = this.taggingService.signals['job-applications']();

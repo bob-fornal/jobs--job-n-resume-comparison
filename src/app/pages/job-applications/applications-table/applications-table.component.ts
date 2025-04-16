@@ -35,7 +35,7 @@ export class ApplicationsTableComponent {
   ];
 
   filterSettings = {
-    showActiveApplicationsOnly: true,
+    showActiveApplicationsOnly: false,
     showMostRecent: true,
   };
 

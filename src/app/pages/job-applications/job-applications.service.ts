@@ -178,7 +178,10 @@ export class JobApplicationsService {
     return applications;
   };
 
-  private filterOnActiveApplicationsOnlySetting = (applications: Array<JobApplication>, showActiveApplicationsOnly: boolean): Array<JobApplication> => {
+  private filterOnActiveApplicationsOnlySetting = (
+    applications: Array<JobApplication>,
+    showActiveApplicationsOnly: boolean,
+  ): Array<JobApplication> => {
     if (showActiveApplicationsOnly === false) return applications;
       
     return applications.filter((item: JobApplication) => {

@@ -1,6 +1,4 @@
-@if (applications.length === 0) {
-  <div>No Applications Saved</div>
-} @else {
+<div class="applications-table-wrapper">
   <div class="table-functionality">
     <section>
       <mat-checkbox
@@ -9,7 +7,7 @@
       >
         Active Only
       </mat-checkbox>
-  
+
       <mat-checkbox
         [checked]="filterSettings.showMostRecent"
         (change)="toggleMostRecent()"
@@ -18,79 +16,81 @@
       </mat-checkbox>
     </section>
   </div>
-
-  <table mat-table [dataSource]="applications" class="mat-elevation-z8">
-    <!-- Company Column -->
-    <ng-container matColumnDef="company">
-      <th mat-header-cell *matHeaderCellDef>Company</th>
-      <td mat-cell *matCellDef="let element;">{{ element.company }}</td>
-    </ng-container>
-  
-    <!-- Company Position -->
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef>Position Title</th>
-      <td mat-cell *matCellDef="let element;">{{ element.title }}</td>
-    </ng-container>
-  
-    <!-- Application Status -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let element;">{{ element.active ? 'Active' : 'Inactive' }}</td>
-    </ng-container>
-  
-    <!-- Application Date -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef>Activity Date ({{ getDateTitle() }})</th>
-      <td mat-cell *matCellDef="let element;">{{ getDate(element) }}</td>
-    </ng-container>
-  
-    <!-- Application Actions -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element; let index = index">
+  @if (applications.length === 0) {
+    <div>No Applications Saved</div>
+  } @else {
+    <table mat-table [dataSource]="applications" class="mat-elevation-z8">
+      <!-- Company Column -->
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef>Company</th>
+        <td mat-cell *matCellDef="let element;">{{ element.company }}</td>
+      </ng-container>
+    
+      <!-- Company Position -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Position Title</th>
+        <td mat-cell *matCellDef="let element;">{{ element.title }}</td>
+      </ng-container>
+    
+      <!-- Application Status -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element;">{{ element.active ? 'Active' : 'Inactive' }}</td>
+      </ng-container>
+    
+      <!-- Application Date -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Activity Date ({{ getDateTitle() }})</th>
+        <td mat-cell *matCellDef="let element;">{{ getDate(element) }}</td>
+      </ng-container>
+    
+      <!-- Application Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element; let index = index">
+          <button
+          mat-icon-button
+          type="button"
+          matTooltip="Application Tracking"
+          [attr.data-testid]="'button--edit-application--' + index"
+          (click)="editTracking(element)"
+        >
+          <mat-icon>fact_check</mat-icon>
+        </button>
         <button
-        mat-icon-button
-        type="button"
-        matTooltip="Application Tracking"
-        [attr.data-testid]="'button--edit-application--' + index"
-        (click)="editTracking(element)"
-      >
-        <mat-icon>fact_check</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        type="button"
-        matTooltip="Edit Application"
-        [attr.data-testid]="'button--edit-application--' + index"
-        (click)="edit(element)"
-      >
-        <mat-icon>edit</mat-icon>
-      </button>
-  
-      <button
-        mat-icon-button
-        type="button"
-        matTooltip="Delete Application"
-        [attr.data-testid]="'button--delete-application--' + index"
-        (click)="delete(element)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-      </td>
-    </ng-container>
-  
-    <tr
-      mat-header-row
-      *matHeaderRowDef="displayedColumns"
-      class="table-header-row"
-    ></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns;"
-      class="table-default-row"
-      [style]="getLastTrackingTagStyle(row)"
-    ></tr>
-  </table>
-  
-  <applications-table-paging />
-}
+          mat-icon-button
+          type="button"
+          matTooltip="Edit Application"
+          [attr.data-testid]="'button--edit-application--' + index"
+          (click)="edit(element)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+    
+        <button
+          mat-icon-button
+          type="button"
+          matTooltip="Delete Application"
+          [attr.data-testid]="'button--delete-application--' + index"
+          (click)="delete(element)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        </td>
+      </ng-container>
+    
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"
+        class="table-header-row"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns;"
+        class="table-default-row"
+        [style]="getLastTrackingTagStyle(row)"
+      ></tr>
+    </table>
+    <applications-table-paging />
+  }
+</div>
