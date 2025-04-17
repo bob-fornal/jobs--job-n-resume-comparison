@@ -40,7 +40,13 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css",
               "src/styles-block.css",
-              "src/styles-input.css"
+              "src/styles-cards.css",
+              "src/styles-forms.css",
+              "src/styles-input.css",
+              "src/styles-list.css",
+              "src/styles-table-paging.css",
+              "src/styles-tagging.css",
+              "src/styles-tracker.css"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
@@ -107,7 +113,13 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css",
               "src/styles-block.css",
-              "src/styles-input.css"
+              "src/styles-cards.css",
+              "src/styles-forms.css",
+              "src/styles-input.css",
+              "src/styles-list.css",
+              "src/styles-table-paging.css",
+              "src/styles-tagging.css",
+              "src/styles-tracker.css"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",

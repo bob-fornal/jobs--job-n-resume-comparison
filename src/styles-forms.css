@@ -1,0 +1,26 @@
+.job-squid-form {
+
+  .form-checkbox {
+    --mat-checkbox-label-text-color: var(--color-squid-darkgreen);
+    --mdc-checkbox-unselected-icon-color: var(--color-squid-darkgreen);
+  }
+
+  .form-comment {
+    font-family: Metropolis, sans-serif;
+    font-size: 0.9em;
+    margin: 0.5em 0.5em 1em 0.5em;
+  }
+  
+}
+
+.job-squid-form-functionality {
+  display: flex;
+  justify-content: right;
+  gap: 1em;
+}
+
+.full-width {
+  margin-bottom: 0.5em;
+  overflow: auto;
+  width: 100%;
+}

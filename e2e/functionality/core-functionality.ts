@@ -33,7 +33,6 @@ export const getLocalStorage = async (page: Page, pattern: string): Promise<bool
 
   let result: any = storage.origins[0].localStorage;
   patterns.forEach((pattern: string) => {
-    console.log(result);
     result = result[pattern];
   });
 

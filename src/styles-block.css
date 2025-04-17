@@ -1,10 +1,6 @@
 .documentation-wrapper {
   margin-top: 1em;
 
-  .bottom {
-    height: 10em;
-  }
-
   .list-item {
     margin: 0.5em 0;
 
@@ -12,6 +8,10 @@
       font-family: MetropolisBold, sans-serif;
     }
   }
+}
+
+.bottom {
+  height: 10em;
 }
 
 .block {

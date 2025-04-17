@@ -1,0 +1,168 @@
+[
+    {
+        "title": "CSS-Tricks Site Editor",
+        "company": "css-tricks.com",
+        "active": false,
+        "description": "The Technical Editing team raises awareness of DigitalOcean within the broader developer community by editing and publishing approachable, high-quality learning resources on a variety of open source, and modern application development topics. All members of the team are united by a strong technical background, an interest in teaching and helping developers learn new skills, and a passion for creating the most useful learning materials possible.\n\nAs the CSS-Tricks Site Editor, you will act as a partner and coach to writers creating technical articles. These articles cover software development, front end development, and setting up and configuring software. Working through our Write for DOnations program (do.co/w4do) and other initiatives, you will build relationships with external authors who want to get published on DigitalOcean and edit their work. The ideal candidate will have a background in education, instruction, or mentoring, have experience doing developmental editing work, and a desire to work in a hands-on technical environment.\n\nIf you feel that you have the background and knowledge for this CSS-Tricks Site Editor position, we’d love to talk to you and see where there’s a fit!\n\n**What You'll Be Doing**:\n\n* Publish tutorials about real world projects in the areas of software development, front end languages and techniques from authors all over the world.\n* Deliver editorial notes to help authors improve the technical details, explanations, and quality of writing in each tutorial to ensure the best outcomes for our learners.\n* Test the tutorials you publish to ensure they work for our learners.\n* Build and maintain relationships with authors to encourage repeat contributions.\n* Assisting with maintenance of the current DigitalOcean library: updating older articles, adding additional information to current articles, and occasionally producing new content as necessary.\n* Evaluate writing samples and proposed tutorial topics for interest to the open-source community, value in teaching readers how to code at different levels of technical difficulty, and practical utility.\n* Learn about front end technologies, new and upcoming languages and technologies, and software development. An interest in technical growth is a must!\n",
+        "requirements": "* Excellent written and verbal English communication skills.\n* You are WordPress capable and a developer yourself.\n* Formal or informal experience with teaching or mentoring. You’ll be giving feedback to authors and developing their skills, and you’ll be serving our learning community through the articles you publish.\n* Previous developmental editing experience, preferably on front-end software development topic areas. You’re comfortable helping new and experienced writers plan and produce a piece of content.\n* Comfort with building and maintaining author relationships.\n* Demonstrated experience in researching and learning new technology and concepts quickly.\n* Strong interest in learning about front end languages, front end server web application setup, deployment, software development, and the developer community.\n* Solid front end languages and css experience is required, as is familiarity with css-tricks existing tutorial library.\n",
+        "links": [
+            {
+                "url": "https://www.builtinnyc.com/job/technical-editor-community-content/259596",
+                "type": "Posting"
+            }
+        ],
+        "tracking": [
+            {
+                "datetimestamp": "2024-04-06 00:00:00",
+                "description": "",
+                "tag": {
+                    "title": "Applied",
+                    "backgroundColor": "#fdffb6",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            },
+            {
+                "datetimestamp": "2024-04-06 00:30:00",
+                "description": "",
+                "tag": {
+                    "title": "Closed (-)",
+                    "backgroundColor": "#ffadad",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            }
+        ],
+        "connections": []
+    },
+    {
+        "title": "Senior Software Engineer",
+        "company": "upstart.com",
+        "active": true,
+        "description": "* Collaborate with product managers, engineers, and business stakeholders to deliver projects that align with business goals\n* Assist in the design, development, and maintenance of self-service tools that enhance the investor experience\n* Work with business stakeholders to identify opportunities for process optimization and build solutions that improve business workflows\n* Develop scalable, reliable systems that meet the needs of both internal users and external investors\n* Ensure  security, performance, and availability  of our critical platforms\n* Participate in code reviews, testing, and the deployment of high-quality code ",
+        "requirements": "## Minimum requirements:\n\n* 5+ years of experience in software development, with a strong focus on full-stack development, distributed systems, and APIs\n* Experience with some or many of the following: Ruby on Rails, Kotlin, PostgreSQL, React, Next.js, Vercel, Python\n* Experience with cloud platforms (AWS, GCP, Azure) and deploying applications in a cloud native environment\n* Experience with  microservices architecture and real-time data processing pipelines (Kafka, Spark, or similar)\n* Familiarity with database technologies such as SQL and data warehousing solutions\n* Good communication and teamwork skills, with the ability to work effectively with cross-functional teams\n\n## Preferred qualifications:\n\n* Experience in capital markets, financial services, or a related industry, with a strong understanding of market structures and regulations\n* Prior experience or demonstrated enthusiasm for working on internal tools\n* History of thriving in a variety of work environments: both collaborative and self-directed; remote and in-person",
+        "links": [
+            {
+                "url": "https://careers.upstart.com/",
+                "type": "Careers Page"
+            },
+            {
+                "url": "https://careers.upstart.com/jobs/senior-software-engineer-capital-supply",
+                "type": "Posting"
+            }
+        ],
+        "tracking": [
+            {
+                "datetimestamp": "2025-02-28 22:30:00",
+                "description": "",
+                "tag": {
+                    "title": "Applied",
+                    "backgroundColor": "#fdffb6",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            },
+            {
+                "datetimestamp": "2025-02-28 23:00:00",
+                "description": "We appreciate your interest and our team looks forward to reviewing your background. We review profiles daily and will reach out in the next couple of weeks if your profile aligns to one of our open opportunities. There is no need to apply a second time. ",
+                "tag": {
+                    "title": "Email Received",
+                    "backgroundColor": "#9bf6ff",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            }
+        ],
+        "connections": []
+    },
+    {
+        "title": "Head of QA",
+        "company": "chess.com",
+        "active": false,
+        "description": "You love the process of building things. You have been working on software or gaming projects for years, and it would be a dream for you to use your talent and experience to work on chess. You want to work for a passion-driven company full of warm, funny, brilliant, diverse humans.\n* Develop and execute a comprehensive quality assurance strategy to ensure the delivery of high-quality products\n* Establish and maintain quality standards, policies, and procedures across the organization\n* Lead and manage a remote team of quality assurance professionals, providing guidance, mentoring, and fostering a culture of continuous improvement.\n* Implement effective quality control measures to monitor and evaluate product/service quality throughout the development and production processes\n* Collaborate with cross-functional teams, including Engineering, Product Management, and Operations, to ensure quality considerations are incorporated from early design stages through to final product/service delivery\n* Stay up to date with industry trends, best practices, and emerging technologies in quality assurance and incorporate them into the organization's quality processes.\n* Make sure our Notion -> JIRA -> Done flow is smooth",
+        "requirements": "* 5+ years of project and/or technical management in tech or gaming\n* Familiarity with QA Automation frameworks and best practices\n* Deep expertise in product management and software development lifecycle\n* Understanding of chess and current chess products and features on the market",
+        "links": [
+            {
+                "url": "https://ats.rippling.com/chess/jobs/88f2edbf-7a09-46d6-af09-d0fa6f6ecceb",
+                "type": "Posting"
+            },
+            {
+                "url": "https://ats.rippling.com/chess/jobs",
+                "type": "Job Board"
+            },
+            {
+                "url": "https://www.chess.com/jobs",
+                "type": "Careers Page"
+            }
+        ],
+        "tracking": [
+            {
+                "datetimestamp": "2025-03-01 21:15:00",
+                "description": "Applied for the job.",
+                "tag": {
+                    "title": "Applied",
+                    "backgroundColor": "#fdffb6",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            },
+            {
+                "datetimestamp": "2025-03-01 21:18:00",
+                "description": "[EMAIL] Thank you for taking the time to apply for Head of QA at Chess.com. We get an overwhelming amount of applicants, so please be patient with us! Our goal is to update you on the status of your application within 10 days.",
+                "tag": {
+                    "title": "Email Received",
+                    "backgroundColor": "#9bf6ff",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            },
+            {
+                "datetimestamp": "2025-03-19 07:51:00",
+                "description": "[EMAIL] Unfortunately we were unable to find a fit at this time. We will keep your resume on file for up to six months and will reach out in the event a new position is posted that we think you may be suited for.",
+                "tag": {
+                    "title": "Closed (-)",
+                    "backgroundColor": "#ffadad",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            }
+        ],
+        "connections": []
+    },
+    {
+        "title": "Web Design and Development Expert",
+        "company": "mercor.com",
+        "active": false,
+        "description": "* We are primarily looking for U.S., U.K., and Canada-based applicants but will consider top talent from other countries (please note that the $100+/hour pay scale is for U.S.-based applicants and that that scale will differ depending on where a candidate is geographically based - but pay will remain competitive for your geographic area)\n* You will interface directly with prominent AI researchers from top labs\n* The work is fully asynchronous and can be done around your schedule\n* We expect a minimum commitment of 10 hours per week, but you can work up to 40 hours per week depending on quality of work\n* This project is currently expected to last until the end of April but the expected timeline can change depending on the AI lab's needs. Projects with high performing experts are often extended\n* Successful contributions increase the odds that you are selected on future projects with Mercor\n* The selection process involves a ~20 minute virtual interview that assesses your knowledge of design principles and website functionality (e.g., usability, interactivity, and performance)",
+        "requirements": "* Have had 3+ years work experience as a web app building expert, product engineer, UX designer, design engineer, or frontend engineer at (1) a major tech company or (2) a company with 50 employees that has consumer-facing web products\n* Or have extensive and recent experience as an IC with recognizable tech companies for web dev\n* Are proficient in React and Javascript\n* Have hands-on experience with modern development practices and can provide strong, well-reasoned opinions on code quality and coding approaches\n* Have an expert-level understanding of website design, aesthetics, and usability",
+        "links": [
+            {
+                "url": "https://work.mercor.com/jobs/list_AAABlHflJwAr1A7KfJlBFKwT?source=mercor-jobs-page&referralCode=dd60e601-abcb-40bf-b0bc-70ea95175aeb",
+                "type": "Posting"
+            }
+        ],
+        "tracking": [
+            {
+                "datetimestamp": "2025-03-21 16:30:00",
+                "description": "AI Interview",
+                "tag": {
+                    "title": "Applied",
+                    "backgroundColor": "#fdffb6",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            },
+            {
+                "datetimestamp": "2025-03-21 16:41:00",
+                "description": "[EMAIL] We are unfortunately unable to extend you an offer during this hiring round and wanted to let you know as soon as possible out of respect for your time.",
+                "tag": {
+                    "title": "Closed (-)",
+                    "backgroundColor": "#ffadad",
+                    "foregroundColor": "#264653",
+                    "original": true
+                }
+            }
+        ],
+        "connections": []
+    }
+]

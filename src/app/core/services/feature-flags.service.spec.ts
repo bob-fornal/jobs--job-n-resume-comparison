@@ -30,7 +30,7 @@ describe('FeatureFlagsService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
-      ]
+      ],
     });
     service = TestBed.inject(FeatureFlagsService);
   });

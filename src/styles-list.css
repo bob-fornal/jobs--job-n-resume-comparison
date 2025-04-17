@@ -1,0 +1,49 @@
+.list-subtitle {
+  margin-bottom: 1em;
+
+  .list-title {
+    font-family: MetropolisBold, sans-serif;
+  }
+}
+
+.list-wrapper {
+
+  .list-functionality {
+    display: flex;
+    justify-content: right;
+    gap: 1em;
+  }
+}
+
+.list-items {
+  --mdc-elevated-card-container-color: var(--color-goal-tooltip3);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+
+  .list-header {
+    padding: 1em 1.5em;
+  }
+
+  .list-item {
+    width: 100%;
+
+    .list-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .width-50-percent {
+      width: 70%;
+    }
+  }
+
+  .list-actions {
+    display: flex;
+    justify-content: right;
+    padding: 1em;
+  }
+}

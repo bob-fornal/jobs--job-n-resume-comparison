@@ -3,14 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ChecklistItem, LongTermGoal } from '../../../core/interfaces/structure-goals.interface';
+
 import { LongTermGoalsService } from '../long-term-goals.service';
 
 @Component({
   selector: 'app-add-edit-ltg',
   standalone: false,
-  
   templateUrl: './add-edit-ltg.component.html',
-  styleUrl: './add-edit-ltg.component.css'
 })
 export class AddEditLtgComponent {
   type = '';
@@ -103,23 +102,17 @@ export class AddEditLtgComponent {
   save = (): void => {
     const goals: Array<LongTermGoal> = this.service.structure();
 
+    const goal: LongTermGoal = {
+      title: this.goal.get('title')!.value,
+      active: this.goal.get('active')!.value,
+      description: this.goal.get('description')!.value,
+      summary: this.goal.get('summary')!.value,
+      checklist: this.goal.get('checklist')!.value,
+    };
+
     if (this.type === 'add') {
-      const goal: LongTermGoal = {
-        title: this.goal.get('title')!.value,
-        active: this.goal.get('active')!.value,
-        description: this.goal.get('description')!.value,
-        summary: this.goal.get('summary')!.value,
-        checklist: this.goal.get('checklist')!.value,
-      };
       goals.push(goal);
     } else {
-      const goal: LongTermGoal = {
-        title: this.goal.get('title')!.value,
-        active: this.goal.get('active')!.value,
-        description: this.goal.get('description')!.value,
-        summary: this.goal.get('summary')!.value,
-        checklist: this.goal.get('checklist')!.value,
-      };
       goals[this.index] = goal;
     }
 
