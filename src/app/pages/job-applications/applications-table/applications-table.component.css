@@ -1,0 +1,29 @@
+.table-header-row,
+.table-default-row {
+  --mat-table-header-headline-color: var(--color-dark-foreground);
+  background-color: var(--color-squid-darkgreen);
+}
+
+.table-header-row {
+  font-weight: bold;
+}
+
+.table-paginator {
+  --mat-paginator-container-text-color: var(--color-dark-foreground);
+  --mat-select-enabled-trigger-text-color: var(--color-dark-foreground);
+  --mat-paginator-container-background-color: var(--color-squid-darkgreen);
+  --mat-paginator-container-text-size: 0.85em;
+
+  --mat-form-field-container-text-weight: bold;
+
+  font-weight: bold;
+}
+
+.table-functionality {
+  --mat-checkbox-label-text-color: var(--color-squid-darkgreen);
+
+  .subtitle {
+    padding: 0 1em;
+    margin-bottom: 1em;
+  }
+}

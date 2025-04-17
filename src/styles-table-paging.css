@@ -1,0 +1,33 @@
+.table-paging-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  background-color: var(--color-squid-darkgreen);
+  color: var(--color-dark-foreground);
+  --mdc-icon-button-icon-color: var(--color-dark-foreground);
+  --mdc-icon-button-disabled-icon-color: var(--color-dark-background);
+
+  .paging-functionality {
+    display: flex;
+    padding: 1em 2em;
+    align-items: center;
+    gap: 1em;
+
+    font-size: 0.9em;
+    font-weight: bold;
+    font-family: MetropolisBold, sans-serif;
+
+    .paging-item.descriptions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .item-subtitle {
+        font-size: 0.75em;
+        font-weight: normal;
+        font-family: Metropolis, sans-serif;
+      }
+    }
+  }
+}
