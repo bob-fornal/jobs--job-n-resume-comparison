@@ -21,11 +21,13 @@ export class StorageLayerService {
       'emergency-contacts',
       'event-tracker',
       'interview-research',
+      'job-applications',
+      'job-search-plan',
       'long-term-goals',
       'network-tracker',
       'resumes',
     ],
-    version: 2,
+    version: 3,
 };
 
   constructor() {

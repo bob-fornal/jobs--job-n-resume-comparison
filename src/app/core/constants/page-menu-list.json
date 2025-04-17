@@ -6,6 +6,15 @@
     "title": "Resume(s) to Job Comparison",
     "featureFlag": false,
     "featureName": "",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "job-applications",
+    "category": "",
+    "icon": "auto_stories",
+    "title": "Job Applications",
+    "featureFlag": false,
+    "featureName": "",
     "dividerAfter": true,
     "dividerBefore": false
   }, {
@@ -63,6 +72,15 @@
     "dividerAfter": false,
     "dividerBefore": false
   }, {
+    "path": "pledge",
+    "category": "",
+    "icon": "webp:oath.webp",
+    "title": "My Pledge For Job-Squid",
+    "featureFlag": false,
+    "featureName": "",
+    "dividerAfter": false,
+    "dividerBefore": true
+  }, {
     "path": "about",
     "category": "",
     "icon": "info",
@@ -70,6 +88,6 @@
     "featureFlag": false,
     "featureName": "",
     "dividerAfter": false,
-    "dividerBefore": true
+    "dividerBefore": false
   }
 ]

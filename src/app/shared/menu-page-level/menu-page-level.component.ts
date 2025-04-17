@@ -17,12 +17,14 @@ export class MenuPageLevelComponent {
 
   activePages: Array<string> = [
     'about',
+    'days-of-code',
+    'job-applications',
     'long-term-goals',
     'resumes',
-    'days-of-code'
   ];
   navigation: Array<string> = [
     '/days-of-code',
+    '/job-applications',
     '/long-term-goals',
     '/resumes',
   ];
