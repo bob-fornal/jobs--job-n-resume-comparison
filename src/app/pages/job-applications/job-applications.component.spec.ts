@@ -36,6 +36,26 @@ describe('JobApplicationsComponent', () => {
     expect(component.taggingService.getTags).toHaveBeenCalledWith('job-applications');
   });
 
+  it('expects "handleTriggerImportEffect" to trigger the upload', () => {
+    spyOn(component.service, 'clearTriggerImport').and.stub();
+    spyOn(component.fileUpload.nativeElement, 'click').and.stub();
+    spyOn(component.service, 'triggerImport').and.returnValue('active');
+
+    component.handleTriggerImportEffect();
+    expect(component.service.clearTriggerImport).toHaveBeenCalled();
+    expect(component.fileUpload.nativeElement.click).toHaveBeenCalled();
+  });
+
+  it('expects "handleTriggerImportEffect" to not trigger the upload', () => {
+    spyOn(component.service, 'clearTriggerImport').and.stub();
+    spyOn(component.fileUpload.nativeElement, 'click').and.stub();
+    spyOn(component.service, 'triggerImport').and.returnValue('inactive');
+
+    component.handleTriggerImportEffect();
+    expect(component.service.clearTriggerImport).not.toHaveBeenCalled();
+    expect(component.fileUpload.nativeElement.click).not.toHaveBeenCalled();
+  });
+
   it('expects "handleTags" to get the tags and set them locally', () => {
     const tags: Array<Tag> = [
       {

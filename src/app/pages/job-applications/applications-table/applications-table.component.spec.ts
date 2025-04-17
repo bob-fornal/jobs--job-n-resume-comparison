@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { ApplicationsTableComponent } from './applications-table.component';
+
 import { FilterSettings } from '../../../core/interfaces/filter-state.interface';
 import { JobApplication } from '../../../core/interfaces/job-application';
 
@@ -10,7 +13,12 @@ describe('ApplicationsTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ApplicationsTableComponent]
+      imports: [
+        MatCheckboxModule,
+      ],
+      declarations: [
+        ApplicationsTableComponent,
+      ],
     })
     .compileComponents();
 
