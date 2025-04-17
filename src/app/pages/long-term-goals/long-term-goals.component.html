@@ -17,14 +17,14 @@
         No Goals Listed
       } @else {
         @for (goal of goals; track $index; let index = $index;) {
-          <mat-card class="goal-card" [class.goal-active]="goal.active">
-            <mat-card-header class="goal-card-title">
-              <span class="header-title">{{goal.title}}</span>
+          <mat-card class="base-card half-card" [class.goal-active]="goal.active">
+            <mat-card-header class="card-title">
+              <span class="header-title">{{ goal.title }}</span>
               <span class="header-status">
                 {{ goal.active ? 'Active' : 'Inactive' }}
               </span>
             </mat-card-header>
-            <mat-card-content class="goal-card-content">
+            <mat-card-content class="card-content">
               <div class="content-title">Description</div>
               <div class="content-item">
                 {{ goal.description }}
@@ -38,7 +38,7 @@
                 {{ getChecklistStatus(goal.checklist) }}
               </div>
             </mat-card-content>
-            <mat-card-actions class="goal-card-actions">
+            <mat-card-actions class="card-actions">
               <button
                 mat-icon-button
                 type="button"
@@ -68,7 +68,7 @@
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-card-actions>
-          </mat-card>  
+          </mat-card>
         }
       }
     </div>

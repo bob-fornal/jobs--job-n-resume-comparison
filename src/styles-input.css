@@ -14,6 +14,7 @@
     width: 100%;
   }
 }
+
 .job-squid--input {
   width: var(--checklist-input-width);
   box-sizing: border-box;

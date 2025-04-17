@@ -1,0 +1,62 @@
+<h3 data-testid="h3--title" class="page-title">Job Applications</h3>
+
+<div class="job-applications-wrapper">
+  <div class="functionality-wrapper block">
+    <button
+      class="functional-button"
+      mat-flat-button
+      type="button"
+      data-testid="button--save-job-application"
+      (click)="add()"
+    >Add Job Application</button>
+  </div>
+
+  <div class="block mid-green-1">
+    <div class="job-squid--tagging">
+      <button
+        class="functional-button"
+        mat-flat-button
+        type="button"
+        data-testid="button--save-job-application"
+        (click)="editTags()"
+      >Edit Tags</button>
+      <div class="visible-tags">
+        @for (tag of tags; track tag.title;) {
+          <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="block mid-green-1">
+    <div class="list-of-applications-wrapper">
+      <applications-table />
+    </div>
+  </div>
+
+  <div class="block mid-green-1">
+    <div class="job-squid--tagging">
+      <button
+        class="functional-button"
+        mat-flat-button
+        type="button"
+        data-testid="button--save-job-application"
+        (click)="editTags()"
+      >Edit Tags</button>
+      <div class="visible-tags">
+        @for (tag of tags; track tag.title;) {
+          <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="import-html">
+    <input
+      type="file"
+      [accept]="requiredFileType"
+      (change)="onFileSelect($event)"
+      #fileUpload
+    />
+  </div>
+</div>

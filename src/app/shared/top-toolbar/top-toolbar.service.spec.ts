@@ -125,6 +125,16 @@ describe('TopToolbarService', () => {
     expect(service['storage'].setItem).toHaveBeenCalledWith('toolbar', 'job-squid--active-page', page, false);
   });
 
+  it('expects "setActivePage" to set state and store when local storage is true (default)', async () => {
+    const page = 'PAGE';
+    spyOn(service['activePageSignal'], 'set').and.stub();
+    spyOn(service['storage'], 'setItem').and.stub();
+
+    service.setActivePage(page);
+    expect(service['activePageSignal'].set).toHaveBeenCalledWith(page);
+    expect(service['storage'].setItem).toHaveBeenCalledWith('toolbar', 'job-squid--active-page', page, false);
+  });
+
   it('expects "setMenuItem" to set the signal', () => {
     const page = 'PAGE';
     const item = 'ITEM';

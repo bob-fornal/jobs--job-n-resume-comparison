@@ -1,0 +1,95 @@
+.base-card {
+
+  &.half-card {
+    width: calc(calc(100% - 1em) / 2);
+  }
+  .whole-card {
+    width: 100%;
+  }
+
+  .card-title {
+
+    .header-title {
+      font-family: MetropolisBold, sans-serif;
+    }
+    &:not(.tall) {
+      margin-bottom: 1em;
+      position: relative;  
+
+      .header-title {
+        position: relative;
+        left: 0;
+      }
+      .header-status {
+        position: absolute;
+        right: 1em;
+      }
+    }
+
+    &.tall {
+      position: relative;
+      height: 2em;
+
+      .header-title {
+        position: absolute;
+        left: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .active-status {
+          margin-right: 2em;
+          width: 3.5em;
+        }
+      }
+      .header-status {
+        position: absolute;
+        right: 1em;
+        top: 0.25em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  .content-title {
+    text-decoration: underline;
+  }
+
+  .content-item {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    @supports (-webkit-line-clamp: 5) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: initial;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  .card-content {
+    margin-bottom: 3.5em;
+    
+    .content-item {
+      margin-left: 1em;
+      margin-bottom: 1em;
+
+      .content-item-link {
+        margin-right: 1em;
+      }
+    }
+  }
+
+  .card-actions {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+}

@@ -1,0 +1,138 @@
+<h3 class="page-title">Job Application Tracker</h3>
+
+<div class="block job-squid-form-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Return</button>
+</div>
+
+<div class="documentation-wrapper">
+  <div class="block mid-green-1">
+
+    @if (!!application) {
+      <div class="tracker-title-wrapper">
+        <div class="tracker-title">
+          {{ getCompanyTitle() }}
+        </div>
+        <span class="tracker-status">
+          {{ application.active ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+
+      <div class="tracker-content-wrapper">
+        <div class="tracker-title">Links</div>
+        @for (item of application.links; track item.url;) {
+          <a class="tracker-item-link" [href]="item.url" target="_blank">
+            {{ item.type }}
+          </a>
+        }
+      </div>
+
+      <div class="tracker-content-wrapper">
+        <div class="tracker-title">Description</div>
+        <md-block class="tracker-content" [mdContent]="application.description"></md-block>
+      </div>
+
+      <div class="tracker-content-wrapper">
+        <div class="tracker-title">Requirements</div>
+        <md-block class="tracker-content" [mdContent]="application.requirements"></md-block>
+      </div>
+    } @else {
+      <div class="content-title">
+        Company Not Listed
+      </div>
+    }
+
+  </div>
+
+  <div class="block pale list-wrapper">
+    <div class="tracker-title-wrapper">
+      <div class="tracker-title">
+        Job Application Tracking
+      </div>
+    </div>
+
+    <div class="list-items">
+      @if (!application || application.tracking.length === 0) {
+        <div class="no-goals">No Tracking Items</div>
+      } @else {
+        <table class="tracking-table">
+          @for (item of application.tracking; track $index; let index = $index;) {
+            <tr class="tracking-item-wrapper">
+              @if (isIndexOdd(index) === false) {
+                <td class="left tracking-item">
+                  <ng-container [ngTemplateOutlet]="trackingCard" [ngTemplateOutletContext]="{ item, index }"></ng-container>
+                </td>
+              } @else {
+                <td class="left tracking-item"></td>
+              }
+              <td class="tracking-center left">
+                <div class="center-left">
+                  @if (isIndexOdd(index) === false) {
+                    <div class="center-vertical"></div>
+                  }
+                </div>
+              </td>
+              <td class="tracking-center right">
+                <div class="center-right">
+                  @if (isIndexOdd(index) === true) {
+                    <div class="center-vertical"></div>
+                  }
+                </div>
+              </td>
+              @if (isIndexOdd(index) === true) {
+                <td class="right tracking-item">
+                  <ng-container [ngTemplateOutlet]="trackingCard" [ngTemplateOutletContext]="{ item, index }"></ng-container>
+                </td>
+              } @else {
+                <td class="right tracking-item"></td>
+              }
+            </tr>
+          }  
+        </table>
+      }
+    </div>
+
+    <div class="list-functionality">
+      <button (click)="addTrackingItem()" class="functional-button" mat-flat-button>
+        <mat-icon>add</mat-icon>
+        <span>Add Tracking Item</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="block job-squid-form-functionality">
+  <button (click)="back()" class="functional-button cancel-button" mat-flat-button>Return</button>
+</div>
+
+<div class="bottom"></div>
+
+<ng-template #trackingCard let-item="item" let-index="index">
+  <div class="tracking-item-border" [style]="getTrackingStyle(item)">
+    <div class="tracking-title">{{ item.tag.title }}</div>
+    <div class="tracking-datetime">{{ getDatetime(item.datetimestamp) }}</div>
+    <div class="tracking-description">{{ item.description }}</div>
+    @if (item.tag.title !== 'Creation') {
+      <div class="tracking-functionality">
+        <button
+          mat-icon-button
+          type="button"
+          matTooltip="Edit Tracking"
+          [attr.data-testid]="'button--edit-application--' + index"
+          (click)="editTrackingItem(index)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          type="button"
+          matTooltip="Delete Tracking"
+          [attr.data-testid]="'button--edit-application--' + index"
+          (click)="deleteTrackingItem(index)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    }
+  </div>
+</ng-template>

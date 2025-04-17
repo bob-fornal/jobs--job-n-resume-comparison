@@ -1,0 +1,51 @@
+<div class="table-paging-wrapper">
+  <div class="paging-left"></div>
+  <div class="paging-functionality">
+    <span class="paging-item">
+      <button
+        mat-icon-button
+        matTooltip="First Page"
+        [disabled]="!isEnabled('first')"
+        (click)="toFirstPage()"
+      >
+        <mat-icon>first_page</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Previous Page"
+        [disabled]="!isEnabled('previous')"
+        (click)="toPreviousPage()"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    </span>
+
+    <span class="paging-item descriptions">
+      <div class="item-title">
+        Page {{ pageIndex + 1 }} of {{ totalPages }}
+      </div>
+      <div class="item-subtitle">
+        {{ recordsPerPage }} Records per Page, {{ totalRecords }} {{ totalRecords === 1 ? 'Record' : 'Records' }} Total
+      </div>
+    </span>
+
+    <span class="paging-item">
+      <button
+        mat-icon-button
+        matTooltip="Next Page"
+        [disabled]="!isEnabled('next')"
+        (click)="toNextPage()"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Last Page"
+        [disabled]="!isEnabled('last')"
+        (click)="toLastPage()"
+      >
+        <mat-icon>last_page</mat-icon>
+      </button>
+    </span>
+  </div>
+</div>
