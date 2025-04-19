@@ -14,6 +14,9 @@ import { ApplicationsAddEditComponent } from './pages/job-applications/applicati
 import { ApplicationsViewTrackingComponent } from './pages/job-applications/applications-view-tracking/applications-view-tracking.component';
 import { AddEditLtgComponent } from './pages/long-term-goals/add-edit-ltg/add-edit-ltg.component';
 
+import { SearchPatternsComponent } from './pages/search-patterns/search-patterns.component';
+import { PatternsAddEditComponent } from './pages/search-patterns/patterns-add-edit/patterns-add-edit.component';
+
 import { HowToUseComponent } from './pages/how-to-use/how-to-use.component';
 import { Top10ConnectionsComponent } from './pages/top-10-connections/top-10-connections.component';
 
@@ -42,6 +45,11 @@ const routes: Routes = [
 
   { path: 'pledge', component: AboutPledgeComponent },
   { path: 'resumes', component: CompareResumeComponent },
+
+  { path: 'search-patterns', component: SearchPatternsComponent },
+  { path: 'search-patterns/:type', component: PatternsAddEditComponent },
+  { path: 'search-patterns/:type/:index', component: PatternsAddEditComponent },
+
   { path: 'tag-management/:from', component: TagManagementComponent },
   { path: 'top-10-connections', component: Top10ConnectionsComponent },
 

@@ -15,6 +15,15 @@
     "title": "Job Applications",
     "featureFlag": false,
     "featureName": "",
+    "dividerAfter": false,
+    "dividerBefore": false
+  }, {
+    "path": "search-patterns",
+    "category": "",
+    "icon": "saved_search",
+    "title": "Search Patterns",
+    "featureFlag": false,
+    "featureName": "",
     "dividerAfter": true,
     "dividerBefore": false
   }, {

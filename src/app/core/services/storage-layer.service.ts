@@ -26,8 +26,9 @@ export class StorageLayerService {
       'long-term-goals',
       'network-tracker',
       'resumes',
+      'search-patterns',
     ],
-    version: 3,
+    version: 4,
 };
 
   constructor() {

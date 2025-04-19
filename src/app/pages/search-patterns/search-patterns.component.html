@@ -1,0 +1,36 @@
+<h3 data-testid="h3--title" class="page-title">Search Patterns</h3>
+
+<div class="search-patterns-wrapper">
+  <div class="functionality-wrapper block">
+    <button
+      class="functional-button"
+      mat-flat-button
+      type="button"
+      data-testid="button--save-search-pattern"
+      (click)="add()"
+    >Add Search Pattern</button>
+  </div>
+
+  <div class="block mid-green-1">
+    <div class="job-squid--tagging">
+      <!-- <button
+        class="functional-button"
+        mat-flat-button
+        type="button"
+        data-testid="button--edit-tags"
+        (click)="editTags()"
+      >Edit Tags</button>
+      <div class="visible-tags">
+        @for (tag of tags; track tag.title;) {
+          <mat-chip [style]="getTagStyle(tag)">{{ tag.title }}</mat-chip>
+        }
+      </div> -->
+    </div>
+  </div>
+
+  <div class="block mid-green-1">
+    <div class="list-of-patterns-wrapper">
+      <patterns-table />
+    </div>
+  </div>
+</div>

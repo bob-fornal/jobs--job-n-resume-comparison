@@ -88,7 +88,7 @@ export class ApplicationsAddEditComponent {
     return this.application.get('links') as FormArray;
   }
 
-  getType = (): string => {
+  get titleType(): string {
     if (this.type.length === 0) return '';
     const type: string = this.type[0].toUpperCase() + this.type.substring(1);
     return type;

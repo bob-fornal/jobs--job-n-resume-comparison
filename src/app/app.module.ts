@@ -66,6 +66,9 @@ import { DocumentationLongTermGoalsComponent } from './shared/menu-page-level/do
 
 import { BlurModalService } from './core/services/blur-modal-service.service';
 import { TagManagementComponent } from './pages/tag-management/tag-management.component';
+import { SearchPatternsComponent } from './pages/search-patterns/search-patterns.component';
+import { PatternsAddEditComponent } from './pages/search-patterns/patterns-add-edit/patterns-add-edit.component';
+import { PatternsTableComponent } from './pages/search-patterns/patterns-table/patterns-table.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +112,9 @@ import { TagManagementComponent } from './pages/tag-management/tag-management.co
     Top10ConnectionsComponent,
     TopToolbarComponent,
     TagManagementComponent,
+    SearchPatternsComponent,
+    PatternsAddEditComponent,
+    PatternsTableComponent,
   ],
   imports: [
     BrowserModule,
