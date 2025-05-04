@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 
 import { SearchPatternsService } from '../search-patterns.service';
+
+import { SearchPatternClass } from '../search-pattern.class';
 
 @Component({
   selector: 'app-patterns-add-edit',
@@ -18,10 +19,11 @@ export class PatternsAddEditComponent {
   type = '';
   index = -1;
 
-  pattern!: FormGroup;
+  pattern: SearchPatternClass = new SearchPatternClass();
 
   constructor() {
     this.init();
+    console.log(this.pattern);
   }
 
   init = async (): Promise<void> => {
